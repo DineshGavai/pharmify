@@ -4,14 +4,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- TITLE -->
+    <title>Login - Pharmify</title>
 
-    <title>Pharmify</title>
+    <!-- FAVICON -->
+    <link rel="shortcut icon" href="../static/assets/logo/favicon.svg" type="image/x-icon">
 
+    <!-- STYLE SHEET -->
     <link rel="stylesheet" href="../static/style/main.css">
+    <link rel="stylesheet" href="../static/style/login.css">
 </head>
 
 <body>
 
+    <!-- MAIN STARTS -->
+    <main>
+
+        <!-- MAIN CONTENT STARTS -->
+        <section class="main-content">
+            <div class="logo" data-name="true"></div>
+
+            <form action="" method="post" id="login_form" name="login_form">
+                <!-- Headlines -->
+                <h1 class="fs-600 center">Login</h1>
+                <p class="subtitle center">Sign in using your email and password. Your stock updates are waiting inside.
+                </p>
+
+                <!-- Email and Password Inputs -->
+                <!-- Email -->
+                <fieldset>
+                    <label for="login_email">Email</label>
+                    <input type="email" name="login_email" id="login_email" class="text-input"
+                        placeholder="you@email.com" autocomplete="email" required>
+                </fieldset>
+
+                <!-- Password -->
+                <fieldset>
+                    <label for="login_password">Password <a href="#">Forgot?</a></label>
+                    <div class="icon-frame">
+                        <input type="password" name="login_password" id="login_password" class="text-input"
+                            placeholder="kept secret." autocomplete="current-password" required>
+                    </div>
+                </fieldset>
+
+                <!-- Login Button -->
+                <fieldset>
+                    <!-- Login Button Visible on Frontend -->
+                    <button class="primary" type="button" id="login_validate_btn">Login</button>
+                    <!-- Actual Login Button (Hidden) -->
+                    <button class="primary" type="submit" id="login_login_btn" aria-hidden="true"></button>
+                </fieldset>
+
+
+                <!-- Link to Sign up -->
+                <p class="subtitle center" style="margin-top: 1.6rem;">
+                <div class="divider"></div>
+                <div>New to Pharmify? <a href="./signup.html" class="text-link">Create an Account</a>.</div>
+                </p>
+            </form>
+
+        </section>
+        <!-- MAIN CONTENT ENDS -->
+
+    </main>
+    <!-- MAIN ENDS -->
+
+    <script type="module" src="../static/script/main.js"></script>
     <script type="module" src="../static/script/login.js"></script>
 </body>
 
