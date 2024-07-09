@@ -29,9 +29,9 @@ export function getRandomInRange(min, max) {
 }
 
 // If given ELEMENT is an ARRAY, return the first element.
-export function getFirstIfArray(elems){
+export function getFirstIfArray(elems) {
     if (Array.isArray(elems)) return elems[0];
-    else elems;
+    else return elems;
 }
 
 
@@ -41,9 +41,7 @@ export function getFirstIfArray(elems){
 
 // FUNCTION to TRAVERSE and RETURN the PARENT with given class
 export function getParentElement(element, targetParent) {
-
     element = getFirstIfArray(element);
-    
     let parent = element.parentNode;
 
     while (parent && parent.tagName !== 'BODY') {
@@ -62,4 +60,16 @@ export function setTitleAttr() {
     textElementsArr.forEach(elem => {
         elem.setAttribute("title", elem.innerText);
     })
+}
+
+// Set Icons to Respective Messages - Notes, Snackbars and Input Messages
+export function setMsgIcons(elemsArr, className) {
+    if (elemsArr.length == 0) return;
+    if (!Array.isArray(elemsArr)) elemsArr = [elemsArr];
+
+    elemsArr.forEach(elem => {
+        let icon = document.createElement("span");
+        icon.innerHTML = `<svg><use href="../static/assets/icon-sprite.svg#${className}"/></svg>`;
+        elem.prepend(icon);
+    });
 }

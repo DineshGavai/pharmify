@@ -2,7 +2,7 @@ import {
     UI_STATUS_FEEDBACK,
     UI_CLASSES,
 } from "./const.js";
-import { getFirstIfArray, getParentElement } from "./utils.js";
+import { getFirstIfArray, getParentElement, setMsgIcons } from "./utils.js";
 
 
 /* ///////////////
@@ -25,9 +25,17 @@ export function setToggleInputChecked(inputTagArr, value = "") {
 export function allowNumberInputOnly(inputTag) {
     inputTag.addEventListener("keydown", function (event) {
         // Allowed characters (including backspace and delete for editing)
-        const allowedKeys = ["-", "+", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", ".", "Backspace", "Delete", "ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Control", "Tab", "Home", "End"];
+        const allowedKeys = [
+            "-", "+", // Allow for negative/positive numbers
+            "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", ".", // Numeric characters
+            "Backspace", "Delete", "Enter", // Editing keys
+            "ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", // Navigation keys
+            "Shift", "Control", "Tab", "Home", "End", "PageUp", "PageDown", // Standard modifier and movement keys
+            "PrintScreen", "Insert", "NumLock", "CapsLock", // Additional user actions
+            "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10", "F11", "F12", // Function keys (consider use case)
+            "Escape"
+        ];
 
-        // Allow Ctrl+a
         if (event.ctrlKey) return;
 
         // Prevent default behavior for disallowed keys
@@ -53,10 +61,14 @@ export function refreshInputs() {
             let passwordVisibilityBtn = document.createElement("button");
             passwordVisibilityBtn.type = "button";
             passwordVisibilityBtn.classList.add("password-visibility-btn", "trail", "icon");
-            passwordVisibilityBtn.innerHTML = `<i class="bi bi-eye"></i><i class="bi bi-eye-slash"></i>`;
+            passwordVisibilityBtn.innerHTML = `
+            <img src="../static/assets/eye.png" class="eye">
+            <img src="../static/assets/eye-slash.png" class="eye-slash">
+            `;
+
 
             // Get Parent Element of current Password Input and  append Eye button in it.
-            getParentElement(input, UI_CLASSES.fieldset).append(passwordVisibilityBtn);
+            input.parentNode.append(passwordVisibilityBtn);
 
             // Password Visibility Event
             passwordVisibilityBtn.addEventListener("click", function (e) {
@@ -83,7 +95,8 @@ export function setInputMsg(inputTag, msg, status = UI_STATUS_FEEDBACK.error) {
     const msgDiv = document.createElement("div");
     // Set class, by default, it's "error"
     msgDiv.classList.add("msg", status);
-    msgDiv.innerHTML = `<span>${msg}</span>`;
+    msgDiv.innerHTML = `${msg}`;
+    setMsgIcons(msgDiv, status);
 
     // Find parent for appending
     const fieldset = getParentElement(inputTag, UI_CLASSES.fieldset);

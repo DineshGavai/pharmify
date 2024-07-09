@@ -62,6 +62,7 @@ export const UI_THEME = {
 // HTML UIs Classes
 export const UI_CLASSES = {
     fieldset: "fieldset",
+    iconFrame: "icon-frame",
     success: "success",
     info: "info",
     error: "error",
