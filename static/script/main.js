@@ -29,7 +29,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     pictureLogoArr.forEach(logo => {
         let img = this.createElement("img");
-        img.src = "../static/assets/logo/logo.svg";
+        let type = ``;
+        if (logo.getAttribute("data-white")) {
+            type = "-white";
+        } else if (logo.getAttribute("data-black")) {
+            type = "-black";
+        }
+
+        img.src = `../static/assets/logo/logo${type}.svg`;
         switch (logo.getAttribute("data-size")) {
             default: case UI_SIZE.xs:
                 img.style.width = "3.2rem";
@@ -49,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 break;
         }
-        if (logo.getAttribute("data-name") == "true") {
+        if (logo.getAttribute("data-name")) {
             let logoName = this.createElement("p");
             logoName.innerHTML = `Pharmify`;
             logo.appendChild(logoName)
@@ -70,25 +77,9 @@ document.addEventListener("DOMContentLoaded", function () {
     let infoElemsArr = this.querySelectorAll("fieldset .msg.info, .snackbar.info .msg, .note.info");
 
     setMsgIcons(infoElemsArr, UI_CLASSES.info);
-
-    successElemsArr.forEach(elem => {
-        let icon = this.createElement("span");
-        icon.innerHTML = `<svg><use href="../static/assets/icon-sprite.svg#success"/></svg>`;
-        elem.prepend(icon);
-    })
-
-    warnElemsArr.forEach(elem => {
-        let icon = this.createElement("span");
-        icon.innerHTML = `<svg><use href="../static/assets/icon-sprite.svg#warn"/></svg>`;
-        elem.prepend(icon);
-    })
-
-    errorElemsArr.forEach(elem => {
-        let icon = this.createElement("span");
-        icon.innerHTML = `<svg><use href="../static/assets/icon-sprite.svg#error"/></svg>`;
-        elem.prepend(icon);
-    })
-
+    setMsgIcons(successElemsArr, UI_CLASSES.success);
+    setMsgIcons(warnElemsArr, UI_CLASSES.warn);
+    setMsgIcons(errorElemsArr, UI_CLASSES.error);
 
     /* ///////////////
         CURRENT DATE AND TIME HANDLING

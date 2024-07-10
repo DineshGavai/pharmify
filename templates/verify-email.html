@@ -25,16 +25,15 @@
         <section class="main-content">
 
             <!-- STEP SEC STARTS -->
-            <section class="step-sec">
+            <section class="step-sec desk-only">
 
-                <div class="logo" data-name="true"></div>
-
+                <h2 class="fs-600">Steps</h2>
                 <div class="step">
                     <svg class="pending">
                         <use href="../static/assets/icon-sprite.svg#mail" />
                     </svg>
                     <svg class="completed">
-                        <use href="../static/assets/icon-sprite.svg#success" />
+                        <use href="../static/assets/icon-sprite.svg#check" />
                     </svg>
                     <span>Enter email</span>
                 </div>
@@ -44,32 +43,39 @@
                         <use href="../static/assets/icon-sprite.svg#mail-code" />
                     </svg>
                     <svg class="completed">
-                        <use href="../static/assets/icon-sprite.svg#success" />
+                        <use href="../static/assets/icon-sprite.svg#check" />
                     </svg>
                     <span>Enter verification code</span>
                 </div>
-
-                <div class="divider"></div>
 
                 <div class="step">
                     <svg class="pending">
                         <use href="../static/assets/icon-sprite.svg#user" />
                     </svg>
                     <svg class="completed">
-                        <use href="../static/assets/icon-sprite.svg#success" />
+                        <use href="../static/assets/icon-sprite.svg#check" />
                     </svg>
                     <span>Complete sign up</span>
+                </div>
+
+
+                <!-- Display Card -->
+                <div class="display-card">
+                    <p class="fs-700" style="font-weight: 600; text-wrap: balance;">Never run out of your essentials again.</p>
+                    <p>Sign up for Pharmify and manage your medications effortlessly.</p>
                 </div>
 
             </section>
             <!-- STEP SEC ENDS -->
 
             <!-- FORM SEC STARTS -->
-            <section class="form-sec center-mobile">
+            <section class="form-sec">
+
+                <span class="logo" data-name="true"></span>
 
                 <!-- VERIFY EMAIL FORM STARTS -->
                 <section id="verify_email_form_sec">
-                    <form action="" method="post" id="verify_email_form" name="verify_email_form" novalidate>
+                    <form action="" method="post" id="verify_email_form" name="verify_email_form" novalidate class="center">
                         <!-- Headlines -->
                         <h1 class="fs-600">Get Started</h1>
                         <p class="subtitle">Quick email check using a secret code for authenticity and your security.
@@ -94,7 +100,7 @@
                         </fieldset>
 
                         <!-- Link to Login instead -->
-                        <p class="subtitle center" style="margin-top: 1.6rem;">
+                        <p class="subtitle center" style="margin-top: 2.4rem;">
                         <div class="divider"></div>
                         <div>Already have an Account? <a href="./login.html" class="text-link">Login instead</a>.</div>
                         </p>
@@ -119,7 +125,7 @@
     <script type="module">
         // IMPORTS
         import { UI_CLASSES } from "../static/script/utils/const.js";
-        import { setInputMsg, validateInput, allowNumberInputOnly } from "../static/script/utils/inputs.js";
+        import { setInputMsg, validateInput, allowNumberInputOnly, handleOTPInput, validateOTPInput } from "../static/script/utils/inputs.js";
         import { setMsgIcons } from "../static/script/utils/utils.js";
 
         // ON DOM Content Loaded
@@ -142,20 +148,26 @@
 
             // OTP Validation on Frontend
             let verifyOTPForm = document.getElementById("verify_otp_form");
-            let verifyOTPInput = document.getElementById("verify_otp_otp");
+            let verifyOTPInputArr = [
+                document.getElementById("verify_otp_digit_1"),
+                document.getElementById("verify_otp_digit_2"),
+                document.getElementById("verify_otp_digit_3"),
+                document.getElementById("verify_otp_digit_4"),
+                document.getElementById("verify_otp_digit_5"),
+                document.getElementById("verify_otp_digit_6")
+            ];
             let verifyOTPBtn = document.getElementById("verify_otp_btn");
 
             if (verifyOTPForm) {
-                // Disable all keyboard keys except - number, functional and navigation keys
-                allowNumberInputOnly(verifyOTPInput);
-                // Maximum length - 6 digits
-                verifyOTPInput.addEventListener("input", (e) => verifyOTPInput.value = verifyOTPInput.value.slice(0, 6));
+
+                handleOTPInput(verifyOTPInputArr);
+
 
                 verifyOTPBtn.addEventListener("click", (e) => {
                     e.preventDefault();
 
                     // If no errors, submit the form 
-                    if (validateInput(verifyOTPInput, "Please enter a 6-digit code.")) {
+                    if (validateOTPInput(verifyOTPInputArr, 6, "Please enter a 6-digit code.")) {
                         // FIXME: To submit uncomment this.
                         verifyOTPForm.submit();
                     }
