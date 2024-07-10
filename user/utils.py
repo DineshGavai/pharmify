@@ -11,7 +11,7 @@ def send_otp_email(otp_code, recipient_email):
       
 
   # Load the template and render it with context
-    template = loader.get_template("email.html")  # Replace "otp_email.html" with your template filename
+    template = loader.get_template("otp_email.html")  # Replace "otp_email.html" with your template filename
     context = {
         "otp_code": otp_code,
         "duration": 10  # Replace with your actual duration

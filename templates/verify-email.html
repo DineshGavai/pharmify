@@ -1,0 +1,213 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- TITLE -->
+    <title>Email Verification - Pharmify</title>
+
+    <!-- FAVICON -->
+    <link rel="shortcut icon" href="{% static 'assets/logo/favicon.svg' %}" type="image/x-icon">
+
+    <!-- STYLE SHEET -->
+    <link rel="stylesheet" href="{% static 'style/main.css'%}">
+    <link rel="stylesheet" href="{% static 'style/signup.css'%}">
+
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+
+<body>
+
+    <!-- MAIN STARTS -->
+    <main>
+
+        <!-- MAIN CONTENT STARTS -->
+        <section class="main-content">
+
+            <!-- STEP SEC STARTS -->
+            <section class="step-sec">
+
+                <div class="logo" data-name="true"></div>
+
+                <div class="step">
+                    <svg class="pending">
+                        <use href="{% static 'assets/icon-sprite.svg' %}#mail" />
+                    </svg>
+                    <svg class="completed">
+                        <use href="{% static 'assets/icon-sprite.svg' %}#success " />
+                    </svg>
+                    <span>Enter email</span>
+                </div>
+
+                <div class="step">
+                    <svg class="pending">
+                        <use href="{% static 'assets/icon-sprite.svg' %}#mail-code" />
+                    </svg>
+                    <svg class="completed">
+                        <use href="{% static 'assets/icon-sprite.svg' %}#success" />
+                    </svg>
+                    <span>Enter verification code</span>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="step">
+                    <svg class="pending">
+                        <use href="{% static 'assets/icon-sprite.svg' %}#user" />
+                    </svg>
+                    <svg class="completed">
+                        <use href="{% static 'assets/icon-sprite.svg' %}#success" />
+                    </svg>
+                    <span>Complete sign up</span>
+                </div>
+
+            </section>
+            <!-- STEP SEC ENDS -->
+
+            <!-- FORM SEC STARTS -->
+            <section class="form-sec center-mobile">
+
+                <!-- VERIFY EMAIL FORM STARTS -->
+                <section id="verify_email_form_sec">
+                    <form action="" method="post" id="verify_email_form" name="verify_email_form" novalidate>
+                        <!-- Headlines -->
+                        <h1 class="fs-600">Get Started</h1>
+                        <p class="subtitle">Quick email check using a secret code for authenticity and your security.
+                        </p>
+
+                        <!-- Email -->
+                        <fieldset>
+                            <label for="verify_email_email">Your Email</label>
+                            <input type="email" name="verify_email_email" id="verify_email_email" class="text-input"
+                                placeholder="you@email.com" autocomplete="email" required
+                                pattern="^([a-zA-Z0-9._%\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,})$">
+                        </fieldset>
+
+                        <!-- Send OTP Button -->
+                        <fieldset>
+                            <button class="primary" type="submit" id="verify_email_send_otp_btn">
+                                <svg>
+                                    <use href='{% static "assets/icon-sprite.svg" %}#mail' />
+                                </svg>
+                                Send Code
+                            </button>
+                        </fieldset>
+
+                        <!-- Link to Login instead -->
+                        <p class="subtitle center" style="margin-top: 1.6rem;">
+                        <div class="divider"></div>
+                        <div>Already have an Account? <a href="{% url 'login' %}" class="text-link">Login instead</a>.
+                        </div>
+                        </p>
+                    </form>
+                </section>
+                <!-- VERIFY EMAIL FORM ENDS -->
+
+                <!-- VERIFY OTP FORM STARTS -->
+                <section id="verify_otp_form_sec"></section>
+                <!-- VERIFY OTP FORM ENDS -->
+
+            </section>
+            <!-- FORM SEC ENDS -->
+
+        </section>
+        <!-- MAIN CONTENT ENDS -->
+
+    </main>
+    <!-- MAIN ENDS -->
+
+    <script type="module" src="{% static 'script/main.js' %}"></script>
+    <script type="module">
+        // IMPORTS
+        import { UI_CLASSES } from "{% static 'script/utils/const.js' %}";
+        import { setInputMsg, validateInput, allowNumberInputOnly } from "../static/script/utils/inputs.js";
+        import { setMsgIcons } from "{% static 'script/utils/utils.js' %}";
+
+        // ON DOM Content Loaded
+        document.addEventListener("DOMContentLoaded", () => {
+
+            // Email Validation on Frontend
+            let verifyEmailForm = document.getElementById("verify_email_form");
+            let verifyEmailInput = document.getElementById("verify_email_email");
+            let verifySendOTPBtn = document.getElementById("verify_email_send_otp_btn");
+
+            verifySendOTPBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+
+                // If no errors, submit the form 
+                if (validateInput(verifyEmailInput, "Please enter your valid email address.")) {
+                    // FIXME: To submit uncomment this.
+                    // verifyEmailForm.submit();
+                }
+            })
+
+            // OTP Validation on Frontend
+            let verifyOTPForm = document.getElementById("verify_otp_form");
+            let verifyOTPInput = document.getElementById("verify_otp_otp");
+            let verifyOTPBtn = document.getElementById("verify_otp_btn");
+
+            if (verifyOTPForm) {
+                // Disable all keyboard keys except - number, functional and navigation keys
+                allowNumberInputOnly(verifyOTPInput);
+                // Maximum length - 6 digits
+                verifyOTPInput.addEventListener("input", (e) => verifyOTPInput.value = verifyOTPInput.value.slice(0, 6));
+
+                verifyOTPBtn.addEventListener("click", (e) => {
+                    e.preventDefault();
+
+                    // If no errors, submit the form 
+                    if (validateInput(verifyOTPInput, "Please enter a 6-digit code.")) {
+                        // FIXME: To submit uncomment this.
+                        verifyOTPForm.submit();
+                    }
+                })
+            }
+
+        });
+
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#verify_email_send_otp_btn').click(function () {
+                $.ajax({
+                    url: "{% url 'verifyEmail' %}",
+                    type: "POST",
+                    data: {
+                        'email': $('#verify_email_email').val(),
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    success: function (data) {
+                        $('#verify_otp_form_sec').html(data);
+                    }
+                });
+            });
+
+            $(document).on('click', '#verify_otp_btn', function () {
+                $.ajax({
+                    url: "{% url 'verify' %}",
+                    type: "POST",
+                    data: {
+                        'otp': $('#verify_otp_otp').val(),
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            alert("OTP verified successfully!");
+                        } else {
+                            alert("Invalid OTP. Please try again.");
+                        }
+                    }
+                });
+            });
+        });
+    </script>s
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+<form action="" method="post" id="verify_otp_form" name="verify_otp_form" novalidate>
+    {% csrf_token %}
+    <!-- Headlines -->
+    <h1 class="fs-600">Verify Email</h1>
+    <p class="subtitle">Enter the 6-digit verification code sent to <b class="gradient-accent">example@email.com</b>.
+        This code will be expired in
+        <b>5 minutes</b>.
+    </p>
+
+    <!-- OTP Code -->
+    <fieldset>
+        <input type="text" name="verify_otp_otp" id="verify_otp_otp" class="otp-input" required pattern="^\d{6}$">
+    </fieldset>
+
+    <!-- Verify OTP Button -->
+    <fieldset>
+        <button class="primary" type="submit" id="verify_otp_btn">Verify</button>
+    </fieldset>
+
+    <!-- Link to Login instead -->
+    <p class="subtitle center" style="margin-top: 1.6rem;">
+    <div class="divider"></div>
+    <div>Didn't get the code? Check the spam folder or <button type="button" class="text"
+            id="verify_otp_resend_btn">Resend
+            Code</button>.</div>
+    </p>
+</form>
