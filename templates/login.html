@@ -12,7 +12,41 @@
 
     <!-- STYLE SHEET -->
     <link rel="stylesheet" href="../static/style/main.css">
-    <link rel="stylesheet" href="../static/style/login.css">
+
+    <style>
+        main {
+            background: url("../static/assets/illus/login-bg.svg") no-repeat center;
+            background-color: var(--clr-white);
+            background-size: cover;
+        }
+
+        .logo {
+            padding: 0.8rem;
+        }
+
+        form {
+            background-color: var(--clr-white);
+            margin: 1.6rem auto;
+            padding: 1.6rem;
+            max-width: 35.2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+        }
+
+        @media (min-width: 426px) {
+            .main-content {
+                padding: 1.6rem;
+            }
+
+            form {
+                border: 1px solid var(--clr-grey-divider);
+                border-radius: 1.6rem;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -24,7 +58,7 @@
         <section class="main-content">
             <div class="logo" data-name="true"></div>
 
-            <form action="" method="post" id="login_form" name="login_form">
+            <form action="" method="post" id="login_form" name="login_form" novalidate>
                 <!-- Headlines -->
                 <h1 class="fs-600 center">Login</h1>
                 <p class="subtitle center">Sign in using your email and password. Your stock updates are waiting inside.
@@ -49,14 +83,11 @@
 
                 <!-- Login Button -->
                 <fieldset>
-                    <!-- Login Button Visible on Frontend -->
-                    <button class="primary" type="button" id="login_validate_btn">Login</button>
-                    <!-- Actual Login Button (Hidden) -->
-                    <button class="primary" type="submit" id="login_login_btn" aria-hidden="true"></button>
+                    <button class="primary" type="submit" id="login_btn">Login</button>
                 </fieldset>
 
 
-                <!-- Link to Sign up -->
+                <!-- Link to Sign up instead -->
                 <p class="subtitle center" style="margin-top: 1.6rem;">
                 <div class="divider"></div>
                 <div>New to Pharmify? <a href="./signup.html" class="text-link">Create an Account</a>.</div>
@@ -70,7 +101,34 @@
     <!-- MAIN ENDS -->
 
     <script type="module" src="../static/script/main.js"></script>
-    <script type="module" src="../static/script/login.js"></script>
+    <script type="module">
+        import { UI_CLASSES } from "../static/script/utils/const.js";
+        import { setInputMsg, validateInput } from "../static/script/utils/inputs.js";
+        import { setMsgIcons } from "../static/script/utils/utils.js";
+
+        document.addEventListener("DOMContentLoaded", () => {
+
+            let loginForm = document.getElementById("login_form");
+            let loginEmailInput = document.getElementById("login_email");
+            let loginPasswordInput = document.getElementById("login_password");
+            let loginBtn = document.getElementById("login_btn");
+
+            loginBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+
+                let validationArray = [
+                    validateInput(loginEmailInput),
+                    validateInput(loginPasswordInput)
+                ];
+
+                if (!validationArray.includes(false)) {
+                    loginForm.submit();
+                }
+            })
+
+        });
+
+    </script>
 </body>
 
 </html>

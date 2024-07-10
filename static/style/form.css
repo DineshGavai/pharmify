@@ -102,18 +102,20 @@ button.ghost {
 
 button.text {
   padding: 0.4rem;
+  display: inline;
+  letter-spacing: normal;
   width: fit-content;
-  background-color: var(--clr-grey-bg);
+  color: var(--clr-accent);
 }
 
 button.ghost:hover,
 button.text:hover {
-  background-color: var(--clr-primary-hover);
+  background-color: var(--clr-grey-bg);
 }
 
 button.ghost:active,
 button.text:active {
-  background-color: var(--clr-primary-focus);
+  background-color: var(--clr-accent-hover);
 }
 
 button.icon {
