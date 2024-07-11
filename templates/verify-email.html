@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,11 +9,11 @@
     <title>Email Verification - Pharmify</title>
 
     <!-- FAVICON -->
-    <link rel="shortcut icon" href="../static/assets/logo/favicon.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'assets/logo/favicon.svg' %}" type="image/x-icon">
 
     <!-- STYLE SHEET -->
-    <link rel="stylesheet" href="../static/style/main.css">
-    <link rel="stylesheet" href="../static/style/signup.css">
+    <link rel="stylesheet" href="{% static 'style/main.css'%}">
+    <link rel="stylesheet" href="{% static 'style/signup.css'%}">
 
 </head>
 
@@ -30,34 +31,33 @@
                 <h2 class="fs-600">Steps</h2>
                 <div class="step">
                     <svg class="pending">
-                        <use href="../static/assets/icon-sprite.svg#mail" />
+                        <use href="{% static 'assets/icon-sprite.svg' %}#mail" />
                     </svg>
                     <svg class="completed">
-                        <use href="../static/assets/icon-sprite.svg#check" />
+                        <use href="{% static 'assets/icon-sprite.svg' %}#success " />
                     </svg>
                     <span>Enter email</span>
                 </div>
 
                 <div class="step">
                     <svg class="pending">
-                        <use href="../static/assets/icon-sprite.svg#mail-code" />
+                        <use href="{% static 'assets/icon-sprite.svg' %}#mail-code" />
                     </svg>
                     <svg class="completed">
-                        <use href="../static/assets/icon-sprite.svg#check" />
+                        <use href="{% static 'assets/icon-sprite.svg' %}#success" />
                     </svg>
                     <span>Enter verification code</span>
                 </div>
 
                 <div class="step">
                     <svg class="pending">
-                        <use href="../static/assets/icon-sprite.svg#user" />
+                        <use href="{% static 'assets/icon-sprite.svg' %}#user" />
                     </svg>
                     <svg class="completed">
-                        <use href="../static/assets/icon-sprite.svg#check" />
+                        <use href="{% static 'assets/icon-sprite.svg' %}#success" />
                     </svg>
                     <span>Complete sign up</span>
                 </div>
-
 
                 <!-- Display Card -->
                 <div class="display-card">
@@ -93,7 +93,7 @@
                         <fieldset>
                             <button class="primary" type="submit" id="verify_email_send_otp_btn">
                                 <svg>
-                                    <use href="../static/assets/icon-sprite.svg#mail" />
+                                    <use href='{% static "assets/icon-sprite.svg" %}#mail' />
                                 </svg>
                                 Send Code
                             </button>
@@ -102,7 +102,8 @@
                         <!-- Link to Login instead -->
                         <p class="subtitle center" style="margin-top: 2.4rem;">
                         <div class="divider"></div>
-                        <div>Already have an Account? <a href="./login.html" class="text-link">Login instead</a>.</div>
+                        <div>Already have an Account? <a href="{% url 'login' %}" class="text-link">Login instead</a>.
+                        </div>
                         </p>
                     </form>
                 </section>
@@ -121,12 +122,12 @@
     </main>
     <!-- MAIN ENDS -->
 
-    <script type="module" src="../static/script/main.js"></script>
+    <script type="module" src="{% static 'script/main.js' %}"></script>
     <script type="module">
         // IMPORTS
-        import { UI_CLASSES } from "../static/script/utils/const.js";
-        import { setInputMsg, validateInput, allowNumberInputOnly, handleOTPInput, validateOTPInput } from "../static/script/utils/inputs.js";
-        import { setMsgIcons } from "../static/script/utils/utils.js";
+        import { UI_CLASSES } from "{% static 'script/utils/const.js' %}";
+        import { setInputMsg, validateInput, allowNumberInputOnly, handleOTPInput, validateOTPInput } from "{% static 'script/utils/inputs.js' %}";
+        import { setMsgIcons } from "{% static 'script/utils/utils.js' %}";
 
         // ON DOM Content Loaded
         document.addEventListener("DOMContentLoaded", () => {
@@ -159,9 +160,8 @@
             let verifyOTPBtn = document.getElementById("verify_otp_btn");
 
             if (verifyOTPForm) {
-
+                // Handle OTP Inputs - Number, Functions and Navigation
                 handleOTPInput(verifyOTPInputArr);
-
 
                 verifyOTPBtn.addEventListener("click", (e) => {
                     e.preventDefault();
@@ -176,6 +176,43 @@
 
         });
 
+        </script>
+        <!-- JQUERY -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#verify_email_send_otp_btn').click(function () {
+                $.ajax({
+                    url: "{% url 'verifyEmail' %}",
+                    type: "POST",
+                    data: {
+                        'email': $('#verify_email_email').val(),
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    success: function (data) {
+                        $('#verify_otp_form_sec').html(data);
+                    }
+                });
+            });
+
+            $(document).on('click', '#verify_otp_btn', function () {
+                $.ajax({
+                    url: "{% url 'verify' %}",
+                    type: "POST",
+                    data: {
+                        'otp': $('#verify_otp_otp').val(),
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            alert("OTP verified successfully!");
+                        } else {
+                            alert("Invalid OTP. Please try again.");
+                        }
+                    }
+                });
+            });
+        });
     </script>
 </body>
 
