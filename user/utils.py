@@ -5,16 +5,17 @@ from django.conf import settings
 
 
 def send_otp_email(otp_code, recipient_email):
-    subject = "Your Pharmify OTP"
+    subject = "Verify your Email address - Pharmify"
     from_email = settings.EMAIL_HOST_USER
-    text_content = f"Your OTP is {otp_code}"
+    text_content = f"{otp_code} is your verification code for Pharmify."
       
 
   # Load the template and render it with context
-    template = loader.get_template("otp_email.html")  # Replace "otp_email.html" with your template filename
+    template = loader.get_template("email-template-otp.html")
     context = {
+        "recipient_email": recipient_email,
         "otp_code": otp_code,
-        "duration": 10  # Replace with your actual duration
+        "duration": 5
     }
     html_content = template.render(context)
     

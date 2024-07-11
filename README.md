@@ -4,7 +4,8 @@ Medical inventory & sales for pharmacies. Manage stock, track expiry, generate r
 
 ## Built With
 
-> Under Production
+> [!NOTE]
+> This project is currently under production. New updates are coming soon and features or requirements may change along the way.
 
 ## Running the project
 

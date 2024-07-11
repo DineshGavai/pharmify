@@ -299,3 +299,6 @@ GitHub.sublime-settings
 !.vscode/launch.json
 !.vscode/extensions.json
 .history
+
+# Development Files
+static/assets/icon-packs/
