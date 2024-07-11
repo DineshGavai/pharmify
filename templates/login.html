@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,14 +9,14 @@
     <title>Login - Pharmify</title>
 
     <!-- FAVICON -->
-    <link rel="shortcut icon" href="../static/assets/logo/favicon.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'assets/logo/favicon.svg' %}" type="image/x-icon">
 
     <!-- STYLE SHEET -->
-    <link rel="stylesheet" href="../static/style/main.css">
+    <link rel="stylesheet" href="{% static 'style/main.css'%}">
 
     <style>
         main {
-            background: url("../static/assets/illus/login-bg.svg") no-repeat center;
+            background: url("{% static 'assets/illus/login-bg.svg' %}") no-repeat center;
             background-color: var(--clr-white);
             background-size: cover;
         }
@@ -59,6 +60,8 @@
             <div class="logo" data-name="true"></div>
 
             <form action="" method="post" id="login_form" name="login_form" novalidate>
+                {% csrf_token %}
+
                 <!-- Headlines -->
                 <h1 class="fs-600 center">Login</h1>
                 <p class="subtitle center">Sign in using your email and password. Your stock updates are waiting inside.
@@ -90,7 +93,7 @@
                 <!-- Link to Sign up instead -->
                 <p class="subtitle center" style="margin-top: 1.6rem;">
                 <div class="divider"></div>
-                <div>New to Pharmify? <a href="./signup.html" class="text-link">Create an Account</a>.</div>
+                <div>New to Pharmify? <a href="{% url 'verifyEmail' %}" class="text-link">Create an Account</a>.</div>
                 </p>
             </form>
 
@@ -100,11 +103,11 @@
     </main>
     <!-- MAIN ENDS -->
 
-    <script type="module" src="../static/script/main.js"></script>
+    <script type="module" src="{% static 'script/main.js' %}"></script>
     <script type="module">
-        import { UI_CLASSES } from "../static/script/utils/const.js";
-        import { setInputMsg, validateInput } from "../static/script/utils/inputs.js";
-        import { setMsgIcons } from "../static/script/utils/utils.js";
+        import { UI_CLASSES } from "{% static 'script/utils/const.js' %}";
+        import { setInputMsg, validateInput } from "{% static 'script/utils/inputs.js' %}";
+        import { setMsgIcons } from "{% static 'script/utils/utils.js' %}";
 
         document.addEventListener("DOMContentLoaded", () => {
 
