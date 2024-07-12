@@ -159,7 +159,6 @@
                         },
                         dataType: 'json', // Expect JSON response
                         success: function (data) {
-
                             if (data.success) {
                                 $('#verify_email_form_sec').hide(); // Hide email form section
                                 $('#verify_otp_form_sec').html(data.html); // Show OTP form section
