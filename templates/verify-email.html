@@ -210,25 +210,37 @@
 
 
 
-            $(document).on('click', '#verify_otp_btn', function () {
+            $(document).on('submit', '#verify_otp_form', function (e) {
+                e.preventDefault();  // Prevent the default form submission
+
+                // Collect OTP digits
+                var otp = [
+                    $('#verify_otp_digit_1').val(),
+                    $('#verify_otp_digit_2').val(),
+                    $('#verify_otp_digit_3').val(),
+                    $('#verify_otp_digit_4').val(),
+                    $('#verify_otp_digit_5').val(),
+                    $('#verify_otp_digit_6').val()
+                ].join('');
+
                 $.ajax({
                     url: "{% url 'verify' %}",
                     type: "POST",
                     data: {
-                        'otp': $('#verify_otp_otp').val(),
+                        'otp': otp,
                         'csrfmiddlewaretoken': '{{ csrf_token }}'
                     },
                     success: function (response) {
                         if (response.success) {
                             console.log("OTP verified successfully!");
-                            // window.location.href = response.redirect_url;  //signup page ver redirect sathi
+                            window.location.href = response.redirect_url;  // Redirect to signup page if needed
                         } else {
                             console.log("Invalid OTP. Please try again.");
-
                         }
                     }
                 });
             });
+
         });
     </script>
 </body>

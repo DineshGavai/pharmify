@@ -54,7 +54,7 @@ def verifyEmail(request):
         OTP = random.randint(100000, 999999)
 
         # for taking email directly after verification
-        # request.session['email']=email
+        request.session['email']=email
 
         # Store OTP in session
         request.session['OTP'] = OTP
@@ -77,17 +77,13 @@ def verify(request):
     if request.method == "POST":
         input_otp = request.POST.get('otp')
         stored_otp = request.session.get('OTP')
-
+        
         if input_otp and str(stored_otp) == str(input_otp):
             return JsonResponse({'success': True, 'redirect_url': '/signUp/'})
-            
-        
         else:
             return JsonResponse({'success': False})
 
-    # return render(request, "verify.html")
 
-    # View for rendering signup.html
     
 def signUp(request):
     return render(request,"signup.html")  #http://127.0.0.1:8000/signUp/ use for see web page
