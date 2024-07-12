@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 import random
+from django.template.loader import render_to_string
 
 
 
@@ -36,7 +37,7 @@ def registerUser(request):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            auth_login(request, user)  # Correctly log in the user
+            auth_login(request, user)  
             return redirect('index')
     
     context = {'form': form}
@@ -52,15 +53,24 @@ def verifyEmail(request):
         email = request.POST.get('email')
         OTP = random.randint(100000, 999999)
 
-        # Store OTP in session
+        # for taking email directly after verification
         # request.session['email']=email
+
+        # Store OTP in session
         request.session['OTP'] = OTP
         request.session.modified = True
 
-        send_otp_email( OTP, email)
-       
-        return render(request, 'comp-otp-form.html')
+        otp_sent_successfully=send_otp_email( OTP, email) #Now sent_otp_email method return True if email is send
+        
+        
+        if otp_sent_successfully:  #If True then comp-otp-form.html render honar
+            otp_form_html = render_to_string('comp-otp-form.html', {'email': email}) 
+            return JsonResponse({'success': True, 'html': otp_form_html})
+        else:
+            return JsonResponse({'success': False}) #if seccess False alert disnar Failed to send OTP 
+        
     return render(request, 'verify-email.html')
+
 
 @csrf_exempt
 def verify(request):
@@ -69,9 +79,15 @@ def verify(request):
         stored_otp = request.session.get('OTP')
 
         if input_otp and str(stored_otp) == str(input_otp):
-            return JsonResponse({'success': True})
+            return JsonResponse({'success': True, 'redirect_url': '/signUp/'})
+            
         
         else:
             return JsonResponse({'success': False})
 
-    return render(request, "verify.html")
+    # return render(request, "verify.html")
+
+    # View for rendering signup.html
+    
+def signUp(request):
+    return render(request,"signup.html")  #http://127.0.0.1:8000/signUp/ use for see web page

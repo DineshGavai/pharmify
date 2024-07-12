@@ -191,11 +191,24 @@
                         'email': $('#verify_email_email').val(),
                         'csrfmiddlewaretoken': '{{ csrf_token }}'
                     },
+                    dataType: 'json', // Expect JSON response
                     success: function (data) {
-                        $('#verify_otp_form_sec').html(data);
+
+                        if (data.success) {
+                            $('#verify_email_form_sec').hide(); // Hide email form section
+                            $('#verify_otp_form_sec').html(data.html); // Show OTP form section
+                        } else {
+                            alert("Failed to send OTP. Please try again.");
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error: " + error);
+                        alert("An error occurred. Please try again.");
                     }
                 });
             });
+
+
 
             $(document).on('click', '#verify_otp_btn', function () {
                 $.ajax({
@@ -207,9 +220,11 @@
                     },
                     success: function (response) {
                         if (response.success) {
-                            alert("OTP verified successfully!");
+                            console.log("OTP verified successfully!");
+                            // window.location.href = response.redirect_url;  //signup page ver redirect sathi
                         } else {
-                            alert("Invalid OTP. Please try again.");
+                            console.log("Invalid OTP. Please try again.");
+
                         }
                     }
                 });
