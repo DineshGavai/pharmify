@@ -14,7 +14,7 @@ class Owner(AbstractUser):
     account_date_created = models.DateTimeField(auto_now_add=True)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['phone_number',]
+    REQUIRED_FIELDS=[]
     
     
     

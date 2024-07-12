@@ -13,6 +13,7 @@ form {
   background-color: var(--clr-white);
   margin: 3.2rem auto;
   padding: 1.6rem;
+  width: 100%;
   max-width: 38.55rem;
   display: flex;
   flex-direction: column;
@@ -65,21 +66,23 @@ form {
   display: inline;
 }
 
-.step .pending, 
+.step .pending,
 .step .completed,
 .step.completed {
   color: var(--clr-primary-dark);
 }
 
 .display-card {
-    background: var(--clr-primary-dark) url("../assets/illus/signup-bg.svg") no-repeat;
-    background-size: cover;
-    color: var(--clr-white);
-    padding: 1.6rem;
-    margin-top: 2.4rem;
-    height: 100%;
-    border-radius: 1.6rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.6rem;
+  background: var(--clr-primary-dark) url("../assets/illus/signup-bg.svg")
+    no-repeat;
+  background-size: cover;
+  background-position: bottom right;
+  color: var(--clr-white);
+  padding: 1.6rem;
+  margin-top: 2.4rem;
+  height: 100%;
+  border-radius: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
 }

@@ -13,7 +13,7 @@ def send_otp_email(otp_code, recipient_email):
   # Load the template and render it with context
     template = loader.get_template("email-template-otp.html")
     context = {
-        "recipient_email": recipient_email,
+        "recipient_email": recipient_email.split("@")[0],
         "otp_code": otp_code,
         "duration": 5
     }

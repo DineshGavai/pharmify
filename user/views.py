@@ -8,6 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 import random
 from django.template.loader import render_to_string
+from django.contrib.auth.hashers import make_password
 
 
 
@@ -31,17 +32,7 @@ def loginUser(request):
             messages.error(request,"Password does not match")
     return render(request, 'login.html')
 
-def registerUser(request):
-    form = RegistrationForm()
-    if request.method == "POST":
-        form = RegistrationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            auth_login(request, user)  
-            return redirect('index')
-    
-    context = {'form': form}
-    return render(request, 'verify-email.html', context)
+
 
 
 def logoutUser(request):
@@ -77,13 +68,34 @@ def verify(request):
     if request.method == "POST":
         input_otp = request.POST.get('otp')
         stored_otp = request.session.get('OTP')
-        
+
         if input_otp and str(stored_otp) == str(input_otp):
-            return JsonResponse({'success': True, 'redirect_url': '/signUp/'})
+            return JsonResponse({'success': True, 'redirect_url': '/signup/'})
         else:
             return JsonResponse({'success': False})
 
-
     
-def signUp(request):
-    return render(request,"signup.html")  #http://127.0.0.1:8000/signUp/ use for see web page
+def signup(request):
+    if request.method=="POST":
+        name=request.POST.get('signup_full_name')
+        shop_name=request.POST.get('signup_shop_name')
+        phone_number=request.POST.get('signup_phone')
+        password1=request.POST.get('signup_create_password')
+        password2=request.POST.get('signup_confirm_password')
+        email=request.session.get('email')
+        
+        if password1 != password2:
+            return render(request, 'signup.html', {'error': 'Passwords do not match'})
+
+        
+        user = Owner(
+            name=name,
+            shop_name=shop_name,
+            phone_number=phone_number,
+            password=make_password(password1),  # Hash the password
+            email=email
+        )
+        user.save()
+        auth_login(request,user)
+        return redirect('index')
+    return render(request,"signup.html")  #http://127.0.0.1:8000/signup/ use for see web page
