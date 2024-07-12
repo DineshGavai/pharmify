@@ -87,8 +87,22 @@
                         <fieldset>
                             <label for="verify_email_email">Your Email</label>
                             <input type="email" name="verify_email_email" id="verify_email_email" class="text-input"
-                                placeholder="you@email.com" autocomplete="email" required value="vedantmali05@gmail.com"
+                                placeholder="you@email.com" autocomplete="email" required
                                 pattern="^([a-zA-Z0-9._%\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,})$">
+                        </fieldset>
+
+                        <!-- Accept Terms and Policy  -->
+                        <fieldset>
+
+                            <div class="check-radio-box">
+                                <label for="verify_email_terms_acceptance">
+                                    <input type="checkbox" id="verify_email_terms_acceptance"
+                                        name="verify_email_terms_acceptance" required>
+                                    <span class="subtitle">I accept the <a href="#" class="text-link">Terms</a> and <a href="#"
+                                            class="text-link">Privacy Policy</a>.</span>
+                                </label>
+                            </div>
+
                         </fieldset>
 
                         <!-- Send OTP Button -->
@@ -130,13 +144,14 @@
     <script type="module">
         // IMPORTS
         import { UI_CLASS, UI_THEME, UI_LOADER, UI_STATUS_FEEDBACK } from "{% static 'script/utils/const.js' %}";
-        import { setInputMsg, validateInput, allowNumberInputOnly, handleOTPInput, validateOTPInput } from "{% static 'script/utils/inputs.js' %}";
+        import { setInputMsg, validateInput, validateToggleInputs, allowNumberInputOnly, handleOTPInput, validateOTPInput } from "{% static 'script/utils/inputs.js' %}";
         import { setMsgIcons } from "{% static 'script/utils/utils.js' %}";
         import { createSnackbar, setLoader, removeLoader } from "{% static 'script/utils/components.js' %}";
 
         // Email Validation on Frontend
         let verifyEmailForm = document.getElementById("verify_email_form");
         let verifyEmailInput = document.getElementById("verify_email_email");
+        let verifyEmailAcceptTermsInput = document.querySelectorAll("[name='verify_email_terms_acceptance']");
         let verifySendOTPBtn = document.getElementById("verify_email_send_otp_btn");
 
         $(document).ready(function () {
@@ -144,8 +159,13 @@
 
                 e.preventDefault();
 
+                let validationArray = [
+                    validateInput(verifyEmailInput, "Please enter your valid email address."),
+                    validateToggleInputs(verifyEmailAcceptTermsInput, "Please accept terms and privacy policy to continue.")
+                ]
+
                 // If no errors, submit the form 
-                if (validateInput(verifyEmailInput, "Please enter your valid email address.")) {
+                if (!validationArray.includes(false)) {
 
                     setLoader(verifySendOTPBtn, UI_THEME.white, UI_LOADER.spinner)
 
@@ -196,13 +216,13 @@
 
                             } else {
                                 removeLoader(verifySendOTPBtn);
-                                createSnackbar("Failed to send OTP. Please try again.", UI_STATUS_FEEDBACK.error)
+                                createSnackbar({ msg: "Failed to send OTP. Please try again.", status: UI_STATUS_FEEDBACK.error })
 
                             }
                         },
                         error: function (xhr, status, error) {
                             console.error("Error: " + error);
-                            createSnackbar("Something went wrong", UI_STATUS_FEEDBACK.error)
+                            createSnackbar({ msg: "Something went wrong.", status: UI_STATUS_FEEDBACK.error })
                         }
                     });
 

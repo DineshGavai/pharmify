@@ -280,6 +280,16 @@ fieldset button {
 
 fieldset .msg {
   order: 9;
+  animation: fieldsetMsg 0.5s linear;
+}
+
+@keyframes fieldsetMsg {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 fieldset button.primary {
@@ -364,6 +374,12 @@ fieldset .otp-input .text-input:focus {
   background-color: var(--clr-primary-hover);
 }
 
+.text-input[autocomplete="name"] {
+  text-transform: capitalize;
+}
+
+/* Icon Frame */
+
 fieldset .icon-frame {
   display: flex;
   align-items: center;
@@ -425,7 +441,6 @@ fieldset .check-radio-box label {
   align-items: center;
   padding: 0.4rem;
   border-radius: 0.2rem;
-  text-transform: capitalize;
   cursor: pointer;
   text-align: left;
 }
@@ -441,6 +456,7 @@ fieldset .check-radio-box label input {
   background-color: var(--clr-grey-bg);
   position: relative;
   overflow: hidden;
+  cursor: pointer;
 }
 
 fieldset .check-radio-box label:has(input:hover) {
@@ -452,9 +468,8 @@ fieldset .check-radio-box label:has(input:checked) {
   background-color: var(--clr-primary-focus);
 }
 
-/* FIXME: Add this via SVG, won't work now */
 fieldset .check-radio-box input::before {
-  content: "\F633";
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -483,6 +498,7 @@ fieldset .check-radio-box input[type="checkbox"] {
 .snackbar .msg {
   gap: 0.8rem;
   justify-content: start;
+  align-items: start !important;
   text-align: start !important;
   position: relative;
   font-size: var(--fs-300);

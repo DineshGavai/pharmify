@@ -76,10 +76,18 @@ document.addEventListener("DOMContentLoaded", function () {
     let successElemsArr = this.querySelectorAll("fieldset .msg.success, .snackbar.success .msg, .note.success");
     let infoElemsArr = this.querySelectorAll("fieldset .msg.info, .snackbar.info .msg, .note.info");
 
-    setMsgIcons(infoElemsArr, UI_CLASS.info);
-    setMsgIcons(successElemsArr, UI_CLASS.success);
-    setMsgIcons(warnElemsArr, UI_CLASS.warn);
-    setMsgIcons(errorElemsArr, UI_CLASS.error);
+    infoElemsArr.forEach(elem => {
+        setMsgIcons(elem, UI_CLASS.info);
+    })
+    successElemsArr.forEach(elem => {
+        setMsgIcons(elem, UI_CLASS.success);
+    })
+    warnElemsArr.forEach(elem => {
+        setMsgIcons(elem, UI_CLASS.warn);
+    })
+    errorElemsArr.forEach(elem => {
+        setMsgIcons(elem, UI_CLASS.error);
+    })
 
     /* ///////////////
         CURRENT DATE AND TIME HANDLING

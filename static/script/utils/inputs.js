@@ -74,7 +74,7 @@ export function handleOTPInput(inputArr) {
                 for (let j = 0; j < inputArr.length; j++) {
                     inputArr[j].value = pastedOTP[j];
                 }
-            } 
+            }
         })
 
         // Navigation back and forth on buttons pressed

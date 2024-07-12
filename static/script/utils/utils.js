@@ -30,7 +30,7 @@ export function getRandomInRange(min, max) {
 
 // If given ELEMENT is an ARRAY, return the first element.
 export function getFirstIfArray(elems) {
-    if (Array.isArray(elems)) return elems[0];
+    if (Array.isArray(elems) || elems instanceof NodeList) return elems[0];
     else return elems;
 }
 
@@ -63,13 +63,9 @@ export function setTitleAttr() {
 }
 
 // Set Icons to Respective Messages - Notes, Snackbars and Input Messages
-export function setMsgIcons(elemsArr, className) {
-    if (elemsArr.length == 0) return;
-    if (!Array.isArray(elemsArr)) elemsArr = [elemsArr];
-
-    elemsArr.forEach(elem => {
-        let icon = document.createElement("span");
-        icon.innerHTML = `<svg class="icon icon"><use href="../static/assets/icon-sprite.svg#${className}"/></svg>`;
-        elem.prepend(icon);
-    });
+export function setMsgIcons(elem, className) {
+    if (!elem) return;
+    let icon = document.createElement("span");
+    icon.innerHTML = `<svg class="icon"><use href="../static/assets/icon-sprite.svg#${className}"/></svg>`;
+    elem.prepend(icon);
 }

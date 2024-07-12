@@ -282,6 +282,7 @@ ul {
   color: var(--clr-accent);
 }
 
+img.icon,
 svg.icon {
   fill: none;
   stroke: currentColor;

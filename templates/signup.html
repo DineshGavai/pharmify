@@ -1,0 +1,218 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- TITLE -->
+    <title>Complete Sign up - Pharmify</title>
+
+    <!-- FAVICON -->
+    <link rel="shortcut icon" href="{% static 'assets/logo/favicon.svg' %}" type="image/x-icon">
+
+    <!-- STYLE SHEET -->
+    <link rel="stylesheet" href="{% static 'style/main.css'%}">
+    <link rel="stylesheet" href="{% static 'style/signup.css'%}">
+
+</head>
+
+<body>
+
+    <!-- MAIN STARTS -->
+    <main>
+
+        <!-- MAIN CONTENT STARTS -->
+        <section class="main-content">
+
+            <!-- STEP SEC STARTS -->
+            <section class="step-sec desk-only">
+
+                <h2 class="fs-600">Steps</h2>
+                <div class="step completed" id="step_1_enter_email">
+                    <svg class="icon pending">
+                        <use href="{% static 'assets/icon-sprite.svg' %}#mail" />
+                    </svg>
+                    <svg class="icon completed">
+                        <use href="{% static 'assets/icon-sprite.svg' %}#check " />
+                    </svg>
+                    <span>Enter email</span>
+                </div>
+
+                <div class="step completed" id="step_2_enter_otp">
+                    <svg class="icon pending">
+                        <use href="{% static 'assets/icon-sprite.svg' %}#mail-code" />
+                    </svg>
+                    <svg class="icon completed">
+                        <use href="{% static 'assets/icon-sprite.svg' %}#check" />
+                    </svg>
+                    <span>Enter verification code</span>
+                </div>
+
+                <div class="step" id="step_3_signup">
+                    <svg class="icon pending">
+                        <use href="{% static 'assets/icon-sprite.svg' %}#user" />
+                    </svg>
+                    <svg class="icon completed">
+                        <use href="{% static 'assets/icon-sprite.svg' %}#check" />
+                    </svg>
+                    <span>Complete sign up</span>
+                </div>
+
+                <!-- Display Card -->
+                <div class="display-card">
+                    <p class="fs-700" style="font-weight: 600; text-wrap: balance;">Never run out of your essentials
+                        again.</p>
+                    <p>Sign up for Pharmify and manage your medications effortlessly.</p>
+                </div>
+
+            </section>
+            <!-- STEP SEC ENDS -->
+
+            <!-- FORM SEC STARTS -->
+            <section class="form-sec">
+
+                <span class="logo" data-name="true"></span>
+
+                <!-- VERIFY EMAIL FORM STARTS -->
+                <section id="signup_form_sec">
+                    <form action="" method="post" id="signup_form" name="signup_form" novalidate class="center">
+                        <!-- Headlines -->
+                        <h1 class="fs-600">Finish Signing up...</h1>
+                        <p class="subtitle">Let's get your profile set in 2 minutes 😎. Enter few details about you and
+                            finish creating the account.</p>
+
+                        <!-- Full Name -->
+                        <fieldset>
+                            <label for="signup_full_name">Full Name</label>
+                            <input type="text" name="signup_full_name" id="signup_full_name" class="text-input"
+                                placeholder="First & Last name" autocomplete="name" required
+                                pattern="([A-Za-z]+){2,}\s+([A-Za-z]+)(?:\s+([A-Za-z]+){2,})?$">
+                        </fieldset>
+
+                        <!-- Shop Name -->
+                        <fieldset>
+                            <label for="signup_shop_name">Shop Name</label>
+                            <input type="text" name="signup_shop_name" id="signup_shop_name" class="text-input"
+                                placeholder="Your Medical Store name" required pattern='^[.@&]?[a-zA-Z0-9 ]+[ !.@&()]?[ a-zA-Z0-9!()]+'>
+                        </fieldset>
+
+                        <!-- Phone Number -->
+                        <fieldset>
+                            <label for="signup_phone">Phone number</label>
+                            <div class="icon-frame">
+                                <span class="lead"><img src="{% static 'assets/illus/flag-india.svg'' %}"
+                                        class="icon"></span>
+                                <input type="text" name="signup_phone" id="signup_phone" class="text-input"
+                                    autocomplete="tel" placeholder="10 digit contact number" required
+                                    inputmode="numeric" pattern="^\d{10}$">
+                            </div>
+                        </fieldset>
+
+                        <!-- Create Password -->
+                        <fieldset>
+                            <label for="signup_create_password">Create Password</label>
+                            <div class="icon-frame">
+                                <input type="password" name="signup_create_password" id="signup_create_password"
+                                    class="text-input" placeholder="Strong and Secret password" required
+                                    autocomplete="new-password"
+                                    pattern="^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$">
+                            </div>
+                        </fieldset>
+
+                        <!-- Password Conditions -->
+                        <p class="note info">
+                            <span>
+                                <span>A password must be 7 to 16 characters long. It must contain: </span><br>
+                                <span>- At least one uppercase and lowercase alphabet</span><br>
+                                <span>- At least one number and symbol</span><br>
+                                <span>- Password must not contain spaces.</span><br>
+                            </span>
+                        </p>
+
+                        <!-- Confirm Password -->
+                        <fieldset>
+                            <label for="signup_confirm_password">Confirm Password</label>
+                            <div class="icon-frame">
+                                <input type="password" name="signup_confirm_password" id="signup_confirm_password"
+                                    class="text-input" placeholder="Type again..." required>
+                            </div>
+                        </fieldset>
+
+                        <!-- Sign up Button -->
+                        <fieldset>
+                            <button class="primary" type="submit" id="signup_signup_btn">
+                                <span>Create Account</span>
+                                <svg class="icon">
+                                    <use href='{% static "assets/icon-sprite.svg" %}#arrow-right' />
+                                </svg>
+                            </button>
+                        </fieldset>
+                    </form>
+                </section>
+                <!-- VERIFY EMAIL FORM ENDS -->
+
+            </section>
+            <!-- FORM SEC ENDS -->
+
+        </section>
+        <!-- MAIN CONTENT ENDS -->
+
+    </main>
+    <!-- MAIN ENDS -->
+
+    <script type="module" src="{% static 'script/main.js' %}"></script>
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="module">
+        // IMPORTS
+        import { UI_CLASS, UI_THEME, UI_LOADER, UI_STATUS_FEEDBACK } from "{% static 'script/utils/const.js' %}";
+        import { setInputMsg, validateInput, allowNumberInputOnly, handleOTPInput, validateOTPInput } from "{% static 'script/utils/inputs.js' %}";
+        import { setMsgIcons } from "{% static 'script/utils/utils.js' %}";
+        import { createSnackbar, setLoader, removeLoader } from "{% static 'script/utils/components.js' %}";
+
+        document.addEventListener("DOMContentLoaded", () => {
+
+            let signupForm = document.getElementById("signup_form");
+            let fullNameInput = document.getElementById("signup_full_name");
+            let shopNameInput = document.getElementById("signup_shop_name");
+            let phoneInput = document.getElementById("signup_phone");
+            let createPasswordInput = document.getElementById("signup_create_password");
+            let confirmPasswordInput = document.getElementById("signup_confirm_password");
+            let signupBtn = document.getElementById("signup_signup_btn");
+
+            if (signupForm) {
+
+                // Only numbers in phone number
+                allowNumberInputOnly(phoneInput);
+
+                signupBtn.addEventListener("click", (e) => {
+                    e.preventDefault();
+
+                    // Validate all inputs
+                    let validationArray = [
+                        validateInput(fullNameInput, "Must be first, middle (optional) and last name."),
+                        validateInput(shopNameInput, "Shop names can include letters, numbers, spaces, and some symbols like periods (.), commas (,), at signs (@), and ampersands (&). They cannot start or end with special characters other than periods (.) or at signs (@)"),
+                        validateInput(phoneInput, "Must be a 10 digit number"),
+                        validateInput(createPasswordInput, "Password must satisfy following conditions"),
+                        validateInput(confirmPasswordInput, "This field is required")
+                    ];
+
+                    // Create and confirm password values must be same
+                    if (confirmPasswordInput.value != `` && confirmPasswordInput.value != createPasswordInput.value) {
+                        setInputMsg(confirmPasswordInput, "Passwords didn't match.");
+                        validationArray.push(false);
+                    }
+
+                    // If their is no user mistake,
+                    if (!validationArray.includes(false)) {
+                        console.log("Success");
+                    }
+                })
+            }
+        })
+
+    </script>
+</body>
+
+</html>
