@@ -1,7 +1,7 @@
 "use strict"
 
 import {
-    UI_CLASSES,
+    UI_CLASS,
     UI_SIZE,
     DATE_WEEK_DAYS,
     DATE_MONTHS_SHORT
@@ -76,10 +76,10 @@ document.addEventListener("DOMContentLoaded", function () {
     let successElemsArr = this.querySelectorAll("fieldset .msg.success, .snackbar.success .msg, .note.success");
     let infoElemsArr = this.querySelectorAll("fieldset .msg.info, .snackbar.info .msg, .note.info");
 
-    setMsgIcons(infoElemsArr, UI_CLASSES.info);
-    setMsgIcons(successElemsArr, UI_CLASSES.success);
-    setMsgIcons(warnElemsArr, UI_CLASSES.warn);
-    setMsgIcons(errorElemsArr, UI_CLASSES.error);
+    setMsgIcons(infoElemsArr, UI_CLASS.info);
+    setMsgIcons(successElemsArr, UI_CLASS.success);
+    setMsgIcons(warnElemsArr, UI_CLASS.warn);
+    setMsgIcons(errorElemsArr, UI_CLASS.error);
 
     /* ///////////////
         CURRENT DATE AND TIME HANDLING

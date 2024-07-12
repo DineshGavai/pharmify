@@ -69,7 +69,7 @@ export function setMsgIcons(elemsArr, className) {
 
     elemsArr.forEach(elem => {
         let icon = document.createElement("span");
-        icon.innerHTML = `<svg><use href="../static/assets/icon-sprite.svg#${className}"/></svg>`;
+        icon.innerHTML = `<svg class="icon icon"><use href="../static/assets/icon-sprite.svg#${className}"/></svg>`;
         elem.prepend(icon);
     });
 }

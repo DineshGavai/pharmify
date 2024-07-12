@@ -1,6 +1,6 @@
 import {
     UI_STATUS_FEEDBACK,
-    UI_CLASSES,
+    UI_CLASS,
 } from "./const.js";
 import { getFirstIfArray, getParentElement, setMsgIcons } from "./utils.js";
 
@@ -52,10 +52,12 @@ export function handleOTPInput(inputArr) {
         allowNumberInputOnly(input);
         // Maximum length - 1 digits
 
+        // Select when focused
         input.addEventListener("focus", (e) => {
             input.setSelectionRange(0, 1);
         })
 
+        // Move to next location on input
         input.addEventListener("input", (e) => {
             input.value = input.value.slice(0, 1)
             if (input.value != ``) {
@@ -63,6 +65,19 @@ export function handleOTPInput(inputArr) {
             }
         });
 
+        // Fill all boxes on paste
+        input.addEventListener("paste", (e) => {
+            e.preventDefault();
+            const pastedOTP = e.clipboardData.getData('text');
+            // Pasted OTP must be a 6 digit number
+            if (parseInt(pastedOTP) !== NaN && pastedOTP.length == 6) {
+                for (let j = 0; j < inputArr.length; j++) {
+                    inputArr[j].value = pastedOTP[j];
+                }
+            } 
+        })
+
+        // Navigation back and forth on buttons pressed
         input.addEventListener("keydown", (e) => {
             switch (e.key) {
                 case "Backspace":
@@ -83,9 +98,6 @@ export function handleOTPInput(inputArr) {
 
                 case "Home":
                     inputArr[0]?.focus();
-                    break;
-
-                default:
                     break;
             }
         });
@@ -146,7 +158,7 @@ export function setInputMsg(inputTag, msg, status = UI_STATUS_FEEDBACK.error) {
     setMsgIcons(msgDiv, status);
 
     // Find parent for appending
-    const fieldset = getParentElement(inputTag, UI_CLASSES.fieldset);
+    const fieldset = getParentElement(inputTag, UI_CLASS.fieldset);
     fieldset.append(msgDiv);
 }
 
@@ -154,7 +166,7 @@ export function setInputMsg(inputTag, msg, status = UI_STATUS_FEEDBACK.error) {
 export function removeInputMsg(inputTag, status = UI_STATUS_FEEDBACK.error) {
     inputTag = getFirstIfArray(inputTag);
 
-    const fieldset = getParentElement(inputTag, UI_CLASSES.fieldset);
+    const fieldset = getParentElement(inputTag, UI_CLASS.fieldset);
     // Get type of msg to be deleted, by default, "error"
     fieldset.querySelectorAll("." + status).forEach(div => div.remove());
 }
