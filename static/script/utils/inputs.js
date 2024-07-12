@@ -45,6 +45,53 @@ export function allowNumberInputOnly(inputTag) {
     });
 }
 
+// OTP Input
+export function handleOTPInput(inputArr) {
+    inputArr.forEach((input, i) => {
+        // Disable all keyboard keys except - number, functional and navigation keys
+        allowNumberInputOnly(input);
+        // Maximum length - 1 digits
+
+        input.addEventListener("focus", (e) => {
+            input.setSelectionRange(0, 1);
+        })
+
+        input.addEventListener("input", (e) => {
+            input.value = input.value.slice(0, 1)
+            if (input.value != ``) {
+                inputArr[i + 1]?.focus();
+            }
+        });
+
+        input.addEventListener("keydown", (e) => {
+            switch (e.key) {
+                case "Backspace":
+                    if (input.value == ``) inputArr[i - 1]?.focus();
+                    break;
+
+                case "ArrowRight":
+                    inputArr[i + 1]?.focus();
+                    break;
+
+                case "ArrowLeft":
+                    inputArr[i - 1]?.focus();
+                    break;
+
+                case "End":
+                    inputArr[inputArr.length - 1]?.focus();
+                    break;
+
+                case "Home":
+                    inputArr[0]?.focus();
+                    break;
+
+                default:
+                    break;
+            }
+        });
+    });
+}
+
 
 /* ///////////////
     INPUT's VALIDATION
@@ -131,7 +178,7 @@ export function validateInput(inputTag, errorMsg) {
 }
 
 // FUNCTION to validate TOGGLE INPUTS like radio and checkboxes
-export function validateToggleInputs(toggleInputs, msg = "This field is required") {
+export function validateToggleInputs(toggleInputs, errorMsg = "This field is required") {
     removeInputMsg(toggleInputs);
     let isRequired = false, isChecked = false;
     toggleInputs.forEach(input => {
@@ -140,9 +187,34 @@ export function validateToggleInputs(toggleInputs, msg = "This field is required
     })
 
     if (isRequired && !isChecked) {
-        setInputMsg(toggleInputs, msg);
+        setInputMsg(toggleInputs, errorMsg);
         return false;
     }
 
     return true;
+}
+
+// FUNCTION TO VALIDATE OTP CODE INPUT
+export function validateOTPInput(inputElemArr, digits, errorMsg = "This field is required") {
+    removeInputMsg(inputElemArr);
+
+    let enteredOTP = ``;
+
+    inputElemArr.forEach(input => {
+        enteredOTP += input.value;
+    })
+
+    if (inputElemArr[0].required && !enteredOTP) {
+        setInputMsg(inputElemArr, "This field is required");
+        return false;
+    }
+
+    if (new RegExp(/^\d{6}$/).test(enteredOTP.trim())) {
+        removeInputMsg(inputElemArr);
+        return true
+    };
+
+    setInputMsg(inputElemArr, errorMsg);
+    return false;
+
 }

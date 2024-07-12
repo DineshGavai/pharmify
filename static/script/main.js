@@ -1,126 +1,125 @@
-"use strict";
+"use strict"
 
 import {
-  UI_CLASSES,
-  UI_SIZE,
-  DATE_WEEK_DAYS,
-  DATE_MONTHS_SHORT,
+    UI_CLASSES,
+    UI_SIZE,
+    DATE_WEEK_DAYS,
+    DATE_MONTHS_SHORT
 } from "./utils/const.js";
 import { refreshInputs } from "./utils/inputs.js";
 import { toTwoDigit, setTitleAttr, setMsgIcons } from "./utils/utils.js";
 
 document.addEventListener("DOMContentLoaded", function () {
-  /* ///////////////
+
+    /* ///////////////
         SNACKBAR
     /////////////// */
 
-  let snackbarSec = this.createElement("section");
-  snackbarSec.classList.add("snackbar-sec");
-  this.body.prepend(snackbarSec);
+    let snackbarSec = this.createElement("section");
+    snackbarSec.classList.add("snackbar-sec");
+    this.body.prepend(snackbarSec);
 
-  /* ///////////////
+
+    /* ///////////////
         Populate UI elements and attributes
     /////////////// */
 
-  // LOGO
-  let pictureLogoArr = this.querySelectorAll(".logo");
+    // LOGO
+    let pictureLogoArr = this.querySelectorAll(".logo");
 
-  pictureLogoArr.forEach((logo) => {
-    let img = this.createElement("img");
-    img.src = "../static/assets/logo/logo.svg";
-    switch (logo.getAttribute("data-size")) {
-      default:
-      case UI_SIZE.xs:
-        img.style.width = "3.2rem";
-        break;
-      case UI_SIZE.s:
-        img.style.width = "4.8rem";
-        break;
-      case UI_SIZE.m:
-        img.style.width = "6.4rem";
-        break;
-      case UI_SIZE.l:
-        img.style.width = "8rem";
+    pictureLogoArr.forEach(logo => {
+        let img = this.createElement("img");
+        let type = ``;
+        if (logo.getAttribute("data-white")) {
+            type = "-white";
+        } else if (logo.getAttribute("data-black")) {
+            type = "-black";
+        }
 
-        break;
-      case UI_SIZE.xl:
-        img.style.width = "9.6rem";
+        img.src = `../static/assets/logo/logo${type}.svg`;
+        switch (logo.getAttribute("data-size")) {
+            default: case UI_SIZE.xs:
+                img.style.width = "3.2rem";
+                break;
+            case UI_SIZE.s:
+                img.style.width = "4.8rem";
+                break;
+            case UI_SIZE.m:
+                img.style.width = "6.4rem";
+                break;
+            case UI_SIZE.l:
+                img.style.width = "8rem";
 
-        break;
-    }
-    if (logo.getAttribute("data-name") == "true") {
-      let logoName = this.createElement("p");
-      logoName.innerHTML = `Pharmify`;
-      logo.appendChild(logoName);
-    }
-    logo.appendChild(img);
-  });
+                break;
+            case UI_SIZE.xl:
+                img.style.width = "9.6rem";
 
-  // Input Tags
-  refreshInputs();
+                break;
+        }
+        if (logo.getAttribute("data-name")) {
+            let logoName = this.createElement("p");
+            logoName.innerHTML = `Pharmify`;
+            logo.appendChild(logoName)
+        }
+        logo.appendChild(img);
+    });
 
-  // Set Title Attributes for Accessibility
-  setTitleAttr();
+    // Input Tags
+    refreshInputs();
 
-  // Set Icons to Respective Messages - Notes, Snackbars and Input Messages
-  let errorElemsArr = this.querySelectorAll(
-    "fieldset .msg.error, .snackbar.error .msg, .note.error"
-  );
-  let warnElemsArr = this.querySelectorAll(
-    "fieldset .msg.warn, .snackbar.warn .msg, .note.warn"
-  );
-  let successElemsArr = this.querySelectorAll(
-    "fieldset .msg.success, .snackbar.success .msg, .note.success"
-  );
-  let infoElemsArr = this.querySelectorAll(
-    "fieldset .msg.info, .snackbar.info .msg, .note.info"
-  );
+    // Set Title Attributes for Accessibility
+    setTitleAttr();
 
-  setMsgIcons(infoElemsArr, UI_CLASSES.info);
-  setMsgIcons(successElemsArr, UI_CLASSES.success);
-  setMsgIcons(warnElemsArr, UI_CLASSES.warn);
-  setMsgIcons(errorElemsArr, UI_CLASSES.error);
+    // Set Icons to Respective Messages - Notes, Snackbars and Input Messages
+    let errorElemsArr = this.querySelectorAll("fieldset .msg.error, .snackbar.error .msg, .note.error");
+    let warnElemsArr = this.querySelectorAll("fieldset .msg.warn, .snackbar.warn .msg, .note.warn");
+    let successElemsArr = this.querySelectorAll("fieldset .msg.success, .snackbar.success .msg, .note.success");
+    let infoElemsArr = this.querySelectorAll("fieldset .msg.info, .snackbar.info .msg, .note.info");
 
-  /* ///////////////
+    setMsgIcons(infoElemsArr, UI_CLASSES.info);
+    setMsgIcons(successElemsArr, UI_CLASSES.success);
+    setMsgIcons(warnElemsArr, UI_CLASSES.warn);
+    setMsgIcons(errorElemsArr, UI_CLASSES.error);
+
+    /* ///////////////
         CURRENT DATE AND TIME HANDLING
     /////////////// */
 
-  let dateDayNumBoxArr = this.querySelectorAll(".date-day-num");
-  let dateDayWeekBoxArr = this.querySelectorAll(".date-day-week");
-  let dateMonthBoxArr = this.querySelectorAll(".date-month");
-  let dateYearBoxArr = this.querySelectorAll(".date-year");
-  let timeBoxArr = this.querySelectorAll(".time");
+    let dateDayNumBoxArr = this.querySelectorAll(".date-day-num");
+    let dateDayWeekBoxArr = this.querySelectorAll(".date-day-week");
+    let dateMonthBoxArr = this.querySelectorAll(".date-month");
+    let dateYearBoxArr = this.querySelectorAll(".date-year");
+    let timeBoxArr = this.querySelectorAll(".time");
 
-  setInterval(() => {
-    const DATE = new Date();
+    setInterval(() => {
+        const DATE = new Date();
 
-    // Date Day Number
-    dateDayNumBoxArr.forEach((elem) => {
-      elem.innerHTML = toTwoDigit(DATE.getDate());
-    });
+        // Date Day Number
+        dateDayNumBoxArr.forEach(elem => {
+            elem.innerHTML = toTwoDigit(DATE.getDate());
+        })
 
-    // Month Name
-    dateMonthBoxArr.forEach((elem) => {
-      elem.innerHTML = DATE_MONTHS_SHORT[DATE.getMonth()];
-    });
+        // Month Name
+        dateMonthBoxArr.forEach(elem => {
+            elem.innerHTML = DATE_MONTHS_SHORT[DATE.getMonth()];
+        })
 
-    // Year
-    dateYearBoxArr.forEach((elem) => {
-      elem.innerHTML = DATE.getFullYear();
-    });
+        // Year
+        dateYearBoxArr.forEach(elem => {
+            elem.innerHTML = DATE.getFullYear();
+        })
 
-    // Weekday
-    dateDayWeekBoxArr.forEach((elem) => {
-      elem.innerHTML = DATE_WEEK_DAYS[DATE.getDay()];
-    });
+        // Weekday
+        dateDayWeekBoxArr.forEach(elem => {
+            elem.innerHTML = DATE_WEEK_DAYS[DATE.getDay()];
+        })
 
-    // Current time
-    timeBoxArr.forEach((elem) => {
-      let hours = DATE.getHours();
-      let meridian = hours >= 12 ? "PM" : "AM";
-      elem.innerHTML = `${toTwoDigit(hours % 12 || hours)}:${toTwoDigit(
-        DATE.getMinutes()
-      )} ${meridian}`;
-    });
-  }, 1000);
+        // Current time
+        timeBoxArr.forEach(elem => {
+            let hours = DATE.getHours();
+            let meridian = hours >= 12 ? "PM" : "AM";
+            elem.innerHTML = `${toTwoDigit(hours % 12 || hours)}:${toTwoDigit(DATE.getMinutes())} ${meridian}`
+        })
+    }, 1000);
+
 });

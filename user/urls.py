@@ -7,4 +7,5 @@ urlpatterns=[
     path('verify-email/',verifyEmail,name="verifyEmail"),
     path('verify/',verify,name="verify"),
     path('register/',registerUser,name="register"),
+    path('signUp/',signUp,name="signUp"),
 ]

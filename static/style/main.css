@@ -55,7 +55,8 @@ UTILITY CLASSES
 .center,
 .center-mobile {
   text-align: center;
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
   width: fit-content;
 }
 
@@ -68,7 +69,8 @@ UTILITY CLASSES
 
   .center-desk {
     text-align: center;
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
     width: fit-content;
   }
 }
@@ -145,6 +147,16 @@ button,
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+.logo[data-white="true"] p {
+  color: var(--clr-white);
+  background-image: var(--clr-white);
+}
+
+.logo[data-black="true"] p {
+  color: var(--clr-black);
+  background-image: var(--clr-black);
 }
 
 .gradient-accent {

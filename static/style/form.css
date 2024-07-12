@@ -326,6 +326,34 @@ fieldset select {
   appearance: none;
 }
 
+/* Verification Code or OTP Input */
+
+fieldset .otp-input {
+  display: flex;
+  justify-content: space-evenly;
+  gap: .8rem;
+  max-width: 35.2rem;
+}
+
+fieldset .otp-input .text-input {
+  font-size: var(--fs-500);
+  font-family: var(--ff-mono);
+  max-width: 5.2rem;
+  aspect-ratio: 1;
+  text-align: center;
+  background-color: var(--clr-white);
+  font-weight: 600;
+}
+
+fieldset .otp-input .text-input:hover { 
+  background-color: var(--clr-grey-bg);
+}
+
+fieldset .otp-input .text-input:focus { 
+  background-color: var(--clr-primary-hover);
+}
+
+
 fieldset .icon-frame {
   display: flex;
   align-items: center;

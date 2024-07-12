@@ -1,0 +1,139 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Title -->
+    <title>Verify your Email address - Pharmify</title>
+
+    <!-- Stylesheet -->
+    <style>
+        body {
+            background-color: #0b7e7f;
+            padding: 16px;
+        }
+
+        * {
+            font-family: Arial, sans-serif;
+            color: #212121;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        main {
+            padding: 16px;
+            max-width: 560px;
+            margin: auto;
+            background-color: #ffffff;
+        }
+
+        main>*>* {
+            margin: .4rem 0;
+        }
+
+        .main-content {
+            border: 1px solid #b5b5b5;
+            border-left: none;
+            border-right: none;
+            padding: 16px 0;
+        }
+
+        .main-content p {
+            margin-bottom: 16px;
+        }
+
+
+        h1 {
+            font-size: 28px;
+        }
+
+        li,
+        p {
+            font-size: 14px;
+            text-wrap: pretty;
+        }
+
+
+        ul,
+        ol {
+            padding-left: 16px;
+        }
+
+        ul li::marker {
+            color: #0487e2;
+        }
+
+        b {
+            color: #0487e2;
+            font-weight: 500;
+        }
+
+        .otp {
+            font-size: 24px;
+            font-family: monospace;
+            font-weight: 600;
+            text-align: center;
+            letter-spacing: 16px;
+            color: #0b7e7f;
+            background-color: #d1ede5;
+            padding: 16px;
+        }
+
+        footer .greet {
+            margin-bottom: 8px;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <main>
+
+        <!-- Header -->
+        <header>
+            <!-- Logo -->
+            <div class="logo">
+                <p>Pharmify</p>
+            </div>
+            <!-- Headlines -->
+            <h1>Hey {{ recipient_email }},</h1>
+        </header>
+
+        <!-- Main Content -->
+        <section class="main-content">
+            <p>
+                Please return to the signup page and insert the following <b>Verification Code</b> to access the form.
+                This code will be expired in <b>{{ duration }} minutes</b>
+            </p>
+
+            <!-- Code -->
+            <p class="otp">{{ otp_code }}</p>
+            <!-- Details -->
+            <p>If this code has been expired or you are having trouble verifying your account you can <b>resend code</b>
+                or contact our support team.</p>
+            <p>Once your email is verified, you'll be able to create Pharmify account and access all features. Verifying
+                your email helps us keep your account more secure and up-to-date.</p>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p class="greet">With regards, <b>Team Pharmify</b></p>
+            <ul>
+                <li>If you didn't request this email, you can safely ignore it.</li>
+                <li>Your are receiving this email in an attempt of Signing up in our product.</li>
+                <li>This email is automatically sent and doesn't receive responses.</li>
+            </ul>
+        </footer>
+
+
+
+
+    </main>
+
+</body>
+
+</html>
