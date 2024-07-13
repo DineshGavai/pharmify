@@ -29,32 +29,32 @@
             <section class="step-sec desk-only">
 
                 <h2 class="fs-600">Steps</h2>
-                <div class="step">
-                    <svg class="pending">
+                <div class="step" id="step_1_enter_email">
+                    <svg class="icon pending">
                         <use href="{% static 'assets/icon-sprite.svg' %}#mail" />
                     </svg>
-                    <svg class="completed">
-                        <use href="{% static 'assets/icon-sprite.svg' %}#success " />
+                    <svg class="icon completed">
+                        <use href="{% static 'assets/icon-sprite.svg' %}#check " />
                     </svg>
                     <span>Enter email</span>
                 </div>
 
-                <div class="step">
-                    <svg class="pending">
+                <div class="step" id="step_2_enter_otp">
+                    <svg class="icon pending">
                         <use href="{% static 'assets/icon-sprite.svg' %}#mail-code" />
                     </svg>
-                    <svg class="completed">
-                        <use href="{% static 'assets/icon-sprite.svg' %}#success" />
+                    <svg class="icon completed">
+                        <use href="{% static 'assets/icon-sprite.svg' %}#check" />
                     </svg>
                     <span>Enter verification code</span>
                 </div>
 
-                <div class="step">
-                    <svg class="pending">
+                <div class="step" id="step_3_signup">
+                    <svg class="icon pending">
                         <use href="{% static 'assets/icon-sprite.svg' %}#user" />
                     </svg>
-                    <svg class="completed">
-                        <use href="{% static 'assets/icon-sprite.svg' %}#success" />
+                    <svg class="icon completed">
+                        <use href="{% static 'assets/icon-sprite.svg' %}#check" />
                     </svg>
                     <span>Complete sign up</span>
                 </div>
@@ -78,6 +78,7 @@
                 <section id="verify_email_form_sec">
                     <form action="" method="post" id="verify_email_form" name="verify_email_form" novalidate
                         class="center">
+                        {% csrf_token %}
                         <!-- Headlines -->
                         <h1 class="fs-600">Get Started</h1>
                         <p class="subtitle">Quick email check using a secret code for authenticity and your security.
@@ -91,13 +92,27 @@
                                 pattern="^([a-zA-Z0-9._%\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,})$">
                         </fieldset>
 
+                        <!-- Accept Terms and Policy  -->
+                        <fieldset>
+
+                            <div class="check-radio-box">
+                                <label for="verify_email_terms_acceptance">
+                                    <input type="checkbox" id="verify_email_terms_acceptance"
+                                        name="verify_email_terms_acceptance" required>
+                                    <span class="subtitle">I accept the <a href="#" class="text-link">Terms</a> and <a
+                                            href="#" class="text-link">Privacy Policy</a>.</span>
+                                </label>
+                            </div>
+
+                        </fieldset>
+
                         <!-- Send OTP Button -->
                         <fieldset>
                             <button class="primary" type="submit" id="verify_email_send_otp_btn">
-                                <svg>
+                                <svg class="icon">
                                     <use href='{% static "assets/icon-sprite.svg" %}#mail' />
                                 </svg>
-                                Send Code
+                                <span>Send Code</span>
                             </button>
                         </fieldset>
 
@@ -125,112 +140,107 @@
     <!-- MAIN ENDS -->
 
     <script type="module" src="{% static 'script/main.js' %}"></script>
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="module">
-        // IMPORTS
-        import { UI_CLASSES } from "{% static 'script/utils/const.js' %}";
-        import { setInputMsg, validateInput, allowNumberInputOnly, handleOTPInput, validateOTPInput } from "{% static 'script/utils/inputs.js' %}";
+        import { UI_CLASS, UI_THEME, UI_LOADER, UI_STATUS_FEEDBACK } from "{% static 'script/utils/const.js' %}";
+        import { setInputMsg, validateInput, validateToggleInputs, allowNumberInputOnly, handleOTPInput, validateOTPInput } from "{% static 'script/utils/inputs.js' %}";
         import { setMsgIcons } from "{% static 'script/utils/utils.js' %}";
+        import { createSnackbar, setLoader, removeLoader } from "{% static 'script/utils/components.js' %}";
 
-        // ON DOM Content Loaded
-        document.addEventListener("DOMContentLoaded", () => {
-
-            // Email Validation on Frontend
-            let verifyEmailForm = document.getElementById("verify_email_form");
-            let verifyEmailInput = document.getElementById("verify_email_email");
+        $(document).ready(function () {
             let verifySendOTPBtn = document.getElementById("verify_email_send_otp_btn");
 
             verifySendOTPBtn.addEventListener("click", (e) => {
                 e.preventDefault();
 
-                // If no errors, submit the form 
-                if (validateInput(verifyEmailInput, "Please enter your valid email address.")) {
-                    // FIXME: To submit uncomment this.
-                    // verifyEmailForm.submit();
+                let verifyEmailInput = document.getElementById("verify_email_email");
+                let verifyEmailAcceptTermsInput = document.querySelectorAll("[name='verify_email_terms_acceptance']");
+
+                let validationArray = [
+                    validateInput(verifyEmailInput, "Please enter your valid email address."),
+                    validateToggleInputs(verifyEmailAcceptTermsInput, "Please accept terms and privacy policy to continue.")
+                ];
+
+                if (!validationArray.includes(false)) {
+                    setLoader(verifySendOTPBtn, UI_THEME.white, UI_LOADER.spinner);
+
+                    $.ajax({
+                        url: "{% url 'verifyEmail' %}",
+                        type: "POST",
+                        data: {
+                            'email': verifyEmailInput.value,
+                            'csrfmiddlewaretoken': '{{ csrf_token }}'
+                        },
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.success) {
+                                $('#verify_email_form_sec').hide();
+                                $('#verify_otp_form_sec').html(data.html);
+
+                                removeLoader(verifySendOTPBtn);
+                                document.getElementById("step_1_enter_email").classList.add("completed");
+
+                                let verifyOTPForm = document.getElementById("verify_otp_form");
+                                let verifyOTPInputArr = [
+                                    document.getElementById("verify_otp_digit_1"),
+                                    document.getElementById("verify_otp_digit_2"),
+                                    document.getElementById("verify_otp_digit_3"),
+                                    document.getElementById("verify_otp_digit_4"),
+                                    document.getElementById("verify_otp_digit_5"),
+                                    document.getElementById("verify_otp_digit_6")
+                                ];
+                                let verifyOTPBtn = document.getElementById("verify_otp_btn");
+
+                                if (verifyOTPForm) {
+                                    handleOTPInput(verifyOTPInputArr);
+
+                                    verifyOTPBtn.addEventListener("click", (e) => {
+                                        e.preventDefault();
+
+                                        if (validateOTPInput(verifyOTPInputArr, 6, "Please enter a 6-digit code.")) {
+                                            let otp = verifyOTPInputArr.map(input => input.value).join('');
+
+                                            $.ajax({
+                                                url: "{% url 'verify' %}",
+                                                type: "POST",
+                                                data: {
+                                                    'otp': otp,
+                                                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                                                },
+                                                dataType: 'json',
+                                                success: function (response) {
+                                                    if (response.success) {
+                                                        console.log("OTP verified successfully!");
+                                                        window.location.href = response.redirect_url;
+                                                    } else {
+                                                        console.log("Invalid OTP. Please try again.");
+                                                        createSnackbar({ msg: "Invalid OTP. Please try again.", status: UI_STATUS_FEEDBACK.error });
+                                                    }
+                                                },
+                                                error: function (xhr, status, error) {
+                                                    console.error("Error: " + error);
+                                                    createSnackbar({ msg: "Something went wrong.", status: UI_STATUS_FEEDBACK.error });
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            } else {
+                                removeLoader(verifySendOTPBtn);
+                                createSnackbar({ msg: "Failed to send OTP. Please try again.", status: UI_STATUS_FEEDBACK.error });
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("Error: " + error);
+                            createSnackbar({ msg: "Something went wrong.", status: UI_STATUS_FEEDBACK.error });
+                        }
+                    });
                 }
-            })
-
-            // OTP Validation on Frontend
-            let verifyOTPForm = document.getElementById("verify_otp_form");
-            let verifyOTPInputArr = [
-                document.getElementById("verify_otp_digit_1"),
-                document.getElementById("verify_otp_digit_2"),
-                document.getElementById("verify_otp_digit_3"),
-                document.getElementById("verify_otp_digit_4"),
-                document.getElementById("verify_otp_digit_5"),
-                document.getElementById("verify_otp_digit_6")
-            ];
-            let verifyOTPBtn = document.getElementById("verify_otp_btn");
-
-            if (verifyOTPForm) {
-                // Handle OTP Inputs - Number, Functions and Navigation
-                handleOTPInput(verifyOTPInputArr);
-
-                verifyOTPBtn.addEventListener("click", (e) => {
-                    e.preventDefault();
-
-                    // If no errors, submit the form 
-                    if (validateOTPInput(verifyOTPInputArr, 6, "Please enter a 6-digit code.")) {
-                        // FIXME: To submit uncomment this.
-                        verifyOTPForm.submit();
-                    }
-                })
-            }
-
-        });
-
-    </script>
-    <!-- JQUERY -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('#verify_email_send_otp_btn').click(function () {
-                $.ajax({
-                    url: "{% url 'verifyEmail' %}",
-                    type: "POST",
-                    data: {
-                        'email': $('#verify_email_email').val(),
-                        'csrfmiddlewaretoken': '{{ csrf_token }}'
-                    },
-                    dataType: 'json', // Expect JSON response
-                    success: function (data) {
-
-                        if (data.success) {
-                            $('#verify_email_form_sec').hide(); // Hide email form section
-                            $('#verify_otp_form_sec').html(data.html); // Show OTP form section
-                        } else {
-                            alert("Failed to send OTP. Please try again.");
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        console.error("Error: " + error);
-                        alert("An error occurred. Please try again.");
-                    }
-                });
-            });
-
-
-
-            $(document).on('click', '#verify_otp_btn', function () {
-                $.ajax({
-                    url: "{% url 'verify' %}",
-                    type: "POST",
-                    data: {
-                        'otp': $('#verify_otp_otp').val(),
-                        'csrfmiddlewaretoken': '{{ csrf_token }}'
-                    },
-                    success: function (response) {
-                        if (response.success) {
-                            console.log("OTP verified successfully!");
-                            // window.location.href = response.redirect_url;  //signup page ver redirect sathi
-                        } else {
-                            console.log("Invalid OTP. Please try again.");
-
-                        }
-                    }
-                });
             });
         });
     </script>
+
 </body>
 
 </html>

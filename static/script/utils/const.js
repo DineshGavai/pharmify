@@ -49,18 +49,21 @@ export const STATUS_HTTP_RESPONSE = {
 // Input Status
 export const UI_STATUS_FEEDBACK = {
     error: "error",
+    warn: "warn",
     info: "info",
     success: "success"
 }
 
 // User THEME
 export const UI_THEME = {
-    light: 1,
-    dark: 2
+    white: "white",
+    black: "black",
+    primary: "primary",
+    accent: "accent"
 }
 
 // HTML UIs Classes
-export const UI_CLASSES = {
+export const UI_CLASS = {
     fieldset: "fieldset",
     iconFrame: "icon-frame",
     success: "success",
@@ -76,6 +79,13 @@ export const UI_SIZE = {
     m: "medium",
     l: "large",
     xl: "extra-large",
+}
+
+// Loader types
+export const UI_LOADER = {
+    spinner: "spinner",
+    progressBar: "progress-bar",
+    skeleton: "skeleton"
 }
 
 /* ///////////////

@@ -43,7 +43,18 @@ fieldset .check-radio-box:has(input:disabled) *,
   opacity: 0.5;
   pointer-events: none;
   user-select: none;
-  filter: grayscale(1);
+}
+
+button.primary:disabled {
+  opacity: 1;
+}
+
+button.primary:disabled::before {
+  background-color: var(--clr-primary-dark);
+}
+
+button:has(.loader.spinner):disabled > *:not(:last-child) {
+  display: none;
 }
 
 :is(button.primary, button.fab) {
@@ -239,7 +250,7 @@ fieldset label {
   order: 1;
 }
 
-fieldset :is(.text-input, .check-radio-box, .icon-frame) {
+fieldset :is(.text-input, .check-radio-box, .icon-frame, .otp-input) {
   order: 2;
 }
 
@@ -269,6 +280,16 @@ fieldset button {
 
 fieldset .msg {
   order: 9;
+  animation: fieldsetMsg 0.5s linear;
+}
+
+@keyframes fieldsetMsg {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 fieldset button.primary {
@@ -331,7 +352,7 @@ fieldset select {
 fieldset .otp-input {
   display: flex;
   justify-content: space-evenly;
-  gap: .8rem;
+  gap: 0.8rem;
   max-width: 35.2rem;
 }
 
@@ -345,14 +366,19 @@ fieldset .otp-input .text-input {
   font-weight: 600;
 }
 
-fieldset .otp-input .text-input:hover { 
+fieldset .otp-input .text-input:hover {
   background-color: var(--clr-grey-bg);
 }
 
-fieldset .otp-input .text-input:focus { 
+fieldset .otp-input .text-input:focus {
   background-color: var(--clr-primary-hover);
 }
 
+.text-input[autocomplete="name"] {
+  text-transform: capitalize;
+}
+
+/* Icon Frame */
 
 fieldset .icon-frame {
   display: flex;
@@ -415,7 +441,6 @@ fieldset .check-radio-box label {
   align-items: center;
   padding: 0.4rem;
   border-radius: 0.2rem;
-  text-transform: capitalize;
   cursor: pointer;
   text-align: left;
 }
@@ -431,6 +456,7 @@ fieldset .check-radio-box label input {
   background-color: var(--clr-grey-bg);
   position: relative;
   overflow: hidden;
+  cursor: pointer;
 }
 
 fieldset .check-radio-box label:has(input:hover) {
@@ -442,9 +468,8 @@ fieldset .check-radio-box label:has(input:checked) {
   background-color: var(--clr-primary-focus);
 }
 
-/* FIXME: Add this via SVG, won't work now */
 fieldset .check-radio-box input::before {
-  content: "\F633";
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -473,6 +498,7 @@ fieldset .check-radio-box input[type="checkbox"] {
 .snackbar .msg {
   gap: 0.8rem;
   justify-content: start;
+  align-items: start !important;
   text-align: start !important;
   position: relative;
   font-size: var(--fs-300);

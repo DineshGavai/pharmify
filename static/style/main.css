@@ -57,7 +57,6 @@ UTILITY CLASSES
   text-align: center;
   margin-left: auto;
   margin-right: auto;
-  width: fit-content;
 }
 
 @media (min-width: 769px) {
@@ -161,6 +160,29 @@ button,
 
 .gradient-accent {
   background-image: var(--gradient-accent);
+}
+
+/* /////////////////////////
+LOADERS
+///////////////////////// */
+
+.loader.spinner {
+  display: flex;
+  aspect-ratio: 1;
+  animation: spinner 1s infinite linear;
+}
+
+.loader.spinner.white path {
+  fill: var(--clr-white);
+}
+.loader.spinner.black path {
+  fill: var(--clr-black);
+}
+.loader.spinner.primary path {
+  fill: var(--clr-primary);
+}
+.loader.spinner.accent path {
+  fill: var(--clr-accent);
 }
 
 /* /////////////////////////
@@ -415,5 +437,15 @@ main {
   100% {
     opacity: 0;
     scale: 0.9;
+  }
+}
+
+/* LOADING ANIMATIONS */
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
