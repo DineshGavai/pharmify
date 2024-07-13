@@ -174,11 +174,11 @@
                         },
                         dataType: 'json',
                         success: function (data) {
+                            removeLoader(verifySendOTPBtn);
+
                             if (data.success) {
                                 $('#verify_email_form_sec').hide();
                                 $('#verify_otp_form_sec').html(data.html);
-
-                                removeLoader(verifySendOTPBtn);
                                 document.getElementById("step_1_enter_email").classList.add("completed");
 
                                 let verifyOTPForm = document.getElementById("verify_otp_form");
@@ -227,11 +227,15 @@
                                     });
                                 }
                             } else {
-                                removeLoader(verifySendOTPBtn);
-                                createSnackbar({ msg: "Failed to send OTP. Please try again.", status: UI_STATUS_FEEDBACK.error });
+                                if (data.message === "Email already exists.") {
+                                    alert(data.message);
+                                } else {
+                                    createSnackbar({ msg: data.message, status: UI_STATUS_FEEDBACK.error });
+                                }
                             }
                         },
                         error: function (xhr, status, error) {
+                            removeLoader(verifySendOTPBtn);
                             console.error("Error: " + error);
                             createSnackbar({ msg: "Something went wrong.", status: UI_STATUS_FEEDBACK.error });
                         }
@@ -240,6 +244,7 @@
             });
         });
     </script>
+
 
 </body>
 
