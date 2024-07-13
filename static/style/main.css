@@ -162,6 +162,43 @@ button,
   background-image: var(--gradient-accent);
 }
 
+/* STEPS ICON VISIBILITY */
+
+.step-sec .step {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.step.completed .pending,
+.step .completed {
+  display: none;
+}
+
+.step .pending,
+.step.completed .completed {
+  display: inline;
+}
+
+.step .pending,
+.step .completed,
+.step.completed {
+  color: var(--clr-primary-dark);
+}
+
+.password-conditions .pending {
+  color: currentColor;
+}
+
+.password-conditions {
+  width: 100%;
+  text-align: left;
+  background-color: var(--clr-white) !important;
+  border: 1px solid var(--clr-grey-divider);
+  padding: 0.8rem;
+  border-radius: 0.8rem;
+}
+
 /* /////////////////////////
 LOADERS
 ///////////////////////// */

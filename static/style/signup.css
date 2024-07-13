@@ -48,28 +48,10 @@ form {
   flex-direction: column;
 }
 
-.step-sec .step {
-  display: flex;
-  align-items: center;
+.step-sec:not(.password-conditions) .step {
   gap: 1.6rem;
   margin-top: 0.8rem;
   padding: 0.8rem 1.6rem;
-}
-
-.step.completed .pending,
-.step .completed {
-  display: none;
-}
-
-.step .pending,
-.step.completed .completed {
-  display: inline;
-}
-
-.step .pending,
-.step .completed,
-.step.completed {
-  color: var(--clr-primary-dark);
 }
 
 .display-card {
