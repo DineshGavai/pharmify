@@ -13,7 +13,7 @@
 
     <!-- STYLE SHEET -->
     <link rel="stylesheet" href="{% static 'style/main.css'%}">
-    <link rel="stylesheet" href="{% static 'style/signup.css'%}">
+    <link rel="stylesheet" href="{% static 'style/onboarding.css'%}">
 
 </head>
 
@@ -202,7 +202,7 @@
                         validationArray.push(false);
                     }
 
-                    // If their is no user mistake,
+                    // If there is no user mistake,
                     if (!validationArray.includes(false)) {
                         signupForm.submit();
                         console.log("Success");

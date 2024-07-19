@@ -1,7 +1,6 @@
 import random
 from .models import *
 from .utils import *
-from .forms import *
 from django.urls import *
 from django.contrib.auth import authenticate, login as auth_login, logout
 from django.shortcuts import render, redirect

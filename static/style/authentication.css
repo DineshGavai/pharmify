@@ -1,0 +1,35 @@
+main {
+  background-color: var(--clr-white);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.logo {
+  padding: 0.8rem;
+}
+
+form {
+  background-color: var(--clr-white);
+  margin: 1.6rem auto;
+  padding: 1.6rem;
+  max-width: 35.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+@media (min-width: 426px) {
+  .main-content {
+    padding: 1.6rem;
+  }
+
+  form {
+    border: 1px solid var(--clr-primary-light);
+    border-right-color: var(--clr-accent-light);
+    border-bottom-color: var(--clr-accent-light);
+    border-radius: 1.6rem;
+  }
+}
