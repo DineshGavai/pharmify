@@ -13,7 +13,7 @@
 
     <!-- STYLE SHEET -->
     <link rel="stylesheet" href="{% static 'style/main.css'%}">
-    <link rel="stylesheet" href="{% static 'style/signup.css'%}">
+    <link rel="stylesheet" href="{% static 'style/onboarding.css'%}">
 
 </head>
 
@@ -122,15 +122,8 @@
                             </div>
                         </fieldset>
 
-                        <!-- Password Conditions -->
-                        <p class="note info">
-                            <span>
-                                <span>A password must be 7 to 16 characters long. It must contain: </span><br>
-                                <span>- At least one uppercase and lowercase alphabet</span><br>
-                                <span>- At least one number and symbol</span><br>
-                                <span>- Password must not contain spaces.</span><br>
-                            </span>
-                        </p>
+                        <!-- Box to display password conditions on password input -->
+                        <div id="password_conditions_box"></div>
 
                         <!-- Confirm Password -->
                         <fieldset>
@@ -169,7 +162,7 @@
     <script type="module">
         // IMPORTS
         import { UI_CLASS, UI_THEME, UI_LOADER, UI_STATUS_FEEDBACK } from "{% static 'script/utils/const.js' %}";
-        import { setInputMsg, validateInput, allowNumberInputOnly, handleOTPInput, validateOTPInput } from "{% static 'script/utils/inputs.js' %}";
+        import { setInputMsg, validateInput, allowNumberInputOnly, handleOTPInput, validateOTPInput, showPasswordConditions } from "{% static 'script/utils/inputs.js' %}";
         import { setMsgIcons } from "{% static 'script/utils/utils.js' %}";
         import { createSnackbar, setLoader, removeLoader } from "{% static 'script/utils/components.js' %}";
 
@@ -187,6 +180,9 @@
 
                 // Only numbers in phone number
                 allowNumberInputOnly(phoneInput);
+
+                // Show password conditions
+                showPasswordConditions(createPasswordInput, document.querySelector("#password_conditions_box"));
 
                 signupBtn.addEventListener("click", (e) => {
                     e.preventDefault();
@@ -206,7 +202,7 @@
                         validationArray.push(false);
                     }
 
-                    // If their is no user mistake,
+                    // If there is no user mistake,
                     if (!validationArray.includes(false)) {
                         signupForm.submit();
                         console.log("Success");

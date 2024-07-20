@@ -278,3 +278,76 @@ export function validateOTPInput(
   setInputMsg(inputElemArr, errorMsg);
   return false;
 }
+
+
+// FUNCTION TO SHOW PASSWORD CONDITIONS
+
+export function showPasswordConditions(passwordInput, conditionBox) {
+
+  let isFirstTime = false;
+
+  passwordInput.addEventListener("input", () => {
+    if (!isFirstTime) {
+      conditionBox.innerHTML = `
+      <!-- Password Conditions -->
+      <div class="password-conditions subtitle step-sec">
+        <p><b class="gradient-accent">Password Conditions</b></p>
+        <p class="step" id="password_length">
+            <svg class="icon pending"><use href="../static/assets/icon-sprite.svg#circle-small" /></svg>
+            <svg class="icon completed"><use href="../static/assets/icon-sprite.svg#check" /></svg>
+            <span>Password must be 7 to 16 characters long.</span>
+        </p>
+        <p class="step" id="password_spaces">
+            <svg class="icon pending"><use href="../static/assets/icon-sprite.svg#circle-small" /></svg>
+            <svg class="icon completed"><use href="../static/assets/icon-sprite.svg#check" /></svg>
+            <span>Password must <b>not</b> contain spaces.</span>
+        </p>
+        <p><b>It must contain:</b></p>
+        <p class="step" id="password_uppercase">
+            <svg class="icon pending"><use href="../static/assets/icon-sprite.svg#circle-small" /></svg>
+            <svg class="icon completed"><use href="../static/assets/icon-sprite.svg#check" /></svg>
+            <span>At least one uppercase alphabet.</span>
+        </p>
+        <p class="step" id="password_lowercase">
+            <svg class="icon pending"><use href="../static/assets/icon-sprite.svg#circle-small" /></svg>
+            <svg class="icon completed"><use href="../static/assets/icon-sprite.svg#check" /></svg>
+            <span>At least one lowercase alphabet.</span>
+        </p>
+        <p class="step" id="password_number">
+            <svg class="icon pending"><use href="../static/assets/icon-sprite.svg#circle-small" /></svg>
+            <svg class="icon completed"><use href="../static/assets/icon-sprite.svg#check" /></svg>
+            <span>At least a number.</span>
+        </p>
+        <p class="step" id="password_symbol">
+            <svg class="icon pending"><use href="../static/assets/icon-sprite.svg#circle-small" /></svg>
+            <svg class="icon completed"><use href="../static/assets/icon-sprite.svg#check" /></svg>
+            <span>At least one symbol.</span>
+        </p>
+      </div>      
+      `;
+
+      if (conditionBox.querySelector(".password-conditions")) {
+        let value = passwordInput.value;
+
+        // Length must be between 7 to 16 chars
+        conditionBox.querySelector("#password_length").classList.toggle("completed", /^(.{7,16})$/.test(value));
+
+        // No whitespaces allowed (corrected)
+        conditionBox.querySelector("#password_spaces").classList.toggle("completed", !(value.split("").includes(" ")));
+
+        // At least one uppercase character must be present
+        conditionBox.querySelector("#password_uppercase").classList.toggle("completed", /([A-Z])+/g.test(value));
+
+        // At least one lowercase character must be present
+        conditionBox.querySelector("#password_lowercase").classList.toggle("completed", /([a-z])+/g.test(value));
+
+        // At least one number character must be present
+        conditionBox.querySelector("#password_number").classList.toggle("completed", /([0-9])+/g.test(value));
+
+        // At least one symbol character must be present
+        conditionBox.querySelector("#password_symbol").classList.toggle("completed", /[^\w\s]/.test(value));
+      }
+    }
+  });
+
+}

@@ -13,7 +13,7 @@
 
     <!-- STYLE SHEET -->
     <link rel="stylesheet" href="{% static 'style/main.css'%}">
-    <link rel="stylesheet" href="{% static 'style/signup.css'%}">
+    <link rel="stylesheet" href="{% static 'style/onboarding.css'%}">
 
 </head>
 
@@ -220,7 +220,7 @@
                                                 },
                                                 error: function (xhr, status, error) {
                                                     console.error("Error: " + error);
-                                                    createSnackbar({ msg: "Something went wrong 1.", status: UI_STATUS_FEEDBACK.error });
+                                                    createSnackbar({ msg: "Something went wrong.", status: UI_STATUS_FEEDBACK.error });
                                                 }
                                             });
                                         }
