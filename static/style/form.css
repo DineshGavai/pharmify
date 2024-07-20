@@ -113,7 +113,6 @@ button.ghost {
 
 button.text {
   padding: 0.4rem;
-  display: inline;
   letter-spacing: normal;
   width: fit-content;
   color: var(--clr-accent);
@@ -494,8 +493,7 @@ fieldset .check-radio-box input[type="checkbox"] {
 /* INPUT TAG FEEDBACKS and Certain Notes on the page */
 
 :is(fieldset, .snackbar) .msg,
-.note,
-.snackbar .msg {
+.note {
   gap: 0.8rem;
   justify-content: start;
   align-items: start !important;
@@ -505,6 +503,10 @@ fieldset .check-radio-box input[type="checkbox"] {
   color: var(--clr-grey-text);
   stroke: var(--clr-grey-text);
   margin: 0.2rem 0;
+}
+
+:is(fieldset, .snackbar, .note) span svg.icon {
+  transform: translateY(-0.3rem);
 }
 
 fieldset .msg.error,
