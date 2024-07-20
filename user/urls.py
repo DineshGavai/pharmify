@@ -11,9 +11,14 @@ urlpatterns=[
     path('signup/',signup,name="signup"),
     
     # Password Reset
-    path('password-reset/', ResetPasswordView.as_view(), name='password_reset'),
-    path("reset-password-sent/",auth_views.PasswordResetDoneView.as_view(template_name="password/password_reset_sent.html"),name="password_reset_done"),
-    path('password-reset-confirm/<uidb64>/<token>/',auth_views.PasswordResetConfirmView.as_view(template_name='password/password_reset_form.html'),name='password_reset_confirm'),
-    path("reset_password_complete/",auth_views.PasswordResetCompleteView.as_view(template_name="password/password_reset_done.html"),name="password_reset_complete")
+    # TODO: Change following URLs to given URLs
+    # Change to: reset-password
+    path('reset-password/', ResetPasswordView.as_view( html_email_template_name="password/password_reset_email.html"), name='password_reset'),
+    # Change to: reset-password-emailed
+    path("reset-password-emailed/",auth_views.PasswordResetDoneView.as_view(template_name="password/password_reset_sent.html"),name="password_reset_done"),
+    # Change to: new-password
+    path('new-password/<uidb64>/<token>/',auth_views.PasswordResetConfirmView.as_view(template_name='password/password_reset_form.html'),name='password_reset_confirm'),
+    # Change to: password-reset-success (Don't use underscores _)
+    path("password-reset-success/",auth_views.PasswordResetCompleteView.as_view(template_name="password/password_reset_done.html"),name="password_reset_complete")
     
 ]
