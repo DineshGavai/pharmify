@@ -22,8 +22,3 @@ class Owner(AbstractUser):
         return self.email
     
     objects = OwnerManager()
-
-    
-
-
-
