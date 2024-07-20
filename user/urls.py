@@ -11,9 +11,14 @@ urlpatterns=[
     path('signup/',signup,name="signup"),
     
     # Password Reset
+    # TODO: Change following URLs to given URLs
+    # Change to: reset-password
     path('password-reset/', ResetPasswordView.as_view(), name='password_reset'),
+    # Change to: reset-password-emailed
     path("reset-password-sent/",auth_views.PasswordResetDoneView.as_view(template_name="password/password_reset_sent.html"),name="password_reset_done"),
+    # Change to: new-password
     path('password-reset-confirm/<uidb64>/<token>/',auth_views.PasswordResetConfirmView.as_view(template_name='password/password_reset_form.html'),name='password_reset_confirm'),
+    # Change to: password-reset-success (Don't use underscores _)
     path("reset_password_complete/",auth_views.PasswordResetCompleteView.as_view(template_name="password/password_reset_done.html"),name="password_reset_complete")
     
 ]

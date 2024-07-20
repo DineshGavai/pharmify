@@ -25,14 +25,21 @@
 
         main {
             padding: 16px;
-            max-width: 560px;
+            width: 600px;
             margin: auto;
             background-color: #ffffff;
+        }
+
+        @media only screen and (max-width: 620px) {
+            main {
+                width: 100%;
+            }
         }
 
         main>*>* {
             margin: .4rem 0;
         }
+
 
         .main-content {
             border: 1px solid #b5b5b5;
@@ -42,13 +49,14 @@
         }
 
         .main-content p {
-            margin-bottom: 16px;
+            margin-top: 16px;
         }
 
 
         h1 {
-            font-size: 28px;
+            font-size: 22px;
         }
+
 
         li,
         p {
@@ -69,6 +77,11 @@
         b {
             color: #0487e2;
             font-weight: 500;
+        }
+
+        .logo {
+            color: #0b7e7f;
+            font-weight: 600;
         }
 
         .otp {
@@ -96,22 +109,21 @@
         <!-- Header -->
         <header>
             <!-- Logo -->
-            <div class="logo">
-                <p>Pharmify</p>
-            </div>
+            <p class="logo">Pharmify</p>
             <!-- Headlines -->
-            <h1>Hey {{ recipient_email }},</h1>
+            <h1>Verify your Email address,</h1>
         </header>
 
         <!-- Main Content -->
         <section class="main-content">
+            <p>Hey {{ recipient_email }},</p>
             <p>
                 Please return to the signup page and insert the following <b>Verification Code</b> to access the form.
                 This code will be expired in <b>{{ duration }} minutes</b>
             </p>
 
             <!-- Code -->
-            <p class="otp">{{ otp_code }}</p>
+            <p class="copy">{{ otp_code }}</p>
             <!-- Details -->
             <p>If this code has been expired or you are having trouble verifying your account you can <b>resend code</b>
                 or contact our support team.</p>
