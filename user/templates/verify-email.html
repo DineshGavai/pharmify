@@ -1,0 +1,251 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- TITLE -->
+    <title>Email Verification - Pharmify</title>
+
+    <!-- FAVICON -->
+    <link rel="shortcut icon" href="{% static 'assets/logo/favicon.svg' %}" type="image/x-icon">
+
+    <!-- STYLE SHEET -->
+    <link rel="stylesheet" href="{% static 'style/main.css'%}">
+    <link rel="stylesheet" href="{% static 'style/onboarding.css'%}">
+
+</head>
+
+<body>
+
+    <!-- MAIN STARTS -->
+    <main>
+
+        <!-- MAIN CONTENT STARTS -->
+        <section class="main-content">
+
+            <!-- STEP SEC STARTS -->
+            <section class="step-sec desk-only">
+
+                <h2 class="fs-600">Steps</h2>
+                <div class="step" id="step_1_enter_email">
+                    <svg class="icon pending">
+                        <use href="{% static 'assets/icon-sprite.svg' %}#mail" />
+                    </svg>
+                    <svg class="icon completed">
+                        <use href="{% static 'assets/icon-sprite.svg' %}#check " />
+                    </svg>
+                    <span>Enter email</span>
+                </div>
+
+                <div class="step" id="step_2_enter_otp">
+                    <svg class="icon pending">
+                        <use href="{% static 'assets/icon-sprite.svg' %}#mail-code" />
+                    </svg>
+                    <svg class="icon completed">
+                        <use href="{% static 'assets/icon-sprite.svg' %}#check" />
+                    </svg>
+                    <span>Enter verification code</span>
+                </div>
+
+                <div class="step" id="step_3_signup">
+                    <svg class="icon pending">
+                        <use href="{% static 'assets/icon-sprite.svg' %}#user" />
+                    </svg>
+                    <svg class="icon completed">
+                        <use href="{% static 'assets/icon-sprite.svg' %}#check" />
+                    </svg>
+                    <span>Complete sign up</span>
+                </div>
+
+                <!-- Display Card -->
+                <div class="display-card">
+                    <p class="fs-700" style="font-weight: 600; text-wrap: balance;">Never run out of your essentials
+                        again.</p>
+                    <p>Sign up for Pharmify and manage your medications effortlessly.</p>
+                </div>
+
+            </section>
+            <!-- STEP SEC ENDS -->
+
+            <!-- FORM SEC STARTS -->
+            <section class="form-sec">
+
+                <span class="logo" data-name="true"></span>
+
+                <!-- VERIFY EMAIL FORM STARTS -->
+                <section id="verify_email_form_sec">
+                    <form action="" method="post" id="verify_email_form" name="verify_email_form" novalidate
+                        class="center">
+                        {% csrf_token %}
+                        <!-- Headlines -->
+                        <h1 class="fs-600">Get Started</h1>
+                        <p class="subtitle">Quick email check using a secret code for authenticity and your security.
+                        </p>
+
+                        <!-- Email -->
+                        <fieldset>
+                            <label for="verify_email_email">Your Email</label>
+                            <input type="email" name="verify_email_email" id="verify_email_email" class="text-input"
+                                placeholder="you@email.com" autocomplete="email" required
+                                pattern="^([a-zA-Z0-9._%\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,})$">
+                        </fieldset>
+
+                        <!-- Accept Terms and Policy  -->
+                        <fieldset>
+
+                            <div class="check-radio-box">
+                                <label for="verify_email_terms_acceptance">
+                                    <input type="checkbox" id="verify_email_terms_acceptance"
+                                        name="verify_email_terms_acceptance" required>
+                                    <span class="subtitle">I accept the <a href="#" class="text-link">Terms</a> and <a
+                                            href="#" class="text-link">Privacy Policy</a>.</span>
+                                </label>
+                            </div>
+
+                        </fieldset>
+
+                        <!-- Send OTP Button -->
+                        <fieldset>
+                            <button class="primary" type="submit" id="verify_email_send_otp_btn">
+                                <svg class="icon">
+                                    <use href='{% static "assets/icon-sprite.svg" %}#mail' />
+                                </svg>
+                                <span>Send Code</span>
+                            </button>
+                        </fieldset>
+
+                        <!-- Link to Login instead -->
+                        <p class="subtitle center" style="margin-top: 2.4rem;">
+                        <div class="divider"></div>
+                        <div>Already have an Account? <a href="{% url 'login' %}" class="text-link">Login instead</a>.
+                        </div>
+                        </p>
+                    </form>
+                </section>
+                <!-- VERIFY EMAIL FORM ENDS -->
+
+                <!-- VERIFY OTP FORM STARTS -->
+                <section id="verify_otp_form_sec"></section>
+                <!-- VERIFY OTP FORM ENDS -->
+
+            </section>
+            <!-- FORM SEC ENDS -->
+
+        </section>
+        <!-- MAIN CONTENT ENDS -->
+
+    </main>
+    <!-- MAIN ENDS -->
+
+    <script type="module" src="{% static 'script/main.js' %}"></script>
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="module">
+        import { UI_CLASS, UI_THEME, UI_LOADER, UI_STATUS_FEEDBACK } from "{% static 'script/utils/const.js' %}";
+        import { setInputMsg, validateInput, validateToggleInputs, allowNumberInputOnly, handleOTPInput, validateOTPInput } from "{% static 'script/utils/inputs.js' %}";
+        import { setMsgIcons } from "{% static 'script/utils/utils.js' %}";
+        import { createSnackbar, setLoader, removeLoader } from "{% static 'script/utils/components.js' %}";
+
+        $(document).ready(function () {
+            let verifySendOTPBtn = document.getElementById("verify_email_send_otp_btn");
+
+            verifySendOTPBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+
+                let verifyEmailInput = document.getElementById("verify_email_email");
+                let verifyEmailAcceptTermsInput = document.querySelectorAll("[name='verify_email_terms_acceptance']");
+
+                let validationArray = [
+                    validateInput(verifyEmailInput, "Please enter your valid email address."),
+                    validateToggleInputs(verifyEmailAcceptTermsInput, "Please accept terms and privacy policy to continue.")
+                ];
+
+                if (!validationArray.includes(false)) {
+                    setLoader(verifySendOTPBtn, UI_THEME.white, UI_LOADER.spinner);
+
+                    $.ajax({
+                        url: "{% url 'verifyEmail' %}",
+                        type: "POST",
+                        data: {
+                            'email': verifyEmailInput.value,
+                            'csrfmiddlewaretoken': '{{ csrf_token }}'
+                        },
+                        dataType: 'json',
+                        success: function (data) {
+                            removeLoader(verifySendOTPBtn);
+
+                            if (data.success) {
+                                $('#verify_email_form_sec').hide();
+                                $('#verify_otp_form_sec').html(data.html);
+                                document.getElementById("step_1_enter_email").classList.add("completed");
+
+                                let verifyOTPForm = document.getElementById("verify_otp_form");
+                                let verifyOTPInputArr = [
+                                    document.getElementById("verify_otp_digit_1"),
+                                    document.getElementById("verify_otp_digit_2"),
+                                    document.getElementById("verify_otp_digit_3"),
+                                    document.getElementById("verify_otp_digit_4"),
+                                    document.getElementById("verify_otp_digit_5"),
+                                    document.getElementById("verify_otp_digit_6")
+                                ];
+                                let verifyOTPBtn = document.getElementById("verify_otp_btn");
+
+                                if (verifyOTPForm) {
+                                    handleOTPInput(verifyOTPInputArr);
+
+                                    verifyOTPBtn.addEventListener("click", (e) => {
+                                        e.preventDefault();
+
+                                        if (validateOTPInput(verifyOTPInputArr, 6, "Please enter a 6-digit code.")) {
+                                            let otp = verifyOTPInputArr.map(input => input.value).join('');
+
+                                            $.ajax({
+                                                url: "{% url 'verify' %}",
+                                                type: "POST",
+                                                data: {
+                                                    'otp': otp,
+                                                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                                                },
+                                                dataType: 'json',
+                                                success: function (response) {
+                                                    if (response.success) {
+                                                        console.log("OTP verified successfully!");
+                                                        window.location.href = response.redirect_url;
+                                                    } else {
+                                                        console.log("Invalid OTP. Please try again.");
+                                                        createSnackbar({ msg: "Invalid OTP. Please try again.", status: UI_STATUS_FEEDBACK.error });
+                                                    }
+                                                },
+                                                error: function (xhr, status, error) {
+                                                    console.error("Error: " + error);
+                                                    createSnackbar({ msg: "Something went wrong.", status: UI_STATUS_FEEDBACK.error });
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            } else {
+                                if (data.message === "Email already exists.") {
+                                    alert(data.message);
+                                } else {
+                                    createSnackbar({ msg: data.message, status: UI_STATUS_FEEDBACK.error });
+                                }
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            removeLoader(verifySendOTPBtn);
+                            console.error("Error: " + error);
+                            createSnackbar({ msg: "Something went wrong.", status: UI_STATUS_FEEDBACK.error });
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
+
+</body>
+
+</html>

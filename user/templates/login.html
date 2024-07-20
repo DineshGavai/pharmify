@@ -1,32 +1,109 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <!-- TITLE -->
+    <title>Login - Pharmify</title>
+
+    <!-- FAVICON -->
+    <link rel="shortcut icon" href="{% static 'assets/logo/favicon.svg' %}" type="image/x-icon">
+
+    <!-- STYLE SHEET -->
+    <link rel="stylesheet" href="{% static 'style/main.css'%}">
+    <link rel="stylesheet" href="{% static 'style/authentication.css'%}">
+
+    <style>
+        main {
+            background-image: url("{% static 'assets/illus/login-bg.png' %}");
+        }
+    </style>
 </head>
 
 <body>
-    <form action="" method="post">
-        {% csrf_token %}
-        <label for="">Email</label>
-        <input type="email" name="email" id="">
-        <br>
-        <label for="">Password</label>
-        <input type="password" name="password" id="">
-        <br>
-        <button type="submit">Login</button>
-    </form>
+
+    <!-- MAIN STARTS -->
+    <main>
+
+        <!-- MAIN CONTENT STARTS -->
+        <section class="main-content">
+            <div class="logo" data-name="true"></div>
+
+            <form action="" method="post" id="login_form" name="login_form" novalidate>
+                {% csrf_token %}
+
+                <!-- Headlines -->
+                <h1 class="fs-600 center">Login</h1>
+                <p class="subtitle center">Sign in using your email and password. Your stock updates are waiting inside.
+                </p>
+
+                <!-- Email and Password Inputs -->
+                <!-- Email -->
+                <fieldset>
+                    <label for="login_email">Email</label>
+                    <input type="email" name="login_email" id="login_email" class="text-input"
+                        placeholder="you@email.com" autocomplete="email" required>
+                </fieldset>
+
+                <!-- Password -->
+                <fieldset>
+                    <label for="login_password">Password <a href="{% url 'password_reset' %}">Forgot?</a></label>
+                    <div class="icon-frame">
+                        <input type="password" name="login_password" id="login_password" class="text-input"
+                            placeholder="kept secret." autocomplete="current-password" required>
+                    </div>
+                </fieldset>
+
+                <!-- Login Button -->
+                <fieldset>
+                    <button class="primary" type="submit" id="login_btn">Login</button>
+                </fieldset>
 
 
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
-            {% endfor %}
-    </ul>
-    {% endif %}
+                <!-- Link to Sign up instead -->
+                <p class="subtitle center" style="margin-top: 1.6rem;">
+                <div class="divider"></div>
+                <div>New to Pharmify? <a href="{% url 'verifyEmail' %}" class="text-link">Create an Account</a>.</div>
+                </p>
+            </form>
+
+        </section>
+        <!-- MAIN CONTENT ENDS -->
+
+    </main>
+    <!-- MAIN ENDS -->
+
+    <script type="module" src="{% static 'script/main.js' %}"></script>
+    <script type="module">
+        import { UI_CLASS } from "{% static 'script/utils/const.js' %}";
+        import { setInputMsg, validateInput } from "{% static 'script/utils/inputs.js' %}";
+        import { setMsgIcons } from "{% static 'script/utils/utils.js' %}";
+
+        document.addEventListener("DOMContentLoaded", () => {
+
+            let loginForm = document.getElementById("login_form");
+            let loginEmailInput = document.getElementById("login_email");
+            let loginPasswordInput = document.getElementById("login_password");
+            let loginBtn = document.getElementById("login_btn");
+
+            loginBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+
+                let validationArray = [
+                    validateInput(loginEmailInput),
+                    validateInput(loginPasswordInput)
+                ];
+
+                if (!validationArray.includes(false)) {
+                    loginForm.submit();
+                }
+            })
+
+        });
+
+    </script>
 </body>
 
 </html>
