@@ -11,6 +11,8 @@
     {% if request.user.is_authenticated %}
     <h2>{{request.user}}</h2>
     <a href="{% url 'logout' %}">Logout</a>
+    <hr>
+    <a href="{% url 'add-stock' %}">Add Stock</a>
     {% else %}
     <a href="{% url 'login' %}">Login</a>
     <a href="{% url 'verifyEmail' %}">Register</a>

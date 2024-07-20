@@ -1,7 +1,6 @@
 import random
 from .models import *
 from .utils import *
-from .forms import *
 from django.urls import *
 from django.contrib.auth import authenticate, login as auth_login, logout
 from django.shortcuts import render, redirect
@@ -51,9 +50,12 @@ def logoutUser(request):
 
 def verifyEmail(request):
     if request.method == "POST":
+        user=None
         email = request.POST.get('email')
-        user=Owner.objects.get(email=email)
-        if user==None:
+        try: 
+            user=Owner.objects.get(email=email)
+            return JsonResponse({ "message": "Email Already Exist."}, status=200)
+        except:
             # for taking email directly after verification
             request.session['email']=email
             # Store OTP in session
@@ -66,8 +68,7 @@ def verifyEmail(request):
                 return JsonResponse({'success': True, 'html': otp_form_html})
             else:
                 return JsonResponse({'success': False}) #if seccess False alert disnar Failed to send OTP 
-        else:
-            return JsonResponse({ "message": "Email Already Exist."}, status=200)
+            
 
     
         
@@ -94,6 +95,8 @@ def signup(request):
         password1=request.POST.get('signup_create_password')
         password2=request.POST.get('signup_confirm_password')
         email=request.session.get('email')
+        first_name,last_name=name.split(' ',1)
+        
         
         if password1 != password2:
             return render(request, 'signup.html', {'error': 'Passwords do not match'})
@@ -101,6 +104,8 @@ def signup(request):
         
         user = Owner(
             name=name,
+            first_name=first_name,
+            last_name=last_name,            
             shop_name=shop_name,
             phone_number=phone_number,
             password=make_password(password1),  # Hash the password
