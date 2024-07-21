@@ -55,8 +55,8 @@ UTILITY CLASSES
 .center,
 .center-mobile {
   text-align: center;
-  margin: auto;
-  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 @media (min-width: 769px) {
@@ -68,7 +68,8 @@ UTILITY CLASSES
 
   .center-desk {
     text-align: center;
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
     width: fit-content;
   }
 }
@@ -81,6 +82,7 @@ UTILITY CLASSES
 
 .divider {
   border-top: 1px solid var(--clr-grey-divider);
+  width: 100%;
 }
 
 .empty-sec {
@@ -122,6 +124,7 @@ button,
 .snackbar,
 .snackbar .msg {
   display: flex;
+  align-items: center;
   gap: 0.4rem;
 }
 
@@ -132,7 +135,8 @@ button,
 .logo p {
   order: 2;
   font-family: var(--ff-head);
-  font-size: var(--fs-500);
+  font-size: var(--fs-600);
+  font-weight: 700;
 }
 
 .logo p,
@@ -144,8 +148,78 @@ button,
   color: transparent;
 }
 
+.logo[data-white="true"] p {
+  color: var(--clr-white);
+  background-image: var(--clr-white);
+}
+
+.logo[data-black="true"] p {
+  color: var(--clr-black);
+  background-image: var(--clr-black);
+}
+
 .gradient-accent {
   background-image: var(--gradient-accent);
+}
+
+/* STEPS ICON VISIBILITY */
+
+.step-sec .step {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.step.completed .pending,
+.step .completed {
+  display: none;
+}
+
+.step .pending,
+.step.completed .completed {
+  display: inline;
+}
+
+.step .pending,
+.step .completed,
+.step.completed {
+  color: var(--clr-primary-dark);
+}
+
+.password-conditions .pending {
+  color: currentColor;
+}
+
+.password-conditions {
+  width: 100%;
+  text-align: left;
+  background-color: var(--clr-white) !important;
+  border: 1px solid var(--clr-grey-divider);
+  padding: 0.8rem;
+  border-radius: 0.8rem;
+}
+
+/* /////////////////////////
+LOADERS
+///////////////////////// */
+
+.loader.spinner {
+  display: flex;
+  aspect-ratio: 1;
+  animation: spinner 1s infinite linear;
+}
+
+.loader.spinner.white path {
+  fill: var(--clr-white);
+}
+.loader.spinner.black path {
+  fill: var(--clr-black);
+}
+.loader.spinner.primary path {
+  fill: var(--clr-primary);
+}
+.loader.spinner.accent path {
+  fill: var(--clr-accent);
 }
 
 /* /////////////////////////
@@ -319,6 +393,15 @@ DIALOG COMPONENT
 }
 
 /* /////////////////////////
+PARENT CONTAINERS
+///////////////////////// */
+main {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden auto;
+}
+
+/* /////////////////////////
   ANIMATIONS
 ///////////////////////// */
 
@@ -391,5 +474,15 @@ DIALOG COMPONENT
   100% {
     opacity: 0;
     scale: 0.9;
+  }
+}
+
+/* LOADING ANIMATIONS */
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }

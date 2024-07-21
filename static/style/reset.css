@@ -3,7 +3,7 @@ IMPORTS and SETUPS
 ///////////////////////// */
 
 /* Fonts */
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
 :root {
   /* Colors */
@@ -11,7 +11,7 @@ IMPORTS and SETUPS
   --clr-primary-dark: #0b7e7f;
   --clr-primary: #1ba37d;
   --clr-primary-light: #35bc88;
-  --clr-primary-focus: #a4dacb;
+  --clr-primary-focus: #bbe3d8;
   --clr-primary-hover: #d1ede5;
 
   --gradient-primary: linear-gradient(
@@ -80,6 +80,7 @@ IMPORTS and SETUPS
   /* Font Families */
   --ff-body: "Roboto", sans-serif;
   --ff-head: "Poppins", sans-serif;
+  --ff-mono: "Roboto Mono", monospace;
 }
 
 /* /////////////////////////
@@ -147,10 +148,15 @@ body {
   }
 }
 
+*:disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
 /* TYPOGRAPHY */
 
 p {
-  text-wrap: balance;
+  text-wrap: pretty;
 }
 
 h1,
@@ -160,10 +166,10 @@ h4,
 h5,
 h6 {
   font-weight: 700;
-  margin-bottom: 0.8rem;
   font-family: var(--ff-head);
   color: var(--clr-black-light);
-  text-wrap: balance;
+  text-wrap: pretty;
+  width: 100%;
 }
 
 .ff-head {
@@ -257,13 +263,12 @@ a {
 a.text-link {
   text-decoration: underline;
   font-weight: 700;
-  color: var(--clr-primary);
+  color: var(--clr-accent);
   padding: 0.2rem;
 }
 
 a.text-link:hover {
   text-decoration: none;
-  color: var(--clr-accent);
 }
 
 ul {
@@ -275,4 +280,18 @@ ul {
 
 :is(ul, ol) li::marker {
   color: var(--clr-accent);
+}
+
+img.icon,
+svg.icon {
+  fill: none;
+  stroke: currentColor;
+  width: 2.4rem;
+  min-width: 2.4rem;
+  height: 2.4rem;
+  min-height: 2.4rem;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

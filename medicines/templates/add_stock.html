@@ -1,0 +1,85 @@
+{% include 'index.html' %}
+{% block content %}
+<main>
+    <h1>Add Stock</h1>
+
+    <form method="post" action="">
+        {% csrf_token %}
+
+        <div id="medicines-container">
+            <div class="medicine-entry">
+                <label for="seller_name">Seller Name:</label>
+                <input type="text" id="seller_name" name="seller_name[]" maxlength="100" required><br><br>
+
+                <label for="name">Medicine Name:</label>
+                <input type="text" id="name" name="name[]" maxlength="100" required><br><br>
+
+                <label for="manufacture_date">Manufacture Date:</label>
+                <input type="date" id="manufacture_date" name="manufacture_date[]" required><br><br>
+
+                <label for="expiry_date">Expiry Date:</label>
+                <input type="date" id="expiry_date" name="expiry_date[]" required><br><br>
+
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" name="quantity[]" required><br><br>
+
+                <label for="price">Price:</label>
+                <input type="number" step="0.01" id="price" name="price[]" required><br><br>
+            </div>
+        </div>
+
+        <button type="button" onclick="addMedicine()">Add Another Medicine</button><br><br>
+        <button type="submit">Add Medicines</button>
+    </form>
+
+    <table id="medicines-table" border="1">
+        <thead>
+            <tr>
+                <th>Seller Name</th>
+                <th>Medicine Name</th>
+                <th>Manufacture Date</th>
+                <th>Expiry Date</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Rows will be added here by JavaScript -->
+        </tbody>
+    </table>
+
+    <script>
+        function addMedicine() {
+            const container = document.getElementById('medicines-container');
+            const tableBody = document.getElementById('medicines-table').getElementsByTagName('tbody')[0];
+            const medicineEntry = container.querySelector('.medicine-entry');
+
+            const sellerName = medicineEntry.querySelector('[name="seller_name[]"]').value;
+            const name = medicineEntry.querySelector('[name="name[]"]').value;
+            const manufactureDate = medicineEntry.querySelector('[name="manufacture_date[]"]').value;
+            const expiryDate = medicineEntry.querySelector('[name="expiry_date[]"]').value;
+            const quantity = medicineEntry.querySelector('[name="quantity[]"]').value;
+            const price = medicineEntry.querySelector('[name="price[]"]').value;
+
+            // Add a new row to the table with the entered values
+            const newRow = tableBody.insertRow();
+            newRow.innerHTML = `
+                <td>${sellerName}</td>
+                <td>${name}</td>
+                <td>${manufactureDate}</td>
+                <td>${expiryDate}</td>
+                <td>${quantity}</td>
+                <td>${price}</td>
+            `;
+
+            // Clear the input fields for new entries
+            medicineEntry.querySelector('[name="seller_name[]"]').value = '';
+            medicineEntry.querySelector('[name="name[]"]').value = '';
+            medicineEntry.querySelector('[name="manufacture_date[]"]').value = '';
+            medicineEntry.querySelector('[name="expiry_date[]"]').value = '';
+            medicineEntry.querySelector('[name="quantity[]"]').value = '';
+            medicineEntry.querySelector('[name="price[]"]').value = '';
+        }
+    </script>
+</main>
+{% endblock %}
