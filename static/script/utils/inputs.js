@@ -158,8 +158,8 @@ export function refreshInputs() {
         "icon"
       );
       passwordVisibilityBtn.innerHTML = `
-            <img src="../static/assets/eye.png" class="eye">
-            <img src="../static/assets/eye-slash.png" class="eye-slash">
+            <img src="/static/assets/eye.png" class="eye">
+            <img src="/static/assets/eye-slash.png" class="eye-slash">
             `;
 
       // Get Parent Element of current Password Input and  append Eye button in it.
@@ -293,34 +293,34 @@ export function showPasswordConditions(passwordInput, conditionBox) {
       <div class="password-conditions subtitle step-sec">
         <p><b class="gradient-accent">Password Conditions</b></p>
         <p class="step" id="password_length">
-            <svg class="icon pending"><use href="../static/assets/icon-sprite.svg#circle-small" /></svg>
-            <svg class="icon completed"><use href="../static/assets/icon-sprite.svg#check" /></svg>
+            <svg class="icon pending"><use href="/static/assets/icon-sprite.svg#circle-small" /></svg>
+            <svg class="icon completed"><use href="/static/assets/icon-sprite.svg#check" /></svg>
             <span>Password must be 7 to 16 characters long.</span>
         </p>
         <p class="step" id="password_spaces">
-            <svg class="icon pending"><use href="../static/assets/icon-sprite.svg#circle-small" /></svg>
-            <svg class="icon completed"><use href="../static/assets/icon-sprite.svg#check" /></svg>
+            <svg class="icon pending"><use href="/static/assets/icon-sprite.svg#circle-small" /></svg>
+            <svg class="icon completed"><use href="/static/assets/icon-sprite.svg#check" /></svg>
             <span>Password must <b>not</b> contain spaces.</span>
         </p>
         <p><b>It must contain:</b></p>
         <p class="step" id="password_uppercase">
-            <svg class="icon pending"><use href="../static/assets/icon-sprite.svg#circle-small" /></svg>
-            <svg class="icon completed"><use href="../static/assets/icon-sprite.svg#check" /></svg>
+            <svg class="icon pending"><use href="/static/assets/icon-sprite.svg#circle-small" /></svg>
+            <svg class="icon completed"><use href="/static/assets/icon-sprite.svg#check" /></svg>
             <span>At least one uppercase alphabet.</span>
         </p>
         <p class="step" id="password_lowercase">
-            <svg class="icon pending"><use href="../static/assets/icon-sprite.svg#circle-small" /></svg>
-            <svg class="icon completed"><use href="../static/assets/icon-sprite.svg#check" /></svg>
+            <svg class="icon pending"><use href="/static/assets/icon-sprite.svg#circle-small" /></svg>
+            <svg class="icon completed"><use href="/static/assets/icon-sprite.svg#check" /></svg>
             <span>At least one lowercase alphabet.</span>
         </p>
         <p class="step" id="password_number">
-            <svg class="icon pending"><use href="../static/assets/icon-sprite.svg#circle-small" /></svg>
-            <svg class="icon completed"><use href="../static/assets/icon-sprite.svg#check" /></svg>
+            <svg class="icon pending"><use href="/static/assets/icon-sprite.svg#circle-small" /></svg>
+            <svg class="icon completed"><use href="/static/assets/icon-sprite.svg#check" /></svg>
             <span>At least a number.</span>
         </p>
         <p class="step" id="password_symbol">
-            <svg class="icon pending"><use href="../static/assets/icon-sprite.svg#circle-small" /></svg>
-            <svg class="icon completed"><use href="../static/assets/icon-sprite.svg#check" /></svg>
+            <svg class="icon pending"><use href="/static/assets/icon-sprite.svg#circle-small" /></svg>
+            <svg class="icon completed"><use href="/static/assets/icon-sprite.svg#check" /></svg>
             <span>At least one symbol.</span>
         </p>
       </div>      

@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
       type = "-black";
     }
 
-    img.src = `../static/assets/logo/logo${type}.svg`;
+    img.src = `/static/assets/logo/logo${type}.svg`;
     switch (logo.getAttribute("data-size")) {
       default:
       case UI_SIZE.xs:
