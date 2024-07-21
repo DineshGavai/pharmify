@@ -118,6 +118,10 @@ button.text {
   color: var(--clr-accent);
 }
 
+p button.text {
+  display: inline;
+}
+
 button.ghost:hover,
 button.text:hover {
   background-color: var(--clr-grey-bg);

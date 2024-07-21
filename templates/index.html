@@ -17,6 +17,13 @@
 </head>
 
 <body>
+    {% if request.user.is_authenticated %}
+    <p class="fs-400">{{request.user}}</p>
+    <button class="primary"><a href="{% url 'logout' %}">Logout</a></button>
+    {% else %}
+    <button class="primary"><a href="{% url 'login' %}">Login</a></button>
+    <button class="primary"><a href="{% url 'verifyEmail' %}">Register</a></button>
+    {% endif %}
 
 
     <script type="module" src="{% static 'script/main.js' %}"></script>
