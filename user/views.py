@@ -11,14 +11,8 @@ from django.template.loader import render_to_string
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.views import PasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
-from django.core.mail import send_mail
-from django.utils.http import urlsafe_base64_encode
 from django.views.generic.edit import FormView
 from django.contrib.auth.tokens import default_token_generator
-from django.utils.encoding import force_bytes
-
-
-
 
 
 def loginUser(request):
@@ -30,15 +24,15 @@ def loginUser(request):
         print(password)
         try:
             user=Owner.objects.get(email=email)
+            user=authenticate(request,email=email,password=password)    
+            if user is not None:
+                auth_login(request,user)
+                return redirect('index')
+            else:
+                messages.error(request,"Password does not match")
         except:
             messages.error(request,"User not found")
-        
-        user=authenticate(request,email=email,password=password)
-        if user is not None:
-            auth_login(request,user)
-            return redirect('index')
-        else:
-            messages.error(request,"Password does not match")
+            
     return render(request, 'login.html')
 
 

@@ -77,5 +77,5 @@ export function setMsgIcons(elem, iconName) {
 
 // Get SVG SPRITE FILE ICONS PATH
 export function getIconFromSprite(iconName) {
-  return `<svg class="icon"><use href="../static/assets/icon-sprite.svg#${iconName}"/></svg>`
+  return `<svg class="icon"><use href="/static/assets/icon-sprite.svg#${iconName}"/></svg>`
 }
