@@ -17,24 +17,119 @@
 </head>
 
 <body>
-    {% if request.user.is_authenticated %}
-    <p class="fs-400">{{request.user}}</p>
-    <button class="primary"><a href="{% url 'logout' %}">Logout</a></button>
-    {% else %}
-    <button class="primary"><a href="{% url 'login' %}">Login</a></button>
-    <button class="primary"><a href="{% url 'verifyEmail' %}">Register</a></button>
-    {% endif %}
 
+    <!-- NAVBAR STARTS -->
+    <nav>
+        <!-- NAVBAR BODY STARTS -->
+        <section class="nav-body">
+            <!-- Header -->
+            <header>
+                <button class="icon" style="margin-left: auto;">
+                    <svg class="icon">
+                        <use href="{% static 'assets/icon-sprite.svg' %}#chevron-circle-left" />
+                    </svg>
+                </button>
+            </header>
+            
+            <!-- Navbar Content STARTS -->
+            <section class="nav-content">
+                <!-- User Info and Edit profile link -->
+                <menu>
+                    <a class="menu-item user-info" href="#">
+                        <picture><img src="{% static 'assets/illus/default-avatar-male.png' %}"
+                                alt="Your profile photo"></picture>
+                        <div>
+                            <p class="user-info-full-name">Vedant Mali</p>
+                            <p class="user-info-email gradient-primary subtitle">vedantmali05@gmail.com</p>
+                        </div>
+                    </a>
+                </menu>
 
+                <!-- Pages options -->
+                <menu>
+                    <!-- Home -->
+                    <a href="#" class="menu-item active">
+                        <svg class="icon">
+                            <use href="{% static 'assets/icon-sprite.svg' %}#pages-home" />
+                        </svg>
+                        Home
+                        <span class="badge"></span>
+                    </a>
+                    <!-- Bills -->
+                    <a href="#" class="menu-item">
+                        <svg class="icon">
+                            <use href="{% static 'assets/icon-sprite.svg' %}#pages-bills" />
+                        </svg>
+                        Bills
+                        <span class="badge"></span>
+                    </a>
+                    <!-- Stocks -->
+                    <div class="menu-item visible">
+                        <svg class="icon">
+                            <use href="{% static 'assets/icon-sprite.svg' %}#pages-stocks" />
+                        </svg>
+                        Stocks
+                        <span class="badge"></span>
+                        <svg class="icon chevron">
+                            <use href="{% static 'assets/icon-sprite.svg' %}#chevron-down" />
+                        </svg>
+                    </div>
+                    <menu class="submenu">
+                        <a href="#" class="menu-item">Stock History</a>
+                        <a href="#" class="menu-item">Add New Stocks</a>
+                    </menu>
+                    <!-- Insights -->
+                    <div class="menu-item">
+                        <svg class="icon">
+                            <use href="{% static 'assets/icon-sprite.svg' %}#pages-insights" />
+                        </svg>
+                        Insights
+                        <span class="badge"></span>
+                        <svg class="icon chevron">
+                            <use href="{% static 'assets/icon-sprite.svg' %}#chevron-down" />
+                        </svg>
+                    </div>
+                    <menu class="submenu">
+                        <a href="#" class="menu-item">Sales</a>
+                        <a href="#" class="menu-item">Purchases</a>
+                    </menu>
+                    <!-- Patients -->
+                    <a href="#" class="menu-item">
+                        <svg class="icon">
+                            <use href="{% static 'assets/icon-sprite.svg' %}#pages-patients" />
+                        </svg>
+                        Patients
+                        <span class="badge"></span>
+                    </a>
+                </menu>
+                
+            </section>
+            <!-- Navbar Content ENDS -->
+            
+            <footer>
+                <button class="icon" style="margin-left: auto;">
+                    <svg class="icon">
+                        <use href="{% static 'assets/icon-sprite.svg' %}#pages-settings" />
+                    </svg>
+                </button>
+            </footer>
+        </section>
+        <!-- NAVBAR BODY ENDS -->
+    </nav>
+    <!-- NAVBAR ENDS -->
+    
+    
+    
     <script type="module" src="{% static 'script/main.js' %}"></script>
+    
 </body>
 
 </html>
 
 <!-- {% if request.user.is_authenticated %}
-    <h2>{{request.user}}</h2>
-    <a href="{% url 'logout' %}">Logout</a>
-    {% else %}
-    <a href="{% url 'login' %}">Login</a>
-    <a href="{% url 'verifyEmail' %}">Register</a>
+<p class="fs-400">{{request.user}}</p>
+<button class="primary"><a href="{% url 'logout' %}">Logout</a></button>
+{% else %}
+    <button class="primary"><a href="{% url 'login' %}">Login</a></button>
+    <button class="primary"><a href="{% url 'verifyEmail' %}">Register</a></button>
     {% endif %} -->

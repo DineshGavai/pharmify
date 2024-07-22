@@ -1,4 +1,5 @@
 import { UI_STATUS_FEEDBACK, UI_LOADER, UI_SIZE } from "./const.js";
+import { setMsgIcons } from "./utils.js";
 
 /* ///////////////
     COMPONENTS
@@ -71,8 +72,9 @@ export function createSnackbar(options = {}) {
     // Close button, if undo() exists, else just close
     let closeBtn = undo
         ? `<button class="text close-snackbar-btn undo-btn">Undo</button>`
-        : `<button class="icon close-snackbar-btn"><i class="bi bi-x-lg"></i></button>`;
+        : `<button class="icon close-snackbar-btn"><svg class="icon"><use href="/static/assets/icon-sprite.svg#cross" /></svg></button>`;
     snackbar.innerHTML = `<p class="fs-400 msg">${msg}</p> ${closeBtn}`;
+    // setMsgIcons(snackbar.querySelector(".msg"), status);
     document.querySelector(".snackbar-sec").prepend(snackbar);
 
     // SNACKBAR CLOSING - Automatic - Add animation and remove

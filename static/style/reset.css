@@ -48,7 +48,7 @@ IMPORTS and SETUPS
   --clr-status-info-light-bg: #cce8ed;
   --clr-status-info-dark-bg: #002a32;
   --clr-status-info-light-text: #017f95;
-  --clr-status-info-dark-text: #34a4b7;
+  --clr-status-info-dark-text: #00b8d8;
   /* Success */
   --clr-status-success-light-bg: #ccf9e1;
   --clr-status-success-dark-bg: #00431f;
@@ -63,7 +63,7 @@ IMPORTS and SETUPS
   --clr-status-negative-light-bg: #f3d0cc;
   --clr-status-negative-dark-bg: #6a0b00;
   --clr-status-negative-light-text: #ae1100;
-  --clr-status-negative-dark-text: #cd4233;
+  --clr-status-negative-dark-text: #ff1900;
 
   /* Font-Sizes */
   --fs-100: 1rem;
@@ -110,7 +110,7 @@ html {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  z-index: 10;
+  z-index: 0;
   transition: all 0.2s linear;
 }
 

@@ -3,10 +3,48 @@
     <defs>
         <!-- PAGES ICONS -->
         <!-- Home -->
-        <symbol id="home" viewBox="0 0 24 24">
+        <symbol id="pages-home" viewBox="0 0 24 24">
             <path
                 d="M2.5 10.9384C2.5 9.71422 3.06058 8.55744 4.02142 7.79888L9.52142 3.45677C10.9747 2.30948 13.0253 2.30948 14.4786 3.45677L19.9786 7.79888C20.9394 8.55744 21.5 9.71422 21.5 10.9384V17.5C21.5 19.7091 19.7091 21.5 17.5 21.5H16C15.4477 21.5 15 21.0523 15 20.5V17.5C15 16.3954 14.1046 15.5 13 15.5H11C9.89543 15.5 9 16.3954 9 17.5V20.5C9 21.0523 8.55228 21.5 8 21.5H6.5C4.29086 21.5 2.5 19.7091 2.5 17.5L2.5 10.9384Z"
                 stroke-width="2" />
+        </symbol>
+
+        <!-- Bills -->
+        <symbol id="pages-bills" viewBox="0 0 24 24">
+            <rect x="2" y="6" width="20" height="16" rx="5" stroke-width="2" />
+            <path
+                d="M19 6.5V6.5C19 4.17692 16.8678 2.43898 14.5924 2.90744L5.99174 4.67817C3.66769 5.15665 2 7.20267 2 9.57546L2 13"
+                stroke-width="2" />
+            <path d="M6 17.5H12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M15 14C15 12.6193 16.1193 11.5 17.5 11.5H22V16.5H17.5C16.1193 16.5 15 15.3807 15 14V14Z"
+                stroke-width="2" />
+            <path d="M17.5 14H17.7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </symbol>
+        <!-- Stocks -->
+        <symbol id="pages-stocks" viewBox="0 0 24 24">
+            <path d="M4 8H20V18C20 19.1046 19.1046 20 18 20H6C4.89543 20 4 19.1046 4 18V8Z" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M8 4H16L20 8H4L8 4Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M8 12H12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </symbol>
+        <!-- Insights -->
+        <symbol id="pages-insights" viewBox="0 0 24 24">
+            <path
+                d="M9 11V20M9 11H4.59961C4.03956 11 3.75981 11 3.5459 11.109C3.35774 11.2049 3.20487 11.3577 3.10899 11.5459C3 11.7598 3 12.04 3 12.6001V20H9M9 11V5.6001C9 5.04004 9 4.75981 9.10899 4.5459C9.20487 4.35774 9.35774 4.20487 9.5459 4.10899C9.75981 4 10.0396 4 10.5996 4H13.3996C13.9597 4 14.2403 4 14.4542 4.10899C14.6423 4.20487 14.7948 4.35774 14.8906 4.5459C14.9996 4.75981 15 5.04005 15 5.6001V8M9 20H15M15 20L21 20.0001V9.6001C21 9.04005 20.9996 8.75981 20.8906 8.5459C20.7948 8.35774 20.6429 8.20487 20.4548 8.10899C20.2409 8 19.9601 8 19.4 8H15M15 20V8"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+
+        </symbol>
+        <!-- Patients -->
+        <symbol id="pages-patients" viewBox="0 0 24 24">
+            <path
+                d="M21 19.9999C21 18.2583 19.3304 16.7767 17 16.2275M15 20C15 17.7909 12.3137 16 9 16C5.68629 16 3 17.7909 3 20M15 13C17.2091 13 19 11.2091 19 9C19 6.79086 17.2091 5 15 5M9 13C6.79086 13 5 11.2091 5 9C5 6.79086 6.79086 5 9 5C11.2091 5 13 6.79086 13 9C13 11.2091 11.2091 13 9 13Z"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </symbol>
+        <!-- Settings -->
+        <symbol id="pages-settings" viewBox="0 0 24 24">
+            <path
+                d="M9 17V17C9 18.933 10.567 20.5 12.5 20.5H17C19.2091 20.5 21 18.7091 21 16.5V7.5C21 5.29086 19.2091 3.5 17 3.5H12.5C10.567 3.5 9 5.067 9 7V7M15 12H3.5M3.5 12L6 15M3.5 12L6 9"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
         </symbol>
 
         <!-- FEEDBACK AND STATUS ICONS -->
@@ -44,7 +82,7 @@
                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
         </symbol>
 
-        <!-- BUTTON ICONS -->
+        <!-- OTHER ICONS -->
         <!-- Eye - Show Password Icon -->
         <symbol id="eye" viewBox="0 0 24 24">
             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -93,6 +131,25 @@
                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
         </symbol>
 
+        <!-- CROSS -->
+        <symbol id="cross" viewBox="0 0 24 24">
+            <path d="M16 16L12 12M12 12L8 8M12 12L16 8M12 12L8 16" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+        </symbol>
+
+        <!-- Edit -->
+        <symbol id="edit" viewBox="0 0 24 24">
+            <path d="M21 13V17C21 19.7614 18.7614 22 16 22H8C5.23858 22 3 19.7614 3 17V9C3 6.23858 5.23858 4 8 4H12"
+                stroke-width="2" stroke-linecap="round" />
+            <path
+                d="M17.172 3.28601C17.9525 2.50437 19.2183 2.50389 19.9994 3.28494L21.4886 4.77419C22.263 5.54858 22.2711 6.80222 21.5067 7.58649L14.4467 14.8301C13.8823 15.4092 13.1082 15.7357 12.2998 15.7357L10.6026 15.7356C9.74977 15.7356 9.06869 15.0246 9.10456 14.1719L9.17865 12.4104C9.21025 11.6592 9.52248 10.9472 10.0535 10.4153L17.172 3.28601Z"
+                stroke-width="2" />
+            <path d="M15.7298 4.86846L19.7438 8.88245" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+        </symbol>
+
+
+
         <!-- ARROWS -->
         <!-- Arrow Right -->
         <symbol id="arrow-right" viewBox="0 0 24 24">
@@ -113,6 +170,23 @@
         <symbol id="arrow-down" viewBox="0 0 24 24">
             <path d="M12 19L12 5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
             <path d="M5 12L12 19L19 12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </symbol>
+
+        <!-- CHEVRONS -->
+        <!-- Chevron left -->
+        <symbol id="chevron-left" viewBox="0 0 24 24">
+            <path d="M14 7L9 12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M9 12L14 17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </symbol>
+        <!-- Chevron down -->
+        <symbol id="chevron-down" viewBox="0 0 24 24">
+            <path d="M7 10L12 15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M12 15L17 10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </symbol>
+        <!-- Chevron Circle left -->
+        <symbol id="chevron-circle-left" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M13 9L10 12L13 15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
         </symbol>
 
         <!-- SHAPES -->
