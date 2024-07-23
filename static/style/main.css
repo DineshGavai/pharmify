@@ -146,7 +146,7 @@ menu .menu-item {
   background-image: var(--gradient-primary);
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
+  color: transparent !important;
 }
 
 .logo[data-white="true"] p {
@@ -415,6 +415,7 @@ nav {
 }
 
 .nav-body {
+  position: fixed;
   width: 100%;
   max-width: 28rem;
   height: 100vh;
@@ -422,6 +423,43 @@ nav {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  overflow-x: hidden;
+  left: -10%;
+}
+
+nav.visible .nav-body {
+  left: 0;
+}
+
+button.icon.nav-open-btn {
+  position: fixed;
+  z-index: 9;
+  background-color: var(--clr-primary);
+  color: var(--clr-white);
+  top: 0.4rem;
+  left: 0;
+  border-radius: 0 100rem 100rem 0 !important;
+  width: 4.8rem !important;
+  min-width: 4.8rem !important;
+  padding-left: 0.4rem;
+}
+
+button.icon.nav-open-btn:active {
+  transform: translateX(-0.4rem);
+  scale: 1;
+}
+
+nav,
+.nav-open-btn.visible,
+nav .nav-close-btn {
+  visibility: hidden;
+  opacity: 0;
+}
+nav.visible,
+.nav-open-btn,
+nav.visible .nav-close-btn {
+  visibility: visible;
+  opacity: 1;
 }
 
 .nav-body :is(header, footer) {
@@ -456,6 +494,7 @@ menu .menu-item {
   justify-content: start;
   gap: 1.2rem;
   cursor: pointer;
+  overflow: hidden;
 }
 
 menu .menu-item.active {
@@ -493,7 +532,7 @@ menu .menu-item.active:hover {
 }
 
 .menu-item.user-info picture {
-  --size: 3.2rem;
+  --size: 4rem;
   width: var(--size);
   min-width: var(--size);
   aspect-ratio: 1;
@@ -522,6 +561,72 @@ menu .menu-item.visible + .submenu {
 
 .nav-body footer {
   padding: 1.6rem;
+  padding-top: 0.4rem;
+}
+
+.nav-body footer menu {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+.nav-body footer .menu-item {
+  gap: 0.4rem;
+}
+
+nav footer .subtitle {
+  text-wrap: nowrap;
+}
+
+@media (min-width: 425px) {
+  nav {
+    position: static;
+    max-width: 6.4rem;
+    overflow: hidden;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .nav-body {
+    position: static;
+    max-width: 6.4rem;
+    border-right: 1px solid var(--clr-grey-divider);
+  }
+
+  nav.visible,
+  nav.visible .nav-body {
+    max-width: 28rem;
+  }
+
+  .nav-body :is(header, .nav-content, footer) {
+    padding: 0.4rem;
+  }
+
+  nav:not(.visible) menu .menu-item {
+    max-width: 4rem;
+  }
+
+  nav:not(.visible) menu .menu-item.user-info {
+    max-width: 4.8rem;
+  }
+
+  nav.visible menu .menu-item,
+  nav.visible menu .menu-item.user-info {
+    max-width: 100rem;
+  }
+  nav:not(.visible) footer menu {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  nav:not(.visible) footer .menu-item {
+    gap: 0.8rem;
+  }
+
+  nav:not(.visible) footer .subtitle {
+    display: none;
+  }
 }
 
 /* /////////////////////////

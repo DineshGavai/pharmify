@@ -146,6 +146,20 @@ document.addEventListener("DOMContentLoaded", function () {
     Navigation Bar
   /////////////// */
 
-  
+  let navbar = document.querySelector("nav");
+  let navOpenBtn = document.querySelector(".nav-open-btn");
+  let navCloseBtn = document.querySelector(".nav-close-btn");
+
+  navOpenBtn?.addEventListener("click", () => {
+    navbar.classList.add("visible");
+    navOpenBtn.classList.add("visible");
+  })
+  navCloseBtn?.addEventListener("click", () => {
+    navbar.classList.remove("visible");
+    navOpenBtn.classList.remove("visible");
+  })
+
+
+
 
 });

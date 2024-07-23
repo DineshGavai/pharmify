@@ -16,7 +16,7 @@ IMPORTS and SETUPS
 
   --gradient-primary: linear-gradient(
     90deg,
-    var(--clr-primary-light),
+    var(--clr-primary),
     var(--clr-primary-dark)
   );
   /* Accent */
@@ -27,7 +27,7 @@ IMPORTS and SETUPS
   --clr-accent-hover: #cde7f9;
   --gradient-accent: linear-gradient(
     -180deg,
-    var(--clr-accent-light),
+    var(--clr-accent),
     var(--clr-accent)
   );
 

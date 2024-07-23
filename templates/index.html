@@ -18,19 +18,28 @@
 
 <body>
 
+    <button class="icon nav-open-btn">
+        <svg class="icon">
+            <use href="{% static 'assets/icon-sprite.svg' %}#menu-hamburger" />
+        </svg>
+    </button>
+
     <!-- NAVBAR STARTS -->
     <nav>
+        <!-- class="visible" -->
+
+
         <!-- NAVBAR BODY STARTS -->
         <section class="nav-body">
             <!-- Header -->
             <header>
-                <button class="icon" style="margin-left: auto;">
+                <button class="icon nav-close-btn" style="margin-left: auto;">
                     <svg class="icon">
-                        <use href="{% static 'assets/icon-sprite.svg' %}#chevron-circle-left" />
+                        <use href="{% static 'assets/icon-sprite.svg' %}#chevron-left" />
                     </svg>
                 </button>
             </header>
-            
+
             <!-- Navbar Content STARTS -->
             <section class="nav-content">
                 <!-- User Info and Edit profile link -->
@@ -40,7 +49,7 @@
                                 alt="Your profile photo"></picture>
                         <div>
                             <p class="user-info-full-name">Vedant Mali</p>
-                            <p class="user-info-email gradient-primary subtitle">vedantmali05@gmail.com</p>
+                            <b class="user-info-email subtitle gradient-primary">vedantmali05@gmail.com</b>
                         </div>
                     </a>
                 </menu>
@@ -64,7 +73,7 @@
                         <span class="badge"></span>
                     </a>
                     <!-- Stocks -->
-                    <div class="menu-item visible">
+                    <div class="menu-item">
                         <svg class="icon">
                             <use href="{% static 'assets/icon-sprite.svg' %}#pages-stocks" />
                         </svg>
@@ -102,26 +111,46 @@
                         <span class="badge"></span>
                     </a>
                 </menu>
-                
+
             </section>
             <!-- Navbar Content ENDS -->
-            
+
             <footer>
-                <button class="icon" style="margin-left: auto;">
-                    <svg class="icon">
-                        <use href="{% static 'assets/icon-sprite.svg' %}#pages-settings" />
-                    </svg>
-                </button>
+                <menu>
+                    <button class="icon negative">
+                        <svg class="icon">
+                            <use href="{% static 'assets/icon-sprite.svg' %}#pages-logout" />
+                        </svg>
+                    </button>
+                    <a href="#" class="menu-item">
+                        <svg class="icon">
+                            <use href="{% static 'assets/icon-sprite.svg' %}#pages-settings" />
+                        </svg>
+                        Settings
+                    </a>
+                </menu>
+                <p class="subtitle">
+                    <a href="#" class="text-link">About Us</a>
+                    <b>·</b>
+                    <a href="#" class="text-link">Terms</a>
+                    <b>·</b>
+                    <a href="#" class="text-link">Privacy Policy</a>
+                </p>
+                <b class="subtitle">
+                    <a href="https://github.com/DineshGavai" class="text-link gradient-primary">Dinesh Gavai</a>
+                    <b>·</b>
+                    <a href="https://github.com/vedantmali05" class="text-link gradient-primary">Vedant Mali</a>
+                </b>
             </footer>
         </section>
         <!-- NAVBAR BODY ENDS -->
     </nav>
     <!-- NAVBAR ENDS -->
-    
-    
-    
+
+
+
     <script type="module" src="{% static 'script/main.js' %}"></script>
-    
+
 </body>
 
 </html>
