@@ -10,10 +10,14 @@ button a {
   font-size: var(--fs-400);
   gap: 0.4rem;
   min-width: fit-content;
+  padding: 0.8rem 1.6rem;
+}
+
+button:has(a) {
+  padding: 0;
 }
 
 button {
-  padding: 0.8rem 1.6rem;
   text-wrap: nowrap;
   text-transform: capitalize;
   letter-spacing: 1.1px;
@@ -89,7 +93,7 @@ button:has(.loader.spinner):disabled > *:not(:last-child) {
 
 button.fab {
   position: fixed;
-  z-index: 15;
+  z-index: 1;
   bottom: 1.6rem;
   right: 1.6rem;
   border-radius: 50%;
@@ -320,7 +324,6 @@ fieldset .icon-frame {
   border-radius: 0.8rem 0.8rem 0 0;
   background-color: var(--clr-grey-bg);
   border-bottom: 2px solid var(--clr-primary-light);
-  z-index: 10;
   font-size: var(--fs-400);
 }
 

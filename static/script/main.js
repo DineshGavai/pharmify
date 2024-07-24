@@ -1,10 +1,12 @@
 "use strict";
 
+import { createSnackbar } from "./utils/components.js";
 import {
   UI_CLASS,
   UI_SIZE,
   DATE_WEEK_DAYS,
   DATE_MONTHS_SHORT,
+  UI_STATUS_FEEDBACK,
 } from "./utils/const.js";
 import { refreshInputs } from "./utils/inputs.js";
 import { toTwoDigit, setTitleAttr, setMsgIcons } from "./utils/utils.js";
@@ -138,4 +140,39 @@ document.addEventListener("DOMContentLoaded", function () {
       )} ${meridian}`;
     });
   }, 1000);
+
+
+  /* ///////////////
+    Navigation Bar
+  /////////////// */
+
+  let navbar = document.querySelector("nav");
+  let navOpenBtn = document.querySelector(".nav-open-btn");
+  let navCloseBtn = document.querySelector(".nav-close-btn");
+
+  navOpenBtn?.addEventListener("click", () => {
+    navbar.classList.add("visible");
+    navOpenBtn.classList.add("visible");
+  })
+  navCloseBtn?.addEventListener("click", () => {
+    navbar.classList.remove("visible");
+    navOpenBtn.classList.remove("visible");
+  })
+
+
+  let dropDownNavItems = document.querySelectorAll("nav .has-submenu");
+  let navSubmenus = document.querySelectorAll("submenu");
+
+  if (dropDownNavItems) {
+    dropDownNavItems.forEach(menuItem => {
+      menuItem?.addEventListener("click", () => {
+        menuItem.classList.toggle("visible");
+      });
+    })
+  }
+
+
+
+
+
 });
