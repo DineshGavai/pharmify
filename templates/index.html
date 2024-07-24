@@ -33,7 +33,7 @@
         <section class="nav-body">
             <!-- Header -->
             <header>
-                <button class="icon nav-close-btn" style="margin-left: auto;">
+                <button class="icon nav-close-btn">
                     <svg class="icon">
                         <use href="{% static 'assets/icon-sprite.svg' %}#chevron-left" />
                     </svg>
@@ -73,7 +73,7 @@
                         <span class="badge"></span>
                     </a>
                     <!-- Stocks -->
-                    <div class="menu-item">
+                    <div class="menu-item has-submenu">
                         <svg class="icon">
                             <use href="{% static 'assets/icon-sprite.svg' %}#pages-stocks" />
                         </svg>
@@ -88,7 +88,7 @@
                         <a href="#" class="menu-item">Add New Stocks</a>
                     </menu>
                     <!-- Insights -->
-                    <div class="menu-item">
+                    <div class="menu-item has-submenu">
                         <svg class="icon">
                             <use href="{% static 'assets/icon-sprite.svg' %}#pages-insights" />
                         </svg>
@@ -118,9 +118,11 @@
             <footer>
                 <menu>
                     <button class="icon negative">
-                        <svg class="icon">
-                            <use href="{% static 'assets/icon-sprite.svg' %}#pages-logout" />
-                        </svg>
+                        <a href="{% url 'logout' %}">
+                            <svg class="icon">
+                                <use href="{% static 'assets/icon-sprite.svg' %}#pages-logout" />
+                            </svg>
+                        </a>
                     </button>
                     <a href="#" class="menu-item">
                         <svg class="icon">
@@ -129,14 +131,14 @@
                         Settings
                     </a>
                 </menu>
-                <p class="subtitle">
+                <p class="fs-200">
                     <a href="#" class="text-link">About Us</a>
                     <b>·</b>
                     <a href="#" class="text-link">Terms</a>
                     <b>·</b>
                     <a href="#" class="text-link">Privacy Policy</a>
                 </p>
-                <b class="subtitle">
+                <b class="fs-200">
                     <a href="https://github.com/DineshGavai" class="text-link gradient-primary">Dinesh Gavai</a>
                     <b>·</b>
                     <a href="https://github.com/vedantmali05" class="text-link gradient-primary">Vedant Mali</a>

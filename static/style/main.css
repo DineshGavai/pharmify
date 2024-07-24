@@ -431,6 +431,10 @@ nav.visible .nav-body {
   left: 0;
 }
 
+.nav-close-btn {
+  margin-left: auto;
+}
+
 button.icon.nav-open-btn {
   position: fixed;
   z-index: 9;
@@ -439,9 +443,9 @@ button.icon.nav-open-btn {
   top: 0.4rem;
   left: 0;
   border-radius: 0 100rem 100rem 0 !important;
-  width: 4.8rem !important;
-  min-width: 4.8rem !important;
-  padding-left: 0.4rem;
+  width: 5.2rem !important;
+  min-width: 5.2rem !important;
+  padding-left: 1.2rem;
 }
 
 button.icon.nav-open-btn:active {
@@ -556,7 +560,7 @@ menu .menu-item.visible svg.chevron {
 }
 
 menu .menu-item.visible + .submenu {
-  max-height: 100rem;
+  max-height: 30rem;
 }
 
 .nav-body footer {
@@ -575,7 +579,7 @@ menu .menu-item.visible + .submenu {
   gap: 0.4rem;
 }
 
-nav footer .subtitle {
+nav footer .fs-200 {
   text-wrap: nowrap;
 }
 
@@ -602,12 +606,20 @@ nav footer .subtitle {
   .nav-body :is(header, .nav-content, footer) {
     padding: 0.4rem;
   }
+  .nav-close-btn {
+    margin-left: 0.8rem;
+  }
 
   nav:not(.visible) menu .menu-item {
     max-width: 4rem;
   }
 
+  nav:not(.visible) .nav-content .menu-item:not(.user-info) {
+    transform: translateX(0.7rem);
+  }
+
   nav:not(.visible) menu .menu-item.user-info {
+    transform: translateX(0.3rem);
     max-width: 4.8rem;
   }
 
@@ -624,7 +636,7 @@ nav footer .subtitle {
     gap: 0.8rem;
   }
 
-  nav:not(.visible) footer .subtitle {
+  nav:not(.visible) footer .fs-200 {
     display: none;
   }
 }

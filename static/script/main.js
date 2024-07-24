@@ -160,6 +160,19 @@ document.addEventListener("DOMContentLoaded", function () {
   })
 
 
+  let dropDownNavItems = document.querySelectorAll("nav .has-submenu");
+  let navSubmenus = document.querySelectorAll("submenu");
+
+  if (dropDownNavItems) {
+    dropDownNavItems.forEach(menuItem => {
+      menuItem?.addEventListener("click", () => {
+        menuItem.classList.toggle("visible");
+      });
+    })
+  }
+
+
+
 
 
 });
