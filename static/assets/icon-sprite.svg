@@ -207,6 +207,28 @@
             <rect x="16.1516" y="8" width="8.30305" height="8.30305" rx="4.15153" transform="rotate(90 16.1516 8)"
                 stroke-width="1.5" />
         </symbol>
+        <!-- Arrow Left -->
+        <symbol id="arrow-left" viewBox="0 0 24 24">
+            <path d="M5 12H19" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M12 5L5 12L12 19" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </symbol>
+        <!-- Arrow up -->
+        <symbol id="arrow-up" viewBox="0 0 24 24">
+            <path d="M12 5L12 19" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M19 12L12 5L5 12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </symbol>
+        <!-- Arrow down -->
+        <symbol id="arrow-down" viewBox="0 0 24 24">
+            <path d="M12 19L12 5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M5 12L12 19L19 12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </symbol>
+
+        <!-- SHAPES -->
+        <!-- Circle -->
+        <symbol id="circle-small" viewBox="0 0 24 24">
+            <rect x="16.1516" y="8" width="8.30305" height="8.30305" rx="4.15153" transform="rotate(90 16.1516 8)"
+                stroke-width="2" />
+        </symbol>
 
 
     </defs>

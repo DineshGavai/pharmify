@@ -77,9 +77,10 @@
 
     <script type="module" src="{% static 'script/main.js' %}"></script>
     <script type="module">
-        import { UI_CLASS } from "{% static 'script/utils/const.js' %}";
+        import { UI_CLASS, UI_STATUS_FEEDBACK } from "{% static 'script/utils/const.js' %}";
         import { setInputMsg, validateInput } from "{% static 'script/utils/inputs.js' %}";
         import { setMsgIcons } from "{% static 'script/utils/utils.js' %}";
+        import { createSnackbar } from "{% static 'script/utils/components.js' %}"
 
         document.addEventListener("DOMContentLoaded", () => {
 
@@ -104,6 +105,23 @@
         });
 
     </script>
+    <!-- For error -->
+    {% if messages %}
+    {% for msg in messages %}
+    <script type="module">
+        import { UI_STATUS_FEEDBACK } from "{% static 'script/utils/const.js' %}";
+        import { createSnackbar } from "{% static 'script/utils/components.js' %}";
+
+        document.addEventListener("DOMContentLoaded", () => {
+            createSnackbar({
+                msg: "{{ msg|escapejs }}",
+                status: UI_STATUS_FEEDBACK.error
+            });
+        });
+    </script>
+    {% endfor %}
+    {% endif %}
+
 </body>
 
 </html>
