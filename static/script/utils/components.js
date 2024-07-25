@@ -189,10 +189,36 @@ export function createDialog(options = {}) {
     Give HORIZONTAL SLIDER EFFECT TO ELEMENTS
 /////////////// */
 
-export function setAsSlider(elem) {
-    elem.classList.add("slider");
+export function setAsSlider(slider) {
+    slider.classList.add("slider");
 
-    const elemChildrenList = Array.from(elem.children);
+    const elemChildrenList = Array.from(slider.children);
     elemChildrenList.forEach(child => child.classList.add("slide"));
 
+    let isDown = false;
+    let startX, scrollLeft;
+
+    slider.addEventListener("mousedown", (e) => {
+        isDown = true;
+        startX = e.pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+        slider.style.cursor = "grabbing";
+    })
+    slider.addEventListener("mouseleave", (e) => {
+        isDown = false;
+        slider.style.cursor = "grab";
+    })
+    slider.addEventListener("mouseup", (e) => {
+        isDown = false;
+        slider.style.cursor = "grab";
+    })
+    slider.addEventListener("mousemove", (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+
+        const x = e.pageX - slider.offsetLeft;
+        const walk = x - startX;
+        slider.scrollLeft = scrollLeft - walk;
+
+    })
 }

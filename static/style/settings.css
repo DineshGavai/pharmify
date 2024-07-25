@@ -1,0 +1,31 @@
+.main-content form {
+  width: 100%;
+  max-width: 60rem;
+  margin: 0 auto;
+  background-color: var(--clr-white);
+  border: 1px solid var(--clr-accent-hover);
+  border-radius: 1.6rem;
+  padding: 1.6rem;
+  margin-bottom: 1.4rem;
+}
+
+form fieldset {
+  margin: 1.6rem 0;
+}
+
+form picture {
+  margin: auto;
+}
+
+form .btn-box {
+  padding: 0.8rem 0;
+}
+
+@media (min-width: 769px) {
+  .main-content {
+    display: flex;
+    align-items: flex-start;
+    justify-content: start;
+    gap: 1.6rem;
+  }
+}

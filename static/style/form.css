@@ -183,6 +183,10 @@ form .btn-box {
   flex-wrap: wrap;
 }
 
+form .btn-box :is(button.primary, button.ghost) {
+  width: 100%;
+}
+
 @media (max-width: 769px) {
   button.primary,
   button.fab {
@@ -193,7 +197,7 @@ form .btn-box {
     padding: 1.6rem 0;
   }
 
-  form .btn-box .primary {
+  form .btn-box :is(button.primary, button.ghost) {
     order: -1;
   }
 }
@@ -351,6 +355,10 @@ fieldset textarea {
 
 fieldset select {
   appearance: none;
+}
+
+fieldset input[type="file"] {
+  cursor: pointer;
 }
 
 /* Verification Code or OTP Input */

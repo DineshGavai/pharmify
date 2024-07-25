@@ -192,6 +192,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let tabWidth = activeTab.clientWidth;
     indicator.style.setProperty("--width", (tabWidth * 0.60) + "px");
     indicator.style.setProperty("--left", (activeTab.offsetLeft + (tabWidth / 6)) + "px");
+    ctr.scrollLeft = activeTab.offsetLeft - (tabWidth / 6);
   }
 
   // Enlist all Tab containers
@@ -199,21 +200,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
   tabCtrList.forEach(ctr => {
 
-
     setAsSlider(ctr);
-
 
     // Set currently active tab
     let tabList = ctr.querySelectorAll(".tab");
     updateActiveTab(ctr);
-    
+
     // Tab navigation
     tabList.forEach(tab => {
 
       tab?.addEventListener("click", () => {
         // Remove active status from other tabs
         tabList.forEach(otherTab => otherTab.classList.remove("active"));
-        
+
         // Add active status to current tab
         tab.classList.add("active");
         updateActiveTab(ctr);

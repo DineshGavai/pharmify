@@ -12,6 +12,7 @@
 
     <!-- STYLE SHEET -->
     <link rel="stylesheet" href="../../../static/style/main.css">
+    <link rel="stylesheet" href="../../../static/style/settings.css">
 
 </head>
 
@@ -43,8 +44,8 @@
                 <!-- User Info and Edit profile link -->
                 <menu>
                     <a class="menu-item user-info active" href="#">
-                        <picture><img src="../../../static/assets/illus/default-avatar-male-1.png"
-                                alt="Your profile photo"></picture>
+                        <picture><img src="../../../static/assets/illus/default-avatar.png" alt="Your profile photo">
+                        </picture>
                         <div>
                             <p class="user-info-full-name">Vedant Mali</p>
                             <b class="user-info-email subtitle gradient-primary">vedantmali05@gmail.com</b>
@@ -157,11 +158,118 @@
 
         <!-- Tab navigation -->
         <section class="tab-sec">
-            <div class="tab active">Profile Photo</div>
-            <div class="tab">Account Information</div>
+            <div class="tab active">Edit profile</div>
             <div class="tab">Privacy and Security</div>
             <div class="tab">Settings</div>
             <span class="indicator"></span>
+        </section>
+
+        <section class="main-content">
+
+            <!-- CHOOSE AVATAR FROM STARTS -->
+            <form action="" method="post" class="avatar-form" id="avatar_form" name="avatar_form" novalidate>
+
+                <!-- Current Preview -->
+                <picture class="user-info-avatar">
+                    <img src="../../../static/assets/illus/default-avatar.png" alt="Your profile photo">
+                </picture>
+
+                <div class="btn-box">
+                    <!-- File upload button -->
+                    <button class="ghost" type="button" onclick="document.getElementById('remove_avatar_btn').click()">
+                        <svg class="icon">
+                            <use href="../../../static/assets/icon-sprite.svg#upload" />
+                        </svg>
+                        Choose Profile Photo
+                    </button>
+
+                    <!-- Remove  -->
+                    <button class="text negative" type="button" id="remove_avatar_btn" name="remove_avatar_btn">
+                        <svg class="icon">
+                            <use href="../../../static/assets/icon-sprite.svg#delete" />
+                        </svg>
+                        Remove
+                    </button>
+                </div>
+                <!-- File upload input -->
+                <input type="file" hidden name="upload_avatar_input" id="upload_avatar_input">
+            </form>
+            <!-- CHOOSE AVATAR FROM ENDS -->
+
+            <!-- EDIT PROFILE FROM STARTS -->
+            <form action="" method="post" class="edit-profile-form" id="edit_profile_form" name="edit_profile_form"
+                novalidate>
+
+                <h2 class="fs-500">Your Account Information</h2>
+                <p class="subtitle">Review and update your profile information.</p>
+
+                <!-- Full name -->
+                <fieldset>
+                    <label for="edit_profile_full_name">Full Name</label>
+                    <input type="text" name="edit_profile_full_name" id="edit_profile_full_name" class="text-input"
+                        placeholder="First & Last name" autocomplete="name" required
+                        pattern="([A-Za-z]+){2,}\s+([A-Za-z]+)(?:\s+([A-Za-z]+){2,})?$">
+                </fieldset>
+
+                <!-- Shop name -->
+                <fieldset>
+                    <label for="edit_profile_shop_name">Shop Name</label>
+                    <input type="text" name="edit_profile_shop_name" id="edit_profile_shop_name" class="text-input"
+                        placeholder="Your Medical Store name" required
+                        pattern='^[.@&]?[a-zA-Z0-9 ]+[ !.@&()]?[ a-zA-Z0-9!()]+'>
+                </fieldset>
+
+                <!-- Email -->
+                <fieldset>
+                    <label for="edit_profile_email">Email</label>
+                    <input type="email" name="edit_profile_email" id="edit_profile_email" class="text-input"
+                        placeholder="you@email.com" autocomplete="email" required
+                        pattern="^([a-zA-Z0-9._%\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,})$">
+                </fieldset>
+
+                <!-- Phone Number -->
+                <fieldset>
+                    <label for="edit_profile_phone">Phone number</label>
+                    <div class="icon-frame">
+                        <span class="lead"><img src="../../../static/assets/illus/flag-india.svg" class="icon"></span>
+                        <input type="text" name="edit_profile_phone" id="edit_profile_phone" class="text-input"
+                            autocomplete="tel" placeholder="10 digit contact number" required inputmode="numeric"
+                            pattern="^\d{10}$">
+                    </div>
+                </fieldset>
+
+                <!-- License -->
+                <fieldset>
+                    <label for="edit_profile_license">License</label>
+                    <div class="icon-frame">
+                        <svg class="icon lead">
+                            <use href="../../../static/assets/icon-sprite.svg#file-report" />
+                        </svg>
+                        <input type="file" name="edit_profile_license" id="edit_profile_license" class="text-input"
+                            accept="image/jpg, image/png, image/jpeg">
+                    </div>
+                </fieldset>
+
+                <div class="btn-box">
+
+                    <!-- Remove  -->
+                    <button class="text negative" type="button" id="edit_profile_reset_btn"
+                        name="edit_profile_reset_btn">
+                        <svg class="icon">
+                            <use href="../../../static/assets/icon-sprite.svg#refresh" />
+                        </svg>
+                        Remove
+                    </button>
+                    <!-- Update changes button -->
+                    <button class="primary" type="button" id="edit_profile_submit_btn" name="edit_profile_submit_btn">
+                        Update Changes
+                    </button>
+                </div>
+
+            </form>
+            <!-- EDIT PROFILE FROM ENDS -->
+
+
         </section>
 
 

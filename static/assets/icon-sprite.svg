@@ -165,6 +165,43 @@
             <path d="M3 17H21M3 12H21M3 7H21" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
         </symbol>
 
+        <!-- Upload -->
+        <symbol id="upload" viewBox="0 0 24 24">
+            <path d="M17 9L12 4M12 4L7 9M12 4L12 17" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+            <path
+                d="M3.5 17L3.61803 17.2361C4.46499 18.93 6.19631 20 8.09017 20H16.9098C18.8037 20 20.535 18.93 21.382 17.2361L21.5 17"
+                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </symbol>
+
+        <!-- delete -->
+        <symbol id="delete" viewBox="0 0 24 24">
+            <path
+                d="M3 6H5M21 6H19M19 6L18.1245 19.133C18.0544 20.1836 17.1818 21 16.1289 21H7.87111C6.81818 21 5.94558 20.1836 5.87554 19.133L5 6M19 6H16M5 6H8M8 6V4C8 2.89543 8.89543 2 10 2H14C15.1046 2 16 2.89543 16 4V6M8 6H16"
+                stroke-width="1.5" stroke-linecap="round" />
+            <path d="M10 11V16" stroke-width="1.5" stroke-linecap="round" />
+            <path d="M14 11V16" stroke-width="1.5" stroke-linecap="round" />
+
+        </symbol>
+
+        <!-- file-report -->
+        <symbol id="file-report" viewBox="0 0 24 24">
+            <path d="M7 21C5.89543 21 5 20.1046 5 19V3H14L19 8V19C19 20.1046 18.1046 21 17 21H7Z" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M13 3V9H19" stroke-width="1.5" stroke-linejoin="round" />
+            <path d="M9 13H15" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M9 17H15" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </symbol>
+
+        <!-- Refresh -->
+        <symbol id="refresh" viewBox="0 0 24 24">
+            <path
+                d="M20.4022 15.2249C18.6209 19.8653 13.4151 22.1831 8.77467 20.4018C4.13425 18.6206 1.81647 13.4147 3.59776 8.77431C5.37905 4.13389 10.5849 1.8161 15.2253 3.5974C17.8648 4.6106 19.7528 6.73176 20.5625 9.22662M22.1462 6.15236L20.7128 9.88668L16.9784 8.45321"
+                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+
+        </symbol>
+
+
 
 
         <!-- ARROWS -->
