@@ -158,119 +158,90 @@
 
         <!-- Tab navigation -->
         <section class="tab-sec">
-            <div class="tab active">Edit profile</div>
-            <div class="tab">Privacy and Security</div>
+            <div class="tab">Edit profile</div>
+            <div class="tab active">Privacy and Security</div>
             <div class="tab">Settings</div>
             <span class="indicator"></span>
         </section>
 
         <section class="main-content">
 
-            <!-- CHOOSE AVATAR FROM STARTS -->
-            <form action="" method="post" class="avatar-form" id="avatar_form" name="avatar_form" novalidate>
+            <a href="#">
+                <h2 class="fs-500">Change Password</h2>
 
-                <h2 class="fs-500">Your Profile Photo</h2>
+                <p class="subtitle">Updating your password after certain intervals keeps the Pharmify account secure.
+                </p>
 
-                <!-- Current Preview -->
-                <picture class="user-info-avatar">
-                    <img src="../../../static/assets/illus/default-avatar.png" alt="Your profile photo">
-                </picture>
-
-                <div class="btn-box">
-                    <!-- File upload button -->
-                    <button class="ghost" type="button" onclick="document.getElementById('remove_avatar_btn').click()">
+                <span class="password-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+                <div class="link-box">
+                    <button class="icon">
                         <svg class="icon">
-                            <use href="../../../static/assets/icon-sprite.svg#upload" />
+                            <use href="../../../static/assets/icon-sprite.svg#chevron-right" />
                         </svg>
-                        Choose Profile Photo
-                    </button>
-
-                    <!-- Remove  -->
-                    <button class="text negative" type="button" id="remove_avatar_btn" name="remove_avatar_btn">
-                        <svg class="icon">
-                            <use href="../../../static/assets/icon-sprite.svg#delete" />
-                        </svg>
-                        Remove
                     </button>
                 </div>
-                <!-- File upload input -->
-                <input type="file" hidden name="upload_avatar_input" id="upload_avatar_input">
-            </form>
-            <!-- CHOOSE AVATAR FROM ENDS -->
+            </a>
 
-            <!-- EDIT PROFILE FROM STARTS -->
-            <form action="" method="post" class="edit-profile-form" id="edit_profile_form" name="edit_profile_form"
-                novalidate>
+            <a href="#">
+                <h2 class="fs-500">Download your data</h2>
 
-                <h2 class="fs-500">Your Account Information</h2>
-                <p class="subtitle">Review and update your profile information.</p>
+                <p class="subtitle">Save a copy of your data to back it up. You may import it later.</p>
 
-                <!-- Full name -->
-                <fieldset>
-                    <label for="edit_profile_full_name">Full Name</label>
-                    <input type="text" name="edit_profile_full_name" id="edit_profile_full_name" class="text-input"
-                        placeholder="First & Last name" autocomplete="name" required
-                        pattern="([A-Za-z]+){2,}\s+([A-Za-z]+)(?:\s+([A-Za-z]+){2,})?$">
-                </fieldset>
-
-                <!-- Shop name -->
-                <fieldset>
-                    <label for="edit_profile_shop_name">Shop Name</label>
-                    <input type="text" name="edit_profile_shop_name" id="edit_profile_shop_name" class="text-input"
-                        placeholder="Your Medical Store name" required
-                        pattern='^[.@&]?[a-zA-Z0-9 ]+[ !.@&()]?[ a-zA-Z0-9!()]+'>
-                </fieldset>
-
-                <!-- Email -->
-                <fieldset>
-                    <label for="edit_profile_email">Email</label>
-                    <input type="email" name="edit_profile_email" id="edit_profile_email" class="text-input"
-                        placeholder="you@email.com" autocomplete="email" required
-                        pattern="^([a-zA-Z0-9._%\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,})$">
-                </fieldset>
-
-                <!-- Phone Number -->
-                <fieldset>
-                    <label for="edit_profile_phone">Phone number</label>
-                    <div class="icon-frame">
-                        <span class="lead"><img src="../../../static/assets/illus/flag-india.svg" class="icon"></span>
-                        <input type="text" name="edit_profile_phone" id="edit_profile_phone" class="text-input"
-                            autocomplete="tel" placeholder="10 digit contact number" required inputmode="numeric"
-                            pattern="^\d{10}$">
-                    </div>
-                </fieldset>
-
-                <!-- License -->
-                <fieldset>
-                    <label for="edit_profile_license">License</label>
-                    <div class="icon-frame">
-                        <svg class="icon lead">
-                            <use href="../../../static/assets/icon-sprite.svg#file-report" />
-                        </svg>
-                        <input type="file" name="edit_profile_license" id="edit_profile_license" class="text-input"
-                            accept="image/jpg, image/png, image/jpeg">
-                    </div>
-                </fieldset>
-
-                <div class="btn-box">
-
-                    <!-- Remove  -->
-                    <button class="text negative" type="button" id="edit_profile_reset_btn"
-                        name="edit_profile_reset_btn">
+                <div class="link-box">
+                    <button class="icon">
                         <svg class="icon">
-                            <use href="../../../static/assets/icon-sprite.svg#refresh" />
+                            <use href="../../../static/assets/icon-sprite.svg#chevron-right" />
                         </svg>
-                        Remove
-                    </button>
-                    <!-- Update changes button -->
-                    <button class="primary" type="button" id="edit_profile_submit_btn" name="edit_profile_submit_btn">
-                        Update Changes
                     </button>
                 </div>
+            </a>
 
-            </form>
-            <!-- EDIT PROFILE FROM ENDS -->
+            <a href="#">
+                <h2 class="fs-500">Terms and Privacy Policy</h2>
 
+                <p class="subtitle">Learn how we safeguard your information and protect your account. Read our Terms and
+                    Privacy Policy.</p>
+
+                <div class="link-box">
+                    <button class="icon">
+                        <svg class="icon">
+                            <use href="../../../static/assets/icon-sprite.svg#chevron-right" />
+                        </svg>
+                    </button>
+                </div>
+            </a>
+
+            <section class="danger-zone">
+                <h2 class="fs-500 negative">Danger Zone</h2>
+
+                <p class="subtitle">We will immediately delete all the data from our servers based on the action you
+                    choose. Once your data or account has been deleted, there is no going back. Please be certain.</p>
+                <p class="subtitle">Please note that, <b>these actions cannot be undone</b></p>
+
+                <a href="#">
+                    <p class="negative">Clear all Data</p>
+                    <p class="subtitle">This will clear all your data including your information related to stocks,
+                        transactions, customers and also settings.</p>
+                    <p class="subtitle">We will keep your account and your personal information that you can update
+                        anytime.</p>
+                </a>
+
+                <div class="divider"></div>
+
+                <a href="#">
+                    <p class="negative">Delete Account Permanently</p>
+                    <p class="subtitle">This will delete your Pharmify account permanently clearing all your inventory
+                        information related to stocks, transactions, customers, settings and also your personal
+                        information.</p>
+                </a>
+            </section>
 
         </section>
 

@@ -1,4 +1,4 @@
-.main-content form {
+.main-content > * {
   width: 100%;
   max-width: 60rem;
   margin: 0 auto;
@@ -9,8 +9,8 @@
   margin-bottom: 1.4rem;
 }
 
-form fieldset {
-  margin: 1.6rem 0;
+.main-content > * > * {
+  margin: 0.8rem 0;
 }
 
 form picture {
@@ -23,9 +23,41 @@ form .btn-box {
 
 @media (min-width: 769px) {
   .main-content {
-    display: flex;
-    align-items: flex-start;
-    justify-content: start;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 1.6rem;
   }
+}
+
+.link-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.link-box button.icon {
+  margin-left: auto;
+}
+
+.password-dots {
+  display: flex;
+  gap: 0.4rem;
+  padding-top: .8rem;
+}
+
+.password-dots span {
+  width: 0.8rem;
+  height: 0.8rem;
+  background-color: var(--clr-accent);
+  border-radius: 50%;
+}
+
+.negative {
+  color: var(--clr-status-negative-dark-text);
+}
+
+.danger-zone a {
+  display: block;
+  padding: 0.4rem;
+  margin: 1.6rem 0;
 }
