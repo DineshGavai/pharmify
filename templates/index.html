@@ -19,6 +19,7 @@
 <body>
     {% if request.user.is_authenticated %}
     <p class="fs-400">{{request.user}}</p>
+    <button class="primary"><a href="{% url 'profile-update' %}">Edit User</a></button><br>
     <button class="primary"><a href="{% url 'logout' %}">Logout</a></button>
     {% else %}
     <button class="primary"><a href="{% url 'login' %}">Login</a></button>
