@@ -1,4 +1,3 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,10 +8,10 @@
     <title>Pharmify</title>
 
     <!-- FAVICON -->
-    <link rel="shortcut icon" href="{% static 'assets/logo/favicon.svg' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="../../../static/assets/logo/favicon.svg" type="image/x-icon">
 
     <!-- STYLE SHEET -->
-    <link rel="stylesheet" href="{% static 'style/main.css'%}">
+    <link rel="stylesheet" href="../../../static/style/main.css">
 
 </head>
 
@@ -20,7 +19,7 @@
 
     <button class="icon nav-open-btn">
         <svg class="icon">
-            <use href="{% static 'assets/icon-sprite.svg' %}#menu-hamburger" />
+            <use href="../../../static/assets/icon-sprite.svg#menu-hamburger" />
         </svg>
     </button>
 
@@ -28,14 +27,13 @@
     <nav>
         <!-- class="visible" -->
 
-
         <!-- NAVBAR BODY STARTS -->
         <section class="nav-body">
             <!-- Header -->
             <header>
                 <button class="icon nav-close-btn">
                     <svg class="icon">
-                        <use href="{% static 'assets/icon-sprite.svg' %}#chevron-left" />
+                        <use href="../../../static/assets/icon-sprite.svg#chevron-left" />
                     </svg>
                 </button>
             </header>
@@ -44,8 +42,8 @@
             <section class="nav-content">
                 <!-- User Info and Edit profile link -->
                 <menu>
-                    <a class="menu-item user-info" href="#">
-                        <picture><img src="{% static 'assets/illus/default-avatar-male-1.png' %}"
+                    <a class="menu-item user-info active" href="#">
+                        <picture><img src="../../../static/assets/illus/default-avatar-male-1.png"
                                 alt="Your profile photo"></picture>
                         <div>
                             <p class="user-info-full-name">Vedant Mali</p>
@@ -57,9 +55,9 @@
                 <!-- Pages options -->
                 <menu>
                     <!-- Home -->
-                    <a href="#" class="menu-item active">
+                    <a href="#" class="menu-item">
                         <svg class="icon">
-                            <use href="{% static 'assets/icon-sprite.svg' %}#pages-home" />
+                            <use href="../../../static/assets/icon-sprite.svg#pages-home" />
                         </svg>
                         Home
                         <span class="badge"></span>
@@ -67,7 +65,7 @@
                     <!-- Bills -->
                     <a href="#" class="menu-item">
                         <svg class="icon">
-                            <use href="{% static 'assets/icon-sprite.svg' %}#pages-bills" />
+                            <use href="../../../static/assets/icon-sprite.svg#pages-bills" />
                         </svg>
                         Bills
                         <span class="badge"></span>
@@ -75,12 +73,12 @@
                     <!-- Stocks -->
                     <div class="menu-item has-submenu">
                         <svg class="icon">
-                            <use href="{% static 'assets/icon-sprite.svg' %}#pages-stocks" />
+                            <use href="../../../static/assets/icon-sprite.svg#pages-stocks" />
                         </svg>
                         Stocks
                         <span class="badge"></span>
                         <svg class="icon chevron">
-                            <use href="{% static 'assets/icon-sprite.svg' %}#chevron-down" />
+                            <use href="../../../static/assets/icon-sprite.svg#chevron-down" />
                         </svg>
                     </div>
                     <menu class="submenu">
@@ -90,12 +88,12 @@
                     <!-- Insights -->
                     <div class="menu-item has-submenu">
                         <svg class="icon">
-                            <use href="{% static 'assets/icon-sprite.svg' %}#pages-insights" />
+                            <use href="../../../static/assets/icon-sprite.svg#pages-insights" />
                         </svg>
                         Insights
                         <span class="badge"></span>
                         <svg class="icon chevron">
-                            <use href="{% static 'assets/icon-sprite.svg' %}#chevron-down" />
+                            <use href="../../../static/assets/icon-sprite.svg#chevron-down" />
                         </svg>
                     </div>
                     <menu class="submenu">
@@ -105,7 +103,7 @@
                     <!-- Patients -->
                     <a href="#" class="menu-item">
                         <svg class="icon">
-                            <use href="{% static 'assets/icon-sprite.svg' %}#pages-patients" />
+                            <use href="../../../static/assets/icon-sprite.svg#pages-patients" />
                         </svg>
                         Patients
                         <span class="badge"></span>
@@ -120,13 +118,13 @@
                     <button class="icon negative">
                         <a href="{% url 'logout' %}">
                             <svg class="icon">
-                                <use href="{% static 'assets/icon-sprite.svg' %}#pages-logout" />
+                                <use href="../../../static/assets/icon-sprite.svg#pages-logout" />
                             </svg>
                         </a>
                     </button>
                     <a href="#" class="menu-item">
                         <svg class="icon">
-                            <use href="{% static 'assets/icon-sprite.svg' %}#pages-settings" />
+                            <use href="../../../static/assets/icon-sprite.svg#pages-settings" />
                         </svg>
                         Settings
                     </a>
@@ -149,18 +147,30 @@
     </nav>
     <!-- NAVBAR ENDS -->
 
+    <!-- MAIN STARTS -->
+    <main>
+
+        <!-- Header -->
+        <header class="center-mobile">
+            <h1 class="fs-600">Account Settings</h1>
+        </header>
+
+        <!-- Tab navigation -->
+        <section class="tab-sec">
+            <div class="tab active">Profile Photo</div>
+            <div class="tab">Account Information</div>
+            <div class="tab">Privacy and Security</div>
+            <div class="tab">Settings</div>
+            <span class="indicator"></span>
+        </section>
 
 
-    <script type="module" src="{% static 'script/main.js' %}"></script>
+    </main>
+    <!-- MAIN ENDS -->
+
+
+    <script type="module" src="../../../static/script/main.js"></script>
 
 </body>
 
 </html>
-
-<!-- {% if request.user.is_authenticated %}
-<p class="fs-400">{{request.user}}</p>
-<button class="primary"><a href="{% url 'logout' %}">Logout</a></button>
-{% else %}
-    <button class="primary"><a href="{% url 'login' %}">Login</a></button>
-    <button class="primary"><a href="{% url 'verifyEmail' %}">Register</a></button>
-    {% endif %} -->

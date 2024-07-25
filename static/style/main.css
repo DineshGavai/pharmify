@@ -10,7 +10,7 @@ IMPORTS and SETUPS
 UTILITY CLASSES
 ///////////////////////// */
 
-@media (min-width: 1024px) {
+@media (min-width: 1025px) {
   .mobile-only {
     display: none;
     opacity: 0;
@@ -19,7 +19,7 @@ UTILITY CLASSES
   }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1025px) {
   .desk-only {
     display: none;
     opacity: 0;
@@ -115,6 +115,7 @@ picture :is(img, svg) {
 COMPONENTS
 ///////////////////////// */
 
+/* All FLEXBOXES */
 fieldset label,
 fieldset .trail,
 fieldset .msg,
@@ -123,7 +124,8 @@ button,
 .logo,
 .snackbar,
 .snackbar .msg,
-menu .menu-item {
+menu .menu-item,
+main header {
   display: flex;
   align-items: center;
   gap: 0.4rem;
@@ -386,7 +388,50 @@ DIALOG COMPONENT
 }
 
 /* /////////////////////////
-  USER INFO
+ TABs
+///////////////////////// */
+
+.tab-sec {
+  position: relative;
+  display: flex;
+  gap: 0.4rem;
+  padding: 0 1.6rem;
+  padding-top: 0.4rem;
+  width: 100%;
+  overflow-y: hidden;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--clr-primary-dark);
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  user-select: none;
+}
+
+.tab-sec::-webkit-scrollbar {
+  display: none;
+}
+
+.tab-sec .tab {
+  text-wrap: nowrap;
+  padding: 0.8rem 0.8rem;
+  cursor: pointer;
+}
+
+.tab-sec .tab.active {
+  color: var(--clr-accent);
+}
+
+.tab-sec .indicator {
+  position: absolute;
+  width: var(--width);
+  height: 0.2rem;
+  bottom: 0;
+  left: var(--left);
+  border-radius: 10rem 10rem 0 0;
+  background-color: var(--clr-primary-dark);
+}
+
+/* /////////////////////////
+USER INFO
 ///////////////////////// */
 
 .user-info-full-name {
@@ -396,6 +441,10 @@ DIALOG COMPONENT
 /* /////////////////////////
 PARENT CONTAINERS
 ///////////////////////// */
+body {
+  display: flex;
+}
+
 main {
   width: 100%;
   height: 100vh;
@@ -437,7 +486,7 @@ nav.visible .nav-body {
 
 button.icon.nav-open-btn {
   position: fixed;
-  z-index: 9;
+  z-index: 11;
   background-color: var(--clr-primary);
   color: var(--clr-white);
   top: 0.4rem;
@@ -583,7 +632,7 @@ nav footer .fs-200 {
   text-wrap: nowrap;
 }
 
-@media (min-width: 425px) {
+@media (min-width: 1025px) {
   nav {
     position: static;
     max-width: 6.4rem;
@@ -638,6 +687,22 @@ nav footer .fs-200 {
 
   nav:not(.visible) footer .fs-200 {
     display: none;
+  }
+}
+
+/* /////////////////////////
+  PAGE HEADERS
+///////////////////////// */
+
+main header {
+  padding: 0.4rem 1.6rem;
+  min-height: 4.05rem;
+  justify-content: space-between;
+}
+
+@media (min-width: 1025px) {
+  main header {
+    justify-content: start;
   }
 }
 
