@@ -230,7 +230,7 @@
                                 if (data.message === "Email already exists.") {
                                     alert(data.message);
                                 } else {
-                                    createSnackbar({ msg: data.message, status: UI_STATUS_FEEDBACK.error });
+                                    setInputMsg(verifyEmailInput, "This email has been already taken.")
                                 }
                             }
                         },
