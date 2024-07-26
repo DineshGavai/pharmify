@@ -10,7 +10,8 @@
 }
 
 .main-content > * > * {
-  margin: 0.8rem 0;
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
 }
 
 form picture {
@@ -42,13 +43,13 @@ form .btn-box {
 .password-dots {
   display: flex;
   gap: 0.4rem;
-  padding-top: .8rem;
+  padding-top: 0.8rem;
 }
 
 .password-dots span {
   width: 0.8rem;
   height: 0.8rem;
-  background-color: var(--clr-accent);
+  background-color: var(--clr-primary);
   border-radius: 50%;
 }
 

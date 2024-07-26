@@ -86,8 +86,12 @@ UTILITY CLASSES
 }
 
 .empty-sec {
-  background-color: var(--clr-grey-hover);
-  color: var(--clr-grey-text);
+  background-color: var(--clr-grey-hover) !important;
+  color: var(--clr-grey-text) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
   padding: 1.6rem;
   border-radius: 1.6rem;
 }

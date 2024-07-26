@@ -153,7 +153,7 @@
 
         <!-- Header -->
         <header class="center-mobile">
-            <h1 class="fs-600">Account Settings</h1>
+            <h1 class="fs-600">Account & privacy</h1>
         </header>
 
         <!-- Tab navigation -->
@@ -191,7 +191,7 @@
 
             <a href="#">
                 <h2 class="fs-500">Download your data</h2>
-
+                <!-- TODO: Add the file type the data will be exported to. -->
                 <p class="subtitle">Save a copy of your data to back it up. You may import it later.</p>
 
                 <div class="link-box">
@@ -251,6 +251,16 @@
 
 
     <script type="module" src="../../../static/script/main.js"></script>
+
+    <script type="module">
+        import { createSnackbar, createDialog } from "../../../static/script/utils/components.js"
+        import { UI_STATUS_FEEDBACK } from "../../../static/script/utils/const.js"
+        import { setInputMsg } from "../../../static/script/utils/inputs.js"
+        import { toTwoDigit } from "../../../static/script/utils/utils.js"
+
+
+
+    </script>
 
 </body>
 
