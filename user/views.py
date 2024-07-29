@@ -1,4 +1,5 @@
 import random
+import os
 from .models import *
 from .utils import *
 from django.urls import *
@@ -13,6 +14,7 @@ from django.contrib.auth.views import PasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic.edit import FormView
 from django.contrib.auth.tokens import default_token_generator
+from django.core.files.storage import FileSystemStorage
 
 
 def loginUser(request):
@@ -140,3 +142,57 @@ class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
             # If email does not exist, add an error to the form and re-render the form
             form.add_error('email', 'User with this email does not exist.')
             return self.form_invalid(form)
+        
+        
+        
+# Profile edit
+import os
+from django.shortcuts import render, redirect
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
+
+def profileUpdate(request):
+    if request.method == "POST":
+        name = request.POST.get('name')
+        shop_name = request.POST.get('shop-name')
+        contact = request.POST.get('contact')
+
+        # Handle avatar upload
+        avatar = request.FILES.get('avatar')
+        if avatar:
+            avatar_storage = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, 'avatars'))
+            avatar_filename = avatar_storage.save(avatar.name, avatar)
+            avatar_url = avatar_storage.url(avatar_filename)
+        else:
+            avatar_url = None
+        
+        # Handle licence upload
+        licence = request.FILES.get('license')
+        if licence:
+            licence_storage = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, 'licenses'))
+            licence_filename = licence_storage.save(licence.name, licence)
+            licence_url = licence_storage.url(licence_filename)
+        else:
+            licence_url = None
+
+        # Print statements for debugging
+        print(name)
+        print(shop_name)
+        print(contact)
+        print(avatar_url)
+        print(licence_url)
+
+        # Save the owner profile information to the database
+        owner = request.user  # Accessing the Owner instance directly
+        owner.name = name
+        owner.shop_name = shop_name
+        owner.phone_number = contact
+        if avatar_url:
+            owner.avatar = avatar_url
+        if licence_url:
+            owner.license = licence_url
+        owner.save()
+
+        return redirect('index')  # Redirect to the index page after updating
+
+    return render(request, "profile-edit.html")

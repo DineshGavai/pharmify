@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,11 +9,11 @@
     <title>Pharmify</title>
 
     <!-- FAVICON -->
-    <link rel="shortcut icon" href="../../../static/assets/logo/favicon.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static '/assets/logo/favicon.svg' %}" type="image/x-icon">
 
     <!-- STYLE SHEET -->
-    <link rel="stylesheet" href="../../../static/style/main.css">
-    <link rel="stylesheet" href="../../../static/style/settings.css">
+    <link rel="stylesheet" href="{% static '/style/main.css' %}">
+    <link rel="stylesheet" href="{% static '/style/settings.css' %}">
 
 </head>
 
@@ -20,7 +21,7 @@
 
     <button class="icon nav-open-btn">
         <svg class="icon">
-            <use href="../../../static/assets/icon-sprite.svg#menu-hamburger" />
+            <use href="{% static '/assets/icon-sprite.svg#menu-hamburger' %}" />
         </svg>
     </button>
 
@@ -34,7 +35,7 @@
             <header>
                 <button class="icon nav-close-btn">
                     <svg class="icon">
-                        <use href="../../../static/assets/icon-sprite.svg#chevron-left" />
+                        <use href="{% static '/assets/icon-sprite.svg#chevron-left' %}" />
                     </svg>
                 </button>
             </header>
@@ -44,7 +45,7 @@
                 <!-- User Info and Edit profile link -->
                 <menu>
                     <a class="menu-item user-info active" href="#">
-                        <picture><img src="../../../static/assets/illus/default-avatar.png" alt="Your profile photo">
+                        <picture><img src="{% static '/assets/illus/default-avatar.png' %}" alt="Your profile photo">
                         </picture>
                         <div>
                             <p class="user-info-full-name">Vedant Mali</p>
@@ -58,7 +59,7 @@
                     <!-- Home -->
                     <a href="#" class="menu-item">
                         <svg class="icon">
-                            <use href="../../../static/assets/icon-sprite.svg#pages-home" />
+                            <use href="{% static '/assets/icon-sprite.svg#pages-home' %}" />
                         </svg>
                         Home
                         <span class="badge"></span>
@@ -66,7 +67,7 @@
                     <!-- Bills -->
                     <a href="#" class="menu-item">
                         <svg class="icon">
-                            <use href="../../../static/assets/icon-sprite.svg#pages-bills" />
+                            <use href="{% static '/assets/icon-sprite.svg#pages-bills' %}" />
                         </svg>
                         Bills
                         <span class="badge"></span>
@@ -74,12 +75,12 @@
                     <!-- Stocks -->
                     <div class="menu-item has-submenu">
                         <svg class="icon">
-                            <use href="../../../static/assets/icon-sprite.svg#pages-stocks" />
+                            <use href="{% static '/assets/icon-sprite.svg#pages-stocks' %}" />
                         </svg>
                         Stocks
                         <span class="badge"></span>
                         <svg class="icon chevron">
-                            <use href="../../../static/assets/icon-sprite.svg#chevron-down" />
+                            <use href="{% static '/assets/icon-sprite.svg#chevron-down' %}" />
                         </svg>
                     </div>
                     <menu class="submenu">
@@ -89,12 +90,12 @@
                     <!-- Insights -->
                     <div class="menu-item has-submenu">
                         <svg class="icon">
-                            <use href="../../../static/assets/icon-sprite.svg#pages-insights" />
+                            <use href="{% static '/assets/icon-sprite.svg#pages-insights' %}" />
                         </svg>
                         Insights
                         <span class="badge"></span>
                         <svg class="icon chevron">
-                            <use href="../../../static/assets/icon-sprite.svg#chevron-down" />
+                            <use href="{% static '/assets/icon-sprite.svg#chevron-down' %}" />
                         </svg>
                     </div>
                     <menu class="submenu">
@@ -104,7 +105,7 @@
                     <!-- Patients -->
                     <a href="#" class="menu-item">
                         <svg class="icon">
-                            <use href="../../../static/assets/icon-sprite.svg#pages-patients" />
+                            <use href="{% static '/assets/icon-sprite.svg#pages-patients' %}" />
                         </svg>
                         Patients
                         <span class="badge"></span>
@@ -119,13 +120,13 @@
                     <button class="icon negative">
                         <a href="{% url 'logout' %}">
                             <svg class="icon">
-                                <use href="../../../static/assets/icon-sprite.svg#pages-logout" />
+                                <use href="{% static '/assets/icon-sprite.svg#pages-logout' %}" />
                             </svg>
                         </a>
                     </button>
                     <a href="#" class="menu-item">
                         <svg class="icon">
-                            <use href="../../../static/assets/icon-sprite.svg#pages-settings" />
+                            <use href="{% static '/assets/icon-sprite.svg#pages-settings' %}" />
                         </svg>
                         Settings
                     </a>
@@ -173,14 +174,14 @@
 
                 <!-- Current Preview -->
                 <picture class="user-info-avatar">
-                    <img src="../../../static/assets/illus/default-avatar.png" alt="Your profile photo">
+                    <img src="{% static '/assets/illus/default-avatar.png' %}" alt="Your profile photo">
                 </picture>
 
                 <div class="btn-box">
                     <!-- File upload button -->
                     <button class="ghost" type="button" onclick="document.getElementById('remove_avatar_btn').click()">
                         <svg class="icon">
-                            <use href="../../../static/assets/icon-sprite.svg#upload" />
+                            <use href="{% static '/assets/icon-sprite.svg#upload' %}" />
                         </svg>
                         Choose Profile Photo
                     </button>
@@ -188,7 +189,7 @@
                     <!-- Remove  -->
                     <button class="text negative" type="button" id="remove_avatar_btn" name="remove_avatar_btn">
                         <svg class="icon">
-                            <use href="../../../static/assets/icon-sprite.svg#delete" />
+                            <use href="{% static '/assets/icon-sprite.svg#delete' %}" />
                         </svg>
                         Remove
                     </button>
@@ -222,6 +223,7 @@
                 </fieldset>
 
                 <!-- Email -->
+                 <!--TODO: remove mail-->
                 <fieldset>
                     <label for="edit_profile_email">Email</label>
                     <input type="email" name="edit_profile_email" id="edit_profile_email" class="text-input"
@@ -231,9 +233,9 @@
 
                 <!-- Phone Number -->
                 <fieldset>
-                    <label for="edit_profile_phone">Phone number</label>
+                    <label for="edit_profile_phone">Phone Number</label>
                     <div class="icon-frame">
-                        <span class="lead"><img src="../../../static/assets/illus/flag-india.svg" class="icon"></span>
+                        <span class="lead"><img src="{% static '/assets/illus/flag-india.svg' %}" class="icon"></span>
                         <input type="text" name="edit_profile_phone" id="edit_profile_phone" class="text-input"
                             autocomplete="tel" placeholder="10 digit contact number" required inputmode="numeric"
                             pattern="^\d{10}$">
@@ -245,7 +247,7 @@
                     <label for="edit_profile_license">License</label>
                     <div class="icon-frame">
                         <svg class="icon lead">
-                            <use href="../../../static/assets/icon-sprite.svg#file-report" />
+                            <use href="{% static '/assets/icon-sprite.svg#file-report' %}" />
                         </svg>
                         <input type="file" name="edit_profile_license" id="edit_profile_license" class="text-input"
                             accept="image/jpg, image/png, image/jpeg">
@@ -258,7 +260,7 @@
                     <button class="text negative" type="button" id="edit_profile_reset_btn"
                         name="edit_profile_reset_btn">
                         <svg class="icon">
-                            <use href="../../../static/assets/icon-sprite.svg#refresh" />
+                            <use href="{% static '/assets/icon-sprite.svg#refresh' %}" />
                         </svg>
                         Remove
                     </button>
@@ -279,13 +281,13 @@
     <!-- MAIN ENDS -->
 
 
-    <script type="module" src="../../../static/script/main.js"></script>
+    <script type="module" src="{% static '/script/main.js' %}"></script>
 
     <script type="module">
-        import {createSnackbar, createDialog} from "../../../static/script/utils/components.js"
-        import {UI_STATUS_FEEDBACK} from "../../../static/script/utils/const.js"
-        import {setInputMsg} from "../../../static/script/utils/inputs.js"
-        import {toTwoDigit} from "../../../static/script/utils/utils.js"
+        import {createSnackbar, createDialog} from "{% static '/script/utils/components.js' %}"
+        import {UI_STATUS_FEEDBACK} from "{% static '/script/utils/const.js' %}"
+        import {setInputMsg} from "{% static '/script/utils/inputs.js' %}"
+        import {toTwoDigit} from "{% static '/script/utils/utils.js' %}"
 
         
 
@@ -294,3 +296,29 @@
 </body>
 
 </html>
+
+<!-- TODO: merge this -->
+<!-- 
+
+<form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="">Name</label>
+        <input type="text" name="name" id="">
+        <br>
+        <label for="">Shop Name</label>
+        <input type="text" name="shop-name" id="">
+        <br>
+        <label for="">Contact</label>
+        <input type="text" name="contact" id="">
+        <br>
+        <label for="">Avatar</label>
+        <input type="file" name="avatar" id="">
+        <br>
+        <label for="">Licence</label>
+        <input type="file" name="license" id="">
+        <br>
+        <button type="submit">Update</button>
+
+
+    </form>
+-->

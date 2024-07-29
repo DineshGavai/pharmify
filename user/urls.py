@@ -1,6 +1,8 @@
 from django.urls import path
 from .views import *
 from django.contrib.auth import views as auth_views
+from django.conf.urls.static import static
+
 
 
 urlpatterns = [
@@ -9,7 +11,9 @@ urlpatterns = [
     path('verify-email/', verifyEmail, name="verifyEmail"),
     path('verify/', verify, name="verify"),
     path('signup/', signup, name="signup"),
+    path('edit-profile/',profileUpdate,name='profile-update'),
 
+# Password reset path
     path('reset-password/', ResetPasswordView.as_view(
         html_email_template_name="password/password_reset_email.html"), name='password_reset'),
     path("reset-password-emailed/", auth_views.PasswordResetDoneView.as_view(
@@ -20,3 +24,7 @@ urlpatterns = [
         template_name="password/password_reset_done.html"), name="password_reset_complete")
 
 ]
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
