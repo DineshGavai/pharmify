@@ -10,7 +10,7 @@ IMPORTS and SETUPS
 UTILITY CLASSES
 ///////////////////////// */
 
-@media (min-width: 1024px) {
+@media (min-width: 1025px) {
   .mobile-only {
     display: none;
     opacity: 0;
@@ -19,7 +19,7 @@ UTILITY CLASSES
   }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1025px) {
   .desk-only {
     display: none;
     opacity: 0;
@@ -59,7 +59,7 @@ UTILITY CLASSES
   margin-right: auto;
 }
 
-@media (min-width: 769px) {
+@media (min-width: 1025px) {
   .center-mobile {
     text-align: left;
     margin: 0;
@@ -86,8 +86,12 @@ UTILITY CLASSES
 }
 
 .empty-sec {
-  background-color: var(--clr-grey-hover);
-  color: var(--clr-grey-text);
+  background-color: var(--clr-grey-hover) !important;
+  color: var(--clr-grey-text) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
   padding: 1.6rem;
   border-radius: 1.6rem;
 }
@@ -115,6 +119,7 @@ picture :is(img, svg) {
 COMPONENTS
 ///////////////////////// */
 
+/* All FLEXBOXES */
 fieldset label,
 fieldset .trail,
 fieldset .msg,
@@ -122,7 +127,9 @@ fieldset .msg,
 button,
 .logo,
 .snackbar,
-.snackbar .msg {
+.snackbar .msg,
+menu .menu-item,
+main header {
   display: flex;
   align-items: center;
   gap: 0.4rem;
@@ -145,7 +152,7 @@ button,
   background-image: var(--gradient-primary);
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
+  color: transparent !important;
 }
 
 .logo[data-white="true"] p {
@@ -232,7 +239,7 @@ SNACKBAR COMPONENT
   right: 1.6rem;
   width: 100%;
   max-width: 43.2rem;
-  z-index: 20;
+  z-index: 101;
   overflow: hidden;
 }
 
@@ -300,7 +307,7 @@ DIALOG COMPONENT
   position: fixed;
   width: 100%;
   height: 100%;
-  z-index: 1000;
+  z-index: 100;
   background-color: var(--clr-grey-overlay);
   display: flex;
   align-items: center;
@@ -309,7 +316,7 @@ DIALOG COMPONENT
 
 .dialog-sec.fullscreen {
   background-color: var(--clr-grey-bg);
-  overflow-y: auto;
+  overflow: hidden auto;
   height: 100vh;
   align-items: start;
 }
@@ -345,7 +352,7 @@ DIALOG COMPONENT
   flex-direction: column;
   gap: 1.6rem;
   margin: 0.4rem 0;
-  overflow-y: auto;
+  overflow: hidden auto;
   height: 100%;
   padding: 1.6rem;
   background-color: var(--clr-grey-bg);
@@ -385,20 +392,340 @@ DIALOG COMPONENT
 }
 
 /* /////////////////////////
-  USER INFO
+ TABs
+///////////////////////// */
+
+.tab-sec {
+  position: relative;
+  display: flex;
+  gap: 0.4rem;
+  padding: 0 1.6rem;
+  padding-top: 0.4rem;
+  width: 100%;
+  overflow: auto hidden;
+  border-bottom: 1px solid var(--clr-primary-dark);
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  user-select: none;
+  cursor: grab;
+  scroll-behavior: smooth;
+  scroll-snap-type: proximity;
+}
+
+.tab-sec::-webkit-scrollbar {
+  display: none;
+}
+
+.tab-sec .tab {
+  text-wrap: nowrap;
+  padding: 0.8rem 0.8rem;
+  cursor: pointer;
+}
+
+.tab-sec .tab.active {
+  color: var(--clr-accent);
+}
+
+.tab-sec .indicator {
+  position: absolute;
+  width: var(--width);
+  height: 0.2rem;
+  bottom: 0;
+  left: var(--left);
+  border-radius: 10rem 10rem 0 0;
+  background-color: var(--clr-primary-dark);
+}
+
+/* /////////////////////////
+USER INFO
 ///////////////////////// */
 
 .user-info-full-name {
   text-wrap: nowrap;
 }
 
+.user-info-avatar {
+  max-width: 16rem;
+}
+
 /* /////////////////////////
 PARENT CONTAINERS
 ///////////////////////// */
+body {
+  display: flex;
+}
+
 main {
   width: 100%;
   height: 100vh;
+  overflow: hidden;
+}
+
+main .main-content {
+  height: 100vh;
+  padding: 1.6rem;
+  padding-bottom: 12rem;
   overflow: hidden auto;
+}
+
+/* /////////////////////////
+NAVIGATION SIDEBAR / NAVBAR
+///////////////////////// */
+
+nav {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  z-index: 10;
+  background-color: var(--clr-grey-overlay);
+}
+
+.nav-body {
+  position: fixed;
+  width: 100%;
+  max-width: 28rem;
+  height: 100vh;
+  background-color: var(--clr-white);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden auto;
+  overflow-x: hidden;
+  left: -10%;
+}
+
+nav.visible .nav-body {
+  left: 0;
+}
+
+.nav-close-btn {
+  margin-left: auto;
+}
+
+button.icon.nav-open-btn {
+  position: fixed;
+  z-index: 11;
+  background-color: var(--clr-primary);
+  color: var(--clr-white);
+  top: 0.4rem;
+  left: 0;
+  border-radius: 0 100rem 100rem 0 !important;
+  width: 5.2rem !important;
+  min-width: 5.2rem !important;
+  padding-left: 1.2rem;
+}
+
+button.icon.nav-open-btn:active {
+  transform: translateX(-0.4rem);
+  scale: 1;
+}
+
+nav,
+.nav-open-btn.visible,
+nav .nav-close-btn {
+  visibility: hidden;
+  opacity: 0;
+}
+nav.visible,
+.nav-open-btn,
+nav.visible .nav-close-btn {
+  visibility: visible;
+  opacity: 1;
+}
+
+.nav-body :is(header, footer) {
+  padding: 0.4rem 1.6rem;
+}
+
+.nav-body .nav-content {
+  overflow-x: hidden;
+  padding: 1.6rem 0.4rem;
+  flex: 1;
+  min-height: 12rem;
+  border: 1px solid var(--clr-grey-divider);
+  border-left: none;
+  border-right: none;
+  overflow: hidden auto;
+}
+
+menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.nav-content menu {
+  margin-bottom: 1.6rem;
+}
+
+menu .menu-item {
+  border-radius: 0.5rem;
+  padding: 0.8rem;
+  padding-right: 1.6rem;
+  justify-content: start;
+  gap: 1.2rem;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+menu .menu-item.active {
+  background-color: var(--clr-primary-hover);
+  color: var(--clr-primary-dark);
+}
+
+menu .menu-item.active:hover {
+  background-color: var(--clr-primary-focus);
+  color: var(--clr-primary-dark);
+}
+
+.menu-item * {
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+  overflow: hidden;
+}
+
+.menu-item .badge {
+  margin-left: auto;
+}
+
+.menu-item svg.chevron {
+  color: var(--clr-accent);
+}
+
+.menu-item:hover {
+  background-color: var(--clr-grey-hover);
+}
+
+.menu-item.user-info {
+  padding: 0.4rem;
+  gap: 0.8rem;
+  text-transform: none;
+}
+
+.menu-item.user-info picture {
+  --size: 4rem;
+  width: var(--size);
+  min-width: var(--size);
+  aspect-ratio: 1;
+}
+
+menu .submenu {
+  border-left: 1px solid var(--clr-accent-focus);
+  margin: 0;
+  margin-left: 2rem;
+  padding-left: 0.8rem;
+  max-height: 0px;
+  overflow: hidden;
+}
+
+menu .submenu .menu-item {
+  padding-left: 1.6rem;
+}
+
+menu .menu-item.visible svg.chevron {
+  transform: rotate(-180deg);
+}
+
+menu .menu-item.visible + .submenu {
+  max-height: 30rem;
+}
+
+.nav-body footer {
+  padding: 1.6rem;
+  padding-top: 0.4rem;
+}
+
+.nav-body footer menu {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+.nav-body footer .menu-item {
+  gap: 0.4rem;
+}
+
+nav footer .fs-200 {
+  text-wrap: nowrap;
+}
+
+@media (min-width: 1025px) {
+  nav {
+    position: static;
+    max-width: 6.4rem;
+    overflow: hidden;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .nav-body {
+    position: static;
+    max-width: 6.4rem;
+    border-right: 1px solid var(--clr-grey-divider);
+  }
+
+  nav.visible,
+  nav.visible .nav-body {
+    max-width: 28rem;
+  }
+
+  .nav-body :is(header, .nav-content, footer) {
+    padding: 0.4rem;
+  }
+  .nav-close-btn {
+    margin-left: 0.8rem;
+  }
+
+  nav:not(.visible) menu .menu-item {
+    max-width: 4rem;
+  }
+
+  nav:not(.visible) .nav-content .menu-item:not(.user-info) {
+    transform: translateX(0.7rem);
+  }
+
+  nav:not(.visible) menu .menu-item.user-info {
+    transform: translateX(0.3rem);
+    max-width: 4.8rem;
+  }
+
+  nav.visible menu .menu-item,
+  nav.visible menu .menu-item.user-info {
+    max-width: 100rem;
+  }
+
+  nav:not(.visible) .menu-item.visible + .submenu {
+    max-height: 0;
+  }
+
+  nav:not(.visible) footer menu {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  nav:not(.visible) footer .menu-item {
+    gap: 0.8rem;
+  }
+
+  nav:not(.visible) footer .fs-200 {
+    display: none;
+  }
+}
+
+/* /////////////////////////
+  PAGE HEADERS
+///////////////////////// */
+
+main header {
+  padding: 0.4rem 1.6rem;
+  min-height: 4.05rem;
+  justify-content: space-between;
+}
+
+@media (min-width: 1025px) {
+  main header {
+    justify-content: start;
+  }
 }
 
 /* /////////////////////////

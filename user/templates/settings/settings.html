@@ -1,4 +1,3 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,10 +8,11 @@
     <title>Pharmify</title>
 
     <!-- FAVICON -->
-    <link rel="shortcut icon" href="{% static 'assets/logo/favicon.svg' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static assets/logo/favicon.svg %}" type="image/x-icon">
 
     <!-- STYLE SHEET -->
-    <link rel="stylesheet" href="{% static 'style/main.css' %}">
+    <link rel="stylesheet" href="{% static style/main.css %}">
+    <link rel="stylesheet" href="{% static style/settings.css %}">
 
 </head>
 
@@ -20,7 +20,7 @@
 
     <button class="icon nav-open-btn">
         <svg class="icon">
-            <use href="{% static 'assets/icon-sprite.svg' %}#menu-hamburger" />
+            <use href="{% static assets/icon-sprite.svg %}#menu-hamburger" />
         </svg>
     </button>
 
@@ -28,14 +28,13 @@
     <nav>
         <!-- class="visible" -->
 
-
         <!-- NAVBAR BODY STARTS -->
         <section class="nav-body">
             <!-- Header -->
             <header>
                 <button class="icon nav-close-btn">
                     <svg class="icon">
-                        <use href="{% static 'assets/icon-sprite.svg' %}#chevron-left" />
+                        <use href="{% static assets/icon-sprite.svg %}#chevron-left" />
                     </svg>
                 </button>
             </header>
@@ -44,12 +43,12 @@
             <section class="nav-content">
                 <!-- User Info and Edit profile link -->
                 <menu>
-                    <a class="menu-item user-info" href="{% url 'profile-edit' %}">
-                        <picture><img src="{% static 'assets/illus/default-avatar.png' %}" alt="Your profile photo">
+                    <a class="menu-item user-info active" href="#">
+                        <picture><img src="{% static assets/illus/default-avatar.png %}" alt="Your profile photo">
                         </picture>
                         <div>
-                            <p class="user-info-full-name">{{request.user.first_name}}</p>
-                            <b class="user-info-email subtitle gradient-primary">{{request.user}}</b>
+                            <p class="user-info-full-name">Vedant Mali</p>
+                            <b class="user-info-email subtitle gradient-primary">vedantmali05@gmail.com</b>
                         </div>
                     </a>
                 </menu>
@@ -57,9 +56,9 @@
                 <!-- Pages options -->
                 <menu>
                     <!-- Home -->
-                    <a href="#" class="menu-item active">
+                    <a href="#" class="menu-item">
                         <svg class="icon">
-                            <use href="{% static 'assets/icon-sprite.svg' %}#pages-home" />
+                            <use href="{% static assets/icon-sprite.svg %}#pages-home" />
                         </svg>
                         Home
                         <span class="badge"></span>
@@ -67,7 +66,7 @@
                     <!-- Bills -->
                     <a href="#" class="menu-item">
                         <svg class="icon">
-                            <use href="{% static 'assets/icon-sprite.svg' %}#pages-bills" />
+                            <use href="{% static assets/icon-sprite.svg %}#pages-bills" />
                         </svg>
                         Bills
                         <span class="badge"></span>
@@ -75,27 +74,27 @@
                     <!-- Stocks -->
                     <div class="menu-item has-submenu">
                         <svg class="icon">
-                            <use href="{% static 'assets/icon-sprite.svg' %}#pages-stocks" />
+                            <use href="{% static assets/icon-sprite.svg %}#pages-stocks" />
                         </svg>
                         Stocks
                         <span class="badge"></span>
                         <svg class="icon chevron">
-                            <use href="{% static 'assets/icon-sprite.svg' %}#chevron-down" />
+                            <use href="{% static assets/icon-sprite.svg %}#chevron-down" />
                         </svg>
                     </div>
                     <menu class="submenu">
                         <a href="#" class="menu-item">Stock History</a>
-                        <a href="{% url 'add-stock' %}" class="menu-item">Add New Stocks</a>
+                        <a href="#" class="menu-item">Add New Stocks</a>
                     </menu>
                     <!-- Insights -->
                     <div class="menu-item has-submenu">
                         <svg class="icon">
-                            <use href="{% static 'assets/icon-sprite.svg' %}#pages-insights" />
+                            <use href="{% static assets/icon-sprite.svg %}#pages-insights" />
                         </svg>
                         Insights
                         <span class="badge"></span>
                         <svg class="icon chevron">
-                            <use href="{% static 'assets/icon-sprite.svg' %}#chevron-down" />
+                            <use href="{% static assets/icon-sprite.svg %}#chevron-down" />
                         </svg>
                     </div>
                     <menu class="submenu">
@@ -105,7 +104,7 @@
                     <!-- Patients -->
                     <a href="#" class="menu-item">
                         <svg class="icon">
-                            <use href="{% static 'assets/icon-sprite.svg' %}#pages-patients" />
+                            <use href="{% static assets/icon-sprite.svg %}#pages-patients" />
                         </svg>
                         Patients
                         <span class="badge"></span>
@@ -120,13 +119,13 @@
                     <button class="icon negative">
                         <a href="{% url 'logout' %}">
                             <svg class="icon">
-                                <use href="{% static 'assets/icon-sprite.svg' %}#pages-logout" />
+                                <use href="{% static assets/icon-sprite.svg %}#pages-logout" />
                             </svg>
                         </a>
                     </button>
                     <a href="#" class="menu-item">
                         <svg class="icon">
-                            <use href="{% static 'assets/icon-sprite.svg' %}#pages-settings" />
+                            <use href="{% static assets/icon-sprite.svg %}#pages-settings" />
                         </svg>
                         Settings
                     </a>
@@ -149,18 +148,44 @@
     </nav>
     <!-- NAVBAR ENDS -->
 
+    <!-- MAIN STARTS -->
+    <main>
+
+        <!-- Header -->
+        <header class="center-mobile">
+            <h1 class="fs-600">Account Settings</h1>
+        </header>
+
+        <!-- Tab navigation -->
+        <section class="tab-sec">
+            <div class="tab">Edit profile</div>
+            <div class="tab">Privacy and Security</div>
+            <div class="tab active">Settings</div>
+            <span class="indicator"></span>
+        </section>
+
+        <section class="main-content empty-sec">
+
+            Account Settings page is coming soon to help you manage your preferences...
+
+        </section>
+
+    </main>
+    <!-- MAIN ENDS -->
 
 
-    <script type="module" src="{% static 'script/main.js' %}"></script>
+    <script type="module" src="{% static script/main.js %}"></script>
+
+    <script type="module">
+        import { createSnackbar, createDialog } from "{% static script/utils/components.js %}"
+        import { UI_STATUS_FEEDBACK } from "{% static script/utils/const.js %}"
+        import { setInputMsg } from "{% static script/utils/inputs.js %}"
+        import { toTwoDigit } from "{% static script/utils/utils.js %}"
+
+
+
+    </script>
 
 </body>
 
 </html>
-
-<!-- {% if request.user.is_authenticated %}
-<p class="fs-400">{{request.user}}</p>
-<button class="primary"><a href="{% url 'logout' %}">Logout</a></button>
-{% else %}
-    <button class="primary"><a href="{% url 'login' %}">Login</a></button>
-    <button class="primary"><a href="{% url 'verifyEmail' %}">Register</a></button>
-    {% endif %} -->

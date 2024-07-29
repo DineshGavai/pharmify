@@ -1,4 +1,3 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,6 +12,7 @@
 
     <!-- STYLE SHEET -->
     <link rel="stylesheet" href="{% static 'style/main.css' %}">
+    <link rel="stylesheet" href="{% static 'style/settings.css' %}">
 
 </head>
 
@@ -27,7 +27,6 @@
     <!-- NAVBAR STARTS -->
     <nav>
         <!-- class="visible" -->
-
 
         <!-- NAVBAR BODY STARTS -->
         <section class="nav-body">
@@ -44,12 +43,12 @@
             <section class="nav-content">
                 <!-- User Info and Edit profile link -->
                 <menu>
-                    <a class="menu-item user-info" href="{% url 'profile-edit' %}">
+                    <a class="menu-item user-info active" href="#">
                         <picture><img src="{% static 'assets/illus/default-avatar.png' %}" alt="Your profile photo">
                         </picture>
                         <div>
-                            <p class="user-info-full-name">{{request.user.first_name}}</p>
-                            <b class="user-info-email subtitle gradient-primary">{{request.user}}</b>
+                            <p class="user-info-full-name">Vedant Mali</p>
+                            <b class="user-info-email subtitle gradient-primary">vedantmali05@gmail.com</b>
                         </div>
                     </a>
                 </menu>
@@ -57,7 +56,7 @@
                 <!-- Pages options -->
                 <menu>
                     <!-- Home -->
-                    <a href="#" class="menu-item active">
+                    <a href="#" class="menu-item">
                         <svg class="icon">
                             <use href="{% static 'assets/icon-sprite.svg' %}#pages-home" />
                         </svg>
@@ -85,7 +84,7 @@
                     </div>
                     <menu class="submenu">
                         <a href="#" class="menu-item">Stock History</a>
-                        <a href="{% url 'add-stock' %}" class="menu-item">Add New Stocks</a>
+                        <a href="#" class="menu-item">Add New Stocks</a>
                     </menu>
                     <!-- Insights -->
                     <div class="menu-item has-submenu">
@@ -149,18 +148,117 @@
     </nav>
     <!-- NAVBAR ENDS -->
 
+    <!-- MAIN STARTS -->
+    <main>
+
+        <!-- Header -->
+        <header class="center-mobile">
+            <h1 class="fs-600">Account & privacy</h1>
+        </header>
+
+        <!-- Tab navigation -->
+        <section class="tab-sec">
+            <div class="tab">Edit profile</div>
+            <div class="tab active">Privacy and Security</div>
+            <div class="tab">Settings</div>
+            <span class="indicator"></span>
+        </section>
+
+        <section class="main-content">
+
+            <a href="#">
+                <h2 class="fs-500">Change Password</h2>
+
+                <p class="subtitle">Updating your password after certain intervals keeps the Pharmify account secure.
+                </p>
+
+                <span class="password-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+                <div class="link-box">
+                    <button class="icon">
+                        <svg class="icon">
+                            <use href="{% static 'assets/icon-sprite.svg' %}#chevron-right" />
+                        </svg>
+                    </button>
+                </div>
+            </a>
+
+            <a href="#">
+                <h2 class="fs-500">Download your data</h2>
+                <!-- TODO: Add the file type the data will be exported to. -->
+                <p class="subtitle">Save a copy of your data to back it up. You may import it later.</p>
+
+                <div class="link-box">
+                    <button class="icon">
+                        <svg class="icon">
+                            <use href="{% static 'assets/icon-sprite.svg' %}#chevron-right" />
+                        </svg>
+                    </button>
+                </div>
+            </a>
+
+            <a href="#">
+                <h2 class="fs-500">Terms and Privacy Policy</h2>
+
+                <p class="subtitle">Learn how we safeguard your information and protect your account. Read our Terms and
+                    Privacy Policy.</p>
+
+                <div class="link-box">
+                    <button class="icon">
+                        <svg class="icon">
+                            <use href="{% static 'assets/icon-sprite.svg' %}#chevron-right" />
+                        </svg>
+                    </button>
+                </div>
+            </a>
+
+            <section class="danger-zone">
+                <h2 class="fs-500 negative">Danger Zone</h2>
+
+                <p class="subtitle">We will immediately delete all the data from our servers based on the action you
+                    choose. Once your data or account has been deleted, there is no going back. Please be certain.</p>
+                <p class="subtitle">Please note that, <b>these actions cannot be undone</b></p>
+
+                <a href="#">
+                    <p class="negative">Clear all Data</p>
+                    <p class="subtitle">This will clear all your data including your information related to stocks,
+                        transactions, customers and also settings.</p>
+                    <p class="subtitle">We will keep your account and your personal information that you can update
+                        anytime.</p>
+                </a>
+
+                <div class="divider"></div>
+
+                <a href="#">
+                    <p class="negative">Delete Account Permanently</p>
+                    <p class="subtitle">This will delete your Pharmify account permanently clearing all your inventory
+                        information related to stocks, transactions, customers, settings and also your personal
+                        information.</p>
+                </a>
+            </section>
+
+        </section>
+
+
+    </main>
+    <!-- MAIN ENDS -->
 
 
     <script type="module" src="{% static 'script/main.js' %}"></script>
 
+    <script type="module">
+        import { createSnackbar, createDialog } from "{% static 'script/utils/components.js' %}"
+        import { UI_STATUS_FEEDBACK } from "{% static 'script/utils/const.js' %}"
+        import { setInputMsg } from "{% static 'script/utils/inputs.js' %}"
+        import { toTwoDigit } from "{% static 'script/utils/utils.js' %}"
+    </script>
+
 </body>
 
 </html>
-
-<!-- {% if request.user.is_authenticated %}
-<p class="fs-400">{{request.user}}</p>
-<button class="primary"><a href="{% url 'logout' %}">Logout</a></button>
-{% else %}
-    <button class="primary"><a href="{% url 'login' %}">Login</a></button>
-    <button class="primary"><a href="{% url 'verifyEmail' %}">Register</a></button>
-    {% endif %} -->

@@ -1,0 +1,291 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- TITLE -->
+    <title>Pharmify</title>
+
+    <!-- FAVICON -->
+    <link rel="shortcut icon" href="{% static 'assets/logo/favicon.svg' %}" type="image/x-icon">
+
+    <!-- STYLE SHEET -->
+    <link rel="stylesheet" href="{% static 'style/main.css' %}">
+    <link rel="stylesheet" href="{% static 'style/settings.css' %}">
+
+</head>
+
+<body>
+
+    <button class="icon nav-open-btn">
+        <svg class="icon">
+            <use href="{% static 'assets/icon-sprite.svg'  %}#menu-hamburger" />
+        </svg>
+    </button>
+
+    <!-- NAVBAR STARTS -->
+    <nav>
+        <!-- class="visible" -->
+
+        <!-- NAVBAR BODY STARTS -->
+        <section class="nav-body">
+            <!-- Header -->
+            <header>
+                <button class="icon nav-close-btn">
+                    <svg class="icon">
+                        <use href="{% static 'assets/icon-sprite.svg' %}#chevron-left" />
+                    </svg>
+                </button>
+            </header>
+
+            <!-- Navbar Content STARTS -->
+            <section class="nav-content">
+                <!-- User Info and Edit profile link -->
+                <menu>
+                    <a class="menu-item user-info active" href="#">
+                        <picture><img src="{% static 'assets/illus/default-avatar.png'  %}" alt="Your profile photo">
+                        </picture>
+                        <div>
+                            <p class="user-info-full-name">Vedant Mali</p>
+                            <b class="user-info-email subtitle gradient-primary">vedantmali05@gmail.com</b>
+                        </div>
+                    </a>
+                </menu>
+
+                <!-- Pages options -->
+                <menu>
+                    <!-- Home -->
+                    <a href="#" class="menu-item">
+                        <svg class="icon">
+                            <use href="{% static 'assets/icon-sprite.svg'  %}#pages-home" />
+                        </svg>
+                        Home
+                        <span class="badge"></span>
+                    </a>
+                    <!-- Bills -->
+                    <a href="#" class="menu-item">
+                        <svg class="icon">
+                            <use href="{% static 'assets/icon-sprite.svg'  %}#pages-bills" />
+                        </svg>
+                        Bills
+                        <span class="badge"></span>
+                    </a>
+                    <!-- Stocks -->
+                    <div class="menu-item has-submenu">
+                        <svg class="icon">
+                            <use href="{% static 'assets/icon-sprite.svg'  %}#pages-stocks" />
+                        </svg>
+                        Stocks
+                        <span class="badge"></span>
+                        <svg class="icon chevron">
+                            <use href="{% static 'assets/icon-sprite.svg'  %}#chevron-down" />
+                        </svg>
+                    </div>
+                    <menu class="submenu">
+                        <a href="#" class="menu-item">Stock History</a>
+                        <a href="#" class="menu-item">Add New Stocks</a>
+                    </menu>
+                    <!-- Insights -->
+                    <div class="menu-item has-submenu">
+                        <svg class="icon">
+                            <use href="{% static 'assets/icon-sprite.svg'  %}#pages-insights" />
+                        </svg>
+                        Insights
+                        <span class="badge"></span>
+                        <svg class="icon chevron">
+                            <use href="{% static 'assets/icon-sprite.svg'  %}#chevron-down" />
+                        </svg>
+                    </div>
+                    <menu class="submenu">
+                        <a href="#" class="menu-item">Sales</a>
+                        <a href="#" class="menu-item">Purchases</a>
+                    </menu>
+                    <!-- Patients -->
+                    <a href="#" class="menu-item">
+                        <svg class="icon">
+                            <use href="{% static 'assets/icon-sprite.svg'  %}#pages-patients" />
+                        </svg>
+                        Patients
+                        <span class="badge"></span>
+                    </a>
+                </menu>
+
+            </section>
+            <!-- Navbar Content ENDS -->
+
+            <footer>
+                <menu>
+                    <button class="icon negative">
+                        <a href="{% url 'logout' %}">
+                            <svg class="icon">
+                                <use href="{% static 'assets/icon-sprite.svg'  %}#pages-logout" />
+                            </svg>
+                        </a>
+                    </button>
+                    <a href="#" class="menu-item">
+                        <svg class="icon">
+                            <use href="{% static 'assets/icon-sprite.svg'  %}#pages-settings" />
+                        </svg>
+                        Settings
+                    </a>
+                </menu>
+                <p class="fs-200">
+                    <a href="#" class="text-link">About Us</a>
+                    <b>·</b>
+                    <a href="#" class="text-link">Terms</a>
+                    <b>·</b>
+                    <a href="#" class="text-link">Privacy Policy</a>
+                </p>
+                <b class="fs-200">
+                    <a href="https://github.com/DineshGavai" class="text-link gradient-primary">Dinesh Gavai</a>
+                    <b>·</b>
+                    <a href="https://github.com/vedantmali05" class="text-link gradient-primary">Vedant Mali</a>
+                </b>
+            </footer>
+        </section>
+        <!-- NAVBAR BODY ENDS -->
+    </nav>
+    <!-- NAVBAR ENDS -->
+
+    <!-- MAIN STARTS -->
+    <main>
+
+        <!-- Header -->
+        <header class="center-mobile">
+            <h1 class="fs-600">Personal info</h1>
+        </header>
+
+        <!-- Tab navigation -->
+        <section class="tab-sec">
+            <div class="tab active">Edit profile</div>
+            <div class="tab">Privacy and Security</div>
+            <div class="tab">Settings</div>
+            <span class="indicator"></span>
+        </section>
+
+        <section class="main-content">
+
+            <!-- CHOOSE AVATAR FROM STARTS -->
+            <form action="" method="post" class="avatar-form" id="avatar_form" name="avatar_form" novalidate>
+
+                <h2 class="fs-500">Your Profile Photo</h2>
+
+                <!-- Current Preview -->
+                <picture class="user-info-avatar">
+                    <img src="{% static 'assets/illus/default-avatar.png'  %}" alt="Your profile photo">
+                </picture>
+
+                <div class="btn-box">
+                    <!-- File upload button -->
+                    <button class="ghost" type="button" onclick="document.getElementById('remove_avatar_btn').click()">
+                        <svg class="icon">
+                            <use href="{% static 'assets/icon-sprite.svg'  %}#upload" />
+                        </svg>
+                        Choose Profile Photo
+                    </button>
+
+                    <!-- Remove  -->
+                    <button class="text negative" type="button" id="remove_avatar_btn" name="remove_avatar_btn">
+                        <svg class="icon">
+                            <use href="{% static 'assets/icon-sprite.svg ' %}#delete" />
+                        </svg>
+                        Remove
+                    </button>
+                </div>
+                <!-- File upload input -->
+                <input type="file" hidden name="upload_avatar_input" id="upload_avatar_input">
+            </form>
+            <!-- CHOOSE AVATAR FROM ENDS -->
+
+            <!-- EDIT PROFILE FROM STARTS -->
+            <form action="" method="post" class="edit-profile-form" id="edit_profile_form" name="edit_profile_form"
+                novalidate>
+
+                <h2 class="fs-500">Your Account Information</h2>
+                <p class="subtitle">Review and update your profile information.</p>
+
+                <!-- Full name -->
+                <fieldset>
+                    <label for="edit_profile_full_name">Full Name</label>
+                    <input type="text" name="edit_profile_full_name" id="edit_profile_full_name" class="text-input"
+                        placeholder="First & Last name" autocomplete="name" required
+                        pattern="([A-Za-z]+){2,}\s+([A-Za-z]+)(?:\s+([A-Za-z]+){2,})?$">
+                </fieldset>
+
+                <!-- Shop name -->
+                <fieldset>
+                    <label for="edit_profile_shop_name">Shop Name</label>
+                    <input type="text" name="edit_profile_shop_name" id="edit_profile_shop_name" class="text-input"
+                        placeholder="Your Medical Store name" required
+                        pattern='^[.@&]?[a-zA-Z0-9 ]+[ !.@&()]?[ a-zA-Z0-9!()]+'>
+                </fieldset>
+
+
+
+                <!-- Phone Number -->
+                <fieldset>
+                    <label for="edit_profile_phone">Phone number</label>
+                    <div class="icon-frame">
+                        <span class="lead"><img src="{% static 'assets/illus/flag-india.svg'  %}" class="icon"></span>
+                        <input type="text" name="edit_profile_phone" id="edit_profile_phone" class="text-input"
+                            autocomplete="tel" placeholder="10 digit contact number" required inputmode="numeric"
+                            pattern="^\d{10}$">
+                    </div>
+                </fieldset>
+
+                <!-- License -->
+                <fieldset>
+                    <label for="edit_profile_license">License</label>
+                    <div class="icon-frame">
+                        <svg class="icon lead">
+                            <use href="{% static 'assets/icon-sprite.svg'  %}#file-report" />
+                        </svg>
+                        <input type="file" name="edit_profile_license" id="edit_profile_license" class="text-input"
+                            accept="image/jpg, image/png, image/jpeg">
+                    </div>
+                </fieldset>
+
+                <div class="btn-box">
+
+                    <!-- Remove  -->
+                    <button class="text negative" type="button" id="edit_profile_reset_btn"
+                        name="edit_profile_reset_btn">
+                        <svg class="icon">
+                            <use href="{% static 'assets/icon-sprite.svg'  %}#refresh" />
+                        </svg>
+                        Remove
+                    </button>
+                    <!-- Update changes button -->
+                    <button class="primary" type="button" id="edit_profile_submit_btn" name="edit_profile_submit_btn">
+                        Update Changes
+                    </button>
+                </div>
+
+            </form>
+            <!-- EDIT PROFILE FROM ENDS -->
+
+
+        </section>
+
+
+    </main>
+    <!-- MAIN ENDS -->
+
+
+    <script type="module" src="{% static 'script/main.js'  %}"></script>
+
+    <script type="module">
+        import { createSnackbar, createDialog } from "{% static 'script/utils/components.js'  %}"
+        import { UI_STATUS_FEEDBACK } from "{% static 'script/utils/const.js'  %}"
+        import { setInputMsg } from "{% static 'script/utils/inputs.js'  %}"
+        import { toTwoDigit } from "{% static 'script/utils/utils.js'  %}"
+
+
+
+    </script>
+
+</body>
+
+</html>

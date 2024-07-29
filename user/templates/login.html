@@ -18,6 +18,7 @@
     <style>
         main {
             background-image: url("{% static 'assets/illus/login-bg.png' %}");
+            background-position: bottom right;
         }
     </style>
 </head>
@@ -29,7 +30,7 @@
 
         <!-- MAIN CONTENT STARTS -->
         <section class="main-content">
-            <div class="logo" data-name="true"></div>
+            <picture class="logo" data-name="true"></picture>
 
             <form action="" method="post" id="login_form" name="login_form" novalidate>
                 {% csrf_token %}
