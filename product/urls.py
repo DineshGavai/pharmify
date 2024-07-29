@@ -6,7 +6,7 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-    
+    path('add-stock',add_stock,name='add-stock'),
 
 ]
 
