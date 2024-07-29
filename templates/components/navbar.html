@@ -1,6 +1,7 @@
+{% load static %}
 <button class="icon nav-open-btn">
     <svg class="icon">
-        <use href="../../../static/assets/icon-sprite.svg#menu-hamburger" />
+        <use href="{% static 'assets/icon-sprite.svg' %}#menu-hamburger" />
     </svg>
 </button>
 
@@ -8,13 +9,14 @@
 <nav>
     <!-- class="visible" -->
 
+
     <!-- NAVBAR BODY STARTS -->
     <section class="nav-body">
         <!-- Header -->
         <header>
             <button class="icon nav-close-btn">
                 <svg class="icon">
-                    <use href="../../../static/assets/icon-sprite.svg#chevron-left" />
+                    <use href="{% static 'assets/icon-sprite.svg' %}#chevron-left" />
                 </svg>
             </button>
         </header>
@@ -23,12 +25,14 @@
         <section class="nav-content">
             <!-- User Info and Edit profile link -->
             <menu>
-                <a class="menu-item user-info active" href="#">
-                    <picture><img src="../../../static/assets/illus/default-avatar.png" alt="Your profile photo">
+                <a class="menu-item user-info" href="{% url 'edit-profile' %}">
+                    <!-- TODO: Change to Selected Avatar -->
+                    <picture><img src="{% static 'assets/illus/default-avatar.png' %}" alt="Your profile photo">
                     </picture>
                     <div>
-                        <p class="user-info-full-name">Vedant Mali</p>
-                        <b class="user-info-email subtitle gradient-primary">vedantmali05@gmail.com</b>
+                        <!-- TODO: Return full name "FIRST LAST" name instead of first_name -->
+                        <p class="user-info-full-name">{{request.user.name}}</p>
+                        <b class="user-info-email subtitle gradient-primary">{{request.user}}</b>
                     </div>
                 </a>
             </menu>
@@ -36,9 +40,9 @@
             <!-- Pages options -->
             <menu>
                 <!-- Home -->
-                <a href="#" class="menu-item">
+                <a href="{% url 'index' %}" class="menu-item active">
                     <svg class="icon">
-                        <use href="../../../static/assets/icon-sprite.svg#pages-home" />
+                        <use href="{% static 'assets/icon-sprite.svg' %}#pages-home" />
                     </svg>
                     Home
                     <span class="badge"></span>
@@ -46,7 +50,7 @@
                 <!-- Bills -->
                 <a href="#" class="menu-item">
                     <svg class="icon">
-                        <use href="../../../static/assets/icon-sprite.svg#pages-bills" />
+                        <use href="{% static 'assets/icon-sprite.svg' %}#pages-bills" />
                     </svg>
                     Bills
                     <span class="badge"></span>
@@ -54,27 +58,27 @@
                 <!-- Stocks -->
                 <div class="menu-item has-submenu">
                     <svg class="icon">
-                        <use href="../../../static/assets/icon-sprite.svg#pages-stocks" />
+                        <use href="{% static 'assets/icon-sprite.svg' %}#pages-stocks" />
                     </svg>
                     Stocks
                     <span class="badge"></span>
                     <svg class="icon chevron">
-                        <use href="../../../static/assets/icon-sprite.svg#chevron-down" />
+                        <use href="{% static 'assets/icon-sprite.svg' %}#chevron-down" />
                     </svg>
                 </div>
                 <menu class="submenu">
                     <a href="#" class="menu-item">Stock History</a>
-                    <a href="#" class="menu-item">Add New Stocks</a>
+                    <a href="{% url 'add-stock' %}" class="menu-item">Add New Stocks</a>
                 </menu>
                 <!-- Insights -->
                 <div class="menu-item has-submenu">
                     <svg class="icon">
-                        <use href="../../../static/assets/icon-sprite.svg#pages-insights" />
+                        <use href="{% static 'assets/icon-sprite.svg' %}#pages-insights" />
                     </svg>
                     Insights
                     <span class="badge"></span>
                     <svg class="icon chevron">
-                        <use href="../../../static/assets/icon-sprite.svg#chevron-down" />
+                        <use href="{% static 'assets/icon-sprite.svg' %}#chevron-down" />
                     </svg>
                 </div>
                 <menu class="submenu">
@@ -84,7 +88,7 @@
                 <!-- Patients -->
                 <a href="#" class="menu-item">
                     <svg class="icon">
-                        <use href="../../../static/assets/icon-sprite.svg#pages-patients" />
+                        <use href="{% static 'assets/icon-sprite.svg' %}#pages-patients" />
                     </svg>
                     Patients
                     <span class="badge"></span>
@@ -99,13 +103,13 @@
                 <button class="icon negative">
                     <a href="{% url 'logout' %}">
                         <svg class="icon">
-                            <use href="../../../static/assets/icon-sprite.svg#pages-logout" />
+                            <use href="{% static 'assets/icon-sprite.svg' %}#pages-logout" />
                         </svg>
                     </a>
                 </button>
                 <a href="#" class="menu-item">
                     <svg class="icon">
-                        <use href="../../../static/assets/icon-sprite.svg#pages-settings" />
+                        <use href="{% static 'assets/icon-sprite.svg' %}#pages-settings" />
                     </svg>
                     Settings
                 </a>

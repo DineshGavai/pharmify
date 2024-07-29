@@ -5,6 +5,7 @@ IMPORTS and SETUPS
 /* Stylsheets */
 @import "./reset.css";
 @import "./form.css";
+@import "./animations.css";
 
 /* /////////////////////////
 UTILITY CLASSES
@@ -434,6 +435,7 @@ DIALOG COMPONENT
   left: var(--left);
   border-radius: 10rem 10rem 0 0;
   background-color: var(--clr-primary-dark);
+  animation: fadeIn .8s linear;
 }
 
 /* /////////////////////////
@@ -725,91 +727,5 @@ main header {
 @media (min-width: 1025px) {
   main header {
     justify-content: start;
-  }
-}
-
-/* /////////////////////////
-  ANIMATIONS
-///////////////////////// */
-
-@keyframes fadeIn {
-  0%,
-  50% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeOut {
-  0%,
-  50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes fadeScaleDownIn {
-  0% {
-    opacity: 0;
-    scale: 0.9;
-    translate: 0 -50%;
-  }
-
-  50% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-    scale: 1;
-    translate: 0 0%;
-  }
-}
-
-@keyframes fadeScaleUpIn {
-  0% {
-    opacity: 0;
-    scale: 0.9;
-    translate: 0 50%;
-  }
-
-  50% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-    scale: 1;
-    translate: 0 0%;
-  }
-}
-
-@keyframes fadeScaleOut {
-  0% {
-    opacity: 1;
-    scale: 1;
-  }
-
-  50% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 0;
-    scale: 0.9;
-  }
-}
-
-/* LOADING ANIMATIONS */
-@keyframes spinner {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
   }
 }

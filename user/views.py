@@ -145,13 +145,9 @@ class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
         
         
         
-# Profile edit
-import os
-from django.shortcuts import render, redirect
-from django.conf import settings
-from django.core.files.storage import FileSystemStorage
+# Profile Update
 
-def profileUpdate(request):
+def profileEdit(request):
     if request.method == "POST":
         name = request.POST.get('name')
         shop_name = request.POST.get('shop-name')
@@ -195,4 +191,12 @@ def profileUpdate(request):
 
         return redirect('index')  # Redirect to the index page after updating
 
-    return render(request, "profile-edit.html")
+    return render(request, "settings/edit-profile.html")
+
+def privacySecurity(request):
+    return render(request, "settings/account-privacy.html")
+
+def userSetting(request):
+    return render(request, "settings/settings.html")
+    
+    

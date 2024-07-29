@@ -12,142 +12,15 @@
     <link rel="shortcut icon" href="{% static 'assets/logo/favicon.svg' %}" type="image/x-icon">
 
     <!-- STYLE SHEET -->
-    <link rel="stylesheet" href="{% static 'style/main.css'%}">
+    <link rel="stylesheet" href="{% static 'style/main.css' %}">
 
 </head>
 
 <body>
 
-    <button class="icon nav-open-btn">
-        <svg class="icon">
-            <use href="{% static 'assets/icon-sprite.svg' %}#menu-hamburger" />
-        </svg>
-    </button>
-
-    <!-- NAVBAR STARTS -->
-    <nav>
-        <!-- class="visible" -->
-
-
-        <!-- NAVBAR BODY STARTS -->
-        <section class="nav-body">
-            <!-- Header -->
-            <header>
-                <button class="icon nav-close-btn">
-                    <svg class="icon">
-                        <use href="{% static 'assets/icon-sprite.svg' %}#chevron-left" />
-                    </svg>
-                </button>
-            </header>
-
-            <!-- Navbar Content STARTS -->
-            <section class="nav-content">
-                <!-- User Info and Edit profile link -->
-                <menu>
-                    <a class="menu-item user-info" href="#">
-                        <picture><img src="{% static 'assets/illus/default-avatar.png' %}"
-                                alt="Your profile photo"></picture>
-                        <div>
-                            <p class="user-info-full-name">Vedant Mali</p>
-                            <b class="user-info-email subtitle gradient-primary">vedantmali05@gmail.com</b>
-                        </div>
-                    </a>
-                </menu>
-
-                <!-- Pages options -->
-                <menu>
-                    <!-- Home -->
-                    <a href="#" class="menu-item active">
-                        <svg class="icon">
-                            <use href="{% static 'assets/icon-sprite.svg' %}#pages-home" />
-                        </svg>
-                        Home
-                        <span class="badge"></span>
-                    </a>
-                    <!-- Bills -->
-                    <a href="#" class="menu-item">
-                        <svg class="icon">
-                            <use href="{% static 'assets/icon-sprite.svg' %}#pages-bills" />
-                        </svg>
-                        Bills
-                        <span class="badge"></span>
-                    </a>
-                    <!-- Stocks -->
-                    <div class="menu-item has-submenu">
-                        <svg class="icon">
-                            <use href="{% static 'assets/icon-sprite.svg' %}#pages-stocks" />
-                        </svg>
-                        Stocks
-                        <span class="badge"></span>
-                        <svg class="icon chevron">
-                            <use href="{% static 'assets/icon-sprite.svg' %}#chevron-down" />
-                        </svg>
-                    </div>
-                    <menu class="submenu">
-                        <a href="#" class="menu-item">Stock History</a>
-                        <a href="#" class="menu-item">Add New Stocks</a>
-                    </menu>
-                    <!-- Insights -->
-                    <div class="menu-item has-submenu">
-                        <svg class="icon">
-                            <use href="{% static 'assets/icon-sprite.svg' %}#pages-insights" />
-                        </svg>
-                        Insights
-                        <span class="badge"></span>
-                        <svg class="icon chevron">
-                            <use href="{% static 'assets/icon-sprite.svg' %}#chevron-down" />
-                        </svg>
-                    </div>
-                    <menu class="submenu">
-                        <a href="#" class="menu-item">Sales</a>
-                        <a href="#" class="menu-item">Purchases</a>
-                    </menu>
-                    <!-- Patients -->
-                    <a href="#" class="menu-item">
-                        <svg class="icon">
-                            <use href="{% static 'assets/icon-sprite.svg' %}#pages-patients" />
-                        </svg>
-                        Patients
-                        <span class="badge"></span>
-                    </a>
-                </menu>
-
-            </section>
-            <!-- Navbar Content ENDS -->
-
-            <footer>
-                <menu>
-                    <button class="icon negative">
-                        <a href="{% url 'logout' %}">
-                            <svg class="icon">
-                                <use href="{% static 'assets/icon-sprite.svg' %}#pages-logout" />
-                            </svg>
-                        </a>
-                    </button>
-                    <a href="#" class="menu-item">
-                        <svg class="icon">
-                            <use href="{% static 'assets/icon-sprite.svg' %}#pages-settings" />
-                        </svg>
-                        Settings
-                    </a>
-                </menu>
-                <p class="fs-200">
-                    <a href="#" class="text-link">About Us</a>
-                    <b>·</b>
-                    <a href="#" class="text-link">Terms</a>
-                    <b>·</b>
-                    <a href="#" class="text-link">Privacy Policy</a>
-                </p>
-                <b class="fs-200">
-                    <a href="https://github.com/DineshGavai" class="text-link gradient-primary">Dinesh Gavai</a>
-                    <b>·</b>
-                    <a href="https://github.com/vedantmali05" class="text-link gradient-primary">Vedant Mali</a>
-                </b>
-            </footer>
-        </section>
-        <!-- NAVBAR BODY ENDS -->
-    </nav>
-    <!-- NAVBAR ENDS -->
+    <!-- NAVIGATION SIDE BAR / NAVBAR STARTS -->
+    {% include 'components/navbar.html' %}
+    <!-- NAVIGATION SIDE BAR / NAVBAR ENDS -->
 
 
 

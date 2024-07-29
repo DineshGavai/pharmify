@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,18 +9,20 @@
     <title>Pharmify</title>
 
     <!-- FAVICON -->
-    <link rel="shortcut icon" href="../../../static/assets/logo/favicon.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'assets/logo/favicon.svg' %}" type="image/x-icon">
 
     <!-- STYLE SHEET -->
-    <link rel="stylesheet" href="../../../static/style/main.css">
-    <link rel="stylesheet" href="../../../static/style/settings.css">
+    <link rel="stylesheet" href="{% static 'style/main.css' %}">
+    <link rel="stylesheet" href="{% static 'style/settings.css' %}">
 
 </head>
 
 <body>
 
-    {% include '/components/navbar.html' %}
-
+    <!-- NAVIGATION SIDE BAR / NAVBAR STARTS -->
+    {% include 'components/navbar.html' %}
+    <!-- NAVIGATION SIDE BAR / NAVBAR ENDS -->
+    
     <!-- MAIN STARTS -->
     <main>
 
@@ -30,9 +33,9 @@
 
         <!-- Tab navigation -->
         <section class="tab-sec">
-            <div class="tab">Edit profile</div>
-            <div class="tab active">Privacy and Security</div>
-            <div class="tab">Settings</div>
+            <a href="{% url 'edit-profile' %}" class="tab">Edit profile</a>
+            <a href="{% url 'account-privacy' %}" class="tab active">Privacy and Security</a>
+            <a href="{% url 'settings' %}" class="tab">Settings</a>
             <span class="indicator"></span>
         </section>
 
@@ -55,7 +58,7 @@
                 <div class="link-box">
                     <button class="icon">
                         <svg class="icon">
-                            <use href="../../../static/assets/icon-sprite.svg#chevron-right" />
+                            <use href="{% static 'assets/icon-sprite.svg' %}#chevron-right" />
                         </svg>
                     </button>
                 </div>
@@ -69,7 +72,7 @@
                 <div class="link-box">
                     <button class="icon">
                         <svg class="icon">
-                            <use href="../../../static/assets/icon-sprite.svg#chevron-right" />
+                            <use href="{% static 'assets/icon-sprite.svg' %}#chevron-right" />
                         </svg>
                     </button>
                 </div>
@@ -84,7 +87,7 @@
                 <div class="link-box">
                     <button class="icon">
                         <svg class="icon">
-                            <use href="../../../static/assets/icon-sprite.svg#chevron-right" />
+                            <use href="{% static 'assets/icon-sprite.svg' %}#chevron-right" />
                         </svg>
                     </button>
                 </div>
@@ -122,16 +125,13 @@
     <!-- MAIN ENDS -->
 
 
-    <script type="module" src="../../../static/script/main.js"></script>
+    <script type="module" src="{% static 'script/main.js' %}"></script>
 
     <script type="module">
-        import { createSnackbar, createDialog } from "../../../static/script/utils/components.js"
-        import { UI_STATUS_FEEDBACK } from "../../../static/script/utils/const.js"
-        import { setInputMsg } from "../../../static/script/utils/inputs.js"
-        import { toTwoDigit } from "../../../static/script/utils/utils.js"
-
-
-
+        import { createSnackbar, createDialog } from "{% static 'script/utils/components.js' %}"
+        import { UI_STATUS_FEEDBACK } from "{% static 'script/utils/const.js' %}"
+        import { setInputMsg } from "{% static 'script/utils/inputs.js' %}"
+        import { toTwoDigit } from "{% static 'script/utils/utils.js' %}"
     </script>
 
 </body>
