@@ -148,29 +148,34 @@ class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
 # Profile Update
 
 def profileEdit(request):
+    user = request.user
+    owners = Owner.objects.filter(email=user)
+    
     if request.method == "POST":
-        name = request.POST.get('name')
-        shop_name = request.POST.get('shop-name')
-        contact = request.POST.get('contact')
+        name = request.POST.get('edit_profile_full_name')
+        shop_name = request.POST.get('edit_profile_shop_name')
+        contact = request.POST.get('edit_profile_phone')
 
         # Handle avatar upload
-        avatar = request.FILES.get('avatar')
+        avatar = request.FILES.get('upload_avatar_input')
         if avatar:
-            avatar_storage = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, 'avatars'))
+            avatar_storage = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT))
             avatar_filename = avatar_storage.save(avatar.name, avatar)
             avatar_url = avatar_storage.url(avatar_filename)
         else:
             avatar_url = None
         
         # Handle licence upload
-        licence = request.FILES.get('license')
+        licence = request.FILES.get('edit_profile_license')
         if licence:
-            licence_storage = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, 'licenses'))
+            licence_storage = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT))
             licence_filename = licence_storage.save(licence.name, licence)
             licence_url = licence_storage.url(licence_filename)
         else:
             licence_url = None
 
+       
+            
         # Print statements for debugging
         print(name)
         print(shop_name)
@@ -190,8 +195,11 @@ def profileEdit(request):
         owner.save()
 
         return redirect('index')  # Redirect to the index page after updating
-
-    return render(request, "settings/edit-profile.html")
+    context={
+        "user":owners,
+        "text":"hello"
+    }
+    return render(request, "settings/edit-profile.html",context)
 
 def privacySecurity(request):
     return render(request, "settings/account-privacy.html")

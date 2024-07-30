@@ -31,6 +31,7 @@
             <h1 class="fs-600">Personal info</h1>
         </header>
 
+        {% for user in user %}
         <!-- Tab navigation -->
         <section class="tab-sec">
             <a href="{% url 'edit-profile' %}" class="tab active">Edit profile</a>
@@ -39,9 +40,9 @@
             <span class="indicator"></span>
         </section>
 
-        <form class="main-content" action="" method="post" class="edit-profile-form" id="edit_profile_form" name="edit_profile_form"
-        novalidate>
-
+        <form class="main-content" action="" method="post" class="edit-profile-form" id="edit_profile_form"
+            name="edit_profile_form" novalidate enctype="multipart/form-data">
+            {% csrf_token %}
             <!-- CHOOSE AVATAR FROM STARTS -->
             <section>
 
@@ -70,7 +71,7 @@
                     </button>
                 </div>
                 <!-- File upload input -->
-                <input type="file" hidden name="upload_avatar_input" id="upload_avatar_input">
+                <input type="file" name="upload_avatar_input" id="upload_avatar_input">
             </section>
             <!-- CHOOSE AVATAR FROM ENDS -->
 
@@ -85,7 +86,7 @@
                     <label for="edit_profile_full_name">Full Name</label>
                     <input type="text" name="edit_profile_full_name" id="edit_profile_full_name" class="text-input"
                         placeholder="First & Last name" autocomplete="name" required
-                        pattern="([A-Za-z]+){2,}\s+([A-Za-z]+)(?:\s+([A-Za-z]+){2,})?$">
+                        pattern="([A-Za-z]+){2,}\s+([A-Za-z]+)(?:\s+([A-Za-z]+){2,})?$" value="{{user.name}}">
                 </fieldset>
 
                 <!-- Shop name -->
@@ -93,7 +94,7 @@
                     <label for="edit_profile_shop_name">Shop Name</label>
                     <input type="text" name="edit_profile_shop_name" id="edit_profile_shop_name" class="text-input"
                         placeholder="Your Medical Store name" required
-                        pattern='^[.@&]?[a-zA-Z0-9 ]+[ !.@&()]?[ a-zA-Z0-9!()]+'>
+                        pattern='^[.@&]?[a-zA-Z0-9 ]+[ !.@&()]?[ a-zA-Z0-9!()]+' value="{{user.shop_name}}">
                 </fieldset>
 
 
@@ -104,7 +105,7 @@
                         <span class="lead"><img src="{% static '/assets/illus/flag-india.svg' %}" class="icon"></span>
                         <input type="text" name="edit_profile_phone" id="edit_profile_phone" class="text-input"
                             autocomplete="tel" placeholder="10 digit contact number" required inputmode="numeric"
-                            pattern="^\d{10}$">
+                            pattern="^\d{10}$" value="{{user.phone_number}}">
                     </div>
                 </fieldset>
 
@@ -131,7 +132,7 @@
                         Remove
                     </button>
                     <!-- Update changes button -->
-                    <button class="primary" type="button" id="edit_profile_submit_btn" name="edit_profile_submit_btn">
+                    <button class="primary" type="submit" id="edit_profile_submit_btn" name="edit_profile_submit_btn">
                         Update Changes
                     </button>
                 </div>
@@ -141,6 +142,7 @@
 
 
         </form>
+        {% endfor %}
 
 
     </main>
@@ -150,10 +152,10 @@
     <script type="module" src="{% static '/script/main.js' %}"></script>
 
     <script type="module">
-        import {createSnackbar, createDialog} from "{% static '/script/utils/components.js' %}"
-        import {UI_STATUS_FEEDBACK} from "{% static '/script/utils/const.js' %}"
-        import {setInputMsg} from "{% static '/script/utils/inputs.js' %}"
-        import {toTwoDigit} from "{% static '/script/utils/utils.js' %}"
+        import { createSnackbar, createDialog } from "{% static '/script/utils/components.js' %}"
+        import { UI_STATUS_FEEDBACK } from "{% static '/script/utils/const.js' %}"
+        import { setInputMsg } from "{% static '/script/utils/inputs.js' %}"
+        import { toTwoDigit } from "{% static '/script/utils/utils.js' %}"
 
 
     </script>
