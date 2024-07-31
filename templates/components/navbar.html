@@ -27,10 +27,9 @@
             <menu>
                 <a class="menu-item user-info" href="{% url 'edit-profile' %}">
                     <!-- TODO: Change to Selected Avatar -->
-                    <picture><img src="{% static 'assets/illus/default-avatar.png' %}" alt="Your profile photo">
+                    <picture class="user-info-avatar"><img src="{% static 'assets/illus/default-avatar.png' %}" alt="Your profile photo">
                     </picture>
                     <div>
-                        <!-- TODO: Return full name "FIRST LAST" name instead of first_name -->
                         <p class="user-info-full-name">{{request.user.name}}</p>
                         <b class="user-info-email subtitle gradient-primary">{{request.user}}</b>
                     </div>

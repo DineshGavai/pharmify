@@ -39,43 +39,86 @@
             <span class="indicator"></span>
         </section>
 
-        <form class="main-content" action="" method="post" class="edit-profile-form" id="edit_profile_form" name="edit_profile_form"
-        novalidate>
+        <form class="main-content" action="" method="post" class="edit-profile-form" id="edit_profile_form"
+            name="edit_profile_form" enctype="multipart/form-data" novalidate>
+
+            {% csrf_token %}
 
             <!-- CHOOSE AVATAR FROM STARTS -->
             <section>
 
                 <h2 class="fs-500">Your Profile Photo</h2>
 
-                <!-- Current Preview -->
-                <picture class="user-info-avatar">
-                    <img src="{% static '/assets/illus/default-avatar.png' %}" alt="Your profile photo">
-                </picture>
+                <div class="img-preview-box">
+                    <!-- Current Preview -->
+                    <picture class="user-info-avatar">
+                        <img src="{% static '/assets/illus/default-avatar.png' %}" alt="Your profile photo"
+                            id="avatar_preview">
+                    </picture>
 
-                <div class="btn-box">
-                    <!-- File upload button -->
-                    <button class="ghost" type="button" onclick="document.getElementById('remove_avatar_btn').click()">
-                        <svg class="icon">
-                            <use href="{% static '/assets/icon-sprite.svg#upload' %}" />
-                        </svg>
-                        Choose Profile Photo
-                    </button>
+                    <div class="btn-box">
 
-                    <!-- Remove  -->
-                    <button class="text negative" type="button" id="remove_avatar_btn" name="remove_avatar_btn">
-                        <svg class="icon">
-                            <use href="{% static '/assets/icon-sprite.svg#delete' %}" />
-                        </svg>
-                        Remove
-                    </button>
+                        <!-- File upload button -->
+                        <button class="text" type="button"
+                            onclick="document.getElementById('upload_avatar_input').click()">
+                            <svg class="icon">
+                                <use href="{% static '/assets/icon-sprite.svg' %}#upload" />
+                            </svg>
+                            Choose Profile Photo
+                        </button>
+
+                        <!-- Remove  -->
+                        <button class="icon negative" type="button" id="remove_avatar_btn" name="remove_avatar_btn">
+                            <svg class="icon">
+                                <use href="{% static '/assets/icon-sprite.svg' %}#delete" />
+                            </svg>
+                        </button>
+                    </div>
                 </div>
                 <!-- File upload input -->
                 <input type="file" hidden name="upload_avatar_input" id="upload_avatar_input">
             </section>
             <!-- CHOOSE AVATAR FROM ENDS -->
 
-            <!-- EDIT PROFILE FROM STARTS -->
             <section>
+                <h2 class="fs-500">Your Retail Drug License</h2>
+
+
+                <div class="img-preview-box">
+                    <!-- Current Liscense Preview -->
+                    <picture>
+                        <img src="{% static '/assets/illus/no-image-chosen.png' %}" alt="Your profile photo"
+                            id="liscense_preview">
+                    </picture>
+
+                    <div class="btn-box">
+
+                        <!-- File upload button -->
+                        <button class="text" type="button"
+                            onclick="document.getElementById('edit_profile_license').click()">
+                            <svg class="icon">
+                                <use href="{% static '/assets/icon-sprite.svg' %}#upload" />
+                            </svg>
+                            Choose License Photo
+                        </button>
+
+                        <!-- Remove  -->
+                        <button class="icon negative" type="button" id="remove_license_btn" name="remove_license_btn">
+                            <svg class="icon">
+                                <use href="{% static '/assets/icon-sprite.svg' %}#delete" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <!-- File upload input -->
+                <input type="file" hidden name="edit_profile_license" id="edit_profile_license" class="text-input"
+                    accept="image/jpg, image/png, image/jpeg">
+
+            </section>
+
+
+            <!-- EDIT PROFILE FROM STARTS -->
+            <section class="edit-profile-form">
 
                 <h2 class="fs-500">Your Account Information</h2>
                 <p class="subtitle">Review and update your profile information.</p>
@@ -108,31 +151,19 @@
                     </div>
                 </fieldset>
 
-                <!-- License -->
-                <fieldset>
-                    <label for="edit_profile_license">License</label>
-                    <div class="icon-frame">
-                        <svg class="icon lead">
-                            <use href="{% static '/assets/icon-sprite.svg#file-report' %}" />
-                        </svg>
-                        <input type="file" name="edit_profile_license" id="edit_profile_license" class="text-input"
-                            accept="image/jpg, image/png, image/jpeg">
-                    </div>
-                </fieldset>
-
                 <div class="btn-box">
 
                     <!-- Remove  -->
                     <button class="text negative" type="button" id="edit_profile_reset_btn"
                         name="edit_profile_reset_btn">
                         <svg class="icon">
-                            <use href="{% static '/assets/icon-sprite.svg#refresh' %}" />
+                            <use href="{% static '/assets/icon-sprite.svg' %}#refresh" />
                         </svg>
-                        Remove
+                        Reset
                     </button>
                     <!-- Update changes button -->
                     <button class="primary" type="button" id="edit_profile_submit_btn" name="edit_profile_submit_btn">
-                        Update Changes
+                        Save Changes
                     </button>
                 </div>
 
@@ -150,10 +181,43 @@
     <script type="module" src="{% static '/script/main.js' %}"></script>
 
     <script type="module">
-        import {createSnackbar, createDialog} from "{% static '/script/utils/components.js' %}"
-        import {UI_STATUS_FEEDBACK} from "{% static '/script/utils/const.js' %}"
-        import {setInputMsg} from "{% static '/script/utils/inputs.js' %}"
-        import {toTwoDigit} from "{% static '/script/utils/utils.js' %}"
+        import { createSnackbar, createDialog } from "{% static '/script/utils/components.js' %}"
+        import { UI_STATUS_FEEDBACK } from "{% static '/script/utils/const.js' %}"
+        import { setInputMsg } from "{% static '/script/utils/inputs.js' %}"
+        import { toTwoDigit } from "{% static '/script/utils/utils.js' %}"
+
+        document.addEventListener("DOMContentLoaded", () => {
+
+            /* ///////////////
+                SETTING EXISTING DATA
+            /////////////// */
+
+            let removeAvatarBtn = document.getElementById("remove_avatar_btn");
+            let removeLicenseBtn = document.getElementById("remove_license_btn");
+            
+            // TODO: Change to Actual conditions when data is fetched from Backend
+            if (true){
+                
+            }
+
+
+
+
+            // Choose and Preview AVATAR 
+            let avatarPreviewImg = document.getElementById("avatar_preview");
+            let uploadAvatarInput = document.getElementById("upload_avatar_input");
+
+            uploadAvatarInput.addEventListener("change", () => {
+                const chosenImg = uploadAvatarInput.files[0];
+                if (chosenImg) {
+                    avatarPreviewImg.src = URL.createObjectURL(chosenImg);
+                }
+            });
+
+            removeAvatarBtn.addEventListener("click", () => {
+                avatarPreviewImg.src = `{% static 'assets/illus/default-avatar.png' %}`
+            })
+        })
 
 
     </script>
@@ -179,7 +243,7 @@
         <label for="">Avatar</label>
         <input type="file" name="avatar" id="">
         <br>
-        <label for="">Licence</label>
+        <label for="">License</label>
         <input type="file" name="license" id="">
         <br>
         <button type="submit">Update</button>

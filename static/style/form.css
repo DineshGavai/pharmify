@@ -176,11 +176,12 @@ button.icon:active {
 
 form .btn-box {
   display: flex;
-  gap: 1.8rem;
+  gap: 1.6rem;
   align-items: center;
   justify-content: space-between;
   padding: 1.6rem;
   flex-wrap: wrap;
+  width: 100%;
 }
 
 form .btn-box :is(button.primary, button.ghost) {

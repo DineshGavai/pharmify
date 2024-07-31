@@ -401,7 +401,6 @@ DIALOG COMPONENT
   display: flex;
   gap: 0.4rem;
   padding: 0 1.6rem;
-  padding-top: 0.4rem;
   width: 100%;
   overflow: auto hidden;
   border-bottom: 1px solid var(--clr-primary-dark);
@@ -435,7 +434,7 @@ DIALOG COMPONENT
   left: var(--left);
   border-radius: 10rem 10rem 0 0;
   background-color: var(--clr-primary-dark);
-  animation: fadeIn .8s linear;
+  animation: fadeIn 0.8s linear;
 }
 
 /* /////////////////////////
@@ -448,6 +447,7 @@ USER INFO
 
 .user-info-avatar {
   max-width: 16rem;
+  border-radius: 100%;
 }
 
 /* /////////////////////////
@@ -719,7 +719,8 @@ nav footer .fs-200 {
 ///////////////////////// */
 
 main header {
-  padding: 0.4rem 1.6rem;
+  padding: 0.8rem 1.6rem;
+  padding-bottom: 0.2rem;
   min-height: 4.05rem;
   justify-content: space-between;
 }
