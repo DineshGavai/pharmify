@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Stock</title>
+    <!-- FAVICON -->
+    <link rel="shortcut icon" href="{% static 'assets/logo/favicon.svg' %}" type="image/x-icon">
+
+    <!-- STYLE SHEET -->
+    <link rel="stylesheet" href="{% static 'style/main.css' %}">
+</head>
+
+<body>
+    {% include 'components/navbar.html' %}
+    <h2>Add Stock</h2>
+    <h3> {{currentPage}}</h3> <!--Use this variable to set the focus another sidebar icon  -->
+    <script type="module" src="{% static 'script/main.js' %}"></script>
+
+</body>
+
+</html>

@@ -1,10 +1,3 @@
-# from django.contrib import admin
-# from .models import Owner
-
-# # Register your models here.
-# admin.site.register(Owner)
-
-
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import Owner
@@ -15,7 +8,7 @@ class OwnerAdmin(UserAdmin):
     list_filter = ('email', 'name', 'shop_name', 'phone_number', 'is_staff', 'is_active')
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        ('Personal info', {'fields': ('name', 'shop_name', 'phone_number', 'avatar', 'license', 'account_date_created')}),
+        ('Personal info', {'fields': ('name', 'shop_name', 'phone_number', 'avatar', 'license')}),
         ('Permissions', {'fields': ('is_staff', 'is_active')}),
         ('Important dates', {'fields': ('last_login', 'date_joined')}),
     )
@@ -27,5 +20,6 @@ class OwnerAdmin(UserAdmin):
     )
     search_fields = ('email',)
     ordering = ('email',)
+    
 
 admin.site.register(Owner, OwnerAdmin)

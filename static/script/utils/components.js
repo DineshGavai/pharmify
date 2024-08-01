@@ -151,8 +151,6 @@ export function createDialog(options = {}) {
     document.body.prepend(dialogSec);
     dialogSec.style.animation = `fadeIn 0.5s linear`;
 
-    refreshInputs();
-
     // Function Remove the Dialog box
     function removeDialogBox() {
         component?.setAttribute("aria-hidden", "true");

@@ -27,8 +27,4 @@ urlpatterns = [
     path('settings/account-privacy',privacySecurity,name="account-privacy"),
     path('settings/settings',userSetting,name="settings")
 
-]
-
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

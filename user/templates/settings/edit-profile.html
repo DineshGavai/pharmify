@@ -31,6 +31,7 @@
             <h1 class="fs-600">Personal info</h1>
         </header>
 
+        {% for user in user %}
         <!-- Tab navigation -->
         <section class="tab-sec">
             <a href="{% url 'edit-profile' %}" class="tab active">Edit profile</a>
@@ -40,20 +41,19 @@
         </section>
 
         <form class="main-content" action="" method="post" class="edit-profile-form" id="edit_profile_form"
-            name="edit_profile_form" enctype="multipart/form-data" novalidate>
-
+            name="edit_profile_form" novalidate enctype="multipart/form-data">
             {% csrf_token %}
-
             <!-- CHOOSE AVATAR FROM STARTS -->
             <section class="zoomed">
 
                 <h2 class="fs-500">Your Profile Photo</h2>
+                <p class="subtitle">Click image to Zoom in.</p>
 
                 <div class="img-preview-box">
                     <!-- Current Preview -->
                     <picture class="user-info-avatar">
-                        <img src="{% static '/assets/illus/default-avatar.png' %}" alt="Your profile photo"
-                            id="avatar_preview">
+                        <!-- <img src="{% static '/assets/illus/default-avatar.png' %}" alt="Your profile photo" id="avatar_preview"> -->
+                        <img src="{{ user.avatar }}" alt="Your profile photo" id="avatar_preview">
                     </picture>
 
                     <div class="btn-box">
@@ -77,19 +77,21 @@
                     </div>
                 </div>
                 <!-- File upload input -->
-                <input type="file" hidden name="upload_avatar_input" id="upload_avatar_input">
+                <input type="file" name="upload_avatar_input" id="upload_avatar_input" hidden>
             </section>
             <!-- CHOOSE AVATAR FROM ENDS -->
 
             <section>
                 <h2 class="fs-500">Your Retail Drug License</h2>
 
+                <p class="subtitle">Click image to Zoom in.</p>
 
                 <div class="img-preview-box">
                     <!-- Current License Preview -->
                     <picture>
-                        <img src="{% static '/assets/illus/default-file-image.png' %}" alt="Your profile photo"
-                            id="license_preview">
+                        <!-- <img src="{% static '/assets/illus/default-file-image.png' %}" alt="Your profile photo" id="license_preview"> -->
+                        <img src="{{ user.license }}" alt="Your profile photo" id="license_preview">
+
                     </picture>
 
                     <div class="btn-box">
@@ -123,14 +125,15 @@
             <section class="edit-profile-form">
 
                 <h2 class="fs-500">Your Account Information</h2>
-                <p class="subtitle">Review and update your profile information.</p>
+                <p class="subtitle">Review and update your profile information, <b class="gradient-accent">{{user}}</b>.
+                </p>
 
                 <!-- Full name -->
                 <fieldset>
                     <label for="edit_profile_full_name">Full Name</label>
                     <input type="text" name="edit_profile_full_name" id="edit_profile_full_name" class="text-input"
                         placeholder="First & Last name" autocomplete="name" required
-                        pattern="([A-Za-z]+){2,}\s+([A-Za-z]+)(?:\s+([A-Za-z]+){2,})?$">
+                        pattern="([A-Za-z]+){2,}\s+([A-Za-z]+)(?:\s+([A-Za-z]+){2,})?$" value="{{user.name}}">
                 </fieldset>
 
                 <!-- Shop name -->
@@ -138,7 +141,7 @@
                     <label for="edit_profile_shop_name">Shop Name</label>
                     <input type="text" name="edit_profile_shop_name" id="edit_profile_shop_name" class="text-input"
                         placeholder="Your Medical Store name" required
-                        pattern='^[.@&]?[a-zA-Z0-9 ]+[ !.@&()]?[ a-zA-Z0-9!()]+'>
+                        pattern='^[.@&]?[a-zA-Z0-9 ]+[ !.@&()]?[ a-zA-Z0-9!()]+' value="{{user.shop_name}}">
                 </fieldset>
 
 
@@ -149,7 +152,7 @@
                         <span class="lead"><img src="{% static '/assets/illus/flag-india.svg' %}" class="icon"></span>
                         <input type="text" name="edit_profile_phone" id="edit_profile_phone" class="text-input"
                             autocomplete="tel" placeholder="10 digit contact number" required inputmode="numeric"
-                            pattern="^\d{10}$">
+                            pattern="^\d{10}$" value="{{user.phone_number}}">
                     </div>
                 </fieldset>
 
@@ -164,7 +167,7 @@
                         Reset
                     </button>
                     <!-- Update changes button -->
-                    <button class="primary" type="button" id="edit_profile_submit_btn" name="edit_profile_submit_btn">
+                    <button class="primary" type="submit" id="edit_profile_submit_btn" name="edit_profile_submit_btn">
                         Save Changes
                     </button>
                 </div>
@@ -172,8 +175,8 @@
             </section>
             <!-- EDIT PROFILE FROM ENDS -->
 
-
         </form>
+        {% endfor %}
 
 
     </main>
@@ -185,7 +188,7 @@
     <script type="module">
         import { createSnackbar, createDialog } from "{% static '/script/utils/components.js' %}"
         import { UI_STATUS_FEEDBACK } from "{% static '/script/utils/const.js' %}"
-        import { setInputMsg } from "{% static '/script/utils/inputs.js' %}"
+        import { setInputMsg, validateInput } from "{% static '/script/utils/inputs.js' %}"
         import { toTwoDigit } from "{% static '/script/utils/utils.js' %}"
 
         document.addEventListener("DOMContentLoaded", () => {
@@ -196,13 +199,15 @@
 
             let removeAvatarBtn = document.getElementById("remove_avatar_btn");
             let removeLicenseBtn = document.getElementById("remove_license_btn");
+            let avatarPreview = document.getElementById("avatar_preview");
+            let licensePreview = document.getElementById("license_preview");
 
-            // TODO: Change to Actual conditions when data is fetched from Backend
-            if (false) {
+
+            if (avatarPreview.src) {
                 removeAvatarBtn.setAttribute("aria-hidden", "false");
             }
 
-            if (false) {
+            if (licensePreview.src) {
                 removeLicenseBtn.setAttribute("aria-hidden", "false");
             }
 
@@ -212,6 +217,7 @@
                 let previewImg = document.getElementById(prev_id);
                 let input = document.getElementById(input_id);
 
+                // Preview on image selection
                 input.addEventListener("change", () => {
                     const chosenImg = input.files[0];
                     if (chosenImg) {
@@ -221,17 +227,19 @@
                     }
                 });
 
+                // Remove selected image
                 removeBtn.addEventListener("click", () => {
+                    // FIXME: Fix submitting same image again problem
+                    input.value = "";
                     previewImg.src = `/static/assets/illus/${defaultImg}`;
                     removeBtn.setAttribute("aria-hidden", "true");
-                })
+                });
 
+                // Open Image in New Tab
                 previewImg.addEventListener("click", () => {
                     let src = previewImg.src;
-                    if (
-                        !src.endsWith("/static/assets/illus/default-file-image.png") &&
-                        !src.endsWith("/static/assets/illus/default-avatar.png")
-                    ) {
+                    if (!src.endsWith("default-file-image.png") &&
+                        !src.endsWith("default-avatar.png")) {
                         window.open(src);
                     }
                 });
@@ -240,6 +248,51 @@
 
             handleImageSelection("upload_avatar_input", "avatar_preview", "remove_avatar_btn", "default-avatar.png")
             handleImageSelection("edit_profile_license", "license_preview", "remove_license_btn", "default-file-image.png")
+
+            // FORM Validation
+            let editProfileForm = document.getElementById("edit_profile_form");
+            let fullNameInput = document.getElementById("edit_profile_full_name");
+            let shopNameInput = document.getElementById("edit_profile_shop_name");
+            let phoneInput = document.getElementById("edit_profile_phone");
+            let saveChangesBtn = document.getElementById("edit_profile_submit_btn");
+            let resetChangesBtn = document.getElementById("edit_profile_reset_btn");
+
+            saveChangesBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+
+                let validationArray = [
+                    validateInput(fullNameInput, "Must be first, middle (optional) and last name."),
+                    validateInput(shopNameInput, "Shop names can include letters, numbers, spaces, and some symbols like periods (.), commas (,), at signs (@), and ampersands (&). They cannot start or end with special characters other than periods (.) or at signs (@)"),
+                    validateInput(phoneInput, "Must be a 10 digit number")
+                ];
+
+                // If there is no user mistake,
+                if (!validationArray.includes(false)) {
+                    editProfileForm.submit();
+                    console.log("Success");
+                }
+            });
+
+
+            resetChangesBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+
+
+                createDialog({
+                    headline: "Reset all changes?",
+                    description: "Your profile changes will be discarded. Your current profile information will remain intact.",
+                    primaryBtnLabel: "Reset",
+                    secondaryBtnLabel: "Keep",
+                    primaryAction: function () {
+                        editProfileForm.reset();
+                        window.location.reload();
+                        return true
+                    },
+                    danger: true,
+                })
+
+            })
+
         })
 
 
@@ -248,29 +301,3 @@
 </body>
 
 </html>
-
-<!-- TODO: merge this -->
-<!-- 
-
-<form action="" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <label for="">Name</label>
-        <input type="text" name="name" id="">
-        <br>
-        <label for="">Shop Name</label>
-        <input type="text" name="shop-name" id="">
-        <br>
-        <label for="">Contact</label>
-        <input type="text" name="contact" id="">
-        <br>
-        <label for="">Avatar</label>
-        <input type="file" name="avatar" id="">
-        <br>
-        <label for="">License</label>
-        <input type="file" name="license" id="">
-        <br>
-        <button type="submit">Update</button>
-
-
-    </form>
--->

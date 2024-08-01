@@ -72,6 +72,10 @@ body:has(#remove_license_btn:hover) #license_preview {
   align-items: center;
 }
 
+.main-content > a:has(.link-box):hover {
+  background-color: var(--clr-grey-bg);
+}
+
 .link-box button.icon {
   margin-left: auto;
 }
@@ -95,6 +99,10 @@ body:has(#remove_license_btn:hover) #license_preview {
 
 .danger-zone a {
   display: block;
-  padding: 0.4rem;
-  margin: 1.6rem 0;
+  padding: 0.8rem;
+  margin: 0.8rem 0;
+}
+
+.danger-zone a:hover {
+  background-color: var(--clr-grey-bg);
 }
