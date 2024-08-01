@@ -12,6 +12,7 @@
   border: 1px solid var(--clr-accent-hover);
   border-radius: 1.6rem;
   padding: 1.6rem;
+  z-index: 10;
 }
 
 .main-content > * > * {
@@ -35,6 +36,7 @@ form .btn-box {
 
 .img-preview-box picture img {
   object-fit: cover;
+  cursor: zoom-in;
 }
 
 @media (min-width: 426px) {
@@ -49,13 +51,19 @@ form .btn-box {
   .main-content {
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
-    "A C"
-    "B C";
+      "A C"
+      "B C";
   }
 
   .edit-profile-form {
     grid-area: C;
   }
+}
+
+body:has(#remove_avatar_btn:hover) #avatar_preview,
+body:has(#remove_license_btn:hover) #license_preview {
+  filter: grayscale(1);
+  scale: 0.99;
 }
 
 .link-box {

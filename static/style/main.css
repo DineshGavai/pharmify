@@ -447,6 +447,10 @@ USER INFO
 
 .user-info-avatar {
   max-width: 16rem;
+  overflow: hidden;
+}
+
+.user-info-avatar img {
   border-radius: 100%;
 }
 

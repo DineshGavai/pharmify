@@ -138,10 +138,11 @@ button.text:active {
 
 button.icon {
   border-radius: 100% !important;
-  width: 3.2rem;
-  min-width: 3.2rem;
-  height: 3.2rem;
-  min-height: 3.2rem;
+  --size: 3.2rem;
+  width: var(--size);
+  min-width: var(--size);
+  height: var(--size);
+  min-height: var(--size);
   aspect-ratio: 1;
   padding: 0;
 }

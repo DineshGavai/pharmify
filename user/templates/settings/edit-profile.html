@@ -45,7 +45,7 @@
             {% csrf_token %}
 
             <!-- CHOOSE AVATAR FROM STARTS -->
-            <section>
+            <section class="zoomed">
 
                 <h2 class="fs-500">Your Profile Photo</h2>
 
@@ -68,7 +68,8 @@
                         </button>
 
                         <!-- Remove  -->
-                        <button class="icon negative" type="button" id="remove_avatar_btn" name="remove_avatar_btn">
+                        <button class="icon negative" type="button" id="remove_avatar_btn" name="remove_avatar_btn"
+                            aria-hidden="true">
                             <svg class="icon">
                                 <use href="{% static '/assets/icon-sprite.svg' %}#delete" />
                             </svg>
@@ -85,10 +86,10 @@
 
 
                 <div class="img-preview-box">
-                    <!-- Current Liscense Preview -->
+                    <!-- Current License Preview -->
                     <picture>
-                        <img src="{% static '/assets/illus/no-image-chosen.png' %}" alt="Your profile photo"
-                            id="liscense_preview">
+                        <img src="{% static '/assets/illus/default-file-image.png' %}" alt="Your profile photo"
+                            id="license_preview">
                     </picture>
 
                     <div class="btn-box">
@@ -103,7 +104,8 @@
                         </button>
 
                         <!-- Remove  -->
-                        <button class="icon negative" type="button" id="remove_license_btn" name="remove_license_btn">
+                        <button class="icon negative" type="button" id="remove_license_btn" name="remove_license_btn"
+                            aria-hidden="true">
                             <svg class="icon">
                                 <use href="{% static '/assets/icon-sprite.svg' %}#delete" />
                             </svg>
@@ -194,29 +196,50 @@
 
             let removeAvatarBtn = document.getElementById("remove_avatar_btn");
             let removeLicenseBtn = document.getElementById("remove_license_btn");
-            
+
             // TODO: Change to Actual conditions when data is fetched from Backend
-            if (true){
-                
+            if (false) {
+                removeAvatarBtn.setAttribute("aria-hidden", "false");
             }
 
+            if (false) {
+                removeLicenseBtn.setAttribute("aria-hidden", "false");
+            }
 
+            // Function to Handle Avatar and License images selection
+            function handleImageSelection(input_id, prev_id, remove_btn, defaultImg) {
+                let removeBtn = document.getElementById(remove_btn);
+                let previewImg = document.getElementById(prev_id);
+                let input = document.getElementById(input_id);
 
+                input.addEventListener("change", () => {
+                    const chosenImg = input.files[0];
+                    if (chosenImg) {
+                        console.log(chosenImg);
+                        previewImg.src = URL.createObjectURL(chosenImg);
+                        removeBtn.setAttribute("aria-hidden", "false");
+                    }
+                });
 
-            // Choose and Preview AVATAR 
-            let avatarPreviewImg = document.getElementById("avatar_preview");
-            let uploadAvatarInput = document.getElementById("upload_avatar_input");
+                removeBtn.addEventListener("click", () => {
+                    previewImg.src = `/static/assets/illus/${defaultImg}`;
+                    removeBtn.setAttribute("aria-hidden", "true");
+                })
 
-            uploadAvatarInput.addEventListener("change", () => {
-                const chosenImg = uploadAvatarInput.files[0];
-                if (chosenImg) {
-                    avatarPreviewImg.src = URL.createObjectURL(chosenImg);
-                }
-            });
+                previewImg.addEventListener("click", () => {
+                    let src = previewImg.src;
+                    if (
+                        !src.endsWith("/static/assets/illus/default-file-image.png") &&
+                        !src.endsWith("/static/assets/illus/default-avatar.png")
+                    ) {
+                        window.open(src);
+                    }
+                });
 
-            removeAvatarBtn.addEventListener("click", () => {
-                avatarPreviewImg.src = `{% static 'assets/illus/default-avatar.png' %}`
-            })
+            }
+
+            handleImageSelection("upload_avatar_input", "avatar_preview", "remove_avatar_btn", "default-avatar.png")
+            handleImageSelection("edit_profile_license", "license_preview", "remove_license_btn", "default-file-image.png")
         })
 
 
