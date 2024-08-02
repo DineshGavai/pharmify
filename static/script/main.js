@@ -65,6 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
     logo.appendChild(img);
   });
 
+
   // Input Tags
   refreshInputs();
 
@@ -97,6 +98,12 @@ document.addEventListener("DOMContentLoaded", function () {
   errorElemsList.forEach((elem) => {
     setMsgIcons(elem, UI_CLASS.error);
   });
+
+  /* ///////////////
+    USER INFO
+  /////////////// */
+
+  // pass
 
   /* ///////////////
         CURRENT DATE AND TIME HANDLING

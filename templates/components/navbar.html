@@ -26,7 +26,8 @@
             <!-- User Info and Edit profile link -->
             <menu>
                 <a class="menu-item user-info" href="{% url 'edit-profile' %}">
-                    <picture><img src="{{ request.user.avatar }}" alt="Your profile photo"></picture>
+                    <picture class="user-info-avatar"><img src="{{ request.user.avatar }}" alt="Your profile photo"
+                            onerror="this.src=`{% static 'assets/illus/default-avatar.png' %}`"></picture>
                     <div>
                         <p class="user-info-full-name">{{request.user.name}}</p>
                         <b class="user-info-email subtitle gradient-primary">{{request.user}}</b>
