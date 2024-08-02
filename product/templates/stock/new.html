@@ -51,7 +51,7 @@
 
                 <section class="aside-body side-options">
 
-                    <header>
+                    <header class="mobile-only">
                         <h2 class="fs-400 center-mobile">Save Stocks</h2>
                         <button class="icon mobile-only" style="margin-left: auto;">
                             <svg class="icon">
@@ -61,7 +61,63 @@
                     </header>
 
                     <div class="aside-content">
-                        
+
+                        <menu>
+                            <button class="menu-item ghost">
+                                <svg class="icon">
+                                    <use href="{% static 'assets/icon-sprite.svg' %}#stock-add-existing" />
+                                </svg>
+                                Add to Existing
+                            </button>
+
+                            <button class="menu-item ghost">
+                                <svg class="icon">
+                                    <use href="{% static 'assets/icon-sprite.svg' %}#stock-add" />
+                                </svg>
+                                Add new Product
+                            </button>
+                        </menu>
+
+                        <menu>
+                            <p><b class="gradient-accent" id="item_count">0 Items listed</b></p>
+                            <button class="menu-item primary">
+                                <svg class="icon">
+                                    <use href="{% static 'assets/icon-sprite.svg' %}#check" />
+                                </svg>
+                                Save this Batch
+                            </button>
+
+                            <p class="subtitle">You can save up to 5 products per batch to avoid data loss. You may
+                                change this limit in settings.</p>
+                        </menu>
+
+
+                        <menu>
+                            <button class="menu-item">
+                                <svg class="icon">
+                                    <use href="{% static 'assets/icon-sprite.svg' %}#upload" />
+                                </svg>
+                                Upload CSV File
+                            </button>
+                        </menu>
+
+                        <div class="divider"></div>
+
+                        <menu>
+
+                            <button class="menu-item">
+                                <svg class="icon">
+                                    <use href="{% static 'assets/icon-sprite.svg' %}#file-pdf" />
+                                </svg>
+                                Save as PDF
+                            </button>
+                            <button class="menu-item">
+                                <svg class="icon">
+                                    <use href="{% static 'assets/icon-sprite.svg' %}#printer" />
+                                </svg>
+                                Print
+                            </button>
+                        </menu>
                     </div>
                 </section>
 

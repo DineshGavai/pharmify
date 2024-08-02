@@ -19,6 +19,28 @@ main .main-content .product-list {
   padding-bottom: 12rem;
 }
 
-main .main-content aside {
+.aside-body menu {
+  padding: 0.8rem;
+}
+
+.aside-body menu .menu-item.primary {
+  margin-top: 0.4rem;
+  margin-bottom: 0.4rem;
+}
+
+@media (min-width: 1025px) {
+  main .main-content aside {
     border-left: 1px solid var(--clr-grey-divider);
+  }
+  aside,
+  .aside-body {
+    width: 28rem;
+  }
+  .aside-body .aside-content {
+    padding: 0.8rem;
+  }
+
+  .aside-body menu {
+    padding: 1.6rem 0;
+  }
 }
