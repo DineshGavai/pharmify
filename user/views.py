@@ -150,20 +150,25 @@ class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
 def profileEdit(request):
     user = request.user
     owners = Owner.objects.filter(email=user)
-    
+    owner = owners.first()  # Assuming you have a single owner per user
+
     if request.method == "POST":
         name = request.POST.get('edit_profile_full_name')
         shop_name = request.POST.get('edit_profile_shop_name')
         contact = request.POST.get('edit_profile_phone')
 
         # Handle avatar upload
+        # delete_avatar = request.POST.get('delete_avatar')
+
         avatar = request.FILES.get('upload_avatar_input')
         if avatar:
             avatar_storage = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT))
             avatar_filename = avatar_storage.save(avatar.name, avatar)
             avatar_url = avatar_storage.url(avatar_filename)
+        # elif delete_avatar:
+        #     avatar_url = 'assets/illus/default-avatar.png'
         else:
-            avatar_url = None
+            avatar_url = owner.avatar
         
         # Handle licence upload
         licence = request.FILES.get('edit_profile_license')
@@ -172,9 +177,8 @@ def profileEdit(request):
             licence_filename = licence_storage.save(licence.name, licence)
             licence_url = licence_storage.url(licence_filename)
         else:
-            licence_url = None
-
-       
+            licence_url = owner.license
+            # licence_url = 'assets/illus/default-file-image.png' 
             
         # Print statements for debugging
         print(name)
@@ -182,24 +186,24 @@ def profileEdit(request):
         print(contact)
         print(avatar_url)
         print(licence_url)
-
+        
         # Save the owner profile information to the database
-        owner = request.user  # Accessing the Owner instance directly
         owner.name = name
         owner.shop_name = shop_name
         owner.phone_number = contact
-        if avatar_url:
-            owner.avatar = avatar_url
-        if licence_url:
-            owner.license = licence_url
+        owner.avatar = avatar_url
+        owner.license = licence_url
+        
         owner.save()
 
         return redirect('index')  # Redirect to the index page after updating
-    context={
-        "user":owners,
-        "text":"hello"
+
+    context = {
+        "user": owners,
+        "text": "hello"
     }
-    return render(request, "settings/edit-profile.html",context)
+    return render(request, "settings/edit-profile.html", context)
+
 
 def privacySecurity(request):
     return render(request, "settings/account-privacy.html")

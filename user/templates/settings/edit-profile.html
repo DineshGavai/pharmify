@@ -52,8 +52,9 @@
                 <div class="img-preview-box">
                     <!-- Current Preview -->
                     <picture class="user-info-avatar">
-                        <!-- <img src="{% static '/assets/illus/default-avatar.png' %}" alt="Your profile photo" id="avatar_preview"> -->
-                        <img src="{{ user.avatar }}" alt="Your profile photo" id="avatar_preview">
+                        <!-- <img src="{% static '/assets/illus/default-avatar.png' %}" alt="Your profile photo"
+                            id="avatar_preview"> -->
+                        <img src="{% static user.avatar %}" alt="Your profile photo" id="avatar_preview">
                     </picture>
 
                     <div class="btn-box">
@@ -68,12 +69,15 @@
                         </button>
 
                         <!-- Remove  -->
+                        <!-- TODO: Check if user.avatar == "assets/illus/default-avatar.png" then don't show remove btn -->
+
                         <button class="icon negative" type="button" id="remove_avatar_btn" name="remove_avatar_btn"
                             aria-hidden="true">
                             <svg class="icon">
                                 <use href="{% static '/assets/icon-sprite.svg' %}#delete" />
                             </svg>
                         </button>
+
                     </div>
                 </div>
                 <!-- File upload input -->
@@ -90,7 +94,7 @@
                     <!-- Current License Preview -->
                     <picture>
                         <!-- <img src="{% static '/assets/illus/default-file-image.png' %}" alt="Your profile photo" id="license_preview"> -->
-                        <img src="{{ user.license }}" alt="Your profile photo" id="license_preview">
+                        <img src="{% static user.license %}" alt="Your profile photo" id="license_preview">
 
                     </picture>
 
@@ -106,6 +110,7 @@
                         </button>
 
                         <!-- Remove  -->
+                        <!-- TODO: Check if user.license == "assets/illus/default-file-image.png" then don't show remove btn -->
                         <button class="icon negative" type="button" id="remove_license_btn" name="remove_license_btn"
                             aria-hidden="true">
                             <svg class="icon">
@@ -176,7 +181,7 @@
             <!-- EDIT PROFILE FROM ENDS -->
 
         </form>
-        {% endfor %}
+
 
 
     </main>
@@ -190,6 +195,7 @@
         import { UI_STATUS_FEEDBACK } from "{% static '/script/utils/const.js' %}"
         import { setInputMsg, validateInput } from "{% static '/script/utils/inputs.js' %}"
         import { toTwoDigit } from "{% static '/script/utils/utils.js' %}"
+        console.log("{{user.name}}")
 
         document.addEventListener("DOMContentLoaded", () => {
 
@@ -297,7 +303,7 @@
 
 
     </script>
-
+    {% endfor %}
 </body>
 
 </html>
