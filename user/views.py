@@ -156,17 +156,18 @@ def profileEdit(request):
         name = request.POST.get('edit_profile_full_name')
         shop_name = request.POST.get('edit_profile_shop_name')
         contact = request.POST.get('edit_profile_phone')
+        remove_avatar=request.POST.get('remove_avatar_input')
+        remove_license=request.POST.get('remove_license_input')
 
         # Handle avatar upload
-        # delete_avatar = request.POST.get('delete_avatar')
 
         avatar = request.FILES.get('upload_avatar_input')
         if avatar:
             avatar_storage = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT))
             avatar_filename = avatar_storage.save(avatar.name, avatar)
             avatar_url = avatar_storage.url(avatar_filename)
-        # elif delete_avatar:
-        #     avatar_url = 'assets/illus/default-avatar.png'
+        elif remove_avatar:
+            avatar_url = 'assets/illus/default-avatar.png'
         else:
             avatar_url = owner.avatar
         
@@ -176,9 +177,10 @@ def profileEdit(request):
             licence_storage = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT))
             licence_filename = licence_storage.save(licence.name, licence)
             licence_url = licence_storage.url(licence_filename)
+        elif remove_license:
+            licence_url = 'assets/illus/default-file-image.png'     
         else:
             licence_url = owner.license
-            # licence_url = 'assets/illus/default-file-image.png' 
             
         # Print statements for debugging
         print(name)
@@ -186,6 +188,8 @@ def profileEdit(request):
         print(contact)
         print(avatar_url)
         print(licence_url)
+        print(remove_avatar)
+        print(remove_license)
         
         # Save the owner profile information to the database
         owner.name = name

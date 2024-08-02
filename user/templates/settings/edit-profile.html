@@ -52,9 +52,8 @@
                 <div class="img-preview-box">
                     <!-- Current Preview -->
                     <picture class="user-info-avatar">
-                        <!-- <img src="{% static '/assets/illus/default-avatar.png' %}" alt="Your profile photo"
-                            id="avatar_preview"> -->
-                        <img src="{% static user.avatar %}" alt="Your profile photo" id="avatar_preview">
+                        <img src="{% static user.avatar %}" alt="Your profile photo" id="avatar_preview"
+                            onerror="this.src =`{% static 'assets/illus/default-avatar.png' %}`">
                     </picture>
 
                     <div class="btn-box">
@@ -81,7 +80,9 @@
                     </div>
                 </div>
                 <!-- File upload input -->
-                <input type="file" name="upload_avatar_input" id="upload_avatar_input" hidden>
+                <input type="file" name="upload_avatar_input" id="upload_avatar_input" hidden
+                    accept="image/jpg, image/png, image/jpeg">
+                <input type="text" name="remove_avatar_input" id="remove_avatar_input" hidden>
             </section>
             <!-- CHOOSE AVATAR FROM ENDS -->
 
@@ -122,6 +123,7 @@
                 <!-- File upload input -->
                 <input type="file" hidden name="edit_profile_license" id="edit_profile_license" class="text-input"
                     accept="image/jpg, image/png, image/jpeg">
+                <input type="text" name="remove_license_input" id="remove_license_input" hidden>
 
             </section>
 
@@ -209,17 +211,18 @@
             let licensePreview = document.getElementById("license_preview");
 
 
-            if (avatarPreview.src) {
+            if (!avatarPreview.src.endsWith("assets/illus/default-avatar.png")) {
                 removeAvatarBtn.setAttribute("aria-hidden", "false");
             }
 
-            if (licensePreview.src) {
+            if (!licensePreview.src.endsWith("assets/illus/default-file-image.png")) {
                 removeLicenseBtn.setAttribute("aria-hidden", "false");
             }
 
             // Function to Handle Avatar and License images selection
-            function handleImageSelection(input_id, prev_id, remove_btn, defaultImg) {
+            function handleImageSelection(input_id, prev_id, remove_btn, remove_img_id, defaultImg) {
                 let removeBtn = document.getElementById(remove_btn);
+                let removeInput = document.getElementById(remove_img_id);
                 let previewImg = document.getElementById(prev_id);
                 let input = document.getElementById(input_id);
 
@@ -230,13 +233,13 @@
                         console.log(chosenImg);
                         previewImg.src = URL.createObjectURL(chosenImg);
                         removeBtn.setAttribute("aria-hidden", "false");
+                        removeInput.value = "New image chosen";
                     }
                 });
 
                 // Remove selected image
                 removeBtn.addEventListener("click", () => {
-                    // FIXME: Fix submitting same image again problem
-                    input.value = "";
+                    removeInput.value = "Image file deleted";
                     previewImg.src = `/static/assets/illus/${defaultImg}`;
                     removeBtn.setAttribute("aria-hidden", "true");
                 });
@@ -244,16 +247,16 @@
                 // Open Image in New Tab
                 previewImg.addEventListener("click", () => {
                     let src = previewImg.src;
-                    if (!src.endsWith("default-file-image.png") &&
-                        !src.endsWith("default-avatar.png")) {
+                    if (!src.endsWith("assets/illus/default-file-image.png") &&
+                        !src.endsWith("assets/illus/default-avatar.png")) {
                         window.open(src);
                     }
                 });
 
             }
 
-            handleImageSelection("upload_avatar_input", "avatar_preview", "remove_avatar_btn", "default-avatar.png")
-            handleImageSelection("edit_profile_license", "license_preview", "remove_license_btn", "default-file-image.png")
+            handleImageSelection("upload_avatar_input", "avatar_preview", "remove_avatar_btn", "remove_avatar_input", "default-avatar.png")
+            handleImageSelection("edit_profile_license", "license_preview", "remove_license_btn", "remove_license_input", "default-file-image.png")
 
             // FORM Validation
             let editProfileForm = document.getElementById("edit_profile_form");
