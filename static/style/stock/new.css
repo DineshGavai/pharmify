@@ -1,0 +1,24 @@
+main header {
+  border-bottom: 1px solid var(--clr-grey-divider);
+}
+
+header .nowrap {
+  gap: 0.4rem;
+}
+
+main .main-content {
+  padding: 0 !important;
+  background-color: var(--clr-grey-bg);
+  display: flex;
+  flex-direction: row;
+}
+
+main .main-content .product-list {
+  flex: 1;
+  padding: 1.6rem;
+  padding-bottom: 12rem;
+}
+
+main .main-content aside {
+    border-left: 1px solid var(--clr-grey-divider);
+}

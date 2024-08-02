@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Stock</title>
+    <!-- FAVICON -->
+    <link rel="shortcut icon" href="{% static 'assets/logo/favicon.svg' %}" type="image/x-icon">
+
+    <!-- STYLE SHEET -->
+    <link rel="stylesheet" href="{% static 'style/main.css' %}">
+    <link rel="stylesheet" href="{% static 'style/stock/new.css' %}">
+</head>
+
+<body>
+
+    <!-- NAVIGATION SIDE BAR / NAVBAR STARTS -->
+    {% include 'components/navbar.html' %}
+    <!-- NAVIGATION SIDE BAR / NAVBAR ENDS -->
+
+    <!-- MAIN STARTS -->
+    <main>
+
+        <!-- Header Starts -->
+        <header class="center-mobile">
+            <!-- Header content -->
+            <h1 class="fs-600">Add New Stocks</h1>
+            <!-- Today's date -->
+            <p class="nowrap">
+                <svg class="icon">
+                    <use href="{% static 'assets/icon-sprite.svg' %}#calendar-date" />
+                </svg>
+                <span class="date-day-num"></span> <span class="date-month"></span><span class="date-year"></span>
+            </p>
+        </header>
+        <!-- Header Ends -->
+
+        <!-- MAIN CONTENT STARTS -->
+        <section class="main-content">
+
+            <!-- PRODUCT LIST SECTION STARTS -->
+            <section class="product-list">
+
+            </section>
+            <!-- PRODUCT LIST SECTION ENDS -->
+
+            <!-- SIDE OPTIONS START -->
+            <aside class="visible">
+
+                <section class="aside-body side-options">
+
+                    <header>
+                        <h2 class="fs-400 center-mobile">Save Stocks</h2>
+                        <button class="icon mobile-only" style="margin-left: auto;">
+                            <svg class="icon">
+                                <use href="{% static 'assets/icon-sprite.svg' %}#cross" />
+                            </svg>
+                        </button>
+                    </header>
+
+                    <div class="aside-content">
+                        
+                    </div>
+                </section>
+
+            </aside>
+            <!-- SIDE OPTIONS ENDS -->
+
+
+        </section>
+        <!-- MAIN CONTENT ENDS -->
+
+
+    </main>
+    <!-- MAIN ENDS -->
+
+    <!-- SCRIPT -->
+    <script type="module" src="{% static 'script/main.js' %}"></script>
+</body>
+
+</html>

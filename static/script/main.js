@@ -183,6 +183,12 @@ document.addEventListener("DOMContentLoaded", function () {
     dropDownNavItemList.forEach(menuItem => {
       menuItem?.addEventListener("click", () => {
         menuItem.classList.toggle("visible");
+
+        if (!navbar.classList.contains("visible")) {
+          navbar.classList.add("visible");
+          navOpenBtn.classList.add("visible");
+          navCloseBtn.classList.add("visible");
+        }
       });
     })
   }

@@ -4,9 +4,7 @@ from django.contrib.auth import views as auth_views
 from django.conf.urls.static import static
 
 
-
 urlpatterns = [
-    path('add-stock',add_stock,name='add-stock'),
+    path('stock/new', add_stock, name='stock-new'),
 
 ]
-

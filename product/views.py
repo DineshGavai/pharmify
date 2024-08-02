@@ -4,6 +4,6 @@ from django.shortcuts import render
 
 def add_stock(request):
     context={
-        "currentPage":"stocks"
+        "currentPage":"stock-new"
     }
-    return render(request,"add-stock.html",context) 
+    return render(request,"stock/new.html",context) 
