@@ -254,7 +254,7 @@ fieldset {
   position: relative;
   width: 100%;
   max-width: 100%;
-  min-width: auto;
+  min-width: 0;
 }
 
 /* ORDER TO EACH OF THE ELEMENT OF A INPUT */
@@ -443,6 +443,49 @@ fieldset .password-visibility-btn .eye,
 fieldset .password-visibility-btn.visible .eye-slash {
   opacity: 1;
   visibility: visible;
+}
+
+/* /////////////////////////
+  Product Inputs
+///////////////////////// */
+
+.product-form fieldset {
+  margin: 0;
+}
+
+.product-form fieldset > label,
+.product-form .text-input {
+  padding: 0.8rem;
+}
+.product-form fieldset > label {
+  background-color: var(--clr-grey-bg-light);
+  color: var(--clr-grey-text);
+  font-size: var(--fs-300);
+  border-radius: 0.2rem 0.2rem 0 0;
+  margin-bottom: -0.4rem;
+  padding-bottom: 0.2rem;
+}
+
+.product-form .text-input,
+.product-form .icon-frame .text-input,
+.product-form .icon-frame {
+  padding-top: 0.2rem;
+  background-color: var(--clr-grey-bg-light);
+  border-radius: 0 0 0.2rem 0.2rem;
+  border: none;
+}
+
+.product-form .icon-frame {
+  padding-top: 0;
+}
+
+.product-form .text-input:hover,
+.product-form .text-input:focus,
+.product-form fieldset:has(.text-input:hover) > label,
+.product-form fieldset:has(.text-input:focus) > label,
+fieldset .icon-frame:has(.text-input:hover),
+fieldset .icon-frame:has(.text-input:focus) {
+  background-color: var(--clr-grey-bg);
 }
 
 fieldset .check-radio-box {

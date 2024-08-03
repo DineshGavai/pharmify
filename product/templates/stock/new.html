@@ -41,10 +41,91 @@
         <section class="main-content">
 
             <!-- PRODUCT LIST SECTION STARTS -->
-            <section class="product-list-sec">
+            <section class="new-product-list-sec">
+
+                <div class="info-box">
+                    <p class="subtitle">
+                        Ensure that all the fields for each of the product being added are <b>required</b>. Please
+                        double-check all product information before saving. This will help prevent errors and ensure the
+                        smooth addition of new stock items.
+                    </p>
+                </div>
 
                 <!-- PRODUCT LIST -->
-                <section class="product-list" id="product_list"></section>
+                <form class="new-product-list product-form" id="new_product_list">
+
+                    <div class="new-product">
+                        <div class="information">
+                            <fieldset>
+                                <label for="product_name_1">Name</label>
+                                <input type="text" class="text-input name" id="product_name_1" name="product_name_1">
+                            </fieldset>
+
+                            <fieldset>
+                                <label for="product_brand_1">Brand</label>
+                                <input type="text" class="text-input" id="product_brand_1" name="product_brand_1">
+                            </fieldset>
+
+                            <fieldset>
+                                <label for="product_type_1">Product Type</label>
+                                <input type="text" class="text-input" id="product_type_1" name="product_type_1">
+                            </fieldset>
+                        </div>
+                        <div class="date">
+                            <fieldset>
+                                <label for="product_date_manufacture_1">Manufacture Date</label>
+                                <input type="date" class="text-input" id="product_date_manufacture_1"
+                                    name="product_date_manufacture_1">
+                            </fieldset>
+
+                            <fieldset>
+                                <label for="product_date_expiry_1">Expiry Date</label>
+                                <input type="date" class="text-input" id="product_date_expiry_1"
+                                    name="product_date_expiry_1">
+                            </fieldset>
+
+                            <p class="note info subtitle">Make sure the expiry date is correct.</p>
+                        </div>
+                        <div class="rate">
+                            <fieldset>
+                                <label for="product_wholesale_price_1">Wholesale Price</label>
+                                <div class="icon-frame">
+                                    <span class="lead">₹</span>
+                                    <input type="text" class="text-input" id="product_wholesale_price_1"
+                                        name="product_wholesale_price_1" placeholder="0.0">
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <label for="product_selling_price_1">Selling Price</label>
+                                <div class="icon-frame">
+                                    <span class="lead">₹</span>
+                                    <input type="text" class="text-input" id="product_selling_price_1"
+                                        name="product_selling_price_1" placeholder="0.0">
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <label for="product_quantity_1">Quantity</label>
+                                <input type="text" class="text-input" id="product_quantity_1" name="product_quantity_1"
+                                    placeholder="00">
+                            </fieldset>
+                        </div>
+                        <div class="product-options">
+                            <button class="icon negative">
+                                <svg class="icon">
+                                    <use href="{% static 'assets/icon-sprite.svg' %}#delete" />
+                                </svg>
+                            </button>
+
+                            <button class="text">
+                                <svg class="icon">
+                                    <use href="{% static 'assets/icon-sprite.svg' %}#stock-add-existing" />
+                                </svg>
+                                Add to Existing
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
 
 
                 <!-- ADD PRODUCT BUTTONS -->
@@ -68,7 +149,7 @@
             <!-- PRODUCT LIST SECTION ENDS -->
 
             <!-- SIDE OPTIONS START -->
-            <aside class="visible">
+            <aside>
 
                 <section class="aside-body side-options">
 
@@ -98,6 +179,14 @@
                                 Add new Product
                             </button>
                         </menu>
+                        <menu>
+                            <button class="menu-item">
+                                <svg class="icon">
+                                    <use href="{% static 'assets/icon-sprite.svg' %}#upload" />
+                                </svg>
+                                Upload CSV File
+                            </button>
+                        </menu>
 
                         <div class="divider"></div>
                         <menu>
@@ -114,14 +203,6 @@
                         </menu>
 
 
-                        <menu>
-                            <button class="menu-item">
-                                <svg class="icon">
-                                    <use href="{% static 'assets/icon-sprite.svg' %}#upload" />
-                                </svg>
-                                Upload CSV File
-                            </button>
-                        </menu>
 
                         <div class="divider"></div>
 
