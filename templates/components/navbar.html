@@ -105,7 +105,7 @@
                         </svg>
                     </a>
                 </button>
-                <a href="#" class="menu-item {% if currentPage == 'settings' %}active{% endif %}">
+                <a href="{% url 'settings' %}" class="menu-item {% if currentPage == 'settings' %}active{% endif %}">
                     <svg class="icon">
                         <use href="{% static 'assets/icon-sprite.svg' %}#pages-settings" />
                     </svg>

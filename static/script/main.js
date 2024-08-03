@@ -99,6 +99,18 @@ document.addEventListener("DOMContentLoaded", function () {
     setMsgIcons(elem, UI_CLASS.error);
   });
 
+
+  // COLLAPSABLE HEADERS
+  let mainHeader = document.querySelector("main .collapsable");
+  let mainContent = document.querySelector("main .main-content");
+
+  if (mainHeader) {
+    mainContent?.addEventListener("scroll", () => {
+      if (mainContent.scrollTop > 60) mainHeader.style.maxHeight = "0rem";
+      else mainHeader.style.maxHeight = "4.6rem";
+    })
+  }
+
   /* ///////////////
     USER INFO
   /////////////// */

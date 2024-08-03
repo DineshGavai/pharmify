@@ -41,7 +41,28 @@
         <section class="main-content">
 
             <!-- PRODUCT LIST SECTION STARTS -->
-            <section class="product-list">
+            <section class="product-list-sec">
+
+                <!-- PRODUCT LIST -->
+                <section class="product-list" id="product_list"></section>
+
+
+                <!-- ADD PRODUCT BUTTONS -->
+                <div class="btn-box">
+                    <button class="primary">
+                        <svg class="icon">
+                            <use href="{% static 'assets/icon-sprite.svg' %}#stock-add-existing" />
+                        </svg>
+                        Add to Existing
+                    </button>
+
+                    <button class="primary">
+                        <svg class="icon">
+                            <use href="{% static 'assets/icon-sprite.svg' %}#stock-add" />
+                        </svg>
+                        Add new Product
+                    </button>
+                </div>
 
             </section>
             <!-- PRODUCT LIST SECTION ENDS -->
@@ -63,14 +84,14 @@
                     <div class="aside-content">
 
                         <menu>
-                            <button class="menu-item ghost">
+                            <button class="menu-item">
                                 <svg class="icon">
                                     <use href="{% static 'assets/icon-sprite.svg' %}#stock-add-existing" />
                                 </svg>
                                 Add to Existing
                             </button>
 
-                            <button class="menu-item ghost">
+                            <button class="menu-item">
                                 <svg class="icon">
                                     <use href="{% static 'assets/icon-sprite.svg' %}#stock-add" />
                                 </svg>
@@ -78,6 +99,7 @@
                             </button>
                         </menu>
 
+                        <div class="divider"></div>
                         <menu>
                             <p><b class="gradient-accent" id="item_count">0 Items listed</b></p>
                             <button class="menu-item primary">
@@ -88,7 +110,7 @@
                             </button>
 
                             <p class="subtitle">You can save up to 5 products per batch to avoid data loss. You may
-                                change this limit in settings.</p>
+                                change this limit in <a href="{% url 'settings' %}" class="text-link">Settings</a>.</p>
                         </menu>
 
 

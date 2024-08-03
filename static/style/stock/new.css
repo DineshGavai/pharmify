@@ -13,7 +13,7 @@ main .main-content {
   flex-direction: row;
 }
 
-main .main-content .product-list {
+main .main-content .product-list-sec {
   flex: 1;
   padding: 1.6rem;
   padding-bottom: 12rem;
@@ -43,4 +43,34 @@ main .main-content .product-list {
   .aside-body menu {
     padding: 1.6rem 0;
   }
+}
+
+/* /////////////////////////
+PRODUCT LIST
+///////////////////////// */
+.product-list-sec,
+.product-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+}
+
+.product-list-sec > * {
+  max-width: 70rem;
+  padding: 0.4rem;
+}
+
+.product-list-sec .btn-box {
+  display: flex;
+  gap: 0.8rem;
+  width: 100%;
+}
+
+.product-list-sec .btn-box button.primary {
+  width: 100%;
+}
+
+.product-list {
+  gap: 1.6rem;
 }

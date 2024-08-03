@@ -1,3 +1,12 @@
+main header {
+  overflow: hidden;
+  min-height: 0rem;
+}
+
+.tab-sec {
+  position: sticky;
+}
+
 .main-content {
   display: grid;
   grid-template-columns: 1fr;
