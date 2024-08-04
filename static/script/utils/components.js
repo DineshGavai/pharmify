@@ -78,7 +78,7 @@ export function createSnackbar(options = {}) {
         ? `<button class="text close-snackbar-btn undo-btn">Undo</button>`
         : `<button class="icon close-snackbar-btn"><svg class="icon"><use href="/static/assets/icon-sprite.svg#cross" /></svg></button>`;
     snackbar.innerHTML = `<p class="fs-400 msg">${msg}</p> ${closeBtn}`;
-    // setMsgIcons(snackbar.querySelector(".msg"), status);
+    setMsgIcons(snackbar.querySelector(".msg"), status);
     document.querySelector(".snackbar-sec").prepend(snackbar);
 
     // SNACKBAR CLOSING - Automatic - Add animation and remove

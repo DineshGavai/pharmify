@@ -184,6 +184,34 @@ export function refreshInputs() {
   inputToggleArr.forEach((input) => {
     input.classList.add("toggle-input");
   });
+
+  // DATA LIST
+  let datalistInputList = document.querySelectorAll("[data-list]");
+  let datalistList = document.querySelectorAll(".datalist");
+
+  function updateDatalistPosition(input, datalist) {
+    datalist.classList.add("visible");
+    let rect = input.getBoundingClientRect();
+    let list = datalist.querySelector(".datalist-body");
+    list.style.top = (rect.top + input.clientHeight) + "px";
+    list.style.left = (rect.left) + "px";
+    list.style.width = (input.clientWidth) + "px";
+  }
+
+  function removeDatalist(e, datalist) {
+    if (e.target == datalist) {
+      datalist.classList.remove("visible");
+    }
+  }
+
+  datalistInputList.forEach((input, i) => {
+    input.addEventListener("focus", () => updateDatalistPosition(input, datalistList[i]));
+    input.addEventListener("click", () => updateDatalistPosition(input, datalistList[i]));
+
+    input.addEventListener("blur", (e) => datalistList[i].classList.remove("visible"));
+    datalistList[i].addEventListener("click", (e) => removeDatalist(e, datalistList[i]))
+    datalistList[i].addEventListener("wheel", (e) => removeDatalist(e, datalistList[i]));
+  });
 }
 
 // FUNCTION to SET specified INPUT MESSAGE

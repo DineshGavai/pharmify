@@ -66,6 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
 
+
   // Input Tags
   refreshInputs();
 
@@ -74,16 +75,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Set Icons to Respective Messages - Notes, Snackbars and Input Messages
   let errorElemsList = this.querySelectorAll(
-    "fieldset .msg.error, .snackbar.error .msg, .note.error"
+    "fieldset .msg.error, .note.error"
   );
   let warnElemsList = this.querySelectorAll(
-    "fieldset .msg.warn, .snackbar.warn .msg, .note.warn"
+    "fieldset .msg.warn, .note.warn"
   );
   let successElemsList = this.querySelectorAll(
-    "fieldset .msg.success, .snackbar.success .msg, .note.success"
+    "fieldset .msg.success, .note.success"
   );
   let infoElemsList = this.querySelectorAll(
-    "fieldset .msg.info, .snackbar.info .msg, .note.info"
+    "fieldset .msg.info, .note.info"
   );
 
   infoElemsList.forEach((elem) => {
@@ -98,7 +99,6 @@ document.addEventListener("DOMContentLoaded", function () {
   errorElemsList.forEach((elem) => {
     setMsgIcons(elem, UI_CLASS.error);
   });
-
 
   // COLLAPSABLE HEADERS
   let mainHeader = document.querySelector("main .collapsable");
