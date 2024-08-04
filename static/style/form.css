@@ -122,6 +122,13 @@ button.text {
   color: var(--clr-accent);
 }
 
+button.text:has(a) {
+  padding: 0;
+}
+button.text a {
+  padding: 0.4rem;
+}
+
 p button.text {
   display: inline;
 }
@@ -287,7 +294,8 @@ fieldset .msg.info {
   order: 7;
 }
 
-fieldset button {
+fieldset button,
+fieldset .datalist {
   order: 8;
 }
 
@@ -403,6 +411,8 @@ fieldset .icon-frame {
   background-color: var(--clr-grey-bg);
   border-bottom: 2px solid var(--clr-primary-light);
   overflow: hidden;
+  position: relative;
+  z-index: 10;
 }
 
 fieldset .icon-frame .lead {
@@ -550,6 +560,42 @@ fieldset .check-radio-box input[type="checkbox"] {
   border-radius: 0.4rem;
 }
 
+/* DATA LISTS */
+
+.datalist,
+.datalist :is(ul, ol) {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.datalist {
+  max-height: 33.6rem;
+  overflow: hidden auto;
+  padding: 0.8rem;
+  border-radius: 0.8rem;
+  box-shadow: 0px 0px 4px #00000040;
+}
+
+.datalist li:not(.overline) {
+  padding: 0.4rem 0.8rem;
+  padding-left: 1.6rem;
+  border-bottom: 1px solid var(--clr-grey-bg);
+  cursor: pointer;
+}
+
+.datalist li:not(.overline):hover {
+  background-color: var(--clr-primary-hover);
+}
+.datalist > li:last-of-type {
+  border: none;
+}
+
+.datalist .overline {
+  padding: 0.2rem;
+  padding-top: 0.8rem;
+  color: var(--clr-primary);
+}
+
 /* INPUT TAG FEEDBACKS and Certain Notes on the page */
 
 :is(fieldset, .snackbar) .msg,
@@ -563,6 +609,7 @@ fieldset .check-radio-box input[type="checkbox"] {
   color: var(--clr-grey-text);
   stroke: var(--clr-grey-text);
   margin: 0.2rem 0;
+  width: 100%;
 }
 
 :is(fieldset, .snackbar, .note) span svg.icon {

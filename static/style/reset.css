@@ -12,7 +12,7 @@ IMPORTS and SETUPS
   --clr-primary: #1ba37d;
   --clr-primary-light: #35bc88;
   --clr-primary-focus: #bbe3d8;
-  --clr-primary-hover: #d1ede5;
+  --clr-primary-hover: #e8f6f2;
 
   --gradient-primary: linear-gradient(
     90deg,
@@ -273,9 +273,6 @@ a.text-link:hover {
 
 ul {
   padding-left: 1.6rem;
-}
-:is(ul, ol) li {
-  margin: 0.2rem 0;
 }
 
 :is(ul, ol) li::marker {

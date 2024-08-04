@@ -73,6 +73,7 @@ NEW PRODUCT LIST
 
 .new-product-list-sec .btn-box {
   display: flex;
+  flex-direction: column;
   gap: 0.8rem;
   width: 100%;
 }
@@ -89,10 +90,9 @@ NEW PRODUCT LIST
 }
 
 .new-product-list .new-product {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 1.6rem;
-  grid-template-columns: 2fr 1fr;
-  grid-template-areas: "A B" "C C" "D D";
 }
 
 .new-product div:has(> fieldset) {
@@ -105,9 +105,19 @@ NEW PRODUCT LIST
 }
 
 .new-product .rate {
-  grid-area: C;
-  flex-direction: row;
   width: 100%;
+}
+
+.new-product .date,
+.new-product .rate {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "FA FB" "FC FC";
+}
+
+.new-product .date .note,
+.new-product .rate .quantity {
+  grid-area: FC;
 }
 
 .new-product .rate input,
@@ -121,7 +131,34 @@ NEW PRODUCT LIST
 }
 
 .new-product .product-options {
-  grid-area: D;
   display: flex;
   justify-content: space-between;
+}
+
+@media (min-width: 769px) {
+  .new-product-list-sec .btn-box {
+    flex-direction: row;
+  }
+
+  .new-product-list .new-product {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-areas: "A B" "C C" "D D" "E E";
+  }
+  .new-product .date,
+  .new-product .rate {
+    display: flex;
+    flex-direction: column;
+  }
+  .new-product .seller {
+    grid-area: C;
+  }
+  .new-product .rate {
+    grid-area: D;
+    flex-direction: row;
+  }
+
+  .new-product .product-options {
+    grid-area: E;
+  }
 }
