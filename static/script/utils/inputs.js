@@ -178,39 +178,95 @@ export function refreshInputs() {
   });
 
   // TOGGLE INPUTS like Radio and Checkbox
-  let inputToggleArr = document.querySelectorAll(
-    "input[type=radio], input[type=checkbox]"
-  );
-  inputToggleArr.forEach((input) => {
-    input.classList.add("toggle-input");
-  });
+  document.querySelectorAll("input[type=radio], input[type=checkbox]")
+    .forEach((input) => input.classList.add("toggle-input"));
 
   // DATA LIST
   let datalistInputList = document.querySelectorAll("[data-list]");
-  let datalistList = document.querySelectorAll(".datalist");
 
+  // FUNCTION TO UPDATE DATALIST POSITION
   function updateDatalistPosition(input, datalist) {
+    const list = datalist.querySelector(".datalist-body");
+    const { top, left, height } = input.getBoundingClientRect();
+    Object.assign(list.style, {
+      top: `${top + height + 4}px`,
+      left: `${left}px`,
+      width: `${input.clientWidth}px`
+    });
+
     datalist.classList.add("visible");
-    let rect = input.getBoundingClientRect();
-    let list = datalist.querySelector(".datalist-body");
-    list.style.top = (rect.top + input.clientHeight) + "px";
-    list.style.left = (rect.left) + "px";
-    list.style.width = (input.clientWidth) + "px";
+    if (!datalist.querySelector(".not-found")) {
+      let notFoundElem = document.createElement("p");
+      notFoundElem.classList.add("not-found");
+      notFoundElem.innerHTML = "No such items found.";
+      notFoundElem.style.display = "none";
+      datalist.querySelector("ul").append(notFoundElem);
+    }
   }
 
+  // FUNCTION TO REMOVE DATALIST
   function removeDatalist(e, datalist) {
     if (e.target == datalist) {
       datalist.classList.remove("visible");
     }
   }
 
-  datalistInputList.forEach((input, i) => {
-    input.addEventListener("focus", () => updateDatalistPosition(input, datalistList[i]));
-    input.addEventListener("click", () => updateDatalistPosition(input, datalistList[i]));
+  datalistInputList.forEach(input => {
+    // Get Associated Datalist using ID
+    let datalist = document.getElementById(input.getAttribute("data-list"));
 
-    input.addEventListener("blur", (e) => datalistList[i].classList.remove("visible"));
-    datalistList[i].addEventListener("click", (e) => removeDatalist(e, datalistList[i]))
-    datalistList[i].addEventListener("wheel", (e) => removeDatalist(e, datalistList[i]));
+    // Show datalist on focus and click
+    input.addEventListener("focus", () => updateDatalistPosition(input, datalist));
+    input.addEventListener("click", () => updateDatalistPosition(input, datalist));
+
+    input.addEventListener("keydown", (e) => {
+      // Hide datalist on blur
+      if (e.key == "Tab") datalist.classList.remove("visible");
+      // Get the first visible list item and fill input with it on Enter
+      if (e.key == "Enter") {
+        let firstVisibleItem = Array.from(datalist.querySelectorAll("li")).find(li => li.style.display !== "none");
+        if (firstVisibleItem) {
+          input.value = firstVisibleItem.innerText.trim().replace(/\s+/g, ' ');
+          datalist.classList.remove("visible");
+        };
+      }
+    });
+
+    // Hide datalist on click or scroll elsewhere
+    datalist.addEventListener("click", (e) => removeDatalist(e, datalist));
+    datalist.addEventListener("wheel", (e) => removeDatalist(e, datalist));
+
+    // Fill input on particular item
+    datalist.querySelectorAll("li").forEach(li => li.addEventListener("click", () => input.value = li.innerText.trim().replace(/\s+/g, ' ')))
+
+    // Search filter the datalist based on input
+    input.addEventListener("input", (e) => {
+      if (!datalist.classList.contains("visible")) updateDatalistPosition(input, datalist);
+
+      let value = input.value.toLowerCase();
+      let matchFound = false;
+
+      // Hide overline elements when on search and show if no input is given
+      const overlineList = datalist.querySelectorAll(".overline");
+      overlineList?.forEach(overline => overline.style.display = value ? 'none' : 'block');
+
+      // Search value with every datalist item
+      datalist.querySelectorAll("li").forEach(li => {
+        // Match value
+        let matches =
+          li.innerText.toLowerCase().includes(value)
+          || li.getAttribute("data-keywords")?.toLowerCase().includes(value)
+
+        // Set visible and matchFound
+        if (matches) matchFound = true;
+        li.style.display = matches ? "block" : "none";
+      });
+
+      // If no items found.
+      let notFoundElem = datalist.querySelector(".not-found");
+      notFoundElem.style.display = matchFound ? "none" : "block";
+    });
+
   });
 }
 

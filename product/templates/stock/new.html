@@ -52,7 +52,8 @@
                 </div>
 
                 <!-- PRODUCT LIST -->
-                <form class="new-product-list product-form" id="new_product_list" method="post" action="" novalidate>
+                <form class="new-product-list product-form" id="new_product_list" method="post" action="" novalidate
+                    onkeydown="if(event.keyCode === 13) {event.preventDefault()}">
 
                     <div class="new-product">
                         <div class="information">
@@ -70,7 +71,7 @@
                                 <label for="product_type_1">Product Type</label>
                                 <div class="icon-frame">
                                     <input type="text" class="text-input" id="product_type_1" name="product_type_1"
-                                        data-list="product_type_list_1">
+                                        data-list="product_type_list">
                                 </div>
                                 <button class="text"><a href="{% url 'settings' %}">Edit product types list</a></button>
                             </fieldset>
@@ -248,252 +249,10 @@
 
     </main>
     <!-- MAIN ENDS -->
-    <!-- 
-    <ul class="datalist" id="product_type_list_1">
-        <p class="overline">Over-the-Counter (OTC) Medications</p>
-        <ul>
-            <li>Pain relievers: Paracetamol, Ibuprofen, Aspirin, Naproxen </li>
-            <li>Cold and flu medications: Decongestants, Antihistamines, Cough
-                syrups, Lozenge </li>
-            <li>Allergy medications: Antihistamines, Nasal sprays, Eye drops </li>
-            <li>Digestive aids: Antacids, Laxatives, Anti-diarrheals </li>
-            <li>Skin care: Anti-itch creams, Moisturizers, Sunscreens, Acne
-                treatment </li>
-            <li>Oral health: Toothpaste, Mouthwash, Dental floss, Toothbrushes </li>
-            <li>Vitamins and supplements: Multivitamins, Vitamin C, Calcium, Fish
-                oi </li>
-            <li>Sleep aids: Melatonin, Sleep aids </li>
-            <li>Eye care: Eye drops, Artificial tears </li>
-            <li>Ear care: Ear drops </li>
-        </ul>
-        <p class="overline">Prescription Medications</p>
-        <ul>
-            <li>Antibiotics</li>
-            <li>Antidepressants</li>
-            <li>Anti-hypertensives</li>
-            <li>Diabetes medications</li>
-            <li>Asthma inhalers</li>
-            <li>Hormonal medications</li>
-            <li>Pain relievers</li>
-            <li>Cholesterol-lowering drugs</li>
-            <li>Heart medications</li>
-        </ul>
-        <p class="overline">Medical Supplies</p>
-        <ul>
-            <li>Syringes</li>
-            <li>Needles</li>
-            <li>Bandages</li>
-            <li>Gauze</li>
-            <li>Thermometers</li>
-            <li>Blood pressure monitors</li>
-            <li>Pulse oximeters</li>
-            <li>Inhalers</li>
-            <li>Nebulizers</li>
-            <li>Diabetic supplies: Test strips, Lancets, Insulin pens
-            </li>
-            <li>Condoms</li>
-            <li>Pregnancy tests</li>
-            <li>Ovulation kits</li>
-        </ul>
-        <p class="overline">Baby Care</p>
-        <ul>
-            <li>Diapers: Disposable, Cloth
-            </li>
-            <li>Baby wipes</li>
-            <li>Baby powder</li>
-            <li>Baby lotion</li>
-            <li>Baby oil</li>
-            <li>Baby shampoo</li>
-            <li>Baby soap</li>
-            <li>Baby bottles</li>
-            <li>Nipples</li>
-            <li>Sterilizers</li>
-            <li>Pacifiers</li>
-            <li>Teethers</li>
-            <li>Baby food</li>
-            <li>Formula</li>
-            <li>Baby monitors</li>
-        </ul>
-        <p class="overline">Self Care</p>
-        <ul>
-            <li>Sanitizer</li>
-            <li>Shampoo</li>
-            <li>Conditioner</li>
-            <li>Hair dyes</li>
-            <li>Hair styling products: Gels, Mousse, Sprays </li>
-            <li>Skincare products: Cleansers, Toners, Moisturizers, Serums </li>
-            <li>Makeup</li>
-            <li>Deodorants</li>
-            <li>Perfumes</li>
-            <li>Shaving products: Razors, Shaving cream </li>
-            <li>Hair removal products: Wax, Depilatory creams </li>
-            <li>Bath products: Bubble bath, Bath salts, Shower gels </li>
-            <li>Oral hygiene products: Toothpaste, Mouthwash, Dental floss </li>
-            <li>Feminine hygiene products: Sanitary pads, Tampons, Panty liners
-            </li>
-            <li>Pregnancy tests</li>
-            <li>Ovulation kits</li>
-            <li>Condoms</li>
-            <li>Lubricants</li>
-        </ul>
-        <p class="overline">First Aid</p>
-        <ul>
-            <li>Bandages</li>
-            <li>Gauze</li>
-            <li>Antiseptic</li>
-            <li>Hydrogen peroxide</li>
-            <li>Alcohol swabs</li>
-            <li>Cotton balls</li>
-            <li>Tweezers</li>
-            <li>Thermometers</li>
-            <li>Ice packs</li>
-            <li>Burn gels</li>
-            <li>Pain relievers</li>
-            <li>Antihistamines</li>
-            <li>Eye wash</li>
-        </ul>
-        <p class="overline">Other Products</p>
-        <ul>
-            <li>Sun protection: Sunscreen, After-sun lotion </li>
-            <li>Insect repellents</li>
-            <li>Vitamins and supplements</li>
-            <li>Weight loss products</li>
-            <li>Hair growth products</li>
-            <li>Oral care products: Mouth guards, Denture care </li>
-            <li>Contact lens solutions</li>
-            <li>Hearing aids</li>
-            <li>Batteries</li>
-            <li>Gift cards</li>
-            <li>Magazines</li>
-            <li>Snacks</li>
-            <li>Beverages</li>
-        </ul>
-        </li>
-    </ul> -->
 
-    <div class="datalist" id="product_type_list_1">
-        <ul class="datalist-body">
-            <p class="overline">Over-the-Counter (OTC) Medications</p>
-            <ul>
-                <li>Pain relievers: Paracetamol, Ibuprofen, Aspirin, Naproxen </li>
-                <li>Cold and flu medications: Decongestants, Antihistamines, Cough
-                    syrups, Lozenge </li>
-                <li>Allergy medications: Antihistamines, Nasal sprays, Eye drops </li>
-                <li>Digestive aids: Antacids, Laxatives, Anti-diarrheals </li>
-                <li>Skin care: Anti-itch creams, Moisturizers, Sunscreens, Acne
-                    treatment </li>
-                <li>Oral health: Toothpaste, Mouthwash, Dental floss, Toothbrushes </li>
-                <li>Vitamins and supplements: Multivitamins, Vitamin C, Calcium, Fish
-                    oi </li>
-                <li>Sleep aids: Melatonin, Sleep aids </li>
-                <li>Eye care: Eye drops, Artificial tears </li>
-                <li>Ear care: Ear drops </li>
-            </ul>
-            <p class="overline">Prescription Medications</p>
-            <ul>
-                <li>Antibiotics</li>
-                <li>Antidepressants</li>
-                <li>Anti-hypertensives</li>
-                <li>Diabetes medications</li>
-                <li>Asthma inhalers</li>
-                <li>Hormonal medications</li>
-                <li>Pain relievers</li>
-                <li>Cholesterol-lowering drugs</li>
-                <li>Heart medications</li>
-            </ul>
-            <p class="overline">Medical Supplies</p>
-            <ul>
-                <li>Syringes</li>
-                <li>Needles</li>
-                <li>Bandages</li>
-                <li>Gauze</li>
-                <li>Thermometers</li>
-                <li>Blood pressure monitors</li>
-                <li>Pulse oximeters</li>
-                <li>Inhalers</li>
-                <li>Nebulizers</li>
-                <li>Diabetic supplies: Test strips, Lancets, Insulin pens
-                </li>
-                <li>Condoms</li>
-                <li>Pregnancy tests</li>
-                <li>Ovulation kits</li>
-            </ul>
-            <p class="overline">Baby Care</p>
-            <ul>
-                <li>Diapers: Disposable, Cloth
-                </li>
-                <li>Baby wipes</li>
-                <li>Baby powder</li>
-                <li>Baby lotion</li>
-                <li>Baby oil</li>
-                <li>Baby shampoo</li>
-                <li>Baby soap</li>
-                <li>Baby bottles</li>
-                <li>Nipples</li>
-                <li>Sterilizers</li>
-                <li>Pacifiers</li>
-                <li>Teethers</li>
-                <li>Baby food</li>
-                <li>Formula</li>
-                <li>Baby monitors</li>
-            </ul>
-            <p class="overline">Self Care</p>
-            <ul>
-                <li>Sanitizer</li>
-                <li>Shampoo</li>
-                <li>Conditioner</li>
-                <li>Hair dyes</li>
-                <li>Hair styling products: Gels, Mousse, Sprays </li>
-                <li>Skincare products: Cleansers, Toners, Moisturizers, Serums </li>
-                <li>Makeup</li>
-                <li>Deodorants</li>
-                <li>Perfumes</li>
-                <li>Shaving products: Razors, Shaving cream </li>
-                <li>Hair removal products: Wax, Depilatory creams </li>
-                <li>Bath products: Bubble bath, Bath salts, Shower gels </li>
-                <li>Oral hygiene products: Toothpaste, Mouthwash, Dental floss </li>
-                <li>Feminine hygiene products: Sanitary pads, Tampons, Panty liners
-                </li>
-                <li>Pregnancy tests</li>
-                <li>Ovulation kits</li>
-                <li>Condoms</li>
-                <li>Lubricants</li>
-            </ul>
-            <p class="overline">First Aid</p>
-            <ul>
-                <li>Bandages</li>
-                <li>Gauze</li>
-                <li>Antiseptic</li>
-                <li>Hydrogen peroxide</li>
-                <li>Alcohol swabs</li>
-                <li>Cotton balls</li>
-                <li>Tweezers</li>
-                <li>Thermometers</li>
-                <li>Ice packs</li>
-                <li>Burn gels</li>
-                <li>Pain relievers</li>
-                <li>Antihistamines</li>
-                <li>Eye wash</li>
-            </ul>
-            <p class="overline">Other Products</p>
-            <ul>
-                <li>Sun protection: Sunscreen, After-sun lotion </li>
-                <li>Insect repellents</li>
-                <li>Vitamins and supplements</li>
-                <li>Weight loss products</li>
-                <li>Hair growth products</li>
-                <li>Oral care products: Mouth guards, Denture care </li>
-                <li>Contact lens solutions</li>
-                <li>Hearing aids</li>
-                <li>Batteries</li>
-                <li>Gift cards</li>
-                <li>Magazines</li>
-                <li>Snacks</li>
-                <li>Beverages</li>
-            </ul>
-            </li>
-        </ul>
-    </div>
+    <!-- PRODUCT TYPES DATA LIST STARTS -->
+    {% include 'components/product_list.html' %}
+    <!-- PRODUCT TYPES DATA LIST ENDS -->
 
     <div class="datalist" id="seller_list_1">
         <ul class="datalist-body">
