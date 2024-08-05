@@ -54,7 +54,7 @@
                 <!-- PRODUCT LIST -->
                 <form class="new-product-list product-form" id="new_product_list" method="post" action="" novalidate
                     onkeydown="if(event.keyCode === 13) {event.preventDefault()}">
-
+<!-- 
                     <div class="new-product">
                         <div class="information">
                             <fieldset>
@@ -138,7 +138,9 @@
                                 Add to Existing
                             </button>
                         </div>
-                    </div>
+                    </div> -->
+
+                    
 
                 </form>
 
@@ -152,7 +154,7 @@
                         Add to Existing
                     </button>
 
-                    <button class="primary">
+                    <button class="primary new-product-btn">
                         <svg class="icon">
                             <use href="{% static 'assets/icon-sprite.svg' %}#stock-add" />
                         </svg>
@@ -187,7 +189,7 @@
                                 Add to Existing
                             </button>
 
-                            <button class="menu-item">
+                            <button class="menu-item new-product-btn">
                                 <svg class="icon">
                                     <use href="{% static 'assets/icon-sprite.svg' %}#stock-add" />
                                 </svg>
@@ -254,7 +256,7 @@
     {% include 'components/product_list.html' %}
     <!-- PRODUCT TYPES DATA LIST ENDS -->
 
-    <div class="datalist" id="seller_list_1">
+    <div class="datalist" id="seller_list">
         <ul class="datalist-body">
             <li>MedPlus Distributors</li>
             <li>CareRx Pharmaceuticals</li>
@@ -267,6 +269,7 @@
     </div>
     <!-- SCRIPT -->
     <script type="module" src="{% static 'script/main.js' %}"></script>
+    <script type="module" src="{% static 'script/stock-new.js' %}"></script>
 </body>
 
 </html>

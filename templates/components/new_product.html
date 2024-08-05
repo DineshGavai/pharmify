@@ -1,0 +1,82 @@
+{% load static %}
+<div class="new-product">
+    <div class="information">
+        <fieldset>
+            <label for="product_name_1">Name</label>
+            <input type="text" class="text-input name" id="product_name_1" name="product_name_1">
+        </fieldset>
+
+        <fieldset>
+            <label for="product_brand_1">Brand</label>
+            <input type="text" class="text-input" id="product_brand_1" name="product_brand_1">
+        </fieldset>
+
+        <fieldset>
+            <label for="product_type_1">Product Type</label>
+            <div class="icon-frame">
+                <input type="text" class="text-input" id="product_type_1" name="product_type_1"
+                    data-list="product_type_list">
+            </div>
+            <button class="text"><a href="{% url 'settings' %}">Edit product types list</a></button>
+        </fieldset>
+    </div>
+    <div class="date">
+        <fieldset>
+            <label for="product_date_manufacture_1">Manufacture Date</label>
+            <input type="date" class="text-input" id="product_date_manufacture_1" name="product_date_manufacture_1">
+        </fieldset>
+
+        <fieldset>
+            <label for="product_date_expiry_1">Expiry Date</label>
+            <input type="date" class="text-input" id="product_date_expiry_1" name="product_date_expiry_1">
+        </fieldset>
+
+        <p class="note info subtitle">Make sure the expiry date is correct.</p>
+    </div>
+    <div class="seller">
+        <fieldset>
+            <label for="product_quantity_1">Seller</label>
+            <div class="icon-frame combo-box">
+                <input type="text" name="product_seller_1" id="product_seller_1" class="text-input"
+                    data-list="seller_list_1">
+            </div>
+            <button class="text">Add new Seller</button>
+        </fieldset>
+    </div>
+    <div class="rate">
+        <fieldset>
+            <label for="product_wholesale_price_1">Wholesale Price</label>
+            <div class="icon-frame">
+                <span class="lead">₹</span>
+                <input type="text" class="text-input" id="product_wholesale_price_1" name="product_wholesale_price_1"
+                    placeholder="0.0">
+            </div>
+        </fieldset>
+        <fieldset>
+            <label for="product_selling_price_1">Selling Price</label>
+            <div class="icon-frame">
+                <span class="lead">₹</span>
+                <input type="text" class="text-input" id="product_selling_price_1" name="product_selling_price_1"
+                    placeholder="0.0">
+            </div>
+        </fieldset>
+        <fieldset class="quantity">
+            <label for="product_quantity_1">Quantity</label>
+            <input type="text" class="text-input" id="product_quantity_1" name="product_quantity_1" placeholder="00">
+        </fieldset>
+    </div>
+    <div class="product-options">
+        <button class="icon negative">
+            <svg class="icon">
+                <use href="{% static 'assets/icon-sprite.svg' %}#delete" />
+            </svg>
+        </button>
+
+        <button class="text">
+            <svg class="icon">
+                <use href="{% static 'assets/icon-sprite.svg' %}#stock-add-existing" />
+            </svg>
+            Add to Existing
+        </button>
+    </div>
+</div>

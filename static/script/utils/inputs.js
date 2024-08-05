@@ -191,7 +191,7 @@ export function refreshInputs() {
     Object.assign(list.style, {
       top: `${top + height + 4}px`,
       left: `${left}px`,
-      width: `${input.clientWidth}px`
+      width: `${input.clientWidth + 36}px`
     });
 
     datalist.classList.add("visible");
@@ -212,12 +212,23 @@ export function refreshInputs() {
   }
 
   datalistInputList.forEach(input => {
+
+    // Create Trailing Chevron
+    let arrowDown = document.createElement("span");
+    arrowDown.classList.add("trail");
+    arrowDown.innerHTML =
+      `<svg class="icon"><use href="/static/assets/icon-sprite.svg#chevron-down" /></svg>`;
+    input.parentNode.append(arrowDown)
+
+
     // Get Associated Datalist using ID
     let datalist = document.getElementById(input.getAttribute("data-list"));
+    console.log(datalist);
 
     // Show datalist on focus and click
     input.addEventListener("focus", () => updateDatalistPosition(input, datalist));
     input.addEventListener("click", () => updateDatalistPosition(input, datalist));
+    arrowDown.addEventListener("click", () => updateDatalistPosition(input, datalist));
 
     input.addEventListener("keydown", (e) => {
       // Hide datalist on blur
@@ -236,14 +247,18 @@ export function refreshInputs() {
     datalist.addEventListener("click", (e) => removeDatalist(e, datalist));
     datalist.addEventListener("wheel", (e) => removeDatalist(e, datalist));
 
-    // Fill input on particular item
-    datalist.querySelectorAll("li").forEach(li => li.addEventListener("click", () => input.value = li.innerText.trim().replace(/\s+/g, ' ')))
+    // Fill input on particular item click and close popup
+    datalist.querySelectorAll("li").forEach(li => li.addEventListener("click", () => {
+      input.value = li.innerText.trim().replace(/\s+/g, ' ');
+      datalist.classList.remove("visible");
+    }))
 
     // Search filter the datalist based on input
     input.addEventListener("input", (e) => {
       if (!datalist.classList.contains("visible")) updateDatalistPosition(input, datalist);
 
       let value = input.value.toLowerCase();
+      const regex = new RegExp(`(${value})`, 'gi');
       let matchFound = false;
 
       // Hide overline elements when on search and show if no input is given
@@ -260,6 +275,7 @@ export function refreshInputs() {
         // Set visible and matchFound
         if (matches) matchFound = true;
         li.style.display = matches ? "block" : "none";
+        li.innerHTML = li.textContent.replace(regex, '<b>$1</b>');
       });
 
       // If no items found.
