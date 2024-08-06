@@ -8,7 +8,7 @@ class Product(models.Model):
     owner_id = models.ForeignKey(Owner, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     brand_name = models.CharField(max_length=200)
-    dosage_form = models.CharField(max_length=20)
+    product_type = models.CharField(max_length=20)
     manufacture_date = models.DateField()
     expiry_date = models.DateField()
     available_quantity = models.IntegerField()
