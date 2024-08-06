@@ -149,7 +149,7 @@ export function refreshInputs() {
 
   inputArr.forEach((input) => {
     // POPULATE 👁️ Password Visibility Button if current input is Password
-    if (input.type == "password") {
+    if (input.type == "password" && !input.parentNode.querySelector("password-visibility-btn")) {
       let passwordVisibilityBtn = document.createElement("button");
       passwordVisibilityBtn.type = "button";
       passwordVisibilityBtn.classList.add(
@@ -214,30 +214,32 @@ export function refreshInputs() {
   datalistInputList.forEach(input => {
 
     // Create Trailing Chevron
-    let arrowDown = document.createElement("span");
-    arrowDown.classList.add("trail");
-    arrowDown.innerHTML =
-      `<svg class="icon"><use href="/static/assets/icon-sprite.svg#chevron-down" /></svg>`;
-    input.parentNode.append(arrowDown)
+    if (!input.parentNode.querySelector(".trail")) {
+      let arrowDown = document.createElement("span");
+      arrowDown.classList.add("trail");
+      arrowDown.innerHTML =
+        `<svg class="icon"><use href="/static/assets/icon-sprite.svg#chevron-down" /></svg>`;
+      input.parentNode.append(arrowDown);
+      arrowDown.addEventListener("click", () => updateDatalistPosition(input, datalist));
+    }
 
 
     // Get Associated Datalist using ID
     let datalist = document.getElementById(input.getAttribute("data-list"));
-    console.log(datalist);
 
     // Show datalist on focus and click
     input.addEventListener("focus", () => updateDatalistPosition(input, datalist));
     input.addEventListener("click", () => updateDatalistPosition(input, datalist));
-    arrowDown.addEventListener("click", () => updateDatalistPosition(input, datalist));
 
     input.addEventListener("keydown", (e) => {
       // Hide datalist on blur
       if (e.key == "Tab") datalist.classList.remove("visible");
       // Get the first visible list item and fill input with it on Enter
       if (e.key == "Enter") {
+        if (!datalist.classList.contains("visible")) return;
         let firstVisibleItem = Array.from(datalist.querySelectorAll("li")).find(li => li.style.display !== "none");
         if (firstVisibleItem) {
-          input.value = firstVisibleItem.innerText.trim().replace(/\s+/g, ' ');
+          input.value = firstVisibleItem.textContent.trim().replace(/\s+/g, ' ');
           datalist.classList.remove("visible");
         };
       }
@@ -249,7 +251,7 @@ export function refreshInputs() {
 
     // Fill input on particular item click and close popup
     datalist.querySelectorAll("li").forEach(li => li.addEventListener("click", () => {
-      input.value = li.innerText.trim().replace(/\s+/g, ' ');
+      input.value = li.textContent.trim().replace(/\s+/g, ' ');
       datalist.classList.remove("visible");
     }))
 
@@ -269,7 +271,7 @@ export function refreshInputs() {
       datalist.querySelectorAll("li").forEach(li => {
         // Match value
         let matches =
-          li.innerText.toLowerCase().includes(value)
+          li.textContent.toLowerCase().includes(value)
           || li.getAttribute("data-keywords")?.toLowerCase().includes(value)
 
         // Set visible and matchFound
@@ -283,6 +285,34 @@ export function refreshInputs() {
       notFoundElem.style.display = matchFound ? "none" : "block";
     });
 
+  });
+
+
+  // REFRESH ICONS ONCE
+  let errorElemsList = document.querySelectorAll(
+    "fieldset .msg.error, .note.error"
+  );
+  let warnElemsList = document.querySelectorAll(
+    "fieldset .msg.warn, .note.warn"
+  );
+  let successElemsList = document.querySelectorAll(
+    "fieldset .msg.success, .note.success"
+  );
+  let infoElemsList = document.querySelectorAll(
+    "fieldset .msg.info, .note.info"
+  );
+
+  infoElemsList?.forEach((elem) => {
+    setMsgIcons(elem, UI_CLASS.info);
+  });
+  successElemsList?.forEach((elem) => {
+    setMsgIcons(elem, UI_CLASS.success);
+  });
+  warnElemsList?.forEach((elem) => {
+    setMsgIcons(elem, UI_CLASS.warn);
+  });
+  errorElemsList?.forEach((elem) => {
+    setMsgIcons(elem, UI_CLASS.error);
   });
 }
 

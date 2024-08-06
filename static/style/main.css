@@ -99,6 +99,27 @@ UTILITY CLASSES
   border-radius: 1.6rem;
 }
 
+.badge {
+  background-color: var(--clr-primary);
+  font-weight: 600;
+  font-size: var(--fs-300);
+  color: var(--clr-white);
+  border-radius: 10rem;
+  padding: 0.2rem 0.8rem;
+  height: fit-content;
+  max-width: 24rem;
+  overflow: hidden;
+  text-wrap: nowrap;
+}
+
+.badge.hidden {
+  opacity: 0;
+  visibility: hidden;
+  max-width: 0;
+  padding: 0;
+  background-color: var(--clr-white);
+}
+
 /* /////////////////////////
 DECORATIONS, ILLUSTRATIONS and ANIMATIONS
 ///////////////////////// */

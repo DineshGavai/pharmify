@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // LOGO
   let pictureLogoList = this.querySelectorAll(".logo");
 
-  pictureLogoList.forEach((logo) => {
+  pictureLogoList?.forEach((logo) => {
     let img = this.createElement("img");
     let type = ``;
     if (logo.getAttribute("data-white")) {
@@ -74,29 +74,29 @@ document.addEventListener("DOMContentLoaded", function () {
   setTitleAttr();
 
   // Set Icons to Respective Messages - Notes, Snackbars and Input Messages
-  let errorElemsList = this.querySelectorAll(
+  let errorElemsList = document.querySelectorAll(
     "fieldset .msg.error, .note.error"
   );
-  let warnElemsList = this.querySelectorAll(
+  let warnElemsList = document.querySelectorAll(
     "fieldset .msg.warn, .note.warn"
   );
-  let successElemsList = this.querySelectorAll(
+  let successElemsList = document.querySelectorAll(
     "fieldset .msg.success, .note.success"
   );
-  let infoElemsList = this.querySelectorAll(
+  let infoElemsList = document.querySelectorAll(
     "fieldset .msg.info, .note.info"
   );
 
-  infoElemsList.forEach((elem) => {
+  infoElemsList?.forEach((elem) => {
     setMsgIcons(elem, UI_CLASS.info);
   });
-  successElemsList.forEach((elem) => {
+  successElemsList?.forEach((elem) => {
     setMsgIcons(elem, UI_CLASS.success);
   });
-  warnElemsList.forEach((elem) => {
+  warnElemsList?.forEach((elem) => {
     setMsgIcons(elem, UI_CLASS.warn);
   });
-  errorElemsList.forEach((elem) => {
+  errorElemsList?.forEach((elem) => {
     setMsgIcons(elem, UI_CLASS.error);
   });
 
@@ -131,27 +131,27 @@ document.addEventListener("DOMContentLoaded", function () {
     const DATE = new Date();
 
     // Date Day Number
-    dateDayNumBoxList.forEach((elem) => {
+    dateDayNumBoxList?.forEach((elem) => {
       elem.innerHTML = toTwoDigit(DATE.getDate());
     });
 
     // Month Name
-    dateMonthBoxList.forEach((elem) => {
+    dateMonthBoxList?.forEach((elem) => {
       elem.innerHTML = DATE_MONTHS_SHORT[DATE.getMonth()];
     });
 
     // Year
-    dateYearBoxList.forEach((elem) => {
+    dateYearBoxList?.forEach((elem) => {
       elem.innerHTML = DATE.getFullYear();
     });
 
     // Weekday
-    dateDayWeekBoxList.forEach((elem) => {
+    dateDayWeekBoxList?.forEach((elem) => {
       elem.innerHTML = DATE_WEEK_DAYS[DATE.getDay()];
     });
 
     // Current time
-    timeBoxList.forEach((elem) => {
+    timeBoxList?.forEach((elem) => {
       let hours = DATE.getHours();
       let meridian = hours >= 12 ? "PM" : "AM";
       elem.innerHTML = `${toTwoDigit(hours % 12 || hours)}:${toTwoDigit(
@@ -192,7 +192,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let navSubmenus = document.querySelectorAll("submenu");
 
   if (dropDownNavItemList) {
-    dropDownNavItemList.forEach(menuItem => {
+    dropDownNavItemList?.forEach(menuItem => {
       menuItem?.addEventListener("click", () => {
         menuItem.classList.toggle("visible");
 
@@ -223,7 +223,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Enlist all Tab containers
   let tabCtrList = document.querySelectorAll(".tab-sec");
 
-  tabCtrList.forEach(ctr => {
+  tabCtrList?.forEach(ctr => {
 
     setAsSlider(ctr);
 
@@ -232,11 +232,11 @@ document.addEventListener("DOMContentLoaded", function () {
     updateActiveTab(ctr);
 
     // Tab navigation
-    tabList.forEach(tab => {
+    tabList?.forEach(tab => {
 
       tab?.addEventListener("click", () => {
         // Remove active status from other tabs
-        tabList.forEach(otherTab => otherTab.classList.remove("active"));
+        tabList?.forEach(otherTab => otherTab.classList.remove("active"));
 
         // Add active status to current tab
         tab.classList.add("active");
