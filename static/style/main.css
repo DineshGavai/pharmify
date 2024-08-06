@@ -79,6 +79,8 @@ UTILITY CLASSES
   text-wrap: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
 }
 
 .divider {
@@ -95,6 +97,27 @@ UTILITY CLASSES
   align-items: center !important;
   padding: 1.6rem;
   border-radius: 1.6rem;
+}
+
+.badge {
+  background-color: var(--clr-primary);
+  font-weight: 600;
+  font-size: var(--fs-300);
+  color: var(--clr-white);
+  border-radius: 10rem;
+  padding: 0.2rem 0.8rem;
+  height: fit-content;
+  max-width: 24rem;
+  overflow: hidden;
+  text-wrap: nowrap;
+}
+
+.badge.hidden {
+  opacity: 0;
+  visibility: hidden;
+  max-width: 0;
+  padding: 0;
+  background-color: var(--clr-white);
 }
 
 /* /////////////////////////
@@ -168,6 +191,11 @@ main header {
 
 .gradient-accent {
   background-image: var(--gradient-accent);
+}
+
+.date-month::after {
+  content: ",";
+  font: inherit;
 }
 
 /* STEPS ICON VISIBILITY */
@@ -477,34 +505,54 @@ main .main-content {
 
 /* /////////////////////////
 NAVIGATION SIDEBAR / NAVBAR
+and
+ASIDE, ASIDE OPTIONS
 ///////////////////////// */
 
-nav {
+nav,
+aside {
   position: fixed;
   width: 100%;
   height: 100vh;
   z-index: 10;
   background-color: var(--clr-grey-overlay);
+  top: 0;
+  left: 0;
 }
 
-.nav-body {
+.nav-body,
+.aside-body {
   position: fixed;
-  width: 100%;
-  max-width: 28rem;
-  height: 100vh;
   background-color: var(--clr-white);
   display: flex;
   flex-direction: column;
   overflow: hidden auto;
-  overflow-x: hidden;
+}
+
+.nav-body {
+  width: 100%;
+  max-width: 28rem;
+  height: 100vh;
   left: -10%;
+}
+
+.aside-body {
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 6.4rem);
+  height: calc(100% - 6.4rem);
+  overflow: hidden auto;
+  background-color: var(--clr-white);
+  border-radius: 1.6rem 1.6rem 0 0;
 }
 
 nav.visible .nav-body {
   left: 0;
 }
 
-.nav-close-btn {
+.nav-close-btn,
+.aside-close-btn {
   margin-left: auto;
 }
 
@@ -528,30 +576,42 @@ button.icon.nav-open-btn:active {
 
 nav,
 .nav-open-btn.visible,
-nav .nav-close-btn {
+nav .nav-close-btn,
+aside,
+.aside-open-btn.visible,
+aside .aside-close-btn {
   visibility: hidden;
   opacity: 0;
 }
 nav.visible,
 .nav-open-btn,
-nav.visible .nav-close-btn {
+nav.visible .nav-close-btn,
+aside.visible,
+.aside-open-btn,
+aside.visible .aside-close-btn {
   visibility: visible;
   opacity: 1;
 }
 
-.nav-body :is(header, footer) {
+.nav-body :is(header, footer),
+.aside-body :is(header, footer) {
   padding: 0.4rem 1.6rem;
 }
 
-.nav-body .nav-content {
-  overflow-x: hidden;
+.nav-body .nav-content,
+.aside-body .aside-content {
   padding: 1.6rem 0.4rem;
   flex: 1;
   min-height: 12rem;
-  border: 1px solid var(--clr-grey-divider);
-  border-left: none;
-  border-right: none;
   overflow: hidden auto;
+}
+
+.nav-body .nav-content {
+  border-bottom: 1px solid var(--clr-grey-divider);
+}
+
+.aside-body .aside-content {
+  padding: 1.6rem;
 }
 
 menu {
@@ -657,22 +717,38 @@ nav footer .fs-200 {
 }
 
 @media (min-width: 1025px) {
-  nav {
+  nav,
+  .nav-body,
+  aside,
+  .aside-body {
     position: static;
-    max-width: 6.4rem;
-    overflow: hidden;
     opacity: 1;
     visibility: visible;
   }
+  aside,
+  .aside-body {
+    width: 100%;
+    transform: translateX(0);
+    border-radius: 0;
+    width: fit-content;
+    background-color: var(--clr-white);
+  }
+
+  nav {
+    max-width: 6.4rem;
+    overflow: hidden;
+    height: 100vh;
+  }
 
   .nav-body {
-    position: static;
     max-width: 6.4rem;
     border-right: 1px solid var(--clr-grey-divider);
+    height: 100vh;
   }
 
   nav.visible,
-  nav.visible .nav-body {
+  nav.visible .nav-body,
+  aside {
     max-width: 28rem;
   }
 
@@ -725,9 +801,14 @@ nav footer .fs-200 {
 
 main header {
   padding: 0.8rem 1.6rem;
-  padding-bottom: 0.2rem;
+  padding-bottom: 0.4rem;
   min-height: 4.05rem;
   justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+main header :is(h1, h2) {
+  flex: 1;
 }
 
 @media (min-width: 1025px) {

@@ -122,6 +122,13 @@ button.text {
   color: var(--clr-accent);
 }
 
+button.text:has(a) {
+  padding: 0;
+}
+button.text a {
+  padding: 0.4rem;
+}
+
 p button.text {
   display: inline;
 }
@@ -254,7 +261,7 @@ fieldset {
   position: relative;
   width: 100%;
   max-width: 100%;
-  min-width: auto;
+  min-width: 0;
 }
 
 /* ORDER TO EACH OF THE ELEMENT OF A INPUT */
@@ -287,7 +294,8 @@ fieldset .msg.info {
   order: 7;
 }
 
-fieldset button {
+fieldset button,
+fieldset .datalist {
   order: 8;
 }
 
@@ -403,6 +411,8 @@ fieldset .icon-frame {
   background-color: var(--clr-grey-bg);
   border-bottom: 2px solid var(--clr-primary-light);
   overflow: hidden;
+  position: relative;
+  z-index: 10;
 }
 
 fieldset .icon-frame .lead {
@@ -443,6 +453,49 @@ fieldset .password-visibility-btn .eye,
 fieldset .password-visibility-btn.visible .eye-slash {
   opacity: 1;
   visibility: visible;
+}
+
+/* /////////////////////////
+  Product Inputs
+///////////////////////// */
+
+.product-form fieldset {
+  margin: 0;
+}
+
+.product-form fieldset > label,
+.product-form .text-input {
+  padding: 0.8rem;
+}
+.product-form fieldset > label {
+  background-color: var(--clr-grey-bg-light);
+  color: var(--clr-grey-text);
+  font-size: var(--fs-300);
+  border-radius: 0.2rem 0.2rem 0 0;
+  margin-bottom: -0.4rem;
+  padding-bottom: 0.2rem;
+}
+
+.product-form .text-input,
+.product-form .icon-frame .text-input,
+.product-form .icon-frame {
+  padding-top: 0.2rem;
+  background-color: var(--clr-grey-bg-light);
+  border-radius: 0 0 0.2rem 0.2rem;
+  border: none;
+}
+
+.product-form .icon-frame {
+  padding-top: 0;
+}
+
+.product-form .text-input:hover,
+.product-form .text-input:focus,
+.product-form fieldset:has(.text-input:hover) > label,
+.product-form fieldset:has(.text-input:focus) > label,
+fieldset .icon-frame:has(.text-input:hover),
+fieldset .icon-frame:has(.text-input:focus) {
+  background-color: var(--clr-grey-bg);
 }
 
 fieldset .check-radio-box {
@@ -507,6 +560,64 @@ fieldset .check-radio-box input[type="checkbox"] {
   border-radius: 0.4rem;
 }
 
+/* DATA LISTS */
+
+.datalist {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  visibility: hidden;
+  opacity: 0;
+  z-index: -1;
+}
+
+.datalist.visible {
+  visibility: visible;
+  opacity: 1;
+  z-index: 999;
+}
+
+.datalist > ul,
+.datalist > ul :is(ul, ol) {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.datalist > ul {
+  max-height: 33.6rem;
+  overflow: hidden auto;
+  padding: 0.8rem;
+  border-radius: 0.8rem;
+  box-shadow: 0px 0px 4px #00000040;
+  background-color: var(--clr-white);
+  position: fixed;
+  transition: all 0s;
+}
+
+.datalist > ul li:not(.overline) {
+  padding: 0.4rem 0.8rem;
+  padding-left: 1.6rem;
+  border-bottom: 1px solid var(--clr-grey-bg);
+  cursor: pointer;
+}
+
+.datalist > ul li:not(.overline):hover {
+  background-color: var(--clr-primary-hover);
+}
+.datalist > ul > li:last-of-type {
+  border: none;
+}
+
+.datalist > ul .overline {
+  padding: 0.2rem;
+  padding-top: 0.8rem;
+  color: var(--clr-primary);
+}
+
 /* INPUT TAG FEEDBACKS and Certain Notes on the page */
 
 :is(fieldset, .snackbar) .msg,
@@ -520,6 +631,7 @@ fieldset .check-radio-box input[type="checkbox"] {
   color: var(--clr-grey-text);
   stroke: var(--clr-grey-text);
   margin: 0.2rem 0;
+  width: 100%;
 }
 
 :is(fieldset, .snackbar, .note) span svg.icon {

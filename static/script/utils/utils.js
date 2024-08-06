@@ -68,14 +68,61 @@ export function setTitleAttr() {
 
 // Set Icons to Respective Messages - Notes, Snackbars and Input Messages
 export function setMsgIcons(elem, iconName) {
+  if (elem.querySelector(".icon")) return;
   if (!elem) return;
   let icon = document.createElement("span");
+  icon.className = "icon";
   icon.innerHTML = getIconFromSprite(iconName);
   elem.prepend(icon);
 }
 
-
 // Get SVG SPRITE FILE ICONS PATH
 export function getIconFromSprite(iconName) {
   return `<svg class="icon"><use href="/static/assets/icon-sprite.svg#${iconName}"/></svg>`
+}
+
+
+
+/* ///////////////
+DATA STORAGE FUNCTIONS
+/////////////// */
+
+// FUNCTION to SAVE data to storage throughout the project
+export function saveToStorage(key, data) {
+  try {
+    if (!key || typeof key !== "string") {
+      throw new Error("Invalid key: Key must be a non-empty string.");
+    }
+
+    data = data.filter(item => item !== null);
+
+    const serializedData = JSON.stringify(data);
+    localStorage.setItem(key, serializedData);
+
+  } catch (error) {
+    return null;
+  }
+}
+
+// FUNCTION to READ data to storage throughout the project
+export function getFromStorage(key) {
+  try {
+    if (!key || typeof key !== "string") {
+      throw new Error("Invalid key: Key must be a non-empty string.");
+    }
+
+    // Retrieve data
+    const storedData = localStorage.getItem(key);
+    if (!storedData) {
+      throw new Error("Key not found");
+    }
+
+    // Parse retrieved data
+    const parsedData = JSON.parse(storedData);
+
+    return parsedData;
+
+  } catch (error) {
+    return null;
+  }
 }

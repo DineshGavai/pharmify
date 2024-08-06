@@ -149,7 +149,7 @@ export function refreshInputs() {
 
   inputArr.forEach((input) => {
     // POPULATE 👁️ Password Visibility Button if current input is Password
-    if (input.type == "password") {
+    if (input.type == "password" && !input.parentNode.querySelector("password-visibility-btn")) {
       let passwordVisibilityBtn = document.createElement("button");
       passwordVisibilityBtn.type = "button";
       passwordVisibilityBtn.classList.add(
@@ -178,11 +178,141 @@ export function refreshInputs() {
   });
 
   // TOGGLE INPUTS like Radio and Checkbox
-  let inputToggleArr = document.querySelectorAll(
-    "input[type=radio], input[type=checkbox]"
+  document.querySelectorAll("input[type=radio], input[type=checkbox]")
+    .forEach((input) => input.classList.add("toggle-input"));
+
+  // DATA LIST
+  let datalistInputList = document.querySelectorAll("[data-list]");
+
+  // FUNCTION TO UPDATE DATALIST POSITION
+  function updateDatalistPosition(input, datalist) {
+    const list = datalist.querySelector(".datalist-body");
+    const { top, left, height } = input.getBoundingClientRect();
+    Object.assign(list.style, {
+      top: `${top + height + 4}px`,
+      left: `${left}px`,
+      width: `${input.clientWidth + 36}px`
+    });
+
+    datalist.classList.add("visible");
+    if (!datalist.querySelector(".not-found")) {
+      let notFoundElem = document.createElement("p");
+      notFoundElem.classList.add("not-found");
+      notFoundElem.innerHTML = "No such items found.";
+      notFoundElem.style.display = "none";
+      datalist.querySelector("ul").append(notFoundElem);
+    }
+  }
+
+  // FUNCTION TO REMOVE DATALIST
+  function removeDatalist(e, datalist) {
+    if (e.target == datalist) {
+      datalist.classList.remove("visible");
+    }
+  }
+
+  datalistInputList.forEach(input => {
+
+    // Create Trailing Chevron
+    if (!input.parentNode.querySelector(".trail")) {
+      let arrowDown = document.createElement("span");
+      arrowDown.classList.add("trail");
+      arrowDown.innerHTML =
+        `<svg class="icon"><use href="/static/assets/icon-sprite.svg#chevron-down" /></svg>`;
+      input.parentNode.append(arrowDown);
+      arrowDown.addEventListener("click", () => updateDatalistPosition(input, datalist));
+    }
+
+
+    // Get Associated Datalist using ID
+    let datalist = document.getElementById(input.getAttribute("data-list"));
+
+    // Show datalist on focus and click
+    input.addEventListener("focus", () => updateDatalistPosition(input, datalist));
+    input.addEventListener("click", () => updateDatalistPosition(input, datalist));
+
+    input.addEventListener("keydown", (e) => {
+      // Hide datalist on blur
+      if (e.key == "Tab") datalist.classList.remove("visible");
+      // Get the first visible list item and fill input with it on Enter
+      if (e.key == "Enter") {
+        if (!datalist.classList.contains("visible")) return;
+        let firstVisibleItem = Array.from(datalist.querySelectorAll("li")).find(li => li.style.display !== "none");
+        if (firstVisibleItem) {
+          input.value = firstVisibleItem.textContent.trim().replace(/\s+/g, ' ');
+          datalist.classList.remove("visible");
+        };
+      }
+    });
+
+    // Hide datalist on click or scroll elsewhere
+    datalist.addEventListener("click", (e) => removeDatalist(e, datalist));
+    datalist.addEventListener("wheel", (e) => removeDatalist(e, datalist));
+
+    // Fill input on particular item click and close popup
+    datalist.querySelectorAll("li").forEach(li => li.addEventListener("click", () => {
+      input.value = li.textContent.trim().replace(/\s+/g, ' ');
+      datalist.classList.remove("visible");
+    }))
+
+    // Search filter the datalist based on input
+    input.addEventListener("input", (e) => {
+      if (!datalist.classList.contains("visible")) updateDatalistPosition(input, datalist);
+
+      let value = input.value.toLowerCase();
+      const regex = new RegExp(`(${value})`, 'gi');
+      let matchFound = false;
+
+      // Hide overline elements when on search and show if no input is given
+      const overlineList = datalist.querySelectorAll(".overline");
+      overlineList?.forEach(overline => overline.style.display = value ? 'none' : 'block');
+
+      // Search value with every datalist item
+      datalist.querySelectorAll("li").forEach(li => {
+        // Match value
+        let matches =
+          li.textContent.toLowerCase().includes(value)
+          || li.getAttribute("data-keywords")?.toLowerCase().includes(value)
+
+        // Set visible and matchFound
+        if (matches) matchFound = true;
+        li.style.display = matches ? "block" : "none";
+        li.innerHTML = li.textContent.replace(regex, '<b>$1</b>');
+      });
+
+      // If no items found.
+      let notFoundElem = datalist.querySelector(".not-found");
+      notFoundElem.style.display = matchFound ? "none" : "block";
+    });
+
+  });
+
+
+  // REFRESH ICONS ONCE
+  let errorElemsList = document.querySelectorAll(
+    "fieldset .msg.error, .note.error"
   );
-  inputToggleArr.forEach((input) => {
-    input.classList.add("toggle-input");
+  let warnElemsList = document.querySelectorAll(
+    "fieldset .msg.warn, .note.warn"
+  );
+  let successElemsList = document.querySelectorAll(
+    "fieldset .msg.success, .note.success"
+  );
+  let infoElemsList = document.querySelectorAll(
+    "fieldset .msg.info, .note.info"
+  );
+
+  infoElemsList?.forEach((elem) => {
+    setMsgIcons(elem, UI_CLASS.info);
+  });
+  successElemsList?.forEach((elem) => {
+    setMsgIcons(elem, UI_CLASS.success);
+  });
+  warnElemsList?.forEach((elem) => {
+    setMsgIcons(elem, UI_CLASS.warn);
+  });
+  errorElemsList?.forEach((elem) => {
+    setMsgIcons(elem, UI_CLASS.error);
   });
 }
 

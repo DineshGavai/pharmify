@@ -25,7 +25,7 @@
         <section class="nav-content">
             <!-- User Info and Edit profile link -->
             <menu>
-                <a class="menu-item user-info" href="{% url 'edit-profile' %}">
+                <a class="menu-item {% if currentPage == 'edit-profile' %}active{% endif %} user-info" href="{% url 'edit-profile' %}">
                     <picture class="user-info-avatar"><img src="{{ request.user.avatar }}" alt="Your profile photo"
                             onerror="this.src=`{% static 'assets/illus/default-avatar.png' %}`"></picture>
                     <div>
@@ -38,7 +38,7 @@
             <!-- Pages options -->
             <menu>
                 <!-- Home -->
-                <a href="{% url 'index' %}" class="menu-item active">
+                <a href="{% url 'index' %}" class="menu-item {% if currentPage == 'home' %}active{% endif %}">
                     <svg class="icon">
                         <use href="{% static 'assets/icon-sprite.svg' %}#pages-home" />
                     </svg>
@@ -46,7 +46,7 @@
                     <span class="badge"></span>
                 </a>
                 <!-- Bills -->
-                <a href="#" class="menu-item">
+                <a href="#" class="menu-item {% if currentPage == 'bills' %}active{% endif %}">
                     <svg class="icon">
                         <use href="{% static 'assets/icon-sprite.svg' %}#pages-bills" />
                     </svg>
@@ -54,7 +54,7 @@
                     <span class="badge"></span>
                 </a>
                 <!-- Stocks -->
-                <div class="menu-item has-submenu">
+                <div class="menu-item {% if currentPage == 'stock-new' or currentPage == 'stock-history' %}active{% endif %} has-submenu">
                     <svg class="icon">
                         <use href="{% static 'assets/icon-sprite.svg' %}#pages-stocks" />
                     </svg>
@@ -65,11 +65,11 @@
                     </svg>
                 </div>
                 <menu class="submenu">
-                    <a href="#" class="menu-item">Stock History</a>
-                    <a href="{% url 'add-stock' %}" class="menu-item">Add New Stocks</a>
+                    <a href="#" class="menu-item {% if currentPage == 'stock-history' %}active{% endif %}">Stock History</a>
+                    <a href="{% url 'stock-new' %}" class="menu-item {% if currentPage == 'stock-new' %}active{% endif %}">Add New Stocks</a>
                 </menu>
                 <!-- Insights -->
-                <div class="menu-item has-submenu">
+                <div class="menu-item {% if currentPage == 'insights-sales' or currentPage == 'insights-purchases' %}active{% endif %} has-submenu">
                     <svg class="icon">
                         <use href="{% static 'assets/icon-sprite.svg' %}#pages-insights" />
                     </svg>
@@ -80,11 +80,11 @@
                     </svg>
                 </div>
                 <menu class="submenu">
-                    <a href="#" class="menu-item">Sales</a>
-                    <a href="#" class="menu-item">Purchases</a>
+                    <a href="#" class="menu-item {% if currentPage == 'insights-sales' %}active{% endif %}">Sales</a>
+                    <a href="#" class="menu-item {% if currentPage == 'insights-purchases' %}active{% endif %}">Purchases</a>
                 </menu>
                 <!-- Patients -->
-                <a href="#" class="menu-item">
+                <a href="#" class="menu-item {% if currentPage == 'patients' %}active{% endif %}">
                     <svg class="icon">
                         <use href="{% static 'assets/icon-sprite.svg' %}#pages-patients" />
                     </svg>
@@ -105,7 +105,7 @@
                         </svg>
                     </a>
                 </button>
-                <a href="#" class="menu-item">
+                <a href="{% url 'settings' %}" class="menu-item {% if currentPage == 'settings' %}active{% endif %}">
                     <svg class="icon">
                         <use href="{% static 'assets/icon-sprite.svg' %}#pages-settings" />
                     </svg>
