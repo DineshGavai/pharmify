@@ -1,9 +1,14 @@
-import { refreshInputs, validateInput } from "./utils/inputs.js";
-import { toTwoDigit, saveToStorage } from "./utils/utils.js";
+import {
+  refreshInputs,
+  removeInputMsg,
+  setInputMsg,
+  validateInput,
+} from "./utils/inputs.js";
+import { toTwoDigit, saveToStorage, getFromStorage } from "./utils/utils.js";
 import { createSnackbar, createDialog } from "./utils/components.js";
 import { UI_STATUS_FEEDBACK } from "./utils/const.js";
 
-function getNewProductHTML(idNumList) {
+function getNewProductHTML(idNumList, savedItem) {
   let idNum = idNumList.slice(-1)[0];
   return `
         <div class="product-options">
@@ -13,7 +18,7 @@ function getNewProductHTML(idNumList) {
             </span>
             <button type="button" class="icon negative delete-current-product">
                 <svg class="icon">
-                    <use href="/static/assets/icon-sprite.svg#delete" />
+                    <use href="static/assets/icon-sprite.svg#delete" />
                 </svg>
             </button>
         </div>
@@ -21,19 +26,25 @@ function getNewProductHTML(idNumList) {
         <fieldset>
             <label for="product_name_${idNum}">Name</label>
             <div class="icon-frame">
-                <input type="text" required class="text-input product-name" pattern="/^[a-zA-Z0-9_.,\s-]+$/" id="product_name_${idNum}" name="product_name_${idNum}" data-list="existing_products">
+                <input type="text" required class="text-input product-name" value="${
+                  savedItem?.name || ""
+                }" pattern="^[a-zA-Z0-9_.,\&\/\s-]+$" id="product_name_${idNum}" name="product_name_${idNum}" data-list="existing_products">
             </div>
         </fieldset>
 
         <fieldset>
             <label for="product_brand_${idNum}">Brand</label>
-            <input type="text" required class="text-input product-brand" pattern="/^[a-zA-Z0-9_.,\s-]+$/" id="product_brand_${idNum}" name="product_brand_${idNum}">
+            <input type="text" required class="text-input product-brand" value="${
+              savedItem?.brand || ""
+            }" pattern="^[a-zA-Z0-9_.,\&\/\s-]+$" id="product_brand_${idNum}" name="product_brand_${idNum}">
         </fieldset>
 
         <fieldset>
             <label for="product_type_${idNum}">Product Type</label>
             <div class="icon-frame">
-                <input type="text" required class="text-input product-type" pattern="/^[a-zA-Z]+$/" id="product_type_${idNum}" name="product_type_${idNum}"
+                <input type="text" required class="text-input product-type" value="${
+                  savedItem?.type || ""
+                }" pattern="^[a-zA-Z:.\&\/\s-]+$" id="product_type_${idNum}" name="product_type_${idNum}"
                     data-list="product_type_list">
             </div>
             <button type="button" class="text"><a href="{% url 'settings' %}">Edit product types list</a></button>
@@ -42,21 +53,27 @@ function getNewProductHTML(idNumList) {
     <div class="date">
         <fieldset>
             <label for="product_date_manufacture_${idNum}">Manufacture Date</label>
-            <input type="date" required class="text-input product-date-manufacture" id="product_date_manufacture_${idNum}" name="product_date_manufacture_${idNum}">
+            <input type="date" required class="text-input product-date-manufacture" value="${
+              savedItem?.dateManufacture || ""
+            }" id="product_date_manufacture_${idNum}" name="product_date_manufacture_${idNum}">
         </fieldset>
 
         <fieldset>
             <label for="product_date_expiry_${idNum}">Expiry Date</label>
-            <input type="date" required class="text-input product-date-expiry" id="product_date_expiry_${idNum}" name="product_date_expiry_${idNum}">
+            <input type="date" required class="text-input product-date-expiry" value="${
+              savedItem?.dateExpiry || ""
+            }" id="product_date_expiry_${idNum}" name="product_date_expiry_${idNum}">
         </fieldset>
 
         <p class="note info subtitle">Make sure the expiry date is correct.</p>
     </div>
     <div class="seller">
         <fieldset>
-            <label for="product_quantity_${idNum}">Seller</label>
+            <label for="product_seller_${idNum}">Seller</label>
             <div class="icon-frame combo-box">
-                <input type="text" required class="text-input product-seller-name" pattern="/^[a-zA-Z0-9_.,\s-]+$/" id="product_seller_${idNum}" name="product_seller_${idNum}" data-list="seller_list">
+                <input type="text" required class="text-input product-seller-name" value="${
+                  savedItem?.sellerName || ""
+                }" pattern="^[a-zA-Z0-9_.,\s-]+$" id="product_seller_${idNum}" name="product_seller_${idNum}" data-list="seller_list">
             </div>
             <button type="button" class="text">Add new Seller</button>
         </fieldset>
@@ -66,7 +83,9 @@ function getNewProductHTML(idNumList) {
             <label for="product_wholesale_price_${idNum}">Wholesale Price</label>
             <div class="icon-frame">
                 <span class="lead">₹</span>
-                <input type="text" required class="text-input product-price-wholesale" pattern="/^\d+(\.\d{1,2})?$/" id="product_wholesale_price_${idNum}" name="product_wholesale_price_${idNum}"
+                <input type="text" required class="text-input product-price-wholesale" value="${
+                  savedItem?.priceWholesale || ""
+                }" pattern="^\d+(\.\d{1,2})?$" id="product_wholesale_price_${idNum}" name="product_wholesale_price_${idNum}"
                     placeholder="0.0">
             </div>
         </fieldset>
@@ -74,13 +93,17 @@ function getNewProductHTML(idNumList) {
             <label for="product_selling_price_${idNum}">Selling Price</label>
             <div class="icon-frame">
                 <span class="lead">₹</span>
-                <input type="text" required class="text-input product-price-selling" pattern="/^\d+(\.\d{1,2})?$/" id="product_selling_price_${idNum}" name="product_selling_price_${idNum}"
+                <input type="text" required class="text-input product-price-selling" value="${
+                  savedItem?.priceSelling || ""
+                }" pattern="^\d+(\.\d{1,2})?$" id="product_selling_price_${idNum}" name="product_selling_price_${idNum}"
                     placeholder="0.0">
             </div>
         </fieldset>
         <fieldset class="quantity">
             <label for="product_quantity_${idNum}">Quantity</label>
-            <input type="text" required class="text-input product-quantity" pattern="/^\d+$/" id="product_quantity_${idNum}" name="product_quantity_${idNum}" placeholder="00">
+            <input type="text" required class="text-input product-quantity" pattern="^\d+$" value="${
+              savedItem?.quantity || ""
+            }" id="product_quantity_${idNum}" name="product_quantity_${idNum}" placeholder="00">
         </fieldset>
     </div>
     `;
@@ -123,6 +146,9 @@ function handleNewProductTile() {
 
   // Set "New" or "Addition to Existing Product" badges
   nameList.forEach((input, i) => {
+    // Presetting
+    if (input.value) setStatus(statusList[i], input);
+
     input.addEventListener("input", () => {
       if (!input.value) statusList[i].classList.add("hidden");
       else setStatus(statusList[i], input);
@@ -146,8 +172,6 @@ function handleNewProductTile() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  // TODO: Load existing products from Backend Storage
-
   const newProductBtnList = document.querySelectorAll(".new-product-btn");
   const deleteAllProductsBtn = document.getElementById("delete_all_products");
   const newProductsCtr = document.getElementById("new_product_list");
@@ -177,8 +201,30 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Add first tile
-  newProductBtnList[0].click();
+  // Load previously unsaved products from Local Storage
+  let savedProducts = getFromStorage("new_products");
+
+  if (savedProducts && savedProducts.length > 0) {
+    savedProducts.forEach((item) => {
+      // Track New Product ID
+      numberOfProducts++;
+      idNumList.push(numberOfProducts);
+
+      // Create new product and append
+      let newProduct = document.createElement("div");
+      newProduct.className = "new-product";
+      newProduct.innerHTML = getNewProductHTML(idNumList, item);
+      newProductsCtr.append(newProduct);
+      newProductsCtr.parentElement.scrollTop = newProduct.offsetTop - 60;
+
+      // Handle events after DOM Manipulation
+      refreshInputs();
+      handleNewProductTile();
+    });
+  } else {
+    // Add first tile
+    newProductBtnList[0].click();
+  }
 
   // Delete all product list in one click
   deleteAllProductsBtn.addEventListener("click", () => {
@@ -198,8 +244,51 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Save current batch to Storage
-  function saveBatch() {}
+  window.addEventListener("beforeunload", () => {
+    const newProductList = document.querySelectorAll(".new-product");
+    const statusList = document.querySelectorAll(".new-product .status");
+    const nameList = document.querySelectorAll(".new-product .product-name");
+    const brandList = document.querySelectorAll(".new-product .product-brand");
+    const typeList = document.querySelectorAll(".new-product .product-type");
+    const dateManufactureList = document.querySelectorAll(
+      ".new-product .product-date-manufacture"
+    );
+    const dateExpiryList = document.querySelectorAll(
+      ".new-product .product-date-expiry"
+    );
+    const sellerNameList = document.querySelectorAll(
+      ".new-product .product-seller-name"
+    );
+    const priceWholesaleList = document.querySelectorAll(
+      ".new-product .product-price-wholesale"
+    );
+    const priceSellingList = document.querySelectorAll(
+      ".new-product .product-price-selling"
+    );
+    const quantityList = document.querySelectorAll(
+      ".new-product .product-quantity"
+    );
+
+    let newProductJSON = [];
+
+    // THIS JSON MUST BE USED TO SAVE PRODUCTS
+    newProductList.forEach((product, i) => {
+      newProductJSON.push({
+        isNew: statusList[i].textContent == "New Product" ? true : false,
+        name: nameList[i].value,
+        brand: brandList[i].value,
+        type: typeList[i].value,
+        dateManufacture: dateManufactureList[i].value,
+        dateExpiry: dateExpiryList[i].value,
+        sellerName: sellerNameList[i].value,
+        priceWholesale: priceWholesaleList[i].value,
+        priceSelling: priceSellingList[i].value,
+        quantity: quantityList[i].value,
+      });
+    });
+
+    saveToStorage("new_products", newProductJSON);
+  });
 
   saveBatchBtn.addEventListener("click", (e) => {
     e.preventDefault();
@@ -265,7 +354,42 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-    // TODO: Validate Dates
+    // Validate Dates
+    const today = new Date();
+    let [yyyy, mm, dd] = [
+      today.getFullYear(),
+      today.getMonth() + 1,
+      today.getDate(),
+    ];
+    if (dd < 10) dd = "0" + dd;
+    if (mm < 10) mm = "0" + mm;
+    const formattedToday = dd + "/" + mm + "/" + yyyy;
+
+    dateManufactureList.forEach((input) => {
+      if (!input.value) {
+        validationArray.push(false);
+        setInputMsg(input, `This field is required.`);
+      } else if (new Date(input.value) > today) {
+        validationArray.push(false);
+        setInputMsg(
+          input,
+          `This must be less than today's date ${formattedToday}. Cannot add an unmanufactured product.`
+        );
+      } else removeInputMsg(input);
+    });
+
+    dateExpiryList.forEach((input) => {
+      if (!input.value) {
+        validationArray.push(false);
+        setInputMsg(input, `This field is required.`);
+      } else if (new Date(input.value) < today) {
+        validationArray.push(false);
+        setInputMsg(
+          input,
+          `This must be more than today's date ${formattedToday}. Cannot add an expired product.`
+        );
+      } else removeInputMsg(input);
+    });
 
     // If their are mistakes
     if (validationArray.includes(false)) {
