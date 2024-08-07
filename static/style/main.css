@@ -392,6 +392,14 @@ DIALOG COMPONENT
   overflow-y: visible;
 }
 
+.dialog-sec:has(.dialog-component) .dialog-body {
+  background-color: var(--clr-white);
+}
+
+.dialog-sec:has(.dialog-component) .btn-box {
+  border-top: 1px solid var(--clr-grey-divider);
+}
+
 .dialog .dialog-illus {
   width: 6.4rem;
 }
@@ -418,6 +426,12 @@ DIALOG COMPONENT
   background-color: var(--clr-white);
   border-radius: 1.6rem;
   padding: 0.4rem 0.8rem;
+}
+
+.dialog-sec .dialog-component form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
 }
 
 /* /////////////////////////

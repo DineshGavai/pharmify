@@ -116,7 +116,6 @@ export function createDialog(options = {}) {
         primaryAction = function () { return true },
         secondaryAction = function () { return true },
         danger = false,
-        invert = false
     } = options;
 
     if (!headline) throw new Error("Provide a headline for Dialog");

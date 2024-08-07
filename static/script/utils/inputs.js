@@ -213,6 +213,9 @@ export function refreshInputs() {
 
   datalistInputList.forEach(input => {
 
+    // if (input.classList.contains("product-name")) console.log(input);
+
+
     // Create Trailing Chevron
     if (!input.parentNode.querySelector(".trail")) {
       let arrowDown = document.createElement("span");
@@ -247,11 +250,12 @@ export function refreshInputs() {
 
     // Hide datalist on click or scroll elsewhere
     datalist.addEventListener("click", (e) => removeDatalist(e, datalist));
-    datalist.addEventListener("wheel", (e) => removeDatalist(e, datalist));
+    datalist.addEventListener("wheel", (e) => removeDatalist(e, datalist), { passive: true });
 
     // Fill input on particular item click and close popup
     datalist.querySelectorAll("li").forEach(li => li.addEventListener("click", () => {
       input.value = li.textContent.trim().replace(/\s+/g, ' ');
+      datalist.querySelectorAll("li").forEach(allLi => allLi.style.display = "block")
       datalist.classList.remove("visible");
     }))
 
@@ -351,7 +355,8 @@ export function validateInput(inputTag, errorMsg) {
   }
 
   const pattern = inputTag.pattern?.trim();
-  if (!pattern || new RegExp(pattern).test(inputTag.value.trim())) {
+  console.log(inputTag.value, new RegExp(pattern).test(inputTag.value));
+  if (!pattern || new RegExp(pattern).test(inputTag.value)) {
     removeInputMsg(inputTag);
     return true;
   }
