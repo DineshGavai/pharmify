@@ -18,7 +18,7 @@ function getNewProductHTML(idNumList, savedItem) {
             </span>
             <button type="button" class="icon negative delete-current-product">
                 <svg class="icon">
-                    <use href="static/assets/icon-sprite.svg#delete" />
+                    <use href="/static/assets/icon-sprite.svg#delete" />
                 </svg>
             </button>
         </div>
@@ -399,39 +399,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     } else {
       // TODO: SUBMIT
-      // Send data to the backend
-      fetch("/stock/new/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRFToken": getCookie("csrftoken"), // Include CSRF token for security
-        },
-        body: JSON.stringify({ products: products }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          // Handle response
-          console.log("Success:", data);
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
     }
   });
 });
-
-function getCookie(name) {
-  let cookieValue = null;
-  if (document.cookie && document.cookie !== "") {
-    const cookies = document.cookie.split(";");
-    for (let i = 0; i < cookies.length; i++) {
-      const cookie = cookies[i].trim();
-      // Does this cookie string begin with the name we want?
-      if (cookie.substring(0, name.length + 1) === name + "=") {
-        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-        break;
-      }
-    }
-  }
-  return cookieValue;
-}
