@@ -588,7 +588,7 @@ fieldset .check-radio-box input[type="checkbox"] {
 }
 
 .datalist > ul {
-  max-height: 33.6rem;
+  max-height: 16rem;
   overflow: hidden auto;
   padding: 0.8rem;
   border-radius: 0.8rem;

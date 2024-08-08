@@ -1,4 +1,4 @@
-import { refreshInputs, removeInputMsg, setInputMsg, validateInput } from "./utils/inputs.js";
+import { refreshInputs, removeInputMsg, setDatalist, setInputMsg, updateDatalistPosition, validateInput } from "./utils/inputs.js";
 import { toTwoDigit, saveToStorage, getFromStorage } from "./utils/utils.js";
 import { createSnackbar, createDialog } from "./utils/components.js";
 import { UI_STATUS_FEEDBACK } from "./utils/const.js";
@@ -21,19 +21,19 @@ function getNewProductHTML(idNumList, savedItem = undefined) {
         <fieldset>
             <label for="product_name_${idNum}">Name</label>
             <div class="icon-frame">
-                <input type="text" required class="text-input product-name" value="${savedItem?.name || ""}" pattern="^[a-zA-Z0-9_.,&/\s-]+$" id="product_name_${idNum}" name="product_name_${idNum}" data-list="existing_products">
+                <input type="text" required class="text-input product-name" value="${savedItem?.name || ""}" pattern="^[a-zA-Z0-9_.,&\\s\\-]+$" id="product_name_${idNum}" name="product_name_${idNum}" data-list="existing_products">
             </div>
         </fieldset>
 
         <fieldset>
             <label for="product_brand_${idNum}">Brand</label>
-            <input type="text" required class="text-input product-brand" value="${savedItem?.brand || ""}" pattern="^[a-zA-Z0-9_.,&/\s-]+$" id="product_brand_${idNum}" name="product_brand_${idNum}">
+            <input type="text" required class="text-input product-brand" value="${savedItem?.brand || ""}" pattern="^[a-zA-Z0-9_.,&\\s\\-]+$" id="product_brand_${idNum}" name="product_brand_${idNum}">
         </fieldset>
 
         <fieldset>
             <label for="product_type_${idNum}">Product Type</label>
             <div class="icon-frame">
-                <input type="text" required class="text-input product-type" value="${savedItem?.type || ""}" pattern="^[a-zA-Z:,.&\/\s-]+$" id="product_type_${idNum}" name="product_type_${idNum}"
+                <input type="text" required class="text-input product-type" value="${savedItem?.type || ""}" pattern="^[a-zA-Z0-9:,.&\\s\\-]+$" id="product_type_${idNum}" name="product_type_${idNum}"
                     data-list="product_type_list">
             </div>
             <button type="button" class="text"><a href="{% url 'settings' %}">Edit product types list</a></button>
@@ -56,7 +56,7 @@ function getNewProductHTML(idNumList, savedItem = undefined) {
         <fieldset>
             <label for="product_seller_${idNum}">Seller</label>
             <div class="icon-frame combo-box">
-                <input type="text" required class="text-input product-seller-name" value="${savedItem?.sellerName || ""}" pattern="^[a-zA-Z0-9_.,\s-]+$" id="product_seller_${idNum}" name="product_seller_${idNum}" data-list="seller_list">
+                <input type="text" required class="text-input product-seller-name" value="${savedItem?.sellerName || ""}" pattern="^[a-zA-Z0-9_.,\\s\\-]+$" id="product_seller_${idNum}" name="product_seller_${idNum}" data-list="seller_list">
             </div>
             <button type="button" class="text add-new-seller-btn">Add new Seller</button>
         </fieldset>
@@ -93,9 +93,11 @@ function handleNewProductTile() {
     const tileList = document.querySelectorAll(".new-product");
     const numberList = document.querySelectorAll(".new-product .number");
     const statusList = document.querySelectorAll(".new-product .status");
+    const nameList = document.querySelectorAll(".new-product .product-name");
+    const typeList = document.querySelectorAll(".new-product .product-type");
+    const sellerNameList = document.querySelectorAll(".new-product .product-seller-name");
     const deleteBtnList = document.querySelectorAll(".new-product .delete-current-product");
     const existingProductList = Array.from(document.querySelectorAll("#existing_products li"));
-    const nameList = document.querySelectorAll(".product-name");
 
     numberList.forEach((elem, i) => elem.innerHTML = `${toTwoDigit(++i)}`);
 
@@ -116,7 +118,6 @@ function handleNewProductTile() {
 
     // Set "New" or "Addition to Existing Product" badges
     nameList.forEach((input, i) => {
-
         // Presetting
         if (input.value) setStatus(statusList[i], input);
 
@@ -124,6 +125,9 @@ function handleNewProductTile() {
             if (!input.value) statusList[i].classList.add("hidden");
             else setStatus(statusList[i], input);
         });
+
+        // input.addEventListener("change", () => setStatus(statusList[i], input))
+
         input.addEventListener("keydown", (e) => {
             if (e.key == "Enter") setStatus(statusList[i], input)
         })
@@ -131,7 +135,22 @@ function handleNewProductTile() {
         // When list item is clicked
         existingProductList.forEach(li =>
             li.addEventListener("click", () => setStatus(statusList[i], input)));
+
+        // Setting DATALIST
+        setDatalist(input);
+
+        document.getElementById(input.getAttribute("data-list")).querySelectorAll("li").forEach(li =>
+            li.addEventListener("click", () => {
+                if (!input.value) statusList[i].classList.add("hidden");
+                else setStatus(statusList[i], input);
+            }))
     });
+
+    // SETTING DATALIST TO PRODUCT TYPE
+    typeList.forEach(input => setDatalist(input))
+    // SETTING DATALIST TO SELLER NAME
+    sellerNameList.forEach(input => setDatalist(input))
+
 
     // Delete the current product tile
     deleteBtnList.forEach((btn, i) => {
@@ -384,7 +403,7 @@ document.addEventListener("DOMContentLoaded", () => {
         //     // TODO: SUBMIT
         // }
 
-        document.getElementById("new_product_list").submit();
+        // document.getElementById("new_product_list").submit();
     })
 
 })
