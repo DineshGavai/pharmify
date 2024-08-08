@@ -51,99 +51,12 @@
                     </p>
                 </div>
 
-                <!-- PRODUCT LIST -->
+                <!-- PRODUCT LIST STARTS -->
                 <form class="new-product-list product-form" id="new_product_list" method="post" action="" novalidate
                     onkeydown="if(event.keyCode === 13) {event.preventDefault()}">
-                    <!-- 
-                    <div class="new-product">
-                        <div class="information">
-                            <fieldset>
-                                <label for="product_name_1">Name</label>
-                                <input type="text" class="text-input name" id="product_name_1" name="product_name_1">
-                            </fieldset>
-
-                            <fieldset>
-                                <label for="product_brand_1">Brand</label>
-                                <input type="text" class="text-input" id="product_brand_1" name="product_brand_1">
-                            </fieldset>
-
-                            <fieldset>
-                                <label for="product_type_1">Product Type</label>
-                                <div class="icon-frame">
-                                    <input type="text" class="text-input" id="product_type_1" name="product_type_1"
-                                        data-list="product_type_list">
-                                </div>
-                                <button class="text"><a href="{% url 'settings' %}">Edit product types list</a></button>
-                            </fieldset>
-                        </div>
-                        <div class="date">
-                            <fieldset>
-                                <label for="product_date_manufacture_1">Manufacture Date</label>
-                                <input type="date" class="text-input" id="product_date_manufacture_1"
-                                    name="product_date_manufacture_1">
-                            </fieldset>
-
-                            <fieldset>
-                                <label for="product_date_expiry_1">Expiry Date</label>
-                                <input type="date" class="text-input" id="product_date_expiry_1"
-                                    name="product_date_expiry_1">
-                            </fieldset>
-
-                            <p class="note info subtitle">Make sure the expiry date is correct.</p>
-                        </div>
-                        <div class="seller">
-                            <fieldset>
-                                <label for="product_quantity_1">Seller</label>
-                                <div class="icon-frame combo-box">
-                                    <input type="text" name="product_seller_1" id="product_seller_1" class="text-input"
-                                        data-list="seller_list_1">
-                                </div>
-                                <button class="text">Add new Seller</button>
-                            </fieldset>
-                        </div>
-                        <div class="rate">
-                            <fieldset>
-                                <label for="product_wholesale_price_1">Wholesale Price</label>
-                                <div class="icon-frame">
-                                    <span class="lead">₹</span>
-                                    <input type="text" class="text-input" id="product_wholesale_price_1"
-                                        name="product_wholesale_price_1" placeholder="0.0">
-                                </div>
-                            </fieldset>
-                            <fieldset>
-                                <label for="product_selling_price_1">Selling Price</label>
-                                <div class="icon-frame">
-                                    <span class="lead">₹</span>
-                                    <input type="text" class="text-input" id="product_selling_price_1"
-                                        name="product_selling_price_1" placeholder="0.0">
-                                </div>
-                            </fieldset>
-                            <fieldset class="quantity">
-                                <label for="product_quantity_1">Quantity</label>
-                                <input type="text" class="text-input" id="product_quantity_1" name="product_quantity_1"
-                                    placeholder="00">
-                            </fieldset>
-                        </div>
-                        <div class="product-options">
-                            <button class="icon negative">
-                                <svg class="icon">
-                                    <use href="{% static 'assets/icon-sprite.svg' %}#delete" />
-                                </svg>
-                            </button>
-
-                            <button class="text">
-                                <svg class="icon">
-                                    <use href="{% static 'assets/icon-sprite.svg' %}#stock-add-existing" />
-                                </svg>
-                                Add to Existing
-                            </button>
-                        </div>
-                    </div> -->
-
-
-
+                    {% csrf_token %}
                 </form>
-
+                <!-- PRODUCT LIST ENDS -->
 
                 <!-- ADD PRODUCT BUTTONS -->
                 <div class="btn-box">
@@ -212,6 +125,17 @@
                                 change this limit in <a href="{% url 'settings' %}" class="text-link">Settings</a>.</p>
                         </menu>
 
+                        <div class="divider"></div>
+
+                        <menu>
+                            <button class="menu-item" id="add_new_seller_btn">
+                                <svg class="icon">
+                                    <use href="{% static 'assets/icon-sprite.svg' %}#seller" />
+                                </svg>
+                                Add New Seller
+                            </button>
+                        </menu>
+
                     </div>
                 </section>
 
@@ -226,6 +150,7 @@
     </main>
     <!-- MAIN ENDS -->
 
+    <!-- EXISTING PRODUCTS LIST STARTS -->
     <div class="datalist" id="existing_products">
         <ul class="datalist-body">
             <li data-product-id="prod-12345">Paracetamol tablets</li>
@@ -240,11 +165,13 @@
             <li data-product-id="prod-vwx234">Hair growth shampoo</li>
         </ul>
     </div>
+    <!-- EXISTING PRODUCTS LIST ENDS -->
 
     <!-- PRODUCT TYPES DATA LIST STARTS -->
     {% include 'components/product_list.html' %}
     <!-- PRODUCT TYPES DATA LIST ENDS -->
 
+    <!-- SELLER DATA LIST STARTS -->
     <div class="datalist" id="seller_list">
         <ul class="datalist-body">
             <li>MedPlus Distributors</li>
@@ -256,6 +183,24 @@
             <li>Wellbeing Pharma</li>
         </ul>
     </div>
+    <!-- SELLER DATA LIST ENDS -->
+
+    <!-- ADD NEW SELLER FORM STARTS -->
+    <form action="" method="post" id="add_new_seller_form" name="add_new_seller_form"
+        data-dialog-id="add_new_seller_form" aria-hidden="true" novalidate>
+        <fieldset>
+            <label for="new_seller_name">Seller Name</label>
+            <input type="text" id="new_seller_name" name="new_seller_name" required class="text-input"
+                pattern="^[a-zA-Z0-9_.,\s-]+$" placeholder="Seller's personal or market name">
+        </fieldset>
+        <fieldset>
+            <label for="new_seller_phone">Phone Number</label>
+            <input type="text" id="new_seller_phone" name="new_seller_phone" class="text-input"
+                placeholder="10 digit contact number" required inputmode="numeric" pattern="^\d{10}$">
+        </fieldset>
+    </form>
+    <!-- ADD NEW SELLER FORM ENDS -->
+
     <!-- SCRIPT -->
     <script type="module" src="{% static 'script/main.js' %}"></script>
     <script type="module" src="{% static 'script/stock-new.js' %}"></script>

@@ -8,7 +8,7 @@ import { toTwoDigit, saveToStorage, getFromStorage } from "./utils/utils.js";
 import { createSnackbar, createDialog } from "./utils/components.js";
 import { UI_STATUS_FEEDBACK } from "./utils/const.js";
 
-function getNewProductHTML(idNumList, savedItem) {
+function getNewProductHTML(idNumList, savedItem = undefined) {
   let idNum = idNumList.slice(-1)[0];
   return `
         <div class="product-options">
@@ -28,7 +28,7 @@ function getNewProductHTML(idNumList, savedItem) {
             <div class="icon-frame">
                 <input type="text" required class="text-input product-name" value="${
                   savedItem?.name || ""
-                }" pattern="^[a-zA-Z0-9_.,\&\/\s-]+$" id="product_name_${idNum}" name="product_name_${idNum}" data-list="existing_products">
+                }" pattern="^[a-zA-Z0-9_.,&/\s-]+$" id="product_name_${idNum}" name="product_name_${idNum}" data-list="existing_products">
             </div>
         </fieldset>
 
@@ -36,7 +36,7 @@ function getNewProductHTML(idNumList, savedItem) {
             <label for="product_brand_${idNum}">Brand</label>
             <input type="text" required class="text-input product-brand" value="${
               savedItem?.brand || ""
-            }" pattern="^[a-zA-Z0-9_.,\&\/\s-]+$" id="product_brand_${idNum}" name="product_brand_${idNum}">
+            }" pattern="^[a-zA-Z0-9_.,&/\s-]+$" id="product_brand_${idNum}" name="product_brand_${idNum}">
         </fieldset>
 
         <fieldset>
@@ -44,7 +44,7 @@ function getNewProductHTML(idNumList, savedItem) {
             <div class="icon-frame">
                 <input type="text" required class="text-input product-type" value="${
                   savedItem?.type || ""
-                }" pattern="^[a-zA-Z:.\&\/\s-]+$" id="product_type_${idNum}" name="product_type_${idNum}"
+                }" pattern="^[a-zA-Z:,.&\/\s-]+$" id="product_type_${idNum}" name="product_type_${idNum}"
                     data-list="product_type_list">
             </div>
             <button type="button" class="text"><a href="{% url 'settings' %}">Edit product types list</a></button>
@@ -75,7 +75,7 @@ function getNewProductHTML(idNumList, savedItem) {
                   savedItem?.sellerName || ""
                 }" pattern="^[a-zA-Z0-9_.,\s-]+$" id="product_seller_${idNum}" name="product_seller_${idNum}" data-list="seller_list">
             </div>
-            <button type="button" class="text">Add new Seller</button>
+            <button type="button" class="text add-new-seller-btn">Add new Seller</button>
         </fieldset>
     </div>
     <div class="rate">
@@ -114,7 +114,7 @@ function handleNewProductTile() {
   const tileList = document.querySelectorAll(".new-product");
   const numberList = document.querySelectorAll(".new-product .number");
   const statusList = document.querySelectorAll(".new-product .status");
-  const deleteProductList = document.querySelectorAll(
+  const deleteBtnList = document.querySelectorAll(
     ".new-product .delete-current-product"
   );
   const existingProductList = Array.from(
@@ -164,9 +164,11 @@ function handleNewProductTile() {
   });
 
   // Delete the current product tile
-  deleteProductList.forEach((btn, i) => {
+  deleteBtnList.forEach((btn, i) => {
     btn.addEventListener("click", () => {
       tileList[i].remove();
+      refreshInputs();
+      handleNewProductTile();
     });
   });
 }
@@ -241,6 +243,54 @@ document.addEventListener("DOMContentLoaded", () => {
         return true;
       },
       danger: true,
+    });
+  });
+
+  const addNewSellerBtn = document.getElementById("add_new_seller_btn");
+
+  // ADD NEW SELLER Btn
+  addNewSellerBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    createDialog({
+      headline: "Add New Seller.",
+      description:
+        "Please enter his/her name and phone number to add the seller to the list.",
+      componentID: "add_new_seller_form",
+      fullscreen: true,
+      primaryBtnLabel: "Add",
+      secondaryBtnLabel: "Cancel",
+      primaryAction: function () {
+        let newSellerForm = document.getElementById("add_new_seller_form");
+        let sellerNameInput = document.getElementById("new_seller_name");
+        let sellerPhoneInput = document.getElementById("new_seller_phone");
+
+        let validationArray = [
+          validateInput(sellerNameInput, "Please enter a valid seller name."),
+          validateInput(
+            sellerPhoneInput,
+            "Please enter a 10 digit phone number."
+          ),
+        ];
+
+        if (!validationArray.includes(false)) {
+          // TODO: HANDLE DATA SAVING AFTER SUBMIT
+          // newSellerForm.submit();
+          setTimeout(() => {
+            newSellerForm.reset();
+          }, 1000);
+          // IMP: Don't remove following line
+          return true;
+        }
+        return false;
+      },
+      secondaryAction: function () {
+        let newSellerForm = document.getElementById("add_new_seller_form");
+        newSellerForm.reset();
+
+        return true;
+      },
+      danger: false,
     });
   });
 
@@ -392,13 +442,72 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // If their are mistakes
-    if (validationArray.includes(false)) {
-      createSnackbar({
-        msg: "Please fill all the inputs correctly first.",
-        status: UI_STATUS_FEEDBACK.error,
-      });
-    } else {
-      // TODO: SUBMIT
-    }
+    // if (validationArray.includes(false)) {
+    //     createSnackbar({
+    //         msg: "Please fill all the inputs correctly first.",
+    //         status: UI_STATUS_FEEDBACK.error
+    //     });
+    // } else {
+    //     // TODO: SUBMIT
+    // }
+
+    document.getElementById("new_product_list").submit();
+
+    // fetch("/stock/new/", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     "X-CSRFToken": getCookie("csrftoken"), // Include CSRF token for security
+    //   },
+    //   body: JSON.stringify({ products: products }),
+    // })
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     // Handle response
+    //     console.log("Success:", data);
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error:", error);
+    //   });
+
+    const productData = {
+      dateExpiry: "2025-01-29",
+      brand: "CellCept",
+      dateManufacture: "2024-05-02",
+      isNew: false,
+      name: "Paracetamol tablets",
+      priceSelling: "5",
+      priceWholesale: "4",
+      quantity: "50",
+      sellerName: "Zenith Healthcare",
+      type: "Pain relievers: Paracetamol, Ibuprofen, Aspirin, Naproxen",
+    };
+
+    fetch("/stock/new", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": getCookie("csrftoken"),
+      },
+      body: JSON.stringify({ newProductJSON: productData }),
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.error("Error:", error));
   });
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+      const cookies = document.cookie.split(";");
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        // Does this cookie string begin with the name we want?
+        if (cookie.substring(0, name.length + 1) === name + "=") {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
 });
