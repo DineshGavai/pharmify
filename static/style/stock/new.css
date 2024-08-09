@@ -8,14 +8,14 @@ header .nowrap {
 
 main .main-content {
   padding: 0 !important;
-  background-color: var(--clr-grey-bg);
+  background-color: var(--clr-white);
   display: flex;
   flex-direction: row;
 }
 
 main .main-content .new-product-list-sec {
   flex: 1;
-  padding: 1.6rem;
+  padding: 1.6rem 0.8rem;
   padding-bottom: 12rem;
 }
 
@@ -55,13 +55,12 @@ NEW PRODUCT LIST
 }
 
 .new-product-list-sec,
-.new-product-list,
-.new-product div:has(> fieldset) {
+.new-product-list {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: start;
-  gap: 1.6rem;
+  gap: 2.4rem;
 }
 
 .new-product-list-sec > *,
@@ -92,91 +91,79 @@ NEW PRODUCT LIST
 
 .new-product-list .new-product,
 .info-box {
-  padding: 2.4rem 1.6rem;
+  padding: 1.6rem 0.8rem;
   border-radius: 1.6rem;
   background-color: var(--clr-white);
 }
 
 .new-product-list .new-product {
+  border: 1px solid var(--clr-grey-divider);
   display: flex;
   flex-direction: column;
-  gap: 1.6rem;
-}
-
-.new-product div:has(> fieldset) {
   gap: 0.8rem;
+  box-shadow: inset 0 0 0 0.8rem var(--clr-grey-bg-light);
 }
 
 .new-product .badge.number {
   background-color: var(--clr-accent-dark);
 }
 
-.new-product .product-name {
-  color: var(--clr-primary-dark);
-  font-size: var(--fs-600);
-}
-
-.new-product .rate {
-  width: 100%;
-}
-
-.new-product .date,
-.new-product .rate {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-areas: "FA FB" "FC FC";
-}
-
-.new-product .date .note,
-.new-product .rate .quantity {
-  grid-area: FC;
-}
-
-.new-product .rate input,
-.new-product .rate .lead {
-  text-align: right;
-  font-size: var(--fs-600);
-}
-
-.new-product .rate .lead {
-  color: var(--clr-grey-text);
-}
-
 .new-product .product-options {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 }
 
-@media (min-width: 769px) {
+.new-product .product-options span {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.new-product .product-name {
+  font-weight: 600;
+  color: var(--clr-primary-dark);
+}
+
+@media (min-width: 426px) {
   .new-product-list .new-product {
+    padding: 2.4rem 1.6rem;
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    grid-template-areas: "A A" "B C" "D D" "E E";
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: "A A A" "B B D" "C C C" "E E E" "F G H" "I J K";
+    grid-row-gap: 1.2rem !important;
   }
 
   .new-product .product-options {
     grid-area: A;
   }
-
-  .new-product .information {
+  .new-product fieldset:has(.product-name) {
     grid-area: B;
   }
-  .new-product .date {
+  .new-product fieldset:has(.product-type) {
     grid-area: C;
   }
-
-  .new-product .date,
-  .new-product .rate {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .new-product .seller {
+  .new-product fieldset:has(.product-brand) {
     grid-area: D;
   }
-  .new-product .rate {
+  .new-product fieldset:has(.product-seller-name) {
     grid-area: E;
-    flex-direction: row;
+  }
+  .new-product fieldset:has(.product-date-manufacture) {
+    grid-area: F;
+  }
+  .new-product fieldset:has(.product-date-expiry) {
+    grid-area: G;
+  }
+  .new-product .note {
+    grid-area: H;
+  }
+  .new-product fieldset:has(.product-price-wholesale) {
+    grid-area: I;
+  }
+  .new-product fieldset:has(.product-price-selling) {
+    grid-area: J;
+  }
+  .new-product fieldset:has(.product-quantity) {
+    grid-area: K;
   }
 }

@@ -283,10 +283,11 @@ img.icon,
 svg.icon {
   fill: none;
   stroke: currentColor;
-  width: 2.4rem;
-  min-width: 2.4rem;
-  height: 2.4rem;
-  min-height: 2.4rem;
+  --size: 2.4rem;
+  width: var(--size);
+  min-width: var(--size);
+  height: var(--size);
+  min-height: var(--size);
   aspect-ratio: 1;
   display: flex;
   align-items: center;

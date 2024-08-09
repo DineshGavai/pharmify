@@ -816,6 +816,7 @@ nav footer .fs-200 {
 main header {
   padding: 0.8rem 1.6rem;
   padding-bottom: 0.4rem;
+  padding-left: 6.4rem;
   min-height: 4.05rem;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -823,10 +824,14 @@ main header {
 
 main header :is(h1, h2) {
   flex: 1;
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 @media (min-width: 1025px) {
   main header {
+    padding-left: 1.6rem;
     justify-content: start;
   }
 }

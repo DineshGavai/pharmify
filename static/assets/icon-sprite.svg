@@ -350,7 +350,11 @@
             <path
                 d="M21 13.6667V16.7143C21 17.9767 19.8061 19 18.3333 19H15.6667C14.1939 19 13 17.9767 13 16.7143V13.6667M21 13.6667L19 11H15L13 13.6667M21 13.6667H13"
                 stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </symbol>
 
+        <!-- List Product Type -->
+        <symbol id="list-product-type" viewBox="0 0 24 24">
+            <path d="M5 17H13M5 12H19M5 7H13" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
         </symbol>
 
 

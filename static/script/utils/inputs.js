@@ -219,7 +219,7 @@ export function setInputMsg(inputTag, msg, status = UI_STATUS_FEEDBACK.error) {
   const msgDiv = document.createElement("div");
   // Set class, by default, it's "error"
   msgDiv.classList.add("msg", status);
-  msgDiv.innerHTML = `${msg}`;
+  msgDiv.innerHTML = `<span>${msg}</span>`;
   setMsgIcons(msgDiv, status);
 
   // Find parent for appending
@@ -436,10 +436,9 @@ export function updateDatalistPosition(input, datalist) {
 }
 
 // FUNCTION TO REMOVE DATALIST
-export function removeDatalist(e, datalist) {
-  if (e.target == datalist) {
-    datalist.classList.remove("visible");
-  }
+export function removeDatalist(datalist, e = false) {
+  if (e && e.target != datalist) return;
+  datalist.classList.remove("visible");
 }
 
 // FUNCTION to SET Datalist to the Associated Input
@@ -463,28 +462,29 @@ export function setDatalist(input) {
 
   input.addEventListener("keydown", (e) => {
     // Hide datalist on blur
-    if (e.key == "Tab") datalist.classList.remove("visible");
+    if (e.key == "Tab" || e.key == "Escape") removeDatalist(datalist);
     // Get the first visible list item and fill input with it on Enter
     if (e.key == "Enter") {
       if (!datalist.classList.contains("visible")) return;
       let firstVisibleItem = Array.from(datalist.querySelectorAll("li")).find(li => li.style.display !== "none");
       if (firstVisibleItem) {
         input.value = firstVisibleItem.textContent.trim().replace(/\s+/g, ' ');
-        datalist.classList.remove("visible");
+        removeDatalist(datalist);
       };
     }
   });
 
   // Hide datalist on click or scroll elsewhere
-  datalist.addEventListener("click", (e) => removeDatalist(e, datalist));
-  datalist.addEventListener("wheel", (e) => removeDatalist(e, datalist), { passive: true });
+  datalist.addEventListener("click", (e) => removeDatalist(datalist, e));
+  datalist.addEventListener("wheel", (e) => removeDatalist(datalist, e), { passive: true });
+  datalist.querySelectorAll("button, a").forEach(btn => btn.addEventListener("click", () => removeDatalist(datalist)));
 
   // Fill input on particular item click and close popup  
   datalist.querySelectorAll("li").forEach(li =>
     li.addEventListener("click", () => {
       if (input == associatedInput) {
         input.value = li.textContent.trim().replace(/\s+/g, ' ');
-        datalist.classList.remove("visible");
+        removeDatalist(datalist);
       }
     }))
 

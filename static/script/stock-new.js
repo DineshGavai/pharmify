@@ -1,4 +1,4 @@
-import { refreshInputs, removeInputMsg, setDatalist, setInputMsg, updateDatalistPosition, validateInput } from "./utils/inputs.js";
+import { allowNumberInputOnly, refreshInputs, removeInputMsg, setDatalist, setInputMsg, updateDatalistPosition, validateInput } from "./utils/inputs.js";
 import { toTwoDigit, saveToStorage, getFromStorage } from "./utils/utils.js";
 import { createSnackbar, createDialog } from "./utils/components.js";
 import { UI_STATUS_FEEDBACK } from "./utils/const.js";
@@ -17,29 +17,31 @@ function getNewProductHTML(idNumList, savedItem = undefined) {
                 </svg>
             </button>
         </div>
-        <div class="information">
         <fieldset>
             <label for="product_name_${idNum}">Name</label>
             <div class="icon-frame">
-                <input type="text" required class="text-input product-name" value="${savedItem?.name || ""}" pattern="^[a-zA-Z0-9_.,&\\s\\-]+$" id="product_name_${idNum}" name="product_name_${idNum}" data-list="existing_products">
+                <input type="text" required class="text-input product-name" value="${savedItem?.name || ""}" pattern="^[a-zA-Z0-9_.,&\\s\\-]+$" id="product_name_${idNum}" name="product_name_${idNum}" data-list="existing_products" data-error-msg="Only alphabets, numbers and some special characters allowed.">
             </div>
         </fieldset>
 
         <fieldset>
             <label for="product_brand_${idNum}">Brand</label>
-            <input type="text" required class="text-input product-brand" value="${savedItem?.brand || ""}" pattern="^[a-zA-Z0-9_.,&\\s\\-]+$" id="product_brand_${idNum}" name="product_brand_${idNum}">
+            <input type="text" required class="text-input product-brand" value="${savedItem?.brand || ""}" pattern="^[a-zA-Z0-9_.,&\\s\\-]+$" id="product_brand_${idNum}" name="product_brand_${idNum}" data-error-msg="Only alphabets, numbers and some special characters allowed.">
         </fieldset>
 
         <fieldset>
             <label for="product_type_${idNum}">Product Type</label>
             <div class="icon-frame">
-                <input type="text" required class="text-input product-type" value="${savedItem?.type || ""}" pattern="^[a-zA-Z0-9:,.&\\s\\-]+$" id="product_type_${idNum}" name="product_type_${idNum}"
-                    data-list="product_type_list">
+                <input type="text" required class="text-input product-type" value="${savedItem?.type || ""}" pattern="^[a-zA-Z:,.&\\s\\-]+$" id="product_type_${idNum}" name="product_type_${idNum}"
+                    data-list="product_type_list" data-error-msg="Only alphabets and some special characters allowed. Numbers are not allowed.">
             </div>
-            <button type="button" class="text"><a href="{% url 'settings' %}">Edit product types list</a></button>
         </fieldset>
-    </div>
-    <div class="date">
+        <fieldset>
+            <label for="product_seller_${idNum}">Seller</label>
+            <div class="icon-frame combo-box">
+                <input type="text" required class="text-input product-seller-name" value="${savedItem?.sellerName || ""}" pattern="^[a-zA-Z0-9_.,\\s\\-]+$" id="product_seller_${idNum}" name="product_seller_${idNum}" data-list="seller_list" data-error-msg="Only alphabets, numbers and some special characters allowed.">
+            </div>
+        </fieldset>
         <fieldset>
             <label for="product_date_manufacture_${idNum}">Manufacture Date</label>
             <input type="date" required class="text-input product-date-manufacture" value="${savedItem?.dateManufacture || ""}" id="product_date_manufacture_${idNum}" name="product_date_manufacture_${idNum}">
@@ -49,25 +51,13 @@ function getNewProductHTML(idNumList, savedItem = undefined) {
             <label for="product_date_expiry_${idNum}">Expiry Date</label>
             <input type="date" required class="text-input product-date-expiry" value="${savedItem?.dateExpiry || ""}" id="product_date_expiry_${idNum}" name="product_date_expiry_${idNum}">
         </fieldset>
-
         <p class="note info subtitle">Make sure the expiry date is correct.</p>
-    </div>
-    <div class="seller">
-        <fieldset>
-            <label for="product_seller_${idNum}">Seller</label>
-            <div class="icon-frame combo-box">
-                <input type="text" required class="text-input product-seller-name" value="${savedItem?.sellerName || ""}" pattern="^[a-zA-Z0-9_.,\\s\\-]+$" id="product_seller_${idNum}" name="product_seller_${idNum}" data-list="seller_list">
-            </div>
-            <button type="button" class="text add-new-seller-btn">Add new Seller</button>
-        </fieldset>
-    </div>
-    <div class="rate">
         <fieldset>
             <label for="product_wholesale_price_${idNum}">Wholesale Price</label>
             <div class="icon-frame">
                 <span class="lead">₹</span>
                 <input type="text" required class="text-input product-price-wholesale" value="${savedItem?.priceWholesale || ""}" pattern="^\d+(\.\d{1,2})?$" id="product_wholesale_price_${idNum}" name="product_wholesale_price_${idNum}"
-                    placeholder="0.0">
+                    placeholder="0.0" data-error-msg="This must be a valid amount.">
             </div>
         </fieldset>
         <fieldset>
@@ -75,12 +65,12 @@ function getNewProductHTML(idNumList, savedItem = undefined) {
             <div class="icon-frame">
                 <span class="lead">₹</span>
                 <input type="text" required class="text-input product-price-selling" value="${savedItem?.priceSelling || ""}" pattern="^\d+(\.\d{1,2})?$" id="product_selling_price_${idNum}" name="product_selling_price_${idNum}"
-                    placeholder="0.0">
+                    placeholder="0.0" data-error-msg="This must be a valid amount">
             </div>
         </fieldset>
         <fieldset class="quantity">
             <label for="product_quantity_${idNum}">Quantity</label>
-            <input type="text" required class="text-input product-quantity" pattern="^\d+$" value="${savedItem?.quantity || ""}" id="product_quantity_${idNum}" name="product_quantity_${idNum}" placeholder="00">
+            <input type="text" required class="text-input product-quantity" value="${savedItem?.quantity || ""}" id="product_quantity_${idNum}" name="product_quantity_${idNum}" placeholder="00" data-error-msg="Quantity must be more than 0 and a whole number.">
         </fieldset>
     </div>
     `;
@@ -95,6 +85,7 @@ function handleNewProductTile() {
     const statusList = document.querySelectorAll(".new-product .status");
     const nameList = document.querySelectorAll(".new-product .product-name");
     const typeList = document.querySelectorAll(".new-product .product-type");
+    const quantityList = document.querySelectorAll(".new-product .product-quantity");
     const sellerNameList = document.querySelectorAll(".new-product .product-seller-name");
     const deleteBtnList = document.querySelectorAll(".new-product .delete-current-product");
     const existingProductList = Array.from(document.querySelectorAll("#existing_products li"));
@@ -126,9 +117,11 @@ function handleNewProductTile() {
             else setStatus(statusList[i], input);
         });
 
-        // input.addEventListener("change", () => setStatus(statusList[i], input))
-
         input.addEventListener("keydown", (e) => {
+            if (e.key == "Enter") setStatus(statusList[i], input)
+        })
+
+        input.addEventListener("keyup", (e) => {
             if (e.key == "Enter") setStatus(statusList[i], input)
         })
 
@@ -149,7 +142,9 @@ function handleNewProductTile() {
     // SETTING DATALIST TO PRODUCT TYPE
     typeList.forEach(input => setDatalist(input))
     // SETTING DATALIST TO SELLER NAME
-    sellerNameList.forEach(input => setDatalist(input))
+    sellerNameList.forEach(input => setDatalist(input));
+
+    quantityList.forEach(input => allowNumberInputOnly(input));
 
 
     // Delete the current product tile
@@ -186,7 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
             newProduct.className = "new-product";
             newProduct.innerHTML = getNewProductHTML(idNumList);
             newProductsCtr.append(newProduct);
-            newProductsCtr.parentElement.scrollTop = newProduct.offsetTop - 60;
+            newProductsCtr.parentElement.scrollTop = newProduct.offsetTop - 120;
 
             // Handle events after DOM Manipulation
             refreshInputs();
@@ -208,7 +203,7 @@ document.addEventListener("DOMContentLoaded", () => {
             newProduct.className = "new-product";
             newProduct.innerHTML = getNewProductHTML(idNumList, item);
             newProductsCtr.append(newProduct);
-            newProductsCtr.parentElement.scrollTop = newProduct.offsetTop - 60;
+            newProductsCtr.parentElement.scrollTop = newProduct.offsetTop - 120;
 
             // Handle events after DOM Manipulation
             refreshInputs();
@@ -358,12 +353,24 @@ document.addEventListener("DOMContentLoaded", () => {
             typeList,
             sellerNameList,
             priceWholesaleList,
-            priceSellingList,
-            quantityList
+            priceSellingList
         ].forEach(inputList => {
             inputList.forEach(input => {
-                validationArray.push(validateInput(input, "Please enter a valid value."));
+                validationArray.push(validateInput(input, input.getAttribute("data-error-msg")));
             })
+        })
+
+        // Validate Quantity
+        quantityList.forEach(input => {
+            if (!input.value) {
+                validationArray.push(false);
+                setInputMsg(input, "This field is required.")
+            } else if (Number(input.value) < 1) {
+                validationArray.push(false);
+                setInputMsg(input, input.getAttribute("data-error-msg"))
+            } else {
+                removeInputMsg(input);
+            }
         })
 
         // Validate Dates
@@ -379,7 +386,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 setInputMsg(input, `This field is required.`);
             } else if (new Date(input.value) > today) {
                 validationArray.push(false);
-                setInputMsg(input, `This must be less than today's date ${formattedToday}. Cannot add an unmanufactured product.`);
+                setInputMsg(input, `This must be less than today's date <b>${formattedToday}</b>.`);
             } else removeInputMsg(input)
         })
 
@@ -389,7 +396,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 setInputMsg(input, `This field is required.`);
             } else if (new Date(input.value) < today) {
                 validationArray.push(false);
-                setInputMsg(input, `This must be more than today's date ${formattedToday}. Cannot add an expired product.`);
+                setInputMsg(input, `This must be more than today's date <b>${formattedToday}</b>.`);
             } else removeInputMsg(input);
         })
 
