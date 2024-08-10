@@ -415,9 +415,12 @@ fieldset .icon-frame {
 }
 
 fieldset .icon-frame .lead {
+  order: 1;
   padding-left: 0.8rem;
 }
+
 fieldset .icon-frame .trail {
+  order: 3;
   padding-right: 0.8rem;
 }
 
@@ -426,6 +429,7 @@ fieldset .icon-frame button.icon:hover {
 }
 
 fieldset .icon-frame .text-input {
+  order: 2;
   border-bottom: none;
   padding: 0.8rem;
   border-radius: 0;

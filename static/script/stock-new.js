@@ -3,8 +3,7 @@ import { toTwoDigit, saveToStorage, getFromStorage } from "./utils/utils.js";
 import { createSnackbar, createDialog } from "./utils/components.js";
 import { UI_STATUS_FEEDBACK } from "./utils/const.js";
 
-function getNewProductHTML(idNumList, savedItem = undefined) {
-    let idNum = idNumList.slice(-1)[0];
+function getNewProductHTML(idNum, savedItem = undefined) {
     return `
         <div class="product-options">
             <span>
@@ -51,7 +50,6 @@ function getNewProductHTML(idNumList, savedItem = undefined) {
             <label for="product_date_expiry_${idNum}">Expiry Date</label>
             <input type="date" required class="text-input product-date-expiry" value="${savedItem?.dateExpiry || ""}" id="product_date_expiry_${idNum}" name="product_date_expiry_${idNum}">
         </fieldset>
-        <p class="note info subtitle">Make sure the expiry date is correct.</p>
         <fieldset>
             <label for="product_wholesale_price_${idNum}">Wholesale Price</label>
             <div class="icon-frame">
@@ -70,7 +68,15 @@ function getNewProductHTML(idNumList, savedItem = undefined) {
         </fieldset>
         <fieldset class="quantity">
             <label for="product_quantity_${idNum}">Quantity</label>
-            <input type="text" required class="text-input product-quantity" value="${savedItem?.quantity || ""}" id="product_quantity_${idNum}" name="product_quantity_${idNum}" placeholder="00" data-error-msg="Quantity must be more than 0 and a whole number.">
+            <div class="icon-frame">
+                <input type="text" required class="text-input product-quantity" value="${savedItem?.quantity || ""}" id="product_quantity_${idNum}" name="product_quantity_${idNum}" placeholder="00" data-error-msg="Quantity must be more than 0 and a whole number.">
+                <span class="trail">
+                    <button class="icon increment-btn"><svg class="icon"><use href="/static/assets/icon-sprite.svg#add" /></svg></button>
+                </span>
+                <span class="lead">
+                    <button class="icon decrement-btn"><svg class="icon"><use href="/static/assets/icon-sprite.svg#remove" /></svg></button>
+                </span>
+            </div>
         </fieldset>
     </div>
     `;
@@ -85,6 +91,10 @@ function handleNewProductTile() {
     const statusList = document.querySelectorAll(".new-product .status");
     const nameList = document.querySelectorAll(".new-product .product-name");
     const typeList = document.querySelectorAll(".new-product .product-type");
+    const priceWholesaleList = document.querySelectorAll(".new-product .product-price-wholesale");
+    const priceSellingList = document.querySelectorAll(".new-product .product-price-selling");
+    const incrementBtnList = document.querySelectorAll(".new-product .increment-btn");
+    const decrementBtnList = document.querySelectorAll(".new-product .decrement-btn");
     const quantityList = document.querySelectorAll(".new-product .product-quantity");
     const sellerNameList = document.querySelectorAll(".new-product .product-seller-name");
     const deleteBtnList = document.querySelectorAll(".new-product .delete-current-product");
@@ -144,8 +154,17 @@ function handleNewProductTile() {
     // SETTING DATALIST TO SELLER NAME
     sellerNameList.forEach(input => setDatalist(input));
 
-    quantityList.forEach(input => allowNumberInputOnly(input));
+    // Numeric Inputs
+    priceWholesaleList.forEach(input => allowNumberInputOnly(input, true, false));
+    priceSellingList.forEach(input => allowNumberInputOnly(input, true, false));
+    quantityList.forEach(input => allowNumberInputOnly(input, false));
 
+    incrementBtnList.forEach((btn, i) => btn.addEventListener("click", (e) => {
+        if (parseInt(quantityList[i].value)) quantityList[i].value = parseInt(quantityList[i].value) + 1;
+    }))
+    decrementBtnList.forEach((btn, i) => btn.addEventListener("click", (e) => {
+        if (parseInt(quantityList[i].value)) quantityList[i].value = parseInt(quantityList[i].value) - 1;
+    }))
 
     // Delete the current product tile
     deleteBtnList.forEach((btn, i) => {
@@ -153,6 +172,7 @@ function handleNewProductTile() {
             tileList[i].remove();
             refreshInputs();
             handleNewProductTile();
+            if (document.querySelectorAll(".new-product").length == 0) document.getElementById("delete_all_products").setAttribute("aria-hidden", true);
         })
     })
 }
@@ -167,25 +187,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Product ID tracking
     let numberOfProducts = 0;
-    let idNumList = [];
+    let idNum = 0;
 
     // Adding new product
     newProductBtnList.forEach(btn => {
         btn.addEventListener("click", () => {
-            // Track New Product ID
-            numberOfProducts++;
-            idNumList.push(numberOfProducts);
+            if (numberOfProducts < 5) {
+                deleteAllProductsBtn.setAttribute("aria-hidden", false);
 
-            // Create new product and append
-            let newProduct = document.createElement("div");
-            newProduct.className = "new-product";
-            newProduct.innerHTML = getNewProductHTML(idNumList);
-            newProductsCtr.append(newProduct);
-            newProductsCtr.parentElement.scrollTop = newProduct.offsetTop - 120;
+                // Track New Product ID
+                numberOfProducts++;
+                idNum++;
 
-            // Handle events after DOM Manipulation
-            refreshInputs();
-            handleNewProductTile();
+                // Create new product and append
+                let newProduct = document.createElement("div");
+                newProduct.className = "new-product";
+                newProduct.innerHTML = getNewProductHTML(idNum);
+                newProductsCtr.append(newProduct);
+                newProductsCtr.parentElement.scrollTop = newProduct.offsetTop - 96;
+
+                // Handle events after DOM Manipulation
+                refreshInputs();
+                handleNewProductTile();
+            }
         })
     })
 
@@ -194,16 +218,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (savedProducts && savedProducts.length > 0) {
         savedProducts.forEach(item => {
+            deleteAllProductsBtn.setAttribute("aria-hidden", false);
             // Track New Product ID
             numberOfProducts++;
-            idNumList.push(numberOfProducts);
+            idNum++;
 
             // Create new product and append
             let newProduct = document.createElement("div");
             newProduct.className = "new-product";
-            newProduct.innerHTML = getNewProductHTML(idNumList, item);
+            newProduct.innerHTML = getNewProductHTML(idNum, item);
             newProductsCtr.append(newProduct);
-            newProductsCtr.parentElement.scrollTop = newProduct.offsetTop - 120;
+            newProductsCtr.parentElement.scrollTop = newProduct.offsetTop - 96;
 
             // Handle events after DOM Manipulation
             refreshInputs();
@@ -224,8 +249,9 @@ document.addEventListener("DOMContentLoaded", () => {
             secondaryBtnLabel: "Keep",
             primaryAction: () => {
                 numberOfProducts = 0;
-                idNumList = [];
+                idNum = 0;
                 newProductsCtr.innerHTML = ``;
+                deleteAllProductsBtn.setAttribute("aria-hidden", true)
                 return true
             },
             danger: true,

@@ -18,12 +18,12 @@ export function setToggleInputChecked(inputTagArr, value = "") {
 }
 
 // FUNCTION to Allow NUMBER in the INPUTS
-export function allowNumberInputOnly(inputTag) {
+export function allowNumberInputOnly(inputTag, allowDecimal = true, allowNegative = true) {
+  inputTag.setAttribute("inputmode", "numeric");
   inputTag.addEventListener("keydown", function (event) {
     // Allowed characters (including backspace and delete for editing)
     const allowedKeys = [
-      "-",
-      "+", // Allow for negative/positive numbers
+      "+",
       "1",
       "2",
       "3",
@@ -33,8 +33,7 @@ export function allowNumberInputOnly(inputTag) {
       "7",
       "8",
       "9",
-      "0",
-      ".", // Numeric characters
+      "0", // Numeric characters
       "Backspace",
       "Delete",
       "Enter", // Editing keys
@@ -68,6 +67,9 @@ export function allowNumberInputOnly(inputTag) {
       "Escape",
     ];
 
+    if (allowNegative) allowedKeys.push("-");
+    if (allowDecimal) allowedKeys.push(".");
+
     if (event.ctrlKey) return;
 
     // Prevent default behavior for disallowed keys
@@ -75,13 +77,25 @@ export function allowNumberInputOnly(inputTag) {
       event.preventDefault();
     }
   });
+
+  inputTag.addEventListener("input", (e) => {
+    let value = inputTag.value.trim();
+    // Replace all trailing + and - signs
+    value = value.replace(/[^0-9-+.]/g, '');
+    // Allow only one decimal point
+    value = value.replace(/\./g, (match, index) => index === value.indexOf('.') ? match : '');
+    // Allow only one leading +/- sign
+    value = value.replace(/[-+]/g, (match, index) => index === 0 ? match : '');
+    // Assign the updated value
+    inputTag.value = value;
+  })
 }
 
 // OTP Input
 export function handleOTPInput(inputArr) {
   inputArr.forEach((input, i) => {
     // Disable all keyboard keys except - number, functional and navigation keys
-    allowNumberInputOnly(input);
+    allowNumberInputOnly(input, false, false);
     // Maximum length - 1 digits
 
     // Select when focused
@@ -419,7 +433,7 @@ export function updateDatalistPosition(input, datalist) {
   Object.assign(list.style, {
     top: `${top + height + 4}px`,
     left: `${left}px`,
-    width: `${input.clientWidth + 36}px`
+    width: `${input.clientWidth + 32}px`
   });
 
   datalist.classList.add("visible");
