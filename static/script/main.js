@@ -1,6 +1,6 @@
 "use strict";
 
-import { createSnackbar, setAsSlider } from "./utils/components.js";
+import { createDialog, createSnackbar, setAsSlider } from "./utils/components.js";
 import {
   UI_CLASS,
   UI_SIZE,
@@ -112,10 +112,26 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   /* ///////////////
-    USER INFO
+    USER MANAGEMENT
   /////////////// */
 
-  // pass
+  let logoutBtnList = document.querySelectorAll(".logout-btn");
+
+  logoutBtnList?.forEach(btn => {
+    btn.addEventListener("click", () => {
+      createDialog({
+        headline: "Are you sure want to Sign Out?",
+        description: "You will be logged out of your account on this device. To access Pharmify, you would need to login again.",
+        primaryBtnLabel: "Sign out",
+        secondaryBtnLabel: "Stay",
+        primaryAction: () => {
+          window.location.href = `/logout`;
+          return true
+        },
+        danger: true
+      })
+    })
+  })
 
   /* ///////////////
         CURRENT DATE AND TIME HANDLING

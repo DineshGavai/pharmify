@@ -18,7 +18,7 @@ export function setToggleInputChecked(inputTagArr, value = "") {
 }
 
 // FUNCTION to Allow NUMBER in the INPUTS
-export function allowNumberInputOnly(inputTag, allowDecimal = true, allowNegative = true) {
+export function allowNumberInputOnly(inputTag, allowFloating = true, allowNegative = true) {
   inputTag.setAttribute("inputmode", "numeric");
   inputTag.addEventListener("keydown", function (event) {
     // Allowed characters (including backspace and delete for editing)
@@ -68,7 +68,7 @@ export function allowNumberInputOnly(inputTag, allowDecimal = true, allowNegativ
     ];
 
     if (allowNegative) allowedKeys.push("-");
-    if (allowDecimal) allowedKeys.push(".");
+    if (allowFloating) allowedKeys.push(".");
 
     if (event.ctrlKey) return;
 
@@ -88,6 +88,25 @@ export function allowNumberInputOnly(inputTag, allowDecimal = true, allowNegativ
     value = value.replace(/[-+]/g, (match, index) => index === 0 ? match : '');
     // Assign the updated value
     inputTag.value = value;
+  })
+}
+
+
+// FUNCTION to INCREMENT or DECREMENT Numeric Input value by given number
+export function incrementWithDifference(input, incBy = 1, allowNegative = true) {
+  let value = input.value.trim();
+  if (isNaN(parseFloat(value)) && isFinite(value)) return
+  if (!allowNegative && parseFloat(value) < 1) return;
+  input.value = Number(value) + (incBy);
+}
+
+// FUNCTION to INCREMENT or DECREMENT Numeric Input value on +, -, Arrow Up and Arrow Down keypress
+export function setIncDecOnKeypress(input, allowNegative = true) {
+  input.setAttribute("title", "Use + and ↑ or and - and ↓ (plus, arrow up, minus and arrow down) keys to increase or decrease value.")
+
+  input.addEventListener("keydown", (e) => {
+    if (e.key == "+" || e.key == "ArrowUp") incrementWithDifference(input);
+    if (e.key == "-" || e.key == "ArrowDown") incrementWithDifference(input, -1, allowNegative);
   })
 }
 

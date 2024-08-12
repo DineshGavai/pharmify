@@ -103,7 +103,7 @@ NEW PRODUCT LIST
 }
 
 .new-product-list .new-product {
-  border: 1px solid var(--clr-grey-divider);
+  border: 1px solid var(--clr-primary-light);
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
@@ -132,16 +132,6 @@ NEW PRODUCT LIST
 .new-product :is(.product-price-wholesale, .product-price-selling) {
   text-align: right;
   font-size: var(--fs-500);
-}
-.new-product
-  fieldset:has(
-    .product-date-manufacture,
-    .product-date-expiry,
-    .product-price-wholesale,
-    .product-price-selling
-  )
-  :is(.icon-frame, .text-input) {
-  height: 100%;
 }
 
 .new-product .product-quantity {

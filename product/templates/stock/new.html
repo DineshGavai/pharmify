@@ -111,7 +111,7 @@
 
                         <div class="divider"></div>
                         <menu>
-                            <p><b class="gradient-accent" id="item_count">0 Items listed</b></p>
+                            <p><b class="gradient-accent" id="item_count">0/10 Items listed</b></p>
                             <button class="menu-item primary" id="save_batch_btn">
                                 <svg class="icon">
                                     <use href="{% static 'assets/icon-sprite.svg' %}#check" />
@@ -119,7 +119,9 @@
                                 Save this Batch
                             </button>
 
-                            <p class="subtitle">To avoid data loss, current batch is <b class="gradient-primary">saved locally</b> and up to <b class="gradient-primary">5 products</b> can be saved per batch.</p>
+                            <p class="subtitle">To avoid data loss, current batch is <b class="gradient-primary">saved
+                                    locally</b> and up to <b class="gradient-primary">10 products</b> can be saved per
+                                batch.</p>
                             <p class="subtitle">You may change this limit in <a href="{% url 'settings' %}"
                                     class="text-link">Settings</a>.</p>
                         </menu>
@@ -172,12 +174,27 @@
     </div>
     <!-- EXISTING PRODUCTS LIST ENDS -->
 
+    <!-- BRAND LIST STARTS -->
+    <div class="datalist" id="product_brand_list">
+        <ul class="datalist-body">
+            <p class="not-found">Adding new brand.</p>
+            <li>MedPlus Distributors</li>
+            <li>CareRx Pharmaceuticals</li>
+            <li>Lifecare Pharmacies</li>
+            <li>Zenith Healthcare</li>
+            <li>Global Meds Supply</li>
+            <li>PharmaServe Solutions</li>
+            <li>Wellbeing Pharma</li>
+        </ul>
+    </div>
+    <!-- BRAND LIST ENDS -->
+
     <!-- PRODUCT TYPES DATA LIST STARTS -->
     {% include 'components/product_list.html' %}
     <!-- PRODUCT TYPES DATA LIST ENDS -->
 
     <!-- SELLER DATA LIST STARTS -->
-    <div class="datalist" id="seller_list">
+    <div class="datalist" id="product_seller_list">
         <ul class="datalist-body">
             <p class="not-found">No such seller found. <button type="button" class="text"
                     onclick="document.getElementById('add_new_seller_btn')?.click();">Add New Seller</button></p>

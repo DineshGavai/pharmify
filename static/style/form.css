@@ -130,6 +130,8 @@ button.text a {
 
 p button.text {
   display: inline;
+  font: inherit;
+  padding: 0;
 }
 
 button.ghost:hover,
@@ -636,6 +638,11 @@ fieldset .check-radio-box input[type="checkbox"] {
   padding: 0.2rem;
   padding-top: 0.8rem;
   color: var(--clr-primary);
+}
+
+.datalist ul .not-found {
+  font-size: var(--fs-300);
+  color: var(--clr-grey-text);
 }
 
 /* INPUT TAG FEEDBACKS and Certain Notes on the page */
