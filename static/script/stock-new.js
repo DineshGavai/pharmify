@@ -46,20 +46,22 @@ function getNewProductHTML(idNum, savedItem = undefined) {
             <label for="product_wholesale_price_${idNum}">Wholesale Price</label>
             <div class="icon-frame">
                 <span class="lead">₹</span>
-                <input type="text" required class="text-input product-price-wholesale" value="${savedItem?.priceWholesale || ""}" pattern="^\d+(\.\d{1,2})?$" id="product_wholesale_price_${idNum}" name="product_wholesale_price_${idNum}"
-                    placeholder="0.0" data-error-msg="This must be a valid amount.">
+                <span class="trail">per pack</span>
+                <input type="text" required class="text-input product-price-wholesale" value="${savedItem?.priceWholesale || ""}" pattern="^\\d+(\\.\\d{1,2})?$" id="product_wholesale_price_${idNum}" name="product_wholesale_price_${idNum}"
+                placeholder="0.0" data-error-msg="This must be a valid amount.">
             </div>
         </fieldset>
         <fieldset>
             <label for="product_selling_price_${idNum}">Selling Price</label>
             <div class="icon-frame">
                 <span class="lead">₹</span>
-                <input type="text" required class="text-input product-price-selling" value="${savedItem?.priceSelling || ""}" pattern="^\d+(\.\d{1,2})?$" id="product_selling_price_${idNum}" name="product_selling_price_${idNum}"
+                <span class="trail">per pack</span>
+                <input type="text" required class="text-input product-price-selling" value="${savedItem?.priceSelling || ""}" pattern="^\\d+(\\.\\d{1,2})?$" id="product_selling_price_${idNum}" name="product_selling_price_${idNum}"
                     placeholder="0.0" data-error-msg="This must be a valid amount">
             </div>
         </fieldset>
         <fieldset class="quantity">
-            <label for="product_quantity_${idNum}">Quantity</label>
+            <label for="product_quantity_${idNum}">Quantity (Number of Packages)</label>
             <div class="icon-frame">
                 <input type="text" required class="text-input product-quantity" value="${savedItem?.quantity || ""}" id="product_quantity_${idNum}" name="product_quantity_${idNum}" placeholder="00" data-error-msg="Quantity must be more than 0 and a whole number.">
                 <span class="trail">
@@ -367,9 +369,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 name: nameList[i].value,
                 brand: brandList[i].value,
                 type: typeList[i].value,
+                sellerName: sellerNameList[i].value,
                 dateManufacture: dateManufactureList[i].value,
                 dateExpiry: dateExpiryList[i].value,
-                sellerName: sellerNameList[i].value,
                 priceWholesale: priceWholesaleList[i].value,
                 priceSelling: priceSellingList[i].value,
                 quantity: quantityList[i].value,
@@ -463,14 +465,14 @@ document.addEventListener("DOMContentLoaded", () => {
         })
 
         // If their are mistakes
-        // if (validationArray.includes(false)) {
-        //     createSnackbar({
-        //         msg: "Please fill all the inputs correctly first.",
-        //         status: UI_STATUS_FEEDBACK.error
-        //     });
-        // } else {
-        //     // TODO: SUBMIT
-        // }
+        if (validationArray.includes(false)) {
+            createSnackbar({
+                msg: "Please fill all the inputs correctly first.",
+                status: UI_STATUS_FEEDBACK.error
+            });
+        } else {
+            window.location.href = "/stock/summary"
+        }
 
         // document.getElementById("new_product_list").submit();
     })

@@ -13,7 +13,10 @@ main .main-content {
   flex-direction: row;
 }
 
-main .main-content .new-product-list-sec {
+main .main-content .new-product-list-sec,
+main .summary-main-content {
+  max-height: 100%;
+  overflow: hidden auto;
   flex: 1;
   padding: 1.6rem 0.8rem;
   padding-bottom: 12rem;
@@ -49,13 +52,9 @@ main .main-content .new-product-list-sec {
 NEW PRODUCT LIST
 ///////////////////////// */
 
-.new-product-list-sec {
-  max-height: 100%;
-  overflow: hidden auto;
-}
-
 .new-product-list-sec,
-.new-product-list {
+.new-product-list,
+.summary-product-list {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -109,7 +108,7 @@ NEW PRODUCT LIST
   gap: 0.8rem;
 }
 
-.new-product .badge.number {
+.badge.number {
   background-color: var(--clr-accent-dark);
 }
 
@@ -132,6 +131,14 @@ NEW PRODUCT LIST
 .new-product :is(.product-price-wholesale, .product-price-selling) {
   text-align: right;
   font-size: var(--fs-500);
+}
+
+.new-product
+  fieldset:has(.product-price-wholesale, .product-price-selling)
+  .trail {
+  font-size: var(--fs-200);
+  color: var(--clr-grey-text);
+  text-wrap: nowrap;
 }
 
 .new-product .product-quantity {
@@ -182,4 +189,77 @@ NEW PRODUCT LIST
   .new-product fieldset:has(.product-price-selling) {
     grid-area: J;
   }
+}
+
+/* /////////////////////////
+  NEW STOCK SUMMARY PAGE
+///////////////////////// */
+
+.summary-main-content > * {
+  max-width: 56rem;
+  margin: auto;
+  margin-top: 2.4rem;
+}
+
+.summary-main-content .back-box {
+  max-width: 100rem;
+}
+
+.summary-product {
+  width: 100%;
+  border: 1px solid var(--clr-grey-divider);
+  border-radius: 1.6rem;
+  overflow: hidden;
+}
+
+.summary-product > * {
+  padding: 0.8rem 1.6rem;
+}
+
+.summary-product div:has(.badge.number, .name, .date-expiry, .quantity) {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2.4rem;
+}
+
+.summary-product div:has(.name) {
+  align-items: start !important;
+}
+
+.summary-product > div:not(:has(.badge.number, .quantity)) {
+  border-bottom: 1px solid var(--clr-grey-divider);
+}
+
+.summary-product .type {
+  font-size: var(--fs-300);
+}
+
+.summary-product p:has(.seller) {
+  text-align: right;
+}
+
+.summary-product .seller {
+  text-wrap: nowrap;
+}
+
+.summary-product p:has(.days-left) {
+  text-align: center;
+  font-size: var(--fs-300);
+  color: var(--clr-grey-text);
+}
+
+.summary-product .days-left {
+  color: var(--clr-black);
+}
+.summary-product .days-left.warn {
+  color: var(--clr-status-warn-light-text);
+}
+
+.summary-product div div p {
+  margin-bottom: 0.8rem;
+}
+
+.summary-product .subtitle {
+  font-size: var(--fs-200);
 }

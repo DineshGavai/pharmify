@@ -86,6 +86,16 @@ UTILITY CLASSES
 .divider {
   border-top: 1px solid var(--clr-grey-divider);
   width: 100%;
+  flex: 1;
+}
+
+.divider.dotted {
+  border: none;
+  height: 0.4rem;
+  background: url("../assets/dot-grey.svg");
+  background-repeat: repeat-x;
+  background-size: contain;
+  background-position: center;
 }
 
 .empty-sec {
@@ -106,6 +116,7 @@ UTILITY CLASSES
   color: var(--clr-white);
   border-radius: 10rem;
   padding: 0.2rem 0.8rem;
+  width: fit-content;
   height: fit-content;
   max-width: 24rem;
   overflow: hidden;
@@ -575,7 +586,7 @@ button.icon.nav-open-btn {
   z-index: 11;
   background-color: var(--clr-primary);
   color: var(--clr-white);
-  top: 0.4rem;
+  top: 0.6rem;
   left: 0;
   border-radius: 0 100rem 100rem 0 !important;
   width: 5.2rem !important;
@@ -748,6 +759,10 @@ nav footer .fs-200 {
     background-color: var(--clr-white);
   }
 
+  .aside-body {
+    height: 100%;
+  }
+
   nav {
     max-width: 6.4rem;
     overflow: hidden;
@@ -768,6 +783,9 @@ nav footer .fs-200 {
 
   .nav-body :is(header, .nav-content, footer) {
     padding: 0.4rem;
+  }
+  button.icon.nav-open-btn {
+    top: 0.4rem;
   }
   .nav-close-btn {
     margin-left: 0.8rem;
@@ -829,9 +847,22 @@ main header :is(h1, h2) {
   overflow: hidden;
 }
 
+main header.collapsable {
+  overflow: hidden;
+  max-height: 4.6rem;
+}
+
+main header.collapsable.collapse {
+  padding-top: 0;
+  padding-bottom: 0;
+  min-height: 0;
+  max-height: 0;
+}
+
 @media (min-width: 1025px) {
   main header {
     padding-left: 1.6rem;
     justify-content: start;
+    gap: 1.6rem;
   }
 }

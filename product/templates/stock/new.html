@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Stock</title>
+    <title>Add New Stock</title>
     <!-- FAVICON -->
     <link rel="shortcut icon" href="{% static 'assets/logo/favicon.svg' %}" type="image/x-icon">
 
@@ -24,7 +24,7 @@
     <main>
 
         <!-- Header Starts -->
-        <header class="center-mobile">
+        <header class="center-mobile collapsable" data-scrollable="new_product_list_sec">
             <!-- Header content -->
             <h1 class="fs-600">Add New Stocks</h1>
             <!-- Today's date -->
@@ -41,7 +41,7 @@
         <section class="main-content">
 
             <!-- PRODUCT LIST SECTION STARTS -->
-            <section class="new-product-list-sec">
+            <section class="new-product-list-sec" id="new_product_list_sec">
 
                 <!-- <div class="info-box">
                     <p class="subtitle">
@@ -177,14 +177,15 @@
     <!-- BRAND LIST STARTS -->
     <div class="datalist" id="product_brand_list">
         <ul class="datalist-body">
+            <p class="overline">Recent brands</p>
             <p class="not-found">Adding new brand.</p>
-            <li>MedPlus Distributors</li>
-            <li>CareRx Pharmaceuticals</li>
-            <li>Lifecare Pharmacies</li>
-            <li>Zenith Healthcare</li>
-            <li>Global Meds Supply</li>
-            <li>PharmaServe Solutions</li>
-            <li>Wellbeing Pharma</li>
+            <li>MedPlus</li>
+            <li>CareRx</li>
+            <li>Lifecare</li>
+            <li>Zenith</li>
+            <li>Global Meds</li>
+            <li>PharmaServe</li>
+            <li>Wellbeing</li>
         </ul>
     </div>
     <!-- BRAND LIST ENDS -->

@@ -272,10 +272,12 @@ export function removeInputMsg(inputTag, status = UI_STATUS_FEEDBACK.error) {
 // FUNCTION for INPUT VALIDATION
 export function validateInput(inputTag, errorMsg) {
   inputTag.value = inputTag.value.trim();
+
   if (inputTag.required && !inputTag.value) {
     setInputMsg(inputTag, "This field is required");
     return false;
   }
+
 
   const pattern = inputTag.pattern?.trim();
   if (!pattern || new RegExp(pattern).test(inputTag.value)) {
@@ -494,8 +496,9 @@ export function setDatalist(input) {
   input.addEventListener("click", () => updateDatalistPosition(input, datalist));
 
   input.addEventListener("keydown", (e) => {
-    // Hide datalist on blur
-    if (e.key == "Tab" || e.key == "Escape") removeDatalist(datalist);
+    // Hide datalist on blur and certain key presses
+    let closeKeys = ["Tab", "Escape", "PageDown", "PageUp"];
+    if (closeKeys.includes(e.key)) removeDatalist(datalist);
     // Get the first visible list item and fill input with it on Enter
     if (e.key == "Enter") {
       if (!datalist.classList.contains("visible")) return;

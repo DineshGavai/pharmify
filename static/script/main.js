@@ -9,7 +9,7 @@ import {
   UI_STATUS_FEEDBACK,
 } from "./utils/const.js";
 import { refreshInputs } from "./utils/inputs.js";
-import { toTwoDigit, setTitleAttr, setMsgIcons } from "./utils/utils.js";
+import { toTwoDigit, setTitleAttr, setMsgIcons, formatCommonDate } from "./utils/utils.js";
 
 document.addEventListener("DOMContentLoaded", function () {
   /* ///////////////
@@ -101,13 +101,12 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // COLLAPSABLE HEADERS
-  let mainHeader = document.querySelector("main .collapsable");
-  let mainContent = document.querySelector("main .main-content");
+  let collapsableHeader = document.querySelector("main .collapsable");
 
-  if (mainHeader) {
-    mainContent?.addEventListener("scroll", () => {
-      if (mainContent.scrollTop > 60) mainHeader.style.maxHeight = "0rem";
-      else mainHeader.style.maxHeight = "4.6rem";
+  if (collapsableHeader) {
+    let scrollableElem = document.getElementById(collapsableHeader.getAttribute("data-scrollable"));
+    scrollableElem?.addEventListener("scroll", () => {
+      collapsableHeader.classList.toggle("collapse", scrollableElem.scrollTop > 60);
     })
   }
 
@@ -137,6 +136,7 @@ document.addEventListener("DOMContentLoaded", function () {
         CURRENT DATE AND TIME HANDLING
     /////////////// */
 
+  let dateBoxList = this.querySelectorAll(".date");
   let dateDayNumBoxList = this.querySelectorAll(".date-day-num");
   let dateDayWeekBoxList = this.querySelectorAll(".date-day-week");
   let dateMonthBoxList = this.querySelectorAll(".date-month");
@@ -145,6 +145,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   setInterval(() => {
     const DATE = new Date();
+
+    dateBoxList?.forEach(elem => {
+      elem.innerHTML = formatCommonDate(DATE);
+    })
 
     // Date Day Number
     dateDayNumBoxList?.forEach((elem) => {

@@ -1,6 +1,9 @@
+import { DATE_MONTHS_SHORT } from "./const.js";
+
 /* ///////////////
     MISCELLANEOUS HELPER UTILITY FUNCTION
 /////////////// */
+
 
 // Convert single digit number to 2 digit
 export function toTwoDigit(num) {
@@ -125,4 +128,32 @@ export function getFromStorage(key) {
   } catch (error) {
     return null;
   }
+}
+
+/* ///////////////
+  DATE, TIME and CURRENCY FORMMATING
+/////////////// */
+
+export function formatCommonDate(dateStr) {
+  const DATE = new Date(dateStr);
+  return `${toTwoDigit(DATE.getDate())} ${DATE_MONTHS_SHORT[DATE.getMonth()]}, ${DATE.getFullYear()}`;
+}
+
+export function addDates(date1, date2) {
+  return new Date(date2).getDate() + new Date(date1).getDate();
+}
+
+export function subtractDates(date1, date2) {
+  return new Date(date2).getDate() - new Date(date1).getDate();
+}
+
+export function formatCurrencyINR(num) {
+  // Convert to String and Split the Integer and Decimal Part
+  num = num.toString();
+  let [integerPart, decimalPart] = num.split('.');
+  // Format the Integer part
+  integerPart = integerPart.replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
+  // Join the Integer + Decimal part if it exists
+  num = decimalPart ? `${integerPart}.${decimalPart}` : integerPart;
+  return "₹ " + num;
 }
