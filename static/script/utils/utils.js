@@ -40,6 +40,13 @@ export function getFirstIfArray(elems) {
   else return elems;
 }
 
+// POP and RETURN ELEMENT based on Index from Array
+export function popFromArray(array, value) {
+  const index = array.indexOf(value);
+  if (index > -1) array.splice(index, 1);
+  return array;
+}
+
 /* ///////////////
     FUNCTIONS for DOM TRAVERSAL
 /////////////// */
@@ -139,15 +146,23 @@ export function formatCommonDate(dateStr) {
   return `${toTwoDigit(DATE.getDate())} ${DATE_MONTHS_SHORT[DATE.getMonth()]}, ${DATE.getFullYear()}`;
 }
 
+// GET 2 DATES ADDITION
 export function addDates(date1, date2) {
-  return new Date(date2).getDate() + new Date(date1).getDate();
+  const date1MS = new Date(date1).getTime();
+  const date2MS = new Date(date2).getTime();
+  const days = Math.floor((date2MS + date1MS) / (1000 * 60 * 60 * 24));
+  return days;
 }
 
+// GET NUMBER OF DAYS BETWEEN 2 DATES
 export function subtractDates(date1, date2) {
-  return new Date(date2).getDate() - new Date(date1).getDate();
+  const date1MS = new Date(date1).getTime();
+  const date2MS = new Date(date2).getTime();
+  const daysDiff = Math.floor((date2MS - date1MS) / (1000 * 60 * 60 * 24));
+  return daysDiff;
 }
 
-export function formatCurrencyINR(num) {
+export function formatINR(num, isCurrency = true) {
   // Convert to String and Split the Integer and Decimal Part
   num = num.toString();
   let [integerPart, decimalPart] = num.split('.');
@@ -155,5 +170,5 @@ export function formatCurrencyINR(num) {
   integerPart = integerPart.replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
   // Join the Integer + Decimal part if it exists
   num = decimalPart ? `${integerPart}.${decimalPart}` : integerPart;
-  return "₹ " + num;
+  return isCurrency ? "₹ " + num : num;
 }
