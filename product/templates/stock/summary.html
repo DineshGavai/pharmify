@@ -48,41 +48,48 @@
         <section class="main-content">
 
             <section class="summary-main-content">
-                <div class="back-box">
-                    <button class="text mobile-only">
-                        <a href="{% url 'stock-new' %}">
+                <section class="col-left">
+                    <div class="back-box">
+                        <button class="text mobile-only">
+                            <a href="{% url 'stock-new' %}">
+                                <svg class="icon">
+                                    <use href="{% static 'assets/icon-sprite.svg' %}#arrow-left" />
+                                </svg> Back
+                            </a>
+                        </button>
+                    </div>
+
+                    <!-- OVERVIEW STARTS -->
+                    <div class="overview-sec" id="overview_sec"></div>
+                    <!-- OVERVIEW ENDS -->
+
+                    <!-- NOTES SECTION -->
+                    <div>
+                        <p class="note info"><span>The products with <b>same name and brand</b> are merged together.</span></p>
+                        <p class="note">Please double-check all product information before saving. This will help prevent errors and ensure the smooth addition of new stock items.</p>
+                    </div>
+
+                    <!-- ADD PRODUCT BUTTONS -->
+                    <div class="btn-box">
+                        <button class="primary" id="confirm_save_btn" style="margin-left: auto;">
                             <svg class="icon">
-                                <use href="{% static 'assets/icon-sprite.svg' %}#arrow-left" />
-                            </svg> Back
-                        </a>
-                    </button>
-                </div>
+                                <use href="{% static 'assets/icon-sprite.svg' %}#check" />
+                            </svg>
+                            Confirm Save
+                        </button>
+                    </div>
 
-                <p class="overline">Overview</p>
+                </section>
+                <section class="col-right">
+                    <p class="overline">Details</p>
 
-                <!-- OVERVIEW STARTS -->
-                <div class="overview-sec" id="overview_sec"></div>
-                <!-- OVERVIEW ENDS -->
+                    <!-- PRODUCT LIST STARTS -->
+                    <div class="summary-product-list" id="summary_product_list"></div>
+                    <!-- PRODUCT LIST ENDS -->
+                </section>
 
-                <p class="overline">Details</p>
-
-                <!-- PRODUCT LIST STARTS -->
-                <div class="summary-product-list" id="summary_product_list"></div>
-                <!-- PRODUCT LIST ENDS -->
-
-
-                <!-- TODO: ADD THE SURITY TEXT's HERE -->
-
-                <!-- ADD PRODUCT BUTTONS -->
-                <div class="btn-box">
-                    <button class="primary" id="save_this_batch_btn" style="margin-left: auto;">
-                        <svg class="icon">
-                            <use href="{% static 'assets/icon-sprite.svg' %}#check" />
-                        </svg>
-                        Save this Batch
-                    </button>
-                </div>
             </section>
+
 
         </section>
         <!-- MAIN CONTENT ENDS -->

@@ -195,7 +195,27 @@ NEW PRODUCT LIST
   NEW STOCK SUMMARY PAGE
 ///////////////////////// */
 
-.overview-sec > *,
+.summary-main-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.summary-main-content > * {
+  margin: auto;
+}
+
+.summary-main-content .back-box {
+  max-width: 100rem;
+}
+
+.summary-main-content .col-left > * {
+  margin-bottom: 1.6rem;
+}
+
+.overview-sec > * {
+  padding: 0.8rem 1.6rem;
+}
+
 .overview-sec .count-box p {
   display: flex;
   justify-content: space-between;
@@ -208,14 +228,10 @@ NEW PRODUCT LIST
   width: 100%;
 }
 
-.summary-main-content > * {
-  max-width: 56rem;
-  margin: auto;
-  margin-top: 2.4rem;
-}
-
-.summary-main-content .back-box {
-  max-width: 100rem;
+.summary-main-content .note {
+  background-color: var(--clr-primary-hover);
+  padding: 1.6rem;
+  border-radius: 1.6rem;
 }
 
 .summary-product {
@@ -293,4 +309,30 @@ NEW PRODUCT LIST
 
 .similar-product-box .summary-product {
   padding-top: 0.8rem;
+}
+
+@media (min-width: 769px) {
+  main .summary-main-content {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    padding: 0;
+  }
+
+  .summary-main-content > * {
+    max-height: 100%;
+    width: 100%;
+    overflow: hidden auto;
+    margin: 0;
+    padding: 1.6rem;
+  }
+
+  .summary-main-content .col-right {
+    padding-bottom: 12rem;
+  }
+
+  .summary-main-content .col-right > * {
+    max-width: 56rem;
+    margin: auto;
+    margin-top: 2.4rem;
+  }
 }

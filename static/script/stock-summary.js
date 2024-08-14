@@ -7,15 +7,15 @@ import { UI_STATUS_FEEDBACK } from "./utils/const.js";
 // GET SUMMARY OVERVIEW HTML
 function getOverviewHTML(data) {
     return `
-    <div>
         <div>
+            <p class="overline">Overview</p>
             <b class="fs-600 gradient-primary">${data.items} Products</b>
             <p>from <b>${data.brands.size} Brands</b> and <b>${data.sellers.size} Sellers</b></p>
         </div>
         <div class="count-box">
             <p>
                 <span class="subtitle quantity">Total Quantity</span>
-                <span>${formatINR(data.quantity, false)} <span class="subtitle">Packages</span></span>
+                <span>${formatINR(data.quantity, false)} <span class="subtitle">Packs</span></span>
             </p>
             <p>
                 <span class="subtitle">Total Wholesale Price</span>
@@ -26,7 +26,6 @@ function getOverviewHTML(data) {
                 <span>${formatINR(data.priceSelling)}</span>
             </p>
         </div>
-    </div>
     `;
 }
 
