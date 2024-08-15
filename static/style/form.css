@@ -102,11 +102,19 @@ button.fab {
   box-shadow: 0 0 16px 16px #ffffffa4;
 }
 
+button.fab .text {
+  display: none;
+}
+
 @media (min-width: 769px) {
   button.fab {
     border-radius: 1.6rem;
     width: fit-content !important;
     aspect-ratio: 0;
+    padding: 0.8rem 1.6rem;
+  }
+  button.fab .text {
+    display: block;
   }
 }
 
@@ -649,14 +657,16 @@ fieldset .check-radio-box input[type="checkbox"] {
 
 :is(fieldset, .snackbar) .msg,
 .note {
+  --clr-status: var(--clr-grey-text);
+  --clr-status-bg: var(--clr-grey-bg);
   gap: 0.8rem;
   justify-content: start;
   align-items: center !important;
   text-align: start !important;
   position: relative;
   font-size: var(--fs-300);
-  color: var(--clr-grey-text);
-  stroke: var(--clr-grey-text);
+  color: var(--clr-status);
+  stroke: var(--clr-status);
   margin: 0.2rem 0;
   width: 100%;
 }
@@ -671,24 +681,31 @@ fieldset .check-radio-box input[type="checkbox"] {
 
 fieldset .msg.error,
 .note.error {
-  color: var(--clr-status-negative-light-text);
-  stroke: var(--clr-status-negative-light-text);
+  --clr-status: var(--clr-status-negative-light-text);
+  --clr-status-bg: var(--clr-status-negative-light-bg);
 }
 
 fieldset .msg.success,
 .note.success {
-  color: var(--clr-status-success-light-text);
-  stroke: var(--clr-status-success-light-text);
+  --clr-status: var(--clr-status-success-light-text);
+  --clr-status-bg: var(--clr-status-success-light-bg);
 }
 
 fieldset .msg.info,
 .note.info {
-  color: var(--clr-status-info-light-text);
-  stroke: var(--clr-status-info-light-text);
+  --clr-status: var(--clr-status-info-light-text);
+  --clr-status-bg: var(--clr-status-info-light-bg);
 }
 
 fieldset .msg.warn,
 .note.warn {
-  color: var(--clr-status-warn-light-text);
-  stroke: var(--clr-status-warn-light-text);
+  --clr-status: var(--clr-status-warn-light-text);
+  --clr-status-bg: var(--clr-status-warn-light-bg);
+}
+
+.note {
+  margin-bottom: 0;
+  padding: 1.6rem;
+  border-radius: 1.6rem;
+  background-color: var(--clr-status-bg);
 }

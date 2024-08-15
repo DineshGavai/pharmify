@@ -212,6 +212,7 @@ document.addEventListener("DOMContentLoaded", () => {
             newProduct.className = "new-product";
             newProduct.innerHTML = getNewProductHTML(idNum);
             newProductsCtr.append(newProduct);
+            newProductsCtr.querySelector(".new-product:last-of-type").querySelector(".product-name")?.focus();
             newProductsCtr.parentElement.scrollTop = newProduct.offsetTop - 96;
 
             // Handle events after DOM Manipulation

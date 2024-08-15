@@ -1,6 +1,6 @@
 "use strict";
 
-import { createDialog, createSnackbar, setAsSlider } from "./utils/components.js";
+import { createDialog, setAsSlider } from "./utils/components.js";
 import {
   UI_CLASS,
   UI_SIZE,
@@ -224,6 +224,26 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     })
   }
+
+  /* ///////////////
+    ASIDE SIDEBAR's VISIBILITIES
+  /////////////// */
+
+  let asideOpenBtnList = document.querySelectorAll(".aside-open-btn");
+
+  asideOpenBtnList?.forEach(btn => {
+    btn.addEventListener("click", () => {
+      // Opening Associated ASIDE Element if it exists.
+      const asideElem = document.getElementById(btn.getAttribute("data-aside-id"));
+      if (!asideElem) throw new Error("Invalid Aside Element ID provided or missing 'data-aside-id' attribute");
+      asideElem.classList.add("visible");
+
+      // Remove ASIDE Element when clicked on Scrim or Close Btn
+      const closeAsideBtn = asideElem.querySelector(".aside-close-btn");
+      asideElem.addEventListener("click", (e) => e.target == asideElem ? asideElem.classList.remove("visible") : "")
+      closeAsideBtn?.addEventListener("click", () => asideElem.classList.remove("visible"))
+    })
+  })
 
 
   /* ///////////////

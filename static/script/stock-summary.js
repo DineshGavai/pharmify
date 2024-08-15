@@ -1,14 +1,17 @@
-import { toTwoDigit, formatCommonDate, saveToStorage, getFromStorage, subtractDates, formatINR, popFromArray } from "./utils/utils.js";
+import { toTwoDigit, formatCommonDate, saveToStorage, getFromStorage, subtractDates, formatINR, popFromArray, setMsgIcons } from "./utils/utils.js";
 import { createDialog } from "./utils/components.js";
 
 
 // GET SUMMARY OVERVIEW HTML
 function getOverviewHTML(data) {
+    const { items, brands, sellers } = data;
+    let makePlural = (num) => num != 1 ? "s" : "";
+
     return `
         <div>
             <p class="overline">Overview</p>
-            <b class="fs-600 gradient-primary">${data.items} Products</b>
-            <p>from <b>${data.brands.size} Brands</b> and <b>${data.sellers.size} Sellers</b></p>
+            <b class="fs-600 gradient-primary">${items} Product${makePlural(items)}</b>
+            <p>from <b>${brands.size} Brand${makePlural(brands.size)}</b> and <b>${sellers.size} Seller${makePlural(sellers.size)}</b></p>
         </div>
         <div class="count-box">
             <p>
@@ -86,7 +89,10 @@ function getProductSummaryHTML(data, count, allowTitle = true) {
                 <span class="total-price-selling">${formatINR(Number(data.priceSelling) * Number(data.quantity))}</span>
             </p>
         </div>
-    </div>
+        </div>
+        ${data.priceWholesale >= data.priceSelling
+            ? `<div><p class="note warn"><span>The selling price must be higher than wholesale price to <b>avoid financial loss</b>.</span></p></div>`
+            : ``}
     `;
 }
 
@@ -120,12 +126,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Summary JSON for OVERVIEW
     let overview = {
-        "items": productDataList.length,
-        "quantity": 0,
-        "priceWholesale": 0,
-        "priceSelling": 0,
-        "brands": new Set(),
-        "sellers": new Set()
+        items: productDataList.length,
+        quantity: 0,
+        priceWholesale: 0,
+        priceSelling: 0,
+        brands: new Set(),
+        sellers: new Set(),
+        isWholesalePriceMore: false
     }
 
     function updateOverview(data) {
@@ -134,6 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
         overview.priceSelling += data.priceSelling * data.quantity;
         overview.brands.add(data.brand);
         overview.sellers.add(data.sellerName);
+        if (data.priceWholesale >= data.priceSelling) overview.isWholesalePriceMore = true;
     }
 
     uniqueProductsList.forEach((data, i) => {
@@ -182,17 +190,24 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
     // POPULATE COLLECTED OVERVIEW DATA
-    let overviewCtr = document.getElementById("overview_sec")
+    const overviewCtr = document.getElementById("overview_sec")
     overviewCtr.innerHTML = getOverviewHTML(overview);
+    // POPULATING WARNING NOTES ICONS
+    document.querySelectorAll(".warn").forEach(note => setMsgIcons(note, "warn"))
 
     const confirmSaveBtn = document.getElementById("confirm_save_btn");
 
     // HANDLE DATA SAVING TO BACKEND
     confirmSaveBtn.addEventListener("click", () => {
+        let dialogDesc = "You are about to add these products to your stock. Are you sure?";
 
         createDialog({
-            headline: "Review Your Products",
-            description: "You are about to add these products to your stock. Are you sure?",
+            headline: "Review Your Products.",
+            description: overview.isWholesalePriceMore ?
+                `<p class='note warn'><span>
+                            ${dialogDesc} <b>There are some products with lower selling price than wholesale price. This might result in financial loss.</b>
+                </span></p>`
+                : dialogDesc,
             primaryBtnLabel: "Confirm & Add",
             secondaryBtnLabel: "Go Back",
             primaryAction: () => {

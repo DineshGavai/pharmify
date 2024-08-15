@@ -566,8 +566,8 @@ aside {
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: calc(100% - 6.4rem);
-  height: calc(100% - 6.4rem);
+  width: calc(100% - 2.4rem);
+  height: calc(100% - 4.6rem);
   overflow: hidden auto;
   background-color: var(--clr-white);
   border-radius: 1.6rem 1.6rem 0 0;

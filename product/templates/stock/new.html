@@ -62,17 +62,25 @@
                         </svg> Delete All</button>
                 </div>
 
+                <button class="fab aside-open-btn" data-aside-id="new_stock_aside">
+                    <svg class="icon">
+                        <use href="{% static 'assets/icon-sprite.svg' %}#add" />
+                    </svg>
+                    <span class="text">Add</span>
+                </button>
+
             </section>
             <!-- PRODUCT LIST SECTION ENDS -->
 
             <!-- SIDE OPTIONS START -->
-            <aside>
+            <aside id="new_stock_aside">
 
                 <section class="aside-body side-options">
 
+                    <!-- ASIDE HEADER AND CLOSE BUTTON (Mobile Only) -->
                     <header class="mobile-only">
                         <h2 class="fs-400 center-mobile">Save Stocks</h2>
-                        <button class="icon mobile-only" style="margin-left: auto;">
+                        <button class="icon mobile-only aside-close-btn" style="margin-left: auto;">
                             <svg class="icon">
                                 <use href="{% static 'assets/icon-sprite.svg' %}#cross" />
                             </svg>
@@ -150,16 +158,16 @@
     <!-- EXISTING PRODUCTS LIST STARTS -->
     <div class="datalist" id="existing_products">
         <ul class="datalist-body">
-            <li data-product-id="prod-12345">Paracetamol tablets</li>
-            <li data-product-id="prod-67890">Contact lens solution</li>
-            <li data-product-id="prod-abc123">Antiseptic cream</li>
-            <li data-product-id="prod-def456">Sunscreen lotion</li>
-            <li data-product-id="prod-ghi789">Diapers</li>
-            <li data-product-id="prod-jkl012">Cough syrup</li>
-            <li data-product-id="prod-mno345">Pregnancy test kit</li>
-            <li data-product-id="prod-pqr678">Toothbrush</li>
-            <li data-product-id="prod-stu901">Insulin pen</li>
-            <li data-product-id="prod-vwx234">Hair growth shampoo</li>
+            <li>Paracetamol tablets</li>
+            <li>Contact lens solution</li>
+            <li>Antiseptic cream</li>
+            <li>Sunscreen lotion</li>
+            <li>Diapers</li>
+            <li>Cough syrup</li>
+            <li>Pregnancy test kit</li>
+            <li>Toothbrush</li>
+            <li>Insulin pen</li>
+            <li>Hair growth shampoo</li>
         </ul>
     </div>
     <!-- EXISTING PRODUCTS LIST ENDS -->

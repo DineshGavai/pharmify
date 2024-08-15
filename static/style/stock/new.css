@@ -148,6 +148,7 @@ NEW PRODUCT LIST
 
 .new-product fieldset:has(.product-quantity) .icon-frame {
   height: 100%;
+  max-height: 10.6rem;
 }
 
 @media (min-width: 426px) {
@@ -232,10 +233,8 @@ NEW PRODUCT LIST
   width: 100%;
 }
 
-.summary-main-content .note {
-  background-color: var(--clr-primary-hover);
-  padding: 1.6rem;
-  border-radius: 1.6rem;
+.summary-main-content .col-left .note {
+  background-color: var(--clr-status-info-light-bg);
 }
 
 .summary-product {
@@ -258,7 +257,7 @@ NEW PRODUCT LIST
   align-items: start !important;
 }
 
-.summary-product > div:not(:has(.number, .quantity)),
+.summary-product > div:not(:has(.number, .quantity, .note)),
 .overview-sec .count-box p:has(.quantity) {
   border-bottom: 1px solid var(--clr-grey-divider);
 }
