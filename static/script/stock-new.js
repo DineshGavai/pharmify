@@ -1,7 +1,9 @@
 import {
   refreshInputs,
   removeInputMsg,
+  setDatalist,
   setInputMsg,
+  updateDatalistPosition,
   validateInput,
 } from "./utils/inputs.js";
 import { toTwoDigit, saveToStorage, getFromStorage } from "./utils/utils.js";
@@ -36,7 +38,7 @@ function getNewProductHTML(idNumList, savedItem = undefined) {
             <label for="product_brand_${idNum}">Brand</label>
             <input type="text" required class="text-input product-brand" value="${
               savedItem?.brand || ""
-            }" pattern="^[a-zA-Z0-9_.,&/\s-]+$" id="product_brand_${idNum}" name="product_brand_${idNum}">
+            }" pattern="^[a-zA-Z0-9_.,&\\s\\-]+$" id="product_brand_${idNum}" name="product_brand_${idNum}">
         </fieldset>
 
         <fieldset>
@@ -44,7 +46,7 @@ function getNewProductHTML(idNumList, savedItem = undefined) {
             <div class="icon-frame">
                 <input type="text" required class="text-input product-type" value="${
                   savedItem?.type || ""
-                }" pattern="^[a-zA-Z:,.&\/\s-]+$" id="product_type_${idNum}" name="product_type_${idNum}"
+                }" pattern="^[a-zA-Z0-9:,.&\\s\\-]+$" id="product_type_${idNum}" name="product_type_${idNum}"
                     data-list="product_type_list">
             </div>
             <button type="button" class="text"><a href="{% url 'settings' %}">Edit product types list</a></button>
@@ -73,7 +75,7 @@ function getNewProductHTML(idNumList, savedItem = undefined) {
             <div class="icon-frame combo-box">
                 <input type="text" required class="text-input product-seller-name" value="${
                   savedItem?.sellerName || ""
-                }" pattern="^[a-zA-Z0-9_.,\s-]+$" id="product_seller_${idNum}" name="product_seller_${idNum}" data-list="seller_list">
+                }" pattern="^[a-zA-Z0-9_.,\\s\\-]+$" id="product_seller_${idNum}" name="product_seller_${idNum}" data-list="seller_list">
             </div>
             <button type="button" class="text add-new-seller-btn">Add new Seller</button>
         </fieldset>
@@ -114,13 +116,17 @@ function handleNewProductTile() {
   const tileList = document.querySelectorAll(".new-product");
   const numberList = document.querySelectorAll(".new-product .number");
   const statusList = document.querySelectorAll(".new-product .status");
+  const nameList = document.querySelectorAll(".new-product .product-name");
+  const typeList = document.querySelectorAll(".new-product .product-type");
+  const sellerNameList = document.querySelectorAll(
+    ".new-product .product-seller-name"
+  );
   const deleteBtnList = document.querySelectorAll(
     ".new-product .delete-current-product"
   );
   const existingProductList = Array.from(
     document.querySelectorAll("#existing_products li")
   );
-  const nameList = document.querySelectorAll(".product-name");
 
   numberList.forEach((elem, i) => (elem.innerHTML = `${toTwoDigit(++i)}`));
 
@@ -153,6 +159,9 @@ function handleNewProductTile() {
       if (!input.value) statusList[i].classList.add("hidden");
       else setStatus(statusList[i], input);
     });
+
+    // input.addEventListener("change", () => setStatus(statusList[i], input))
+
     input.addEventListener("keydown", (e) => {
       if (e.key == "Enter") setStatus(statusList[i], input);
     });
@@ -161,7 +170,25 @@ function handleNewProductTile() {
     existingProductList.forEach((li) =>
       li.addEventListener("click", () => setStatus(statusList[i], input))
     );
+
+    // Setting DATALIST
+    setDatalist(input);
+
+    document
+      .getElementById(input.getAttribute("data-list"))
+      .querySelectorAll("li")
+      .forEach((li) =>
+        li.addEventListener("click", () => {
+          if (!input.value) statusList[i].classList.add("hidden");
+          else setStatus(statusList[i], input);
+        })
+      );
   });
+
+  // SETTING DATALIST TO PRODUCT TYPE
+  typeList.forEach((input) => setDatalist(input));
+  // SETTING DATALIST TO SELLER NAME
+  sellerNameList.forEach((input) => setDatalist(input));
 
   // Delete the current product tile
   deleteBtnList.forEach((btn, i) => {
@@ -451,63 +478,36 @@ document.addEventListener("DOMContentLoaded", () => {
     //     // TODO: SUBMIT
     // }
 
-    document.getElementById("new_product_list").submit();
-
-    // fetch("/stock/new/", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     "X-CSRFToken": getCookie("csrftoken"), // Include CSRF token for security
-    //   },
-    //   body: JSON.stringify({ products: products }),
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     // Handle response
-    //     console.log("Success:", data);
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error:", error);
-    //   });
-
-    const productData = {
-      dateExpiry: "2025-01-29",
-      brand: "CellCept",
-      dateManufacture: "2024-05-02",
-      isNew: false,
-      name: "Paracetamol tablets",
-      priceSelling: "5",
-      priceWholesale: "4",
-      quantity: "50",
-      sellerName: "Zenith Healthcare",
-      type: "Pain relievers: Paracetamol, Ibuprofen, Aspirin, Naproxen",
-    };
-
     fetch("/stock/new", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-CSRFToken": getCookie("csrftoken"),
       },
-      body: JSON.stringify({ newProductJSON: productData }),
+      body: JSON.stringify({ newProductJSON: newProductJSON }),
     })
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((error) => console.error("Error:", error));
-  });
-  function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== "") {
-      const cookies = document.cookie.split(";");
-      for (let i = 0; i < cookies.length; i++) {
-        const cookie = cookies[i].trim();
-        // Does this cookie string begin with the name we want?
-        if (cookie.substring(0, name.length + 1) === name + "=") {
-          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-          break;
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok.");
         }
-      }
-    }
-    return cookieValue;
-  }
+
+        const contentType = response.headers.get("content-type");
+
+        if (contentType.includes("application/json")) {
+          return response.json(); // Parse the JSON body
+        } else {
+          throw new Error("Unsupported content type: " + contentType);
+        }
+      })
+      .then((data) => {
+        if (data.redirect_url) {
+          // Redirect the browser to the new URL
+          window.location.href = data.redirect_url;
+        } else {
+          console.log(data); // Handle other JSON data if needed
+        }
+      })
+      .catch((error) => console.error("Error:", error));
+
+    // document.getElementById("new_product_list").submit();
+  });
 });

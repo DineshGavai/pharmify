@@ -1,46 +1,65 @@
-from django.http import JsonResponse, HttpResponseBadRequest, HttpResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
-from urllib.parse import parse_qs
+from django.views.decorators.csrf import csrf_exempt
+import json
+from .models import Product,Seller
 
+@csrf_exempt
 def add_stock(request):
     if request.method == 'POST':
-        if not request.body:
-            return HttpResponseBadRequest("Request body is empty")
+        data_str = request.body.decode("utf-8")
 
-        # Parse the URL-encoded form data
-        form_data = parse_qs(request.body.decode('utf-8'))
-        
-        print(type(form_data))
-        
-        brand = form_data.get('product_brand_1', [None])[0]
-        date_expiry = form_data.get('product_date_expiry_1', [None])[0]
-        date_manufacture = form_data.get('product_date_manufacture_1', [None])[0]
-        is_new = False  # This field isn't in the form data, so set it to a default value
-        is_new=form_data.get("is product new",[None])[0]
-        name = form_data.get('product_name_1', [None])[0]
-        price_selling = form_data.get('product_selling_price_1', [None])[0]
-        price_wholesale = form_data.get('product_wholesale_price_1', [None])[0]
-        quantity = form_data.get('product_quantity_1', [None])[0]
-        seller_name = form_data.get('product_seller_1', [None])[0]
-        product_type = form_data.get('product_type_1', [None])[0]
+        try:
+            product_data = json.loads(data_str)
+            product_names = list(Product.objects.values_list('name', flat=True))
 
-        print("Received Product Data:", {
-            "brand": brand,
-            "date_expiry": date_expiry,
-            "date_manufacture": date_manufacture,
-            "is_new": is_new,
-            "name": name,
-            "price_selling": price_selling,
-            "price_wholesale": price_wholesale,
-            "quantity": quantity,
-            "seller_name": seller_name,
-            "product_type": product_type,
-        })
+            product_list = product_data.get('newProductJSON', [])
+            for product in product_list:
+                name = product.get('name')
+                expiry_date = product.get('dateExpiry')
+                brand_name = product.get('brand')
+                product_type=product.get('type')
+                manufcature_date = product.get('dateManufacture')
+                isNew = product.get('isNew')
+                selling_price = product.get('priceSelling')
+                wholesale_price = product.get('priceWholesale')
+                quantity = product.get('quantity')
+                seller_name = product.get('sellerName')
+                seller=Seller.objects.get(name=seller_name)
+                owner=request.user
+                
+                
+                product = Product.objects.create(
+                    owner_id=owner,
+                    name=name,
+                    brand_name=brand_name,
+                    product_type=product_type,
+                    manufacture_date=manufcature_date,
+                    expiry_date=expiry_date,
+                    available_quantity=quantity,
+                    selling_price=selling_price,
+                    wholesale_price=wholesale_price,
+                    seller=seller
+                )
+                
+            return JsonResponse({"redirect_url": "/stock/save"})
+        except json.JSONDecodeError as e:
+            return HttpResponse(f"Invalid JSON data: {e}")
+    else:
+         print("Data not received")
 
-        # Return a success response
-        return JsonResponse({"status": "success", "message": "Product added successfully"})
+    return render(request,'stock/new.html')
 
+def saved_stock(request):
+    
+    
+    
     context = {
-        "currentPage": "stock-new"
+        "currentPage": "stock-save"
     }
-    return render(request, "stock/new.html", context)
+    return render(request,"stock/save.html",context)
+
+
+def add_seller(request):
+    
+    return HttpResponse("hello")

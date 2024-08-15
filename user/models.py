@@ -8,7 +8,7 @@ class Owner(AbstractUser):
     name = models.CharField(max_length=255)
     shop_name = models.CharField(max_length=255)
     email=models.EmailField(unique=True)
-    phone_number = models.CharField(max_length=20)
+    phone_number = models.CharField(max_length=10)
     avatar = models.ImageField(blank=True, null=True,default='assets/illus/default-avatar.png')
     license = models.ImageField( blank=True, null=True,default="assets/illus/default-file-image.png")
     account_date_created = models.DateTimeField(auto_now_add=True)
