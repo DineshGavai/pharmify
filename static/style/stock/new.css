@@ -204,6 +204,10 @@ NEW PRODUCT LIST
   margin: auto;
 }
 
+.summary-main-content .col-right .overline {
+  margin-bottom: -1.6rem;
+}
+
 .summary-main-content .back-box {
   max-width: 100rem;
 }

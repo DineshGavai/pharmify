@@ -651,7 +651,7 @@ fieldset .check-radio-box input[type="checkbox"] {
 .note {
   gap: 0.8rem;
   justify-content: start;
-  align-items: start !important;
+  align-items: center !important;
   text-align: start !important;
   position: relative;
   font-size: var(--fs-300);
@@ -659,6 +659,10 @@ fieldset .check-radio-box input[type="checkbox"] {
   stroke: var(--clr-grey-text);
   margin: 0.2rem 0;
   width: 100%;
+}
+
+:is(fieldset .msg, .snackbar .msg, .note) > span.icon {
+  align-self: flex-start;
 }
 
 :is(fieldset, .note) svg.icon {

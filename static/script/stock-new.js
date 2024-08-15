@@ -349,6 +349,12 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
 
         const newProductList = document.querySelectorAll(".new-product");
+
+        if (!newProductList || newProductList.length == 0) {
+            createSnackbar({ msg: "Please add at least one product.", status: UI_STATUS_FEEDBACK.error });
+            return;
+        }
+
         const statusList = document.querySelectorAll(".new-product .status");
         const nameList = document.querySelectorAll(".new-product .product-name");
         const brandList = document.querySelectorAll(".new-product .product-brand");
@@ -473,8 +479,6 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             window.location.href = "/stock/summary"
         }
-
-        // document.getElementById("new_product_list").submit();
     })
 
 })

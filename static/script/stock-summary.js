@@ -1,7 +1,5 @@
-import { allowNumberInputOnly, incrementWithDifference, refreshInputs, removeInputMsg, setDatalist, setIncDecOnKeypress, setInputMsg, updateDatalistPosition, validateInput } from "./utils/inputs.js";
 import { toTwoDigit, formatCommonDate, saveToStorage, getFromStorage, subtractDates, formatINR, popFromArray } from "./utils/utils.js";
-import { createSnackbar, createDialog } from "./utils/components.js";
-import { UI_STATUS_FEEDBACK } from "./utils/const.js";
+import { createDialog } from "./utils/components.js";
 
 
 // GET SUMMARY OVERVIEW HTML
@@ -37,23 +35,17 @@ function getProductSummaryHTML(data, count, allowTitle = true) {
 
     return `
     <div>
-        ${allowTitle ?
-            `<p>
+        ${allowTitle
+            ? `<p>
                 <b class="name">${data.name}</b> by <b class="brand">${data.brand}</b><br>
                 <span class="type">${data.type}</span>
-            </p>`
-            :
-            `
-            <p>
+                </p>`
+            : `<p>
                 <span class="subtitle">Type</span><br>
                 <span class="type">${data.type}</span>
-            </p>
-            `
+                </p>`
         }
-        <p>
-            <span class="subtitle">Sold by</span><br>
-            <span class="seller">${data.sellerName}</span>
-        </p>
+        <p><span class="subtitle">Sold by</span><br><span class="seller">${data.sellerName}</span></p>
     </div>
     <div>
         <p>
@@ -74,7 +66,6 @@ function getProductSummaryHTML(data, count, allowTitle = true) {
             <p>
                 <span class="subtitle">Wholesale Price</span><br>
                 <span class="price-wholesale">${formatINR(data.priceWholesale)} per pack</span>
-
             </p>
             <p>
                 <span class="subtitle">Selling Price</span><br>
@@ -82,16 +73,9 @@ function getProductSummaryHTML(data, count, allowTitle = true) {
 
             </p>
         </div>
-        <svg class="icon">
-            <use href="/static/assets/icon-sprite.svg#cross" />
-        </svg>
-        <p>
-            <span class="quantity fs-700">${data.quantity}</span>
-            <span class="subtitle">Packages</span>
-        </p>
-        <svg class="icon">
-            <use href="/static/assets/icon-sprite.svg#equals" />
-        </svg>
+        <svg class="icon"><use href="/static/assets/icon-sprite.svg#cross" /></svg>
+        <p><span class="quantity fs-700">${data.quantity}</span><span class="subtitle">Packages</span></p>
+        <svg class="icon"><use href="/static/assets/icon-sprite.svg#equals" /></svg>
         <div>
             <p>
                 <span class="subtitle">Total Wholesale Price</span><br>
@@ -114,96 +98,110 @@ document.addEventListener("DOMContentLoaded", () => {
     // Check if Data Even Exists or Not
     if (!productDataList || productDataList.length == 0) window.location.href = "/stock/new";
 
+    /* ///////////////
+        IF PRODUCTS EXISTS
+    /////////////// */
+
     // MERGE and GROUP SIMILAR ITEMS into ARRAY OF ARRAYS
-    const mergedProducts = {};
+    const groupedProducts = {};
     productDataList.forEach(product => {
         const key = `${product.name}-${product.brand}`;
         // If Key Doesn't Exists
-        if (!mergedProducts[key]) mergedProducts[key] = [];
-        mergedProducts[key].push(product);
+        if (!groupedProducts[key]) groupedProducts[key] = [];
+        groupedProducts[key].push(product);
     });
-    productDataList = Object.values(mergedProducts);
-
-
+    productDataList = Object.values(groupedProducts);
+    // Get Unique and Merged Products into seperate array
+    const uniqueProductsList = productDataList.filter(elem => elem.length === 1).map(elem => elem = elem[0]);
+    const mergedProductsList = productDataList.filter(elem => elem.length != 1)
 
     // POPULATE and PRESENT DATA
-    let summaryProductCtr = document.getElementById("summary_product_list");
+    const summaryProductCtr = document.getElementById("summary_product_list");
+
+    // Summary JSON for OVERVIEW
     let overview = {
-        items: productDataList.length,
-        quantity: 0,
-        priceWholesale: 0,
-        priceSelling: 0,
-        brands: new Set(),
-        sellers: new Set()
+        "items": productDataList.length,
+        "quantity": 0,
+        "priceWholesale": 0,
+        "priceSelling": 0,
+        "brands": new Set(),
+        "sellers": new Set()
     }
 
-    let count = 0;
+    function updateOverview(data) {
+        overview.quantity += Number(data.quantity);
+        overview.priceWholesale += data.priceWholesale * data.quantity;
+        overview.priceSelling += data.priceSelling * data.quantity;
+        overview.brands.add(data.brand);
+        overview.sellers.add(data.sellerName);
+    }
 
-    productDataList.forEach(productArr => {
-        if (productArr.length == 1) {
-            let data = productArr[0];
-            let productElem = document.createElement("div");
-            productElem.className = "summary-product";
-            productElem.innerHTML =
-                `<div>
-                <p class="number badge">${toTwoDigit(count + 1)}</p>
-                <p class="status badge">${data.isNew ? "New product" : "Addition to Existing Product"}</p>
-            </div>` + getProductSummaryHTML(data, count);
-            summaryProductCtr.append(productElem);
+    uniqueProductsList.forEach((data, i) => {
+        let productElem = document.createElement("div");
+        productElem.className = "summary-product";
+        productElem.innerHTML =
+            `<div>  <p class="number badge">${toTwoDigit(i + 1)}</p>
+                    <p class="status badge">${data.isNew ? "New product" : "Addition to Existing Product"}</p>
+            </div>` + getProductSummaryHTML(data, i);
 
-            // Creating OVERVIEW
-            overview.quantity += Number(data.quantity);
-            overview.priceWholesale += (data.priceWholesale * data.quantity);
-            overview.priceSelling += (data.priceSelling * data.quantity);
-            overview.brands.add(data.brand);
-            overview.sellers.add(data.sellerName);
-            count++;
-        } else {
-
-            let mergedProductElem = document.createElement("div")
-            mergedProductElem.className = "summary-product merged";
-            mergedProductElem.innerHTML = `
-            <div>
-                <p class="number badge">${productArr.length} Similar Products</p>
-                <p class="status badge">${productArr[0].isNew ? "All New Products" : "All Additions to Existing Products"}</p>
-            </div>
-            <div>
-                <p>
-                    <b class="name">${productArr[0].name}</b> by <b class="brand">${productArr[0].brand}</b><br>
-                </p>
-            </div>
-            <div class="similar-product-box"></div>
-            `
-            summaryProductCtr.append(mergedProductElem);
-
-            let similarProductBox = mergedProductElem.querySelector(".similar-product-box");
-
-            productArr.forEach((data, i) => {
-                let subcounter = document.createElement("span");
-                subcounter.className = "badge";
-                subcounter.innerHTML = toTwoDigit(i + 1);
-                similarProductBox.append(subcounter)
-                let productElem = document.createElement("div");
-                productElem.className = "summary-product";
-                productElem.innerHTML = getProductSummaryHTML(data, count, false);
-                similarProductBox.append(productElem);
-
-
-                // Creating OVERVIEW
-                overview.quantity += Number(data.quantity);
-                overview.priceWholesale += (data.priceWholesale * data.quantity);
-                overview.priceSelling += (data.priceSelling * data.quantity);
-                overview.brands.add(data.brand);
-                overview.sellers.add(data.sellerName);
-                count++;
-            })
-
-        }
+        summaryProductCtr.append(productElem);
+        updateOverview(data);
     })
 
+    mergedProductsList.forEach(subArr => {
+
+        const { length } = subArr;
+        const { name, brand, isNew } = subArr[0];
+
+        let mergedProductElem = document.createElement("div")
+        mergedProductElem.className = "summary-product merged";
+        mergedProductElem.innerHTML = `
+            <div>
+                <p class="number badge">${length} Similar Products</p>
+                <p class="status badge">${isNew ? "All New Products" : "All Additions to Existing Products"}</p>
+            </div>
+            <div><p><b class="name">${name}</b> by <b class="brand">${brand}</b><br></p></div>
+            <div class="similar-product-box"></div>
+            `
+        summaryProductCtr.append(mergedProductElem);
+
+        let similarProductBox = mergedProductElem.querySelector(".similar-product-box");
+        subArr.forEach((data, i) => {
+            // Creating Number Badge
+            const subcounter = document.createElement("span");
+            subcounter.className = "badge";
+            subcounter.innerHTML = toTwoDigit(i + 1);
+            similarProductBox.append(subcounter)
+            // Creating Product Details
+            const productElem = document.createElement("div");
+            productElem.className = "summary-product";
+            productElem.innerHTML = getProductSummaryHTML(data, i, false);
+            similarProductBox.append(productElem);
+            updateOverview(data);
+        })
+    })
+
+    // POPULATE COLLECTED OVERVIEW DATA
     let overviewCtr = document.getElementById("overview_sec")
     overviewCtr.innerHTML = getOverviewHTML(overview);
 
+    const confirmSaveBtn = document.getElementById("confirm_save_btn");
+
+    // HANDLE DATA SAVING TO BACKEND
+    confirmSaveBtn.addEventListener("click", () => {
+
+        createDialog({
+            headline: "Review Your Products",
+            description: "You are about to add these products to your stock. Are you sure?",
+            primaryBtnLabel: "Confirm & Add",
+            secondaryBtnLabel: "Go Back",
+            primaryAction: () => {
+                // TODO: HANDLE DATA SAVING TO BACKEND
+                return true;
+            }
+        })
+
+    })
 
 
 })

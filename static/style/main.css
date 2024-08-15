@@ -296,6 +296,7 @@ SNACKBAR COMPONENT
   padding: 0.4rem 1.2rem;
   animation: fadeScaleUpIn 0.5s linear;
   overflow: hidden;
+  user-select: none;
 }
 
 .snackbar.exit {
