@@ -18,12 +18,12 @@ export function setToggleInputChecked(inputTagArr, value = "") {
 }
 
 // FUNCTION to Allow NUMBER in the INPUTS
-export function allowNumberInputOnly(inputTag) {
+export function allowNumberInputOnly(inputTag, allowFloating = true, allowNegative = true) {
+  inputTag.setAttribute("inputmode", "numeric");
   inputTag.addEventListener("keydown", function (event) {
     // Allowed characters (including backspace and delete for editing)
     const allowedKeys = [
-      "-",
-      "+", // Allow for negative/positive numbers
+      "+",
       "1",
       "2",
       "3",
@@ -33,8 +33,7 @@ export function allowNumberInputOnly(inputTag) {
       "7",
       "8",
       "9",
-      "0",
-      ".", // Numeric characters
+      "0", // Numeric characters
       "Backspace",
       "Delete",
       "Enter", // Editing keys
@@ -68,6 +67,9 @@ export function allowNumberInputOnly(inputTag) {
       "Escape",
     ];
 
+    if (allowNegative) allowedKeys.push("-");
+    if (allowFloating) allowedKeys.push(".");
+
     if (event.ctrlKey) return;
 
     // Prevent default behavior for disallowed keys
@@ -75,13 +77,44 @@ export function allowNumberInputOnly(inputTag) {
       event.preventDefault();
     }
   });
+
+  inputTag.addEventListener("input", (e) => {
+    let value = inputTag.value.trim();
+    // Replace all trailing + and - signs
+    value = value.replace(/[^0-9-+.]/g, '');
+    // Allow only one decimal point
+    value = value.replace(/\./g, (match, index) => index === value.indexOf('.') ? match : '');
+    // Allow only one leading +/- sign
+    value = value.replace(/[-+]/g, (match, index) => index === 0 ? match : '');
+    // Assign the updated value
+    inputTag.value = value;
+  })
+}
+
+
+// FUNCTION to INCREMENT or DECREMENT Numeric Input value by given number
+export function incrementWithDifference(input, incBy = 1, allowNegative = true) {
+  let value = input.value.trim();
+  if (isNaN(parseFloat(value)) && isFinite(value)) return
+  if (!allowNegative && parseFloat(value) < 1) return;
+  input.value = Number(value) + (incBy);
+}
+
+// FUNCTION to INCREMENT or DECREMENT Numeric Input value on +, -, Arrow Up and Arrow Down keypress
+export function setIncDecOnKeypress(input, allowNegative = true) {
+  input.setAttribute("title", "Use + and ↑ or and - and ↓ (plus, arrow up, minus and arrow down) keys to increase or decrease value.")
+
+  input.addEventListener("keydown", (e) => {
+    if (e.key == "+" || e.key == "ArrowUp") incrementWithDifference(input);
+    if (e.key == "-" || e.key == "ArrowDown") incrementWithDifference(input, -1, allowNegative);
+  })
 }
 
 // OTP Input
 export function handleOTPInput(inputArr) {
   inputArr.forEach((input, i) => {
     // Disable all keyboard keys except - number, functional and navigation keys
-    allowNumberInputOnly(input);
+    allowNumberInputOnly(input, false, false);
     // Maximum length - 1 digits
 
     // Select when focused
@@ -219,7 +252,7 @@ export function setInputMsg(inputTag, msg, status = UI_STATUS_FEEDBACK.error) {
   const msgDiv = document.createElement("div");
   // Set class, by default, it's "error"
   msgDiv.classList.add("msg", status);
-  msgDiv.innerHTML = `${msg}`;
+  msgDiv.innerHTML = `<span>${msg}</span>`;
   setMsgIcons(msgDiv, status);
 
   // Find parent for appending
@@ -239,10 +272,12 @@ export function removeInputMsg(inputTag, status = UI_STATUS_FEEDBACK.error) {
 // FUNCTION for INPUT VALIDATION
 export function validateInput(inputTag, errorMsg) {
   inputTag.value = inputTag.value.trim();
+
   if (inputTag.required && !inputTag.value) {
     setInputMsg(inputTag, "This field is required");
     return false;
   }
+
 
   const pattern = inputTag.pattern?.trim();
   if (!pattern || new RegExp(pattern).test(inputTag.value)) {
@@ -419,7 +454,7 @@ export function updateDatalistPosition(input, datalist) {
   Object.assign(list.style, {
     top: `${top + height + 4}px`,
     left: `${left}px`,
-    width: `${input.clientWidth + 36}px`
+    width: `${input.clientWidth + 32}px`
   });
 
   datalist.classList.add("visible");
@@ -436,10 +471,9 @@ export function updateDatalistPosition(input, datalist) {
 }
 
 // FUNCTION TO REMOVE DATALIST
-export function removeDatalist(e, datalist) {
-  if (e.target == datalist) {
-    datalist.classList.remove("visible");
-  }
+export function removeDatalist(datalist, e = false) {
+  if (e && e.target != datalist) return;
+  datalist.classList.remove("visible");
 }
 
 // FUNCTION to SET Datalist to the Associated Input
@@ -462,29 +496,31 @@ export function setDatalist(input) {
   input.addEventListener("click", () => updateDatalistPosition(input, datalist));
 
   input.addEventListener("keydown", (e) => {
-    // Hide datalist on blur
-    if (e.key == "Tab") datalist.classList.remove("visible");
+    // Hide datalist on blur and certain key presses
+    let closeKeys = ["Tab", "Escape", "PageDown", "PageUp"];
+    if (closeKeys.includes(e.key)) removeDatalist(datalist);
     // Get the first visible list item and fill input with it on Enter
     if (e.key == "Enter") {
       if (!datalist.classList.contains("visible")) return;
       let firstVisibleItem = Array.from(datalist.querySelectorAll("li")).find(li => li.style.display !== "none");
       if (firstVisibleItem) {
         input.value = firstVisibleItem.textContent.trim().replace(/\s+/g, ' ');
-        datalist.classList.remove("visible");
+        removeDatalist(datalist);
       };
     }
   });
 
   // Hide datalist on click or scroll elsewhere
-  datalist.addEventListener("click", (e) => removeDatalist(e, datalist));
-  datalist.addEventListener("wheel", (e) => removeDatalist(e, datalist), { passive: true });
+  datalist.addEventListener("click", (e) => removeDatalist(datalist, e));
+  datalist.addEventListener("wheel", (e) => removeDatalist(datalist, e), { passive: true });
+  datalist.querySelectorAll("button, a").forEach(btn => btn.addEventListener("click", () => removeDatalist(datalist)));
 
   // Fill input on particular item click and close popup  
   datalist.querySelectorAll("li").forEach(li =>
     li.addEventListener("click", () => {
       if (input == associatedInput) {
         input.value = li.textContent.trim().replace(/\s+/g, ' ');
-        datalist.classList.remove("visible");
+        removeDatalist(datalist);
       }
     }))
 

@@ -98,12 +98,10 @@
 
         <footer>
             <menu>
-                <button class="icon negative">
-                    <a href="{% url 'logout' %}">
+                <button class="icon negative logout-btn">
                         <svg class="icon">
                             <use href="{% static 'assets/icon-sprite.svg' %}#pages-logout" />
                         </svg>
-                    </a>
                 </button>
                 <a href="{% url 'settings' %}" class="menu-item {% if currentPage == 'settings' %}active{% endif %}">
                     <svg class="icon">

@@ -1,6 +1,6 @@
 "use strict";
 
-import { createSnackbar, setAsSlider } from "./utils/components.js";
+import { createDialog, setAsSlider } from "./utils/components.js";
 import {
   UI_CLASS,
   UI_SIZE,
@@ -9,7 +9,7 @@ import {
   UI_STATUS_FEEDBACK,
 } from "./utils/const.js";
 import { refreshInputs } from "./utils/inputs.js";
-import { toTwoDigit, setTitleAttr, setMsgIcons } from "./utils/utils.js";
+import { toTwoDigit, setTitleAttr, setMsgIcons, formatCommonDate } from "./utils/utils.js";
 
 document.addEventListener("DOMContentLoaded", function () {
   /* ///////////////
@@ -101,26 +101,42 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // COLLAPSABLE HEADERS
-  let mainHeader = document.querySelector("main .collapsable");
-  let mainContent = document.querySelector("main .main-content");
+  let collapsableHeader = document.querySelector("main .collapsable");
 
-  if (mainHeader) {
-    mainContent?.addEventListener("scroll", () => {
-      if (mainContent.scrollTop > 60) mainHeader.style.maxHeight = "0rem";
-      else mainHeader.style.maxHeight = "4.6rem";
+  if (collapsableHeader) {
+    let scrollableElem = document.getElementById(collapsableHeader.getAttribute("data-scrollable"));
+    scrollableElem?.addEventListener("scroll", () => {
+      collapsableHeader.classList.toggle("collapse", scrollableElem.scrollTop > 60);
     })
   }
 
   /* ///////////////
-    USER INFO
+    USER MANAGEMENT
   /////////////// */
 
-  // pass
+  let logoutBtnList = document.querySelectorAll(".logout-btn");
+
+  logoutBtnList?.forEach(btn => {
+    btn.addEventListener("click", () => {
+      createDialog({
+        headline: "Are you sure want to Sign Out?",
+        description: "You will be logged out of your account on this device. To access Pharmify, you would need to login again.",
+        primaryBtnLabel: "Sign out",
+        secondaryBtnLabel: "Stay",
+        primaryAction: () => {
+          window.location.href = `/logout`;
+          return true
+        },
+        danger: true
+      })
+    })
+  })
 
   /* ///////////////
         CURRENT DATE AND TIME HANDLING
     /////////////// */
 
+  let dateBoxList = this.querySelectorAll(".date");
   let dateDayNumBoxList = this.querySelectorAll(".date-day-num");
   let dateDayWeekBoxList = this.querySelectorAll(".date-day-week");
   let dateMonthBoxList = this.querySelectorAll(".date-month");
@@ -129,6 +145,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   setInterval(() => {
     const DATE = new Date();
+
+    dateBoxList?.forEach(elem => {
+      elem.innerHTML = formatCommonDate(DATE);
+    })
 
     // Date Day Number
     dateDayNumBoxList?.forEach((elem) => {
@@ -204,6 +224,26 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     })
   }
+
+  /* ///////////////
+    ASIDE SIDEBAR's VISIBILITIES
+  /////////////// */
+
+  let asideOpenBtnList = document.querySelectorAll(".aside-open-btn");
+
+  asideOpenBtnList?.forEach(btn => {
+    btn.addEventListener("click", () => {
+      // Opening Associated ASIDE Element if it exists.
+      const asideElem = document.getElementById(btn.getAttribute("data-aside-id"));
+      if (!asideElem) throw new Error("Invalid Aside Element ID provided or missing 'data-aside-id' attribute");
+      asideElem.classList.add("visible");
+
+      // Remove ASIDE Element when clicked on Scrim or Close Btn
+      const closeAsideBtn = asideElem.querySelector(".aside-close-btn");
+      asideElem.addEventListener("click", (e) => e.target == asideElem ? asideElem.classList.remove("visible") : "")
+      closeAsideBtn?.addEventListener("click", () => asideElem.classList.remove("visible"))
+    })
+  })
 
 
   /* ///////////////

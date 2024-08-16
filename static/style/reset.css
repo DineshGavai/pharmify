@@ -56,9 +56,9 @@ IMPORTS and SETUPS
   --clr-status-success-light-text: #00ca5e;
   --clr-status-success-dark-text: #33e686;
   /* Warning */
-  --clr-status-warn-light-bg: #ffe680;
+  --clr-status-warn-light-bg: #fcf2c8;
   --clr-status-warn-dark-bg: #665200;
-  --clr-status-warn-light-text: #e6b800;
+  --clr-status-warn-light-text: #c79f00;
   --clr-status-warn-dark-text: #ffe066;
   /* Negative */
   --clr-status-negative-light-bg: #f3d0cc;
@@ -283,10 +283,11 @@ img.icon,
 svg.icon {
   fill: none;
   stroke: currentColor;
-  width: 2.4rem;
-  min-width: 2.4rem;
-  height: 2.4rem;
-  min-height: 2.4rem;
+  --size: 2.4rem;
+  width: var(--size);
+  min-width: var(--size);
+  height: var(--size);
+  min-height: var(--size);
   aspect-ratio: 1;
   display: flex;
   align-items: center;

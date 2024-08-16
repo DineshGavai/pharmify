@@ -77,7 +77,7 @@ export function createSnackbar(options = {}) {
     let closeBtn = undo
         ? `<button class="text close-snackbar-btn undo-btn">Undo</button>`
         : `<button class="icon close-snackbar-btn"><svg class="icon"><use href="/static/assets/icon-sprite.svg#cross" /></svg></button>`;
-    snackbar.innerHTML = `<p class="fs-400 msg">${msg}</p> ${closeBtn}`;
+    snackbar.innerHTML = `<p class="fs-400 msg"><span>${msg}</span></p> ${closeBtn}`;
     setMsgIcons(snackbar.querySelector(".msg"), status);
     document.querySelector(".snackbar-sec").prepend(snackbar);
 
