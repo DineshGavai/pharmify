@@ -303,9 +303,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!validationArray.includes(false)) {
           // TODO: HANDLE DATA SAVING AFTER SUBMIT
           // newSellerForm.submit();
-          setTimeout(() => {
-            newSellerForm.reset();
-          }, 1000);
+          // setTimeout(() => {
+          //   newSellerForm.reset();
+          // }, 1000);
           // IMP: Don't remove following line
           return true;
         }

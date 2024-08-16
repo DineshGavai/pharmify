@@ -47,15 +47,17 @@ def add_stock(request):
             return HttpResponse(f"Invalid JSON data: {e}")
     else:
          print("Data not received")
-
-    return render(request,'stock/new.html')
+    context = {
+        "currentPage": "stock-new"
+    }
+    return render(request,'stock/new.html',context)
 
 def saved_stock(request):
     
     
     
     context = {
-        "currentPage": "stock-save"
+        "currentPage": "stock-new"
     }
     return render(request,"stock/save.html",context)
 
