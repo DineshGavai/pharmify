@@ -155,59 +155,6 @@
     </main>
     <!-- MAIN ENDS -->
 
-    <!-- EXISTING PRODUCTS LIST STARTS -->
-    <div class="datalist" id="existing_products">
-        <ul class="datalist-body">
-            <li>Paracetamol tablets</li>
-            <li>Contact lens solution</li>
-            <li>Antiseptic cream</li>
-            <li>Sunscreen lotion</li>
-            <li>Diapers</li>
-            <li>Cough syrup</li>
-            <li>Pregnancy test kit</li>
-            <li>Toothbrush</li>
-            <li>Insulin pen</li>
-            <li>Hair growth shampoo</li>
-        </ul>
-    </div>
-    <!-- EXISTING PRODUCTS LIST ENDS -->
-
-    <!-- BRAND LIST STARTS -->
-    <div class="datalist" id="product_brand_list">
-        <ul class="datalist-body">
-            <p class="overline">Recent brands</p>
-            <p class="not-found">Adding new brand.</p>
-            <li>MedPlus</li>
-            <li>CareRx</li>
-            <li>Lifecare</li>
-            <li>Zenith</li>
-            <li>Global Meds</li>
-            <li>PharmaServe</li>
-            <li>Wellbeing</li>
-        </ul>
-    </div>
-    <!-- BRAND LIST ENDS -->
-
-    <!-- PRODUCT TYPES DATA LIST STARTS -->
-    {% include 'components/product_list.html' %}
-    <!-- PRODUCT TYPES DATA LIST ENDS -->
-
-    <!-- SELLER DATA LIST STARTS -->
-    <div class="datalist" id="product_seller_list">
-        <ul class="datalist-body">
-            <p class="not-found">No such seller found. <button type="button" class="text"
-                    onclick="document.getElementById('add_new_seller_btn')?.click();">Add New Seller</button></p>
-            <li>MedPlus Distributors</li>
-            <li>CareRx Pharmaceuticals</li>
-            <li>Lifecare Pharmacies</li>
-            <li>Zenith Healthcare</li>
-            <li>Global Meds Supply</li>
-            <li>PharmaServe Solutions</li>
-            <li>Wellbeing Pharma</li>
-        </ul>
-    </div>
-    <!-- SELLER DATA LIST ENDS -->
-
     <!-- ADD NEW SELLER FORM STARTS -->
     <form action="" method="post" id="add_new_seller_form" name="add_new_seller_form"
         data-dialog-id="add_new_seller_form" aria-hidden="true" novalidate>
@@ -223,6 +170,22 @@
         </fieldset>
     </form>
     <!-- ADD NEW SELLER FORM ENDS -->
+
+    <!-- EXISTING PRODUCTS LIST STARTS -->
+    {% include 'components/product-name-list.html' %}
+    <!-- EXISTING PRODUCTS LIST ENDS -->
+
+    <!-- BRAND LIST STARTS -->
+    {% include 'components/product-brand-list.html' %}
+    <!-- BRAND LIST ENDS -->
+
+    <!-- PRODUCT TYPES DATA LIST STARTS -->
+    {% include 'components/product-type-list.html' %}
+    <!-- PRODUCT TYPES DATA LIST ENDS -->
+
+    <!-- SELLER DATA LIST STARTS -->
+    {% include 'components/product-seller-list.html' %}
+    <!-- SELLER DATA LIST ENDS -->
 
     <!-- SCRIPT -->
     <script type="module" src="{% static 'script/main.js' %}"></script>

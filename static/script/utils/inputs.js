@@ -20,6 +20,7 @@ export function setToggleInputChecked(inputTagArr, value = "") {
 // FUNCTION to Allow NUMBER in the INPUTS
 export function allowNumberInputOnly(inputTag, allowFloating = true, allowNegative = true) {
   inputTag.setAttribute("inputmode", "numeric");
+  inputTag.setAttribute("autocomplete", "off");
   inputTag.addEventListener("keydown", function (event) {
     // Allowed characters (including backspace and delete for editing)
     const allowedKeys = [
@@ -478,6 +479,10 @@ export function removeDatalist(datalist, e = false) {
 
 // FUNCTION to SET Datalist to the Associated Input
 export function setDatalist(input) {
+
+  // Disable autocomplete and browsers' default recent inputs' datalists
+  input.setAttribute("autocomplete", "off")
+
   // Create Trailing Chevron
   if (!input.parentNode.querySelector(".trail")) {
     let arrowDown = document.createElement("span");

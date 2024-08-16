@@ -54,7 +54,7 @@
                     <span class="badge hidden"></span>
                 </a>
                 <!-- Stocks -->
-                <div class="menu-item {% if currentPage == 'stock-new' or currentPage == 'stock-history' %}active{% endif %} has-submenu">
+                <div class="menu-item {% if currentPage == 'stock-new' or currentPage == 'stock-inventory' %}active{% endif %} has-submenu">
                     <svg class="icon">
                         <use href="{% static 'assets/icon-sprite.svg' %}#pages-stocks" />
                     </svg>
@@ -65,7 +65,7 @@
                     </svg>
                 </div>
                 <menu class="submenu">
-                    <a href="#" class="menu-item {% if currentPage == 'stock-history' %}active{% endif %}">Stock History</a>
+                    <a href="{% url 'stock-inventory' %}" class="menu-item {% if currentPage == 'stock-inventory' %}active{% endif %}">Stock Inventory</a>
                     <a href="{% url 'stock-new' %}" class="menu-item {% if currentPage == 'stock-new' %}active{% endif %}">Add New Stocks</a>
                 </menu>
                 <!-- Insights -->

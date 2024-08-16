@@ -53,9 +53,6 @@ def add_stock(request):
     return render(request,'stock/new.html',context)
 
 def saved_stock(request):
-    
-    
-    
     context = {
         "currentPage": "stock-new"
     }
@@ -63,11 +60,9 @@ def saved_stock(request):
 
 
 def add_seller(request):
-    
     return HttpResponse("hello")
+
 # Create your views here.
-
-
 def add_stock(request):
     context = {
         "currentPage": "stock-new"
@@ -76,4 +71,13 @@ def add_stock(request):
 
 
 def add_stock_summary(request):
+    context = {
+        "currentPage": "stock-new"
+    }
     return render(request, "stock/summary.html")
+
+def stock_inventory(request):
+    context = {
+        "currentPage": "stock-inventory"
+    }
+    return render(request, "stock/inventory.html", context)

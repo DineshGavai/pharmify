@@ -670,6 +670,16 @@ menu .menu-item.active:hover {
   color: var(--clr-primary-dark);
 }
 
+menu.submenu .menu-item.active {
+  background-color: var(--clr-accent-hover);
+  color: var(--clr-accent-dark);
+}
+
+menu.submenu .menu-item.active:hover {
+  background-color: var(--clr-accent-focus);
+  color: var(--clr-accent-dark);
+}
+
 .menu-item * {
   text-overflow: ellipsis;
   text-wrap: nowrap;
