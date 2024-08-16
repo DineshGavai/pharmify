@@ -200,6 +200,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // HANDLE DATA SAVING TO BACKEND
     confirmSaveBtn.addEventListener("click", () => {
         let dialogDesc = "You are about to add these products to your stock. Are you sure?";
+        let productData = getFromStorage("new_products");
+
+        if (!productData || productData.length == 0) return;
 
         createDialog({
             headline: "Review Your Products.",
@@ -212,6 +215,7 @@ document.addEventListener("DOMContentLoaded", () => {
             secondaryBtnLabel: "Go Back",
             primaryAction: () => {
                 // TODO: HANDLE DATA SAVING TO BACKEND
+                // productData
                 return true;
             }
         })
