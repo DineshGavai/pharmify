@@ -3,12 +3,19 @@
     <ul class="datalist-body">
         <p class="overline">Recent brands</p>
         <p class="not-found">Adding new brand.</p>
-        <li>MedPlus</li>
+
+        {% for brand in brands %}
+
+        <li>{{brand}}</li>
+
+        {% endfor %}
+
+        <!-- <li>MedPlus</li>
         <li>CareRx</li>
         <li>Lifecare</li>
         <li>Zenith</li>
         <li>Global Meds</li>
         <li>PharmaServe</li>
-        <li>Wellbeing</li>
+        <li>Wellbeing</li> -->
     </ul>
 </div>

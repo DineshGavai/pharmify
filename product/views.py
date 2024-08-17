@@ -7,10 +7,14 @@ from .models import Product,Seller
 
 def stock_new(request):
     sellers=list(Seller.objects.values_list("name",flat=True))
+    products=list(Product.objects.values_list("name",flat=True))
+    brands=set(Product.objects.values_list("brand_name",flat=True))
     sellers.reverse()
     context = {
         "currentPage": "stock-new",
-        "sellers":sellers
+        "sellers":sellers,
+        "products":products,
+        "brands":brands
     }
     return render(request,'stock/new.html',context)
 
@@ -23,6 +27,7 @@ def saved_stock(request):
 @csrf_exempt
 def add_seller(request):
     if request.method=="POST":
+        print("hello world")
         seller_name=request.POST.get('new_seller_name')
         seller_number=request.POST.get('new_seller_phone')
         exists_seller = list(Seller.objects.values_list("name", flat=True))
@@ -45,7 +50,6 @@ def add_stock_summary(request):
 
         try:
             product_data = json.loads(data_str)
-            product_names = list(Product.objects.values_list('name', flat=True))
             
             for product_group in product_data['newProductJSON']:
                 for product in product_group:
@@ -80,8 +84,13 @@ def add_stock_summary(request):
             return JsonResponse({"redirect_url": "/stock/new"})
         except json.JSONDecodeError as e:
             return HttpResponse(f"Invalid JSON data: {e}")
-    else:
-         print("Data not received")
+    
     
     
     return render(request, "stock/summary.html")
+
+def stock_inventory(request):
+    context = {
+        "currentPage": "stock-inventory"
+    }
+    return render(request, "stock/inventory.html", context)

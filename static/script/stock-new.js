@@ -291,11 +291,26 @@ document.addEventListener("DOMContentLoaded", () => {
                 ]
 
                 if (!validationArray.includes(false)) {
-                    // TODO: HANDLE DATA SAVING AFTER SUBMIT
-                    // newSellerForm.submit();
-                    setTimeout(() => {
-                        newSellerForm.reset();
-                    }, 1000);
+                    let formdata = {
+                        "new_seller_name": sellerNameInput.value,
+                        "new_seller_phone": sellerPhoneInput.value
+                    }
+
+                    $.ajax({
+                        url: "/stock/add-seller",
+                        type: "POST",
+                        data: formdata,
+                        success: function (response) {
+                            console.log("Data received:", response);
+                            // TODO: create a msg box to show that seller is added
+                        },
+                        error: function (xhr, status, error) {
+                            console.log("Error:", error);
+                        }
+                    });
+                    // setTimeout(() => {
+                    //     newSellerForm.reset();
+                    // }, 1000);
                     // IMP: Don't remove following line
                     return true;
                 }
@@ -303,7 +318,7 @@ document.addEventListener("DOMContentLoaded", () => {
             },
             secondaryAction: function () {
                 let newSellerForm = document.getElementById("add_new_seller_form");
-                newSellerForm.reset(); ``
+                newSellerForm.reset();
 
                 return true
             },
