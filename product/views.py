@@ -81,12 +81,47 @@ def add_stock_summary(request):
                     )
                     
                 
-            return JsonResponse({"redirect_url": "/stock/new"})
+                
+                product = Product.objects.create(
+                    owner_id=owner,
+                    name=name,
+                    brand_name=brand_name,
+                    product_type=product_type,
+                    manufacture_date=manufcature_date,
+                    expiry_date=expiry_date,
+                    available_quantity=quantity,
+                    selling_price=selling_price,
+                    wholesale_price=wholesale_price,
+                    seller=seller
+                )
+                
+            return JsonResponse({"redirect_url": "/stock/save"})
         except json.JSONDecodeError as e:
             return HttpResponse(f"Invalid JSON data: {e}")
     
     
     
+    
+    context = {
+        "currentPage": "stock-new"
+    }
+    return render(request,"stock/save.html",context)
+
+
+def add_seller(request):
+    
+    return HttpResponse("hello")
+# Create your views here.
+
+
+def add_stock(request):
+    context = {
+        "currentPage": "stock-new"
+    }
+    return render(request, "stock/new.html", context)
+
+
+def add_stock_summary(request):
     return render(request, "stock/summary.html")
 
 def stock_inventory(request):
