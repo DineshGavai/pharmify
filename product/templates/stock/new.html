@@ -155,84 +155,41 @@
     </main>
     <!-- MAIN ENDS -->
 
-    <!-- EXISTING PRODUCTS LIST STARTS -->
-    <div class="datalist" id="existing_products">
-        <ul class="datalist-body">
-            <li>Paracetamol tablets</li>
-            <li>Contact lens solution</li>
-            <li>Antiseptic cream</li>
-            <li>Sunscreen lotion</li>
-            <li>Diapers</li>
-            <li>Cough syrup</li>
-            <li>Pregnancy test kit</li>
-            <li>Toothbrush</li>
-            <li>Insulin pen</li>
-            <li>Hair growth shampoo</li>
-        </ul>
-    </div>
-    <!-- EXISTING PRODUCTS LIST ENDS -->
-
-    <!-- BRAND LIST STARTS -->
-    <div class="datalist" id="product_brand_list">
-        <ul class="datalist-body">
-            <p class="overline">Recent brands</p>
-            <p class="not-found">Adding new brand.</p>
-            <li>MedPlus</li>
-            <li>CareRx</li>
-            <li>Lifecare</li>
-            <li>Zenith</li>
-            <li>Global Meds</li>
-            <li>PharmaServe</li>
-            <li>Wellbeing</li>
-        </ul>
-    </div>
-    <!-- BRAND LIST ENDS -->
-
-    <!-- PRODUCT TYPES DATA LIST STARTS -->
-    {% include 'components/product_list.html' %}
-    <!-- PRODUCT TYPES DATA LIST ENDS -->
-
-    <!-- SELLER DATA LIST STARTS -->
-    <div class="datalist" id="product_seller_list">
-        <ul class="datalist-body">
-            <p class="not-found">No such seller found. <button type="button" class="text"
-                    onclick="document.getElementById('add_new_seller_btn')?.click();">Add New Seller</button></p>
-            {% for seller in sellers %}
-
-            <li>{{seller}}</li>
-
-            {% endfor %}
-
-            <!-- <li>MedPlus Distributors</li>
-            <li>Lifecare Pharmacies</li>
-            <li>Zenith Healthcare</li>
-            <li>Global Meds Supply</li>
-            <li>PharmaServe Solutions</li>
-            <li>Wellbeing Pharma</li> -->
-        </ul>
-    </div>
-    <!-- SELLER DATA LIST ENDS -->
-
     <!-- ADD NEW SELLER FORM STARTS -->
     <form action="" method="post" id="add_new_seller_form" name="add_new_seller_form"
         data-dialog-id="add_new_seller_form" aria-hidden="true" novalidate>
         <fieldset>
             <label for="new_seller_name">Seller Name</label>
-            <input type="text" id="new_seller_name" value="Majnu Bhai" name="new_seller_name" required
-                class="text-input" pattern="^[a-zA-Z0-9_.,\s-]+$" placeholder="Seller's personal or market name">
+            <input type="text" id="new_seller_name" name="new_seller_name" required class="text-input"
+                pattern="^[a-zA-Z0-9_.,\s-]+$" placeholder="Seller's personal or market name">
         </fieldset>
         <fieldset>
             <label for="new_seller_phone">Phone Number</label>
-            <input type="text" id="new_seller_phone" value="1234567890" name="new_seller_phone" class="text-input"
+            <input type="text" id="new_seller_phone" name="new_seller_phone" class="text-input"
                 placeholder="10 digit contact number" required inputmode="numeric" pattern="^\d{10}$">
         </fieldset>
     </form>
     <!-- ADD NEW SELLER FORM ENDS -->
 
+    <!-- EXISTING PRODUCTS LIST STARTS -->
+    {% include 'components/product-name-list.html' %}
+    <!-- EXISTING PRODUCTS LIST ENDS -->
+
+    <!-- BRAND LIST STARTS -->
+    {% include 'components/product-brand-list.html' %}
+    <!-- BRAND LIST ENDS -->
+
+    <!-- PRODUCT TYPES DATA LIST STARTS -->
+    {% include 'components/product-type-list.html' %}
+    <!-- PRODUCT TYPES DATA LIST ENDS -->
+
+    <!-- SELLER DATA LIST STARTS -->
+    {% include 'components/product-seller-list.html' %}
+    <!-- SELLER DATA LIST ENDS -->
+
     <!-- SCRIPT -->
     <script type="module" src="{% static 'script/main.js' %}"></script>
     <script type="module" src="{% static 'script/stock-new.js' %}"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </body>
 

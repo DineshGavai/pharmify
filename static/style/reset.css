@@ -24,7 +24,7 @@ IMPORTS and SETUPS
   --clr-accent: #0487e2;
   --clr-accent-light: #65c2f5;
   --clr-accent-focus: #9bcff3;
-  --clr-accent-hover: #cde7f9;
+  --clr-accent-hover: #e6f3fc;
   --gradient-accent: linear-gradient(
     -180deg,
     var(--clr-accent),

@@ -68,8 +68,6 @@
                         </button>
 
                         <!-- Remove  -->
-                        <!-- TODO: Check if user.avatar == "assets/illus/default-avatar.png" then don't show remove btn -->
-
                         <button class="icon negative" type="button" id="remove_avatar_btn" name="remove_avatar_btn"
                             aria-hidden="true">
                             <svg class="icon">
@@ -94,8 +92,7 @@
                 <div class="img-preview-box">
                     <!-- Current License Preview -->
                     <picture>
-                        <!-- <img src="{% static '/assets/illus/default-file-image.png' %}" alt="Your profile photo" id="license_preview"> -->
-                        <img src="{% static user.license %}" alt="Your profile photo" id="license_preview">
+                        <img src="{% static user.license %}" alt="Your Drug Strore License" id="license_preview">
 
                     </picture>
 
@@ -111,7 +108,6 @@
                         </button>
 
                         <!-- Remove  -->
-                        <!-- TODO: Check if user.license == "assets/illus/default-file-image.png" then don't show remove btn -->
                         <button class="icon negative" type="button" id="remove_license_btn" name="remove_license_btn"
                             aria-hidden="true">
                             <svg class="icon">
@@ -197,7 +193,6 @@
         import { UI_STATUS_FEEDBACK } from "{% static '/script/utils/const.js' %}"
         import { setInputMsg, validateInput } from "{% static '/script/utils/inputs.js' %}"
         import { toTwoDigit } from "{% static '/script/utils/utils.js' %}"
-        console.log("{{user.name}}")
 
         document.addEventListener("DOMContentLoaded", () => {
 

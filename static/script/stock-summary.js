@@ -214,35 +214,8 @@ document.addEventListener("DOMContentLoaded", () => {
             primaryBtnLabel: "Confirm & Add",
             secondaryBtnLabel: "Go Back",
             primaryAction: () => {
-                console.log(productDataList)
-                fetch("/stock/summary", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ newProductJSON: productDataList }),
-                })
-                    .then((response) => {
-                        if (!response.ok) {
-                            throw new Error("Network response was not ok.");
-                        }
-
-                        const contentType = response.headers.get("content-type");
-
-                        if (contentType.includes("application/json")) {
-                            return response.json(); // Parse the JSON body
-                        } else {
-                            throw new Error("Unsupported content type: " + contentType);
-                        }
-                    })
-                    .then((data) => {
-                        if (data.redirect_url) {
-                            window.location.href = data.redirect_url;
-                        } else {
-                            console.log(data); // Handle other JSON data if needed
-                        }
-                    })
-                    .catch((error) => console.error("Error:", error));
+                // TODO: HANDLE DATA SAVING TO BACKEND
+                // productData
                 return true;
             }
         })

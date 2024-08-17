@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Stock</title>
+    <!-- FAVICON -->
+    <link rel="shortcut icon" href="{% static 'assets/logo/favicon.svg' %}" type="image/x-icon">
+
+    <!-- STYLE SHEET -->
+    <link rel="stylesheet" href="{% static 'style/main.css' %}">
+    <link rel="stylesheet" href="{% static 'style/stock/inventory.css' %}">
+</head>
+
+<body>
+
+    <!-- NAVIGATION SIDE BAR / NAVBAR STARTS -->
+    {% include 'components/navbar.html' %}
+    <!-- NAVIGATION SIDE BAR / NAVBAR ENDS -->
+
+    <!-- MAIN STARTS -->
+    <main></main>
+    <!-- MAIN ENDS -->
+
+    <!-- ADD NEW SELLER FORM STARTS -->
+    <form action="" method="post" id="add_new_seller_form" name="add_new_seller_form"
+        data-dialog-id="add_new_seller_form" aria-hidden="true" novalidate>
+        <fieldset>
+            <label for="new_seller_name">Seller Name</label>
+            <input type="text" id="new_seller_name" name="new_seller_name" required class="text-input"
+                pattern="^[a-zA-Z0-9_.,\s-]+$" placeholder="Seller's personal or market name">
+        </fieldset>
+        <fieldset>
+            <label for="new_seller_phone">Phone Number</label>
+            <input type="text" id="new_seller_phone" name="new_seller_phone" class="text-input"
+                placeholder="10 digit contact number" required inputmode="numeric" pattern="^\d{10}$">
+        </fieldset>
+    </form>
+    <!-- ADD NEW SELLER FORM ENDS -->
+
+    <!-- EXISTING PRODUCTS LIST STARTS -->
+    {% include 'components/product-name-list.html' %}
+    <!-- EXISTING PRODUCTS LIST ENDS -->
+
+    <!-- BRAND LIST STARTS -->
+    {% include 'components/product-brand-list.html' %}
+    <!-- BRAND LIST ENDS -->
+
+    <!-- PRODUCT TYPES DATA LIST STARTS -->
+    {% include 'components/product-type-list.html' %}
+    <!-- PRODUCT TYPES DATA LIST ENDS -->
+
+    <!-- SELLER DATA LIST STARTS -->
+    {% include 'components/product-seller-list.html' %}
+    <!-- SELLER DATA LIST ENDS -->
+
+    <!-- SCRIPT -->
+    <script type="module" src="{% static 'script/main.js' %}"></script>
+    <script type="module" src="{% static 'script/stock-inventory.js' %}"></script>
+
+</body>
+
+</html>
