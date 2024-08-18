@@ -112,7 +112,6 @@ def signup(request):
 
 
 # Password Reset View
-#
 
 class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
     template_name = 'password/password_reset.html'
@@ -146,7 +145,7 @@ class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
 
 def profileEdit(request):
     user = request.user
-    owners = Owner.objects.filter(email=user)
+    owners = Owner.objects.get(email=user)
 
     if request.method == "POST":
         name = request.POST.get('edit_profile_full_name')
@@ -166,7 +165,7 @@ def profileEdit(request):
         elif remove_avatar:
             avatar_url = 'assets/illus/default-avatar.png'
         else:
-            avatar_url = None
+            avatar_url = owners.avatar
 
         # Handle licence upload
         licence = request.FILES.get('edit_profile_license')
@@ -178,16 +177,9 @@ def profileEdit(request):
         elif remove_license:
             licence_url = 'assets/illus/default-file-image.png'     
         else:
-            licence_url = None
+            licence_url = owners.license
 
-        # Print statements for debugging
-        print(name)
-        print(shop_name)
-        print(contact)
-        print(avatar_url)
-        print(licence_url)
-        print(remove_avatar)
-        print(remove_license)
+        
         
         # Save the owner profile information to the database
         owners.name = name
@@ -201,7 +193,6 @@ def profileEdit(request):
         return redirect('index')  # Redirect to the index page after updating
     context = {
         "user": owners,
-        "text": "hello",
         "currentPage": "edit-profile"
     }
     return render(request, "settings/edit-profile.html", context)
