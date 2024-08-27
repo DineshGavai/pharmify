@@ -43,7 +43,7 @@ function getNewProductHTML(idNum, savedItem = undefined) {
             <input type="date" required class="text-input product-date-expiry" value="${savedItem?.dateExpiry || ""}" id="product_date_expiry_${idNum}" name="product_date_expiry_${idNum}">
         </fieldset>
         <fieldset>
-            <label for="product_wholesale_price_${idNum}">Wholesale Price</label>
+            <label for="product_wholesale_price_${idNum}">Wholesale (Purchase) Price</label>
             <div class="icon-frame">
                 <span class="lead">₹</span>
                 <span class="trail">per pack</span>
