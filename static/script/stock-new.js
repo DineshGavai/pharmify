@@ -291,11 +291,23 @@ document.addEventListener("DOMContentLoaded", () => {
                 ]
 
                 if (!validationArray.includes(false)) {
-                    // TODO: HANDLE DATA SAVING AFTER SUBMIT
-                    // newSellerForm.submit();
-                    setTimeout(() => {
-                        newSellerForm.reset();
-                    }, 1000);
+                    let formdata = {
+                        "new_seller_name": sellerNameInput.value,
+                        "new_seller_phone": sellerPhoneInput.value
+                    }
+
+                    $.ajax({
+                        url: "/stock/add-seller",
+                        type: "POST",
+                        data: formdata,
+                        success: function (response) {
+                            createSnackbar({ msg: "Added new seller", status: UI_STATUS_FEEDBACK.success });
+                            setTimeout(() => window.location.reload(), 1000);
+                        },
+                        error: function (xhr, status, error) {
+                            console.log("Error:", error);
+                        }
+                    });
                     // IMP: Don't remove following line
                     return true;
                 }

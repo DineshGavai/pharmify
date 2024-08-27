@@ -21,7 +21,13 @@
     <!-- NAVIGATION SIDE BAR / NAVBAR ENDS -->
 
     <!-- MAIN STARTS -->
-    <main></main>
+    <main>
+        <!-- TODO: Remove later -->
+        <!-- {% for product in products %}
+        {{product}}<br>
+        {% endfor %} -->
+        {{inventory_data}}
+    </main>
     <!-- MAIN ENDS -->
 
     <!-- ADD NEW SELLER FORM STARTS -->
@@ -55,6 +61,8 @@
     <!-- SELLER DATA LIST STARTS -->
     {% include 'components/product-seller-list.html' %}
     <!-- SELLER DATA LIST ENDS -->
+
+
 
     <!-- SCRIPT -->
     <script type="module" src="{% static 'script/main.js' %}"></script>

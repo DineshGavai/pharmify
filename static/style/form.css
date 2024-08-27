@@ -665,8 +665,8 @@ fieldset .check-radio-box input[type="checkbox"] {
   text-align: start !important;
   position: relative;
   font-size: var(--fs-300);
-  color: var(--clr-status);
-  stroke: var(--clr-status);
+  color: var(--clr-status) !important;
+  stroke: var(--clr-status) !important;
   margin: 0.2rem 0;
   width: 100%;
 }

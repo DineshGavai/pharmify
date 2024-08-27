@@ -3,12 +3,10 @@
     <ul class="datalist-body">
         <p class="not-found">No such seller found. <button type="button" class="text"
                 onclick="document.getElementById('add_new_seller_btn')?.click();">Add New Seller</button></p>
-        <li>MedPlus Distributors</li>
-        <li>CareRx Pharmaceuticals</li>
-        <li>Lifecare Pharmacies</li>
-        <li>Zenith Healthcare</li>
-        <li>Global Meds Supply</li>
-        <li>PharmaServe Solutions</li>
-        <li>Wellbeing Pharma</li>
+        {% for seller in sellers %}
+
+        <li>{{seller}}</li>
+
+        {% endfor %}
     </ul>
 </div>

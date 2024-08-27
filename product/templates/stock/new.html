@@ -161,7 +161,7 @@
         <fieldset>
             <label for="new_seller_name">Seller Name</label>
             <input type="text" id="new_seller_name" name="new_seller_name" required class="text-input"
-                pattern="^[a-zA-Z0-9_.,\s-]+$" placeholder="Seller's personal or market name">
+                pattern="^[a-zA-Z0-9_.,\s\-]+$" placeholder="Seller's personal or market name">
         </fieldset>
         <fieldset>
             <label for="new_seller_phone">Phone Number</label>
@@ -190,7 +190,7 @@
     <!-- SCRIPT -->
     <script type="module" src="{% static 'script/main.js' %}"></script>
     <script type="module" src="{% static 'script/stock-new.js' %}"></script>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 
 </html>

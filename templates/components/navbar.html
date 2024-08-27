@@ -25,7 +25,8 @@
         <section class="nav-content">
             <!-- User Info and Edit profile link -->
             <menu>
-                <a class="menu-item {% if currentPage == 'edit-profile' %}active{% endif %} user-info" href="{% url 'edit-profile' %}">
+                <a class="menu-item {% if currentPage == 'edit-profile' %}active{% endif %} user-info"
+                    href="{% url 'edit-profile' %}">
                     <picture class="user-info-avatar"><img src="{{ request.user.avatar }}" alt="Your profile photo"
                             onerror="this.src=`{% static 'assets/illus/default-avatar.png' %}`"></picture>
                     <div>
@@ -69,7 +70,8 @@
                     <a href="{% url 'stock-new' %}" class="menu-item {% if currentPage == 'stock-new' %}active{% endif %}">Add New Stocks</a>
                 </menu>
                 <!-- Insights -->
-                <div class="menu-item {% if currentPage == 'insights-sales' or currentPage == 'insights-purchases' %}active{% endif %} has-submenu">
+                <div
+                    class="menu-item {% if currentPage == 'insights-sales' or currentPage == 'insights-purchases' %}active{% endif %} has-submenu">
                     <svg class="icon">
                         <use href="{% static 'assets/icon-sprite.svg' %}#pages-insights" />
                     </svg>
@@ -81,7 +83,8 @@
                 </div>
                 <menu class="submenu">
                     <a href="#" class="menu-item {% if currentPage == 'insights-sales' %}active{% endif %}">Sales</a>
-                    <a href="#" class="menu-item {% if currentPage == 'insights-purchases' %}active{% endif %}">Purchases</a>
+                    <a href="#"
+                        class="menu-item {% if currentPage == 'insights-purchases' %}active{% endif %}">Purchases</a>
                 </menu>
                 <!-- Patients -->
                 <a href="#" class="menu-item {% if currentPage == 'patients' %}active{% endif %}">
@@ -99,9 +102,9 @@
         <footer>
             <menu>
                 <button class="icon negative logout-btn">
-                        <svg class="icon">
-                            <use href="{% static 'assets/icon-sprite.svg' %}#pages-logout" />
-                        </svg>
+                    <svg class="icon">
+                        <use href="{% static 'assets/icon-sprite.svg' %}#pages-logout" />
+                    </svg>
                 </button>
                 <a href="{% url 'settings' %}" class="menu-item {% if currentPage == 'settings' %}active{% endif %}">
                     <svg class="icon">
