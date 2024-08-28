@@ -283,6 +283,9 @@ NEW PRODUCT LIST
 
 .summary-product .days-left {
   color: var(--clr-black);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 .summary-product .days-left.warn {
   color: var(--clr-status-warn-light-text);

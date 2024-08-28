@@ -78,13 +78,10 @@ def add_stock_summary(request):
                         seller=seller
                     )
                 
-            return JsonResponse({"redirect_url": "/stock/new"})
+            return JsonResponse({"redirect_url": "/stock/inventory"})
         except json.JSONDecodeError as e:
             return HttpResponse(f"Invalid JSON data: {e}")
-    
-    
-    
-    
+
     context = {
         "currentPage": "stock-new"
     }

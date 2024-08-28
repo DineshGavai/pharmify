@@ -1,0 +1,13 @@
+{
+  "inventoryData": {
+    "name": ["Array of Names of the product in the corresponding product"],
+    "brand": ["Array of Brands of the product in the corresponding product"],
+    "type": ["Array of Types / Category of the Product in the corresponding product"],
+    "dateManufacture": ["Array of MFDs in the corresponding product"],
+    "dateAdded": ["Array of Recent timestamps of addition of the product to the stock"],
+    "dateExpiry": ["Array of Expiry dates in the corresponding product"],
+    "priceWholesale": ["Array of Wholesale (Purchase) Prices in the corresponding product"],
+    "priceSelling": ["Array of Selling Prices in the corresponding product"],
+    "Quantity Available": ["Array of Number of Packs Available in the corresponding product"]
+  }
+}
