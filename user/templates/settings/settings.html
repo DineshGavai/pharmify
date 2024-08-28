@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- TITLE -->
+    <title>Pharmify</title>
+
+    <!-- FAVICON -->
+    <link rel="shortcut icon" href="{% static 'assets/logo/favicon.svg' %}" type="image/x-icon">
+
+    <!-- STYLE SHEET -->
+    <link rel="stylesheet" href="{% static 'style/main.css' %}">
+    <link rel="stylesheet" href="{% static 'style/settings.css' %}">
+
+</head>
+
+<body>
+
+    <!-- NAVIGATION SIDE BAR / NAVBAR STARTS -->
+    {% include 'components/navbar.html' %}
+    <!-- NAVIGATION SIDE BAR / NAVBAR ENDS -->
+
+    <!-- MAIN STARTS -->
+    <main>
+        <!-- Header -->
+        <header class="center-mobile collapsable">
+            <h1 class="fs-600">Account Settings</h1>
+        </header>
+        <!-- Tab navigation -->
+        <section class="tab-sec">
+            <a href="{% url 'edit-profile' %}" class="tab">Edit profile</a>
+            <a href="{% url 'account-privacy' %}" class="tab">Privacy and Security</a>
+            <a href="{% url 'settings' %}" class="tab active">Settings</a>
+            <span class="indicator"></span>
+        </section>
+
+        <section class="main-content empty-sec">
+
+            Account Settings page is coming soon to help you manage your preferences...
+
+        </section>
+    </main>
+    <!-- MAIN ENDS -->
+
+    <script type="module" src="{% static 'script/main.js' %}"></script>
+
+    <script type="module">
+        import { createSnackbar, createDialog } from "{% static 'script/utils/components.js' %}";
+        import { UI_STATUS_FEEDBACK } from "{% static 'script/utils/const.js' %}";
+        import { setInputMsg } from "{% static 'script/utils/inputs.js' %}";
+        import { toTwoDigit } from "{% static 'script/utils/utils.js' %}";
+
+
+
+    </script>
+
+</body>
+
+</html>

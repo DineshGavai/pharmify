@@ -12,11 +12,11 @@ IMPORTS and SETUPS
   --clr-primary: #1ba37d;
   --clr-primary-light: #35bc88;
   --clr-primary-focus: #bbe3d8;
-  --clr-primary-hover: #d1ede5;
+  --clr-primary-hover: #e8f6f2;
 
   --gradient-primary: linear-gradient(
     90deg,
-    var(--clr-primary-light),
+    var(--clr-primary),
     var(--clr-primary-dark)
   );
   /* Accent */
@@ -24,10 +24,10 @@ IMPORTS and SETUPS
   --clr-accent: #0487e2;
   --clr-accent-light: #65c2f5;
   --clr-accent-focus: #9bcff3;
-  --clr-accent-hover: #cde7f9;
+  --clr-accent-hover: #e6f3fc;
   --gradient-accent: linear-gradient(
     -180deg,
-    var(--clr-accent-light),
+    var(--clr-accent),
     var(--clr-accent)
   );
 
@@ -41,6 +41,7 @@ IMPORTS and SETUPS
   --clr-grey-overlay: #13131466;
   --clr-grey-divider: #b5b5b5;
   --clr-grey-bg: #efefef;
+  --clr-grey-bg-light: #f7f7f7;
   --clr-grey-hover: #ebebeb;
 
   /* Status Colors */
@@ -48,22 +49,22 @@ IMPORTS and SETUPS
   --clr-status-info-light-bg: #cce8ed;
   --clr-status-info-dark-bg: #002a32;
   --clr-status-info-light-text: #017f95;
-  --clr-status-info-dark-text: #34a4b7;
+  --clr-status-info-dark-text: #00b8d8;
   /* Success */
   --clr-status-success-light-bg: #ccf9e1;
   --clr-status-success-dark-bg: #00431f;
   --clr-status-success-light-text: #00ca5e;
   --clr-status-success-dark-text: #33e686;
   /* Warning */
-  --clr-status-warn-light-bg: #ffe680;
+  --clr-status-warn-light-bg: #fcf2c8;
   --clr-status-warn-dark-bg: #665200;
-  --clr-status-warn-light-text: #e6b800;
+  --clr-status-warn-light-text: #c79f00;
   --clr-status-warn-dark-text: #ffe066;
   /* Negative */
   --clr-status-negative-light-bg: #f3d0cc;
   --clr-status-negative-dark-bg: #6a0b00;
   --clr-status-negative-light-text: #ae1100;
-  --clr-status-negative-dark-text: #cd4233;
+  --clr-status-negative-dark-text: #ff1900;
 
   /* Font-Sizes */
   --fs-100: 1rem;
@@ -110,7 +111,7 @@ html {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  z-index: 10;
+  z-index: 0;
   transition: all 0.2s linear;
 }
 
@@ -197,7 +198,6 @@ table caption,
 .fs-300 {
   color: var(--clr-grey-text);
   font-size: var(--fs-300);
-  max-width: 56rem;
 }
 
 h6,
@@ -274,9 +274,6 @@ a.text-link:hover {
 ul {
   padding-left: 1.6rem;
 }
-:is(ul, ol) li {
-  margin: 0.2rem 0;
-}
 
 :is(ul, ol) li::marker {
   color: var(--clr-accent);
@@ -286,10 +283,11 @@ img.icon,
 svg.icon {
   fill: none;
   stroke: currentColor;
-  width: 2.4rem;
-  min-width: 2.4rem;
-  height: 2.4rem;
-  min-height: 2.4rem;
+  --size: 2.4rem;
+  width: var(--size);
+  min-width: var(--size);
+  height: var(--size);
+  min-height: var(--size);
   aspect-ratio: 1;
   display: flex;
   align-items: center;

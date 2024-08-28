@@ -1,0 +1,196 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Stock</title>
+    <!-- FAVICON -->
+    <link rel="shortcut icon" href="{% static 'assets/logo/favicon.svg' %}" type="image/x-icon">
+
+    <!-- STYLE SHEET -->
+    <link rel="stylesheet" href="{% static 'style/main.css' %}">
+    <link rel="stylesheet" href="{% static 'style/stock/new.css' %}">
+</head>
+
+<body>
+
+    <!-- NAVIGATION SIDE BAR / NAVBAR STARTS -->
+    {% include 'components/navbar.html' %}
+    <!-- NAVIGATION SIDE BAR / NAVBAR ENDS -->
+
+    <!-- MAIN STARTS -->
+    <main>
+
+        <!-- Header Starts -->
+        <header class="center-mobile collapsable" data-scrollable="new_product_list_sec">
+            <!-- Header content -->
+            <h1 class="fs-600">Add New Stocks</h1>
+            <!-- Today's date -->
+            <p class="nowrap">
+                <svg class="icon">
+                    <use href="{% static 'assets/icon-sprite.svg' %}#calendar-date" />
+                </svg>
+                <span class="date-day-num"></span> <span class="date-month"></span><span class="date-year"></span>
+            </p>
+        </header>
+        <!-- Header Ends -->
+
+        <!-- MAIN CONTENT STARTS -->
+        <section class="main-content">
+
+            <!-- PRODUCT LIST SECTION STARTS -->
+            <section class="new-product-list-sec" id="new_product_list_sec">
+
+                <!-- PRODUCT LIST STARTS -->
+                <section class="new-product-list product-form" id="new_product_list"></section>
+                <!-- PRODUCT LIST ENDS -->
+
+                <!-- ADD PRODUCT BUTTONS -->
+                <div class="btn-box">
+
+                    <button class="new-product-btn">
+                        <svg class="icon">
+                            <use href="{% static 'assets/icon-sprite.svg' %}#stock-add" />
+                        </svg>
+                        Add new Product
+                    </button>
+
+                    <button class="text negative" id="delete_all_products"><svg class="icon">
+                            <use href="{% static 'assets/icon-sprite.svg' %}#refresh" />
+                        </svg> Delete All</button>
+                </div>
+
+                <button class="fab aside-open-btn" data-aside-id="new_stock_aside">
+                    <svg class="icon">
+                        <use href="{% static 'assets/icon-sprite.svg' %}#add" />
+                    </svg>
+                    <span class="text">Add</span>
+                </button>
+
+            </section>
+            <!-- PRODUCT LIST SECTION ENDS -->
+
+            <!-- SIDE OPTIONS START -->
+            <aside id="new_stock_aside">
+
+                <section class="aside-body side-options">
+
+                    <!-- ASIDE HEADER AND CLOSE BUTTON (Mobile Only) -->
+                    <header class="mobile-only">
+                        <h2 class="fs-400 center-mobile">Save Stocks</h2>
+                        <button class="icon mobile-only aside-close-btn" style="margin-left: auto;">
+                            <svg class="icon">
+                                <use href="{% static 'assets/icon-sprite.svg' %}#cross" />
+                            </svg>
+                        </button>
+                    </header>
+
+                    <div class="aside-content">
+
+                        <menu>
+                            <button class="menu-item new-product-btn">
+                                <svg class="icon">
+                                    <use href="{% static 'assets/icon-sprite.svg' %}#stock-add" />
+                                </svg>
+                                Add new Product
+                            </button>
+                        </menu>
+
+                        <menu>
+                            <button class="menu-item">
+                                <svg class="icon">
+                                    <use href="{% static 'assets/icon-sprite.svg' %}#upload" />
+                                </svg>
+                                Upload CSV File
+                            </button>
+                        </menu>
+
+                        <div class="divider"></div>
+                        <menu>
+                            <p><b class="gradient-accent" id="item_count">0/10 Items listed</b></p>
+                            <button class="menu-item primary" id="save_batch_btn">
+                                <svg class="icon">
+                                    <use href="{% static 'assets/icon-sprite.svg' %}#check" />
+                                </svg>
+                                Save this Batch
+                            </button>
+
+                            <p class="subtitle">To avoid data loss, current batch is <b class="gradient-primary">saved
+                                    locally</b> and up to <b class="gradient-primary">10 products</b> can be saved per
+                                batch.</p>
+                            <p class="subtitle">You may change this limit in <a href="{% url 'settings' %}"
+                                    class="text-link">Settings</a>.</p>
+                        </menu>
+
+                        <div class="divider"></div>
+
+                        <menu>
+                            <button class="menu-item" id="add_new_seller_btn">
+                                <svg class="icon">
+                                    <use href="{% static 'assets/icon-sprite.svg' %}#seller" />
+                                </svg>
+                                Add New Seller
+                            </button>
+                            <a class="menu-item" href="{% url 'settings' %}">
+                                <svg class="icon">
+                                    <use href="{% static 'assets/icon-sprite.svg' %}#list-product-type" />
+                                </svg>
+                                Edit Product Type List
+                            </a>
+                        </menu>
+
+                    </div>
+                </section>
+
+            </aside>
+            <!-- SIDE OPTIONS ENDS -->
+
+
+        </section>
+        <!-- MAIN CONTENT ENDS -->
+
+
+    </main>
+    <!-- MAIN ENDS -->
+
+    <!-- ADD NEW SELLER FORM STARTS -->
+    <form action="" method="post" id="add_new_seller_form" name="add_new_seller_form"
+        data-dialog-id="add_new_seller_form" aria-hidden="true" novalidate>
+        <fieldset>
+            <label for="new_seller_name">Seller Name</label>
+            <input type="text" id="new_seller_name" name="new_seller_name" required class="text-input"
+                pattern="^[a-zA-Z0-9_.,\s-]+$" placeholder="Seller's personal or market name">
+        </fieldset>
+        <fieldset>
+            <label for="new_seller_phone">Phone Number</label>
+            <input type="text" id="new_seller_phone" name="new_seller_phone" class="text-input"
+                placeholder="10 digit contact number" required inputmode="numeric" pattern="^\d{10}$">
+        </fieldset>
+    </form>
+    <!-- ADD NEW SELLER FORM ENDS -->
+
+    <!-- EXISTING PRODUCTS LIST STARTS -->
+    {% include 'components/product-name-list.html' %}
+    <!-- EXISTING PRODUCTS LIST ENDS -->
+
+    <!-- BRAND LIST STARTS -->
+    {% include 'components/product-brand-list.html' %}
+    <!-- BRAND LIST ENDS -->
+
+    <!-- PRODUCT TYPES DATA LIST STARTS -->
+    {% include 'components/product-type-list.html' %}
+    <!-- PRODUCT TYPES DATA LIST ENDS -->
+
+    <!-- SELLER DATA LIST STARTS -->
+    {% include 'components/product-seller-list.html' %}
+    <!-- SELLER DATA LIST ENDS -->
+
+    <!-- SCRIPT -->
+    <script type="module" src="{% static 'script/main.js' %}"></script>
+    <script type="module" src="{% static 'script/stock-new.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</body>
+
+</html>

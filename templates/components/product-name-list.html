@@ -1,0 +1,20 @@
+{% load static %}
+<div class="datalist" id="existing_products">
+    <ul class="datalist-body">
+        {% for product in products %}
+
+        <li>{{product}}</li>
+
+        {% endfor %}
+        <!-- <li>Paracetamol tablets</li>
+        <li>Contact lens solution</li>
+        <li>Antiseptic cream</li>
+        <li>Sunscreen lotion</li>
+        <li>Diapers</li>
+        <li>Cough syrup</li>
+        <li>Pregnancy test kit</li>
+        <li>Toothbrush</li>
+        <li>Insulin pen</li>
+        <li>Hair growth shampoo</li> -->
+    </ul>
+</div>

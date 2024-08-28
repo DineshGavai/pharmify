@@ -1,13 +1,15 @@
 "use strict";
 
+import { createDialog, setAsSlider } from "./utils/components.js";
 import {
   UI_CLASS,
   UI_SIZE,
   DATE_WEEK_DAYS,
   DATE_MONTHS_SHORT,
+  UI_STATUS_FEEDBACK,
 } from "./utils/const.js";
 import { refreshInputs } from "./utils/inputs.js";
-import { toTwoDigit, setTitleAttr, setMsgIcons } from "./utils/utils.js";
+import { toTwoDigit, setTitleAttr, setMsgIcons, formatCommonDate } from "./utils/utils.js";
 
 document.addEventListener("DOMContentLoaded", function () {
   /* ///////////////
@@ -23,9 +25,9 @@ document.addEventListener("DOMContentLoaded", function () {
     /////////////// */
 
   // LOGO
-  let pictureLogoArr = this.querySelectorAll(".logo");
+  let pictureLogoList = this.querySelectorAll(".logo");
 
-  pictureLogoArr.forEach((logo) => {
+  pictureLogoList?.forEach((logo) => {
     let img = this.createElement("img");
     let type = ``;
     if (logo.getAttribute("data-white")) {
@@ -63,6 +65,8 @@ document.addEventListener("DOMContentLoaded", function () {
     logo.appendChild(img);
   });
 
+
+
   // Input Tags
   refreshInputs();
 
@@ -70,67 +74,104 @@ document.addEventListener("DOMContentLoaded", function () {
   setTitleAttr();
 
   // Set Icons to Respective Messages - Notes, Snackbars and Input Messages
-  let errorElemsArr = this.querySelectorAll(
-    "fieldset .msg.error, .snackbar.error .msg, .note.error"
+  let errorElemsList = document.querySelectorAll(
+    "fieldset .msg.error, .note.error"
   );
-  let warnElemsArr = this.querySelectorAll(
-    "fieldset .msg.warn, .snackbar.warn .msg, .note.warn"
+  let warnElemsList = document.querySelectorAll(
+    "fieldset .msg.warn, .note.warn"
   );
-  let successElemsArr = this.querySelectorAll(
-    "fieldset .msg.success, .snackbar.success .msg, .note.success"
+  let successElemsList = document.querySelectorAll(
+    "fieldset .msg.success, .note.success"
   );
-  let infoElemsArr = this.querySelectorAll(
-    "fieldset .msg.info, .snackbar.info .msg, .note.info"
+  let infoElemsList = document.querySelectorAll(
+    "fieldset .msg.info, .note.info"
   );
 
-  infoElemsArr.forEach((elem) => {
+  infoElemsList?.forEach((elem) => {
     setMsgIcons(elem, UI_CLASS.info);
   });
-  successElemsArr.forEach((elem) => {
+  successElemsList?.forEach((elem) => {
     setMsgIcons(elem, UI_CLASS.success);
   });
-  warnElemsArr.forEach((elem) => {
+  warnElemsList?.forEach((elem) => {
     setMsgIcons(elem, UI_CLASS.warn);
   });
-  errorElemsArr.forEach((elem) => {
+  errorElemsList?.forEach((elem) => {
     setMsgIcons(elem, UI_CLASS.error);
   });
+
+  // COLLAPSABLE HEADERS
+  let collapsableHeader = document.querySelector("main .collapsable");
+
+  if (collapsableHeader) {
+    let scrollableElem = document.getElementById(collapsableHeader.getAttribute("data-scrollable"));
+    scrollableElem?.addEventListener("scroll", () => {
+      collapsableHeader.classList.toggle("collapse", scrollableElem.scrollTop > 60);
+    })
+  }
+
+  /* ///////////////
+    USER MANAGEMENT
+  /////////////// */
+
+  let logoutBtnList = document.querySelectorAll(".logout-btn");
+
+  logoutBtnList?.forEach(btn => {
+    btn.addEventListener("click", () => {
+      createDialog({
+        headline: "Are you sure want to Sign Out?",
+        description: "You will be logged out of your account on this device. To access Pharmify, you would need to login again.",
+        primaryBtnLabel: "Sign out",
+        secondaryBtnLabel: "Stay",
+        primaryAction: () => {
+          window.location.href = `/logout`;
+          return true
+        },
+        danger: true
+      })
+    })
+  })
 
   /* ///////////////
         CURRENT DATE AND TIME HANDLING
     /////////////// */
 
-  let dateDayNumBoxArr = this.querySelectorAll(".date-day-num");
-  let dateDayWeekBoxArr = this.querySelectorAll(".date-day-week");
-  let dateMonthBoxArr = this.querySelectorAll(".date-month");
-  let dateYearBoxArr = this.querySelectorAll(".date-year");
-  let timeBoxArr = this.querySelectorAll(".time");
+  let dateBoxList = this.querySelectorAll(".date");
+  let dateDayNumBoxList = this.querySelectorAll(".date-day-num");
+  let dateDayWeekBoxList = this.querySelectorAll(".date-day-week");
+  let dateMonthBoxList = this.querySelectorAll(".date-month");
+  let dateYearBoxList = this.querySelectorAll(".date-year");
+  let timeBoxList = this.querySelectorAll(".time");
 
   setInterval(() => {
     const DATE = new Date();
 
+    dateBoxList?.forEach(elem => {
+      elem.innerHTML = formatCommonDate(DATE);
+    })
+
     // Date Day Number
-    dateDayNumBoxArr.forEach((elem) => {
+    dateDayNumBoxList?.forEach((elem) => {
       elem.innerHTML = toTwoDigit(DATE.getDate());
     });
 
     // Month Name
-    dateMonthBoxArr.forEach((elem) => {
+    dateMonthBoxList?.forEach((elem) => {
       elem.innerHTML = DATE_MONTHS_SHORT[DATE.getMonth()];
     });
 
     // Year
-    dateYearBoxArr.forEach((elem) => {
+    dateYearBoxList?.forEach((elem) => {
       elem.innerHTML = DATE.getFullYear();
     });
 
     // Weekday
-    dateDayWeekBoxArr.forEach((elem) => {
+    dateDayWeekBoxList?.forEach((elem) => {
       elem.innerHTML = DATE_WEEK_DAYS[DATE.getDay()];
     });
 
     // Current time
-    timeBoxArr.forEach((elem) => {
+    timeBoxList?.forEach((elem) => {
       let hours = DATE.getHours();
       let meridian = hours >= 12 ? "PM" : "AM";
       elem.innerHTML = `${toTwoDigit(hours % 12 || hours)}:${toTwoDigit(
@@ -138,4 +179,112 @@ document.addEventListener("DOMContentLoaded", function () {
       )} ${meridian}`;
     });
   }, 1000);
+
+
+  /* ///////////////
+    Navigation Bar
+  /////////////// */
+
+  let navbar = document.querySelector("nav");
+  let navOpenBtn = document.querySelector(".nav-open-btn");
+  let navCloseBtn = document.querySelector(".nav-close-btn");
+
+  // Opening Navbar - add .visible class
+  navOpenBtn?.addEventListener("click", () => {
+    navbar.classList.add("visible");
+    navOpenBtn.classList.add("visible");
+  })
+  // Closing Navbar - remove .visible class
+  navCloseBtn?.addEventListener("click", () => {
+    navbar.classList.remove("visible");
+    navOpenBtn.classList.remove("visible");
+  })
+  // Closing Navbar when clicked on Scrim - remove .visible class
+  navbar?.addEventListener("click", (e) => {
+    if (e.target === navbar) {
+      navbar.classList.remove("visible");
+      navOpenBtn.classList.remove("visible");
+    }
+  })
+
+  // Navbar's drop down menu items expand and collapse effect - toggle .visible class
+  let dropDownNavItemList = document.querySelectorAll("nav .has-submenu");
+  let navSubmenus = document.querySelectorAll("submenu");
+
+  if (dropDownNavItemList) {
+    dropDownNavItemList?.forEach(menuItem => {
+      menuItem?.addEventListener("click", () => {
+        menuItem.classList.toggle("visible");
+
+        if (!navbar.classList.contains("visible")) {
+          navbar.classList.add("visible");
+          navOpenBtn.classList.add("visible");
+          navCloseBtn.classList.add("visible");
+        }
+      });
+    })
+  }
+
+  /* ///////////////
+    ASIDE SIDEBAR's VISIBILITIES
+  /////////////// */
+
+  let asideOpenBtnList = document.querySelectorAll(".aside-open-btn");
+
+  asideOpenBtnList?.forEach(btn => {
+    btn.addEventListener("click", () => {
+      // Opening Associated ASIDE Element if it exists.
+      const asideElem = document.getElementById(btn.getAttribute("data-aside-id"));
+      if (!asideElem) throw new Error("Invalid Aside Element ID provided or missing 'data-aside-id' attribute");
+      asideElem.classList.add("visible");
+
+      // Remove ASIDE Element when clicked on Scrim or Close Btn
+      const closeAsideBtn = asideElem.querySelector(".aside-close-btn");
+      asideElem.addEventListener("click", (e) => e.target == asideElem ? asideElem.classList.remove("visible") : "")
+      closeAsideBtn?.addEventListener("click", () => asideElem.classList.remove("visible"))
+    })
+  })
+
+
+  /* ///////////////
+    TABs
+  /////////////// */
+
+  // Function to Update active tab indicator
+  function updateActiveTab(ctr) {
+    let activeTab = ctr.querySelector(".tab.active");
+    let indicator = ctr.querySelector(".indicator");
+    let tabWidth = activeTab.clientWidth;
+    indicator.style.setProperty("--width", (tabWidth * 0.60) + "px");
+    indicator.style.setProperty("--left", (activeTab.offsetLeft + (tabWidth / 6)) + "px");
+    ctr.scrollLeft = activeTab.offsetLeft - (tabWidth / 6);
+  }
+
+  // Enlist all Tab containers
+  let tabCtrList = document.querySelectorAll(".tab-sec");
+
+  tabCtrList?.forEach(ctr => {
+
+    setAsSlider(ctr);
+
+    // Set currently active tab
+    let tabList = ctr.querySelectorAll(".tab");
+    updateActiveTab(ctr);
+
+    // Tab navigation
+    tabList?.forEach(tab => {
+
+      tab?.addEventListener("click", () => {
+        // Remove active status from other tabs
+        tabList?.forEach(otherTab => otherTab.classList.remove("active"));
+
+        // Add active status to current tab
+        tab.classList.add("active");
+        updateActiveTab(ctr);
+      })
+    })
+  })
+
+
+
 });

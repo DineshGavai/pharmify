@@ -1,0 +1,139 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- TITLE -->
+    <title>Pharmify</title>
+
+    <!-- FAVICON -->
+    <link rel="shortcut icon" href="{% static 'assets/logo/favicon.svg' %}" type="image/x-icon">
+
+    <!-- STYLE SHEET -->
+    <link rel="stylesheet" href="{% static 'style/main.css' %}">
+    <link rel="stylesheet" href="{% static 'style/settings.css' %}">
+
+</head>
+
+<body>
+
+    <!-- NAVIGATION SIDE BAR / NAVBAR STARTS -->
+    {% include 'components/navbar.html' %}
+    <!-- NAVIGATION SIDE BAR / NAVBAR ENDS -->
+
+    <!-- MAIN STARTS -->
+    <main>
+
+        <!-- Header -->
+        <header class="center-mobile collapsable">
+            <h1 class="fs-600">Account & privacy</h1>
+        </header>
+
+        <!-- Tab navigation -->
+        <section class="tab-sec">
+            <a href="{% url 'edit-profile' %}" class="tab">Edit profile</a>
+            <a href="{% url 'account-privacy' %}" class="tab active">Privacy and Security</a>
+            <a href="{% url 'settings' %}" class="tab">Settings</a>
+            <span class="indicator"></span>
+        </section>
+
+        <section class="main-content">
+
+            <a href="{% url 'password_reset' %}">
+                <h2 class="fs-500">Change Password</h2>
+
+                <p class="subtitle">Updating your password after certain intervals keeps the Pharmify account secure.
+                </p>
+
+                <span class="password-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+                <div class="link-box">
+                    <button class="icon">
+                        <svg class="icon">
+                            <use href="{% static 'assets/icon-sprite.svg' %}#chevron-right" />
+                        </svg>
+                    </button>
+                </div>
+            </a>
+
+            <a href="#">
+                <h2 class="fs-500">Download your data</h2>
+                <!-- TODO: Add the file type the data will be exported to. -->
+                <p class="subtitle">Save a copy of your data to back it up. You may import it later.</p>
+
+                <div class="link-box">
+                    <button class="icon">
+                        <svg class="icon">
+                            <use href="{% static 'assets/icon-sprite.svg' %}#chevron-right" />
+                        </svg>
+                    </button>
+                </div>
+            </a>
+
+            <a href="#">
+                <h2 class="fs-500">Terms and Privacy Policy</h2>
+
+                <p class="subtitle">Learn how we safeguard your information and protect your account. Read our Terms and
+                    Privacy Policy.</p>
+
+                <div class="link-box">
+                    <button class="icon">
+                        <svg class="icon">
+                            <use href="{% static 'assets/icon-sprite.svg' %}#chevron-right" />
+                        </svg>
+                    </button>
+                </div>
+            </a>
+
+            <section class="danger-zone">
+                <h2 class="fs-500 negative">Danger Zone</h2>
+
+                <p class="subtitle">We will immediately delete all the data from our servers based on the action you
+                    choose. Once your data or account has been deleted, there is no going back. Please be certain.</p>
+                <p class="subtitle">Please note that, <b>these actions cannot be undone</b></p>
+
+                <a href="#">
+                    <p class="negative">Clear all Data</p>
+                    <p class="subtitle">This will clear all your data including your information related to stocks,
+                        transactions, customers and also settings.</p>
+                    <p class="subtitle">We will keep your account and your personal information that you can update
+                        anytime.</p>
+                </a>
+
+                <div class="divider"></div>
+
+                <a href="#">
+                    <p class="negative">Delete Account Permanently</p>
+                    <p class="subtitle">This will delete your Pharmify account permanently clearing all your inventory
+                        information related to stocks, transactions, customers, settings and also your personal
+                        information.</p>
+                </a>
+            </section>
+
+        </section>
+
+
+    </main>
+    <!-- MAIN ENDS -->
+
+
+    <script type="module" src="{% static 'script/main.js' %}"></script>
+
+    <script type="module">
+        import { createSnackbar, createDialog } from "{% static 'script/utils/components.js' %}"
+        import { UI_STATUS_FEEDBACK } from "{% static 'script/utils/const.js' %}"
+        import { setInputMsg } from "{% static 'script/utils/inputs.js' %}"
+        import { toTwoDigit } from "{% static 'script/utils/utils.js' %}"
+    </script>
+
+</body>
+
+</html>

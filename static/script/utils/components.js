@@ -1,9 +1,11 @@
 import { UI_STATUS_FEEDBACK, UI_LOADER, UI_SIZE } from "./const.js";
+import { setMsgIcons } from "./utils.js";
 
 /* ///////////////
-    COMPONENTS
+    LOADERS - Spinners, Loading Bars, Skeletons
 /////////////// */
 
+// Function to Set a Loading Spinner
 function setLoadingSpinner(elem, theme, size) {
     let spinner = document.createElement("span");
     spinner.classList.add("loader", "spinner", theme);
@@ -14,7 +16,7 @@ function setLoadingSpinner(elem, theme, size) {
             <path
                 d="M96.985 74.8127C101.268 76.8338 106.45 75.0087 107.781 70.4639C109 66.3026 109.726 62.0021 109.936 57.6509C110.284 50.4365 109.208 43.2243 106.769 36.4259C104.33 29.6276 100.575 23.3762 95.7201 18.0288C92.7918 14.8035 89.4976 11.9452 85.911 9.50815C81.9939 6.84653 76.8338 8.73209 74.8127 13.015V13.015C72.7916 17.2979 74.7097 22.3414 78.4291 25.2729C80.0726 26.5681 81.6097 28.0005 83.0229 29.557C86.3641 33.237 88.9478 37.5391 90.6264 42.2176C92.305 46.8962 93.0456 51.8595 92.8061 56.8243C92.7047 58.9242 92.4289 61.007 91.9838 63.0517C90.9763 67.6791 92.7021 72.7916 96.985 74.8127V74.8127Z" />
         </svg>
-    `;
+        `;
 
     let width = 2.4;
     switch (size) {
@@ -29,7 +31,7 @@ function setLoadingSpinner(elem, theme, size) {
     elem.append(spinner);
 }
 
-// Loader and Spinners code
+// Main Function to Set a specified loader
 export function setLoader(elem, theme, type = UI_LOADER.spinner, size = UI_SIZE.xs) {
     elem.disabled = true;
     switch (type) {
@@ -50,12 +52,15 @@ export function setLoader(elem, theme, type = UI_LOADER.spinner, size = UI_SIZE.
     }
 }
 
+// Remove the loader
 export function removeLoader(elem) {
     elem.disabled = false;
     elem.querySelector(".loader").remove();
 }
 
-// SNACKBAR GENERATION FUNCTION
+/* ///////////////
+    SNACKBAR GENERATION FUNCTION
+/////////////// */
 
 export function createSnackbar(options = {}) {
     // OPTION DEFAULTS
@@ -71,8 +76,9 @@ export function createSnackbar(options = {}) {
     // Close button, if undo() exists, else just close
     let closeBtn = undo
         ? `<button class="text close-snackbar-btn undo-btn">Undo</button>`
-        : `<button class="icon close-snackbar-btn"><i class="bi bi-x-lg"></i></button>`;
-    snackbar.innerHTML = `<p class="fs-400 msg">${msg}</p> ${closeBtn}`;
+        : `<button class="icon close-snackbar-btn"><svg class="icon"><use href="/static/assets/icon-sprite.svg#cross" /></svg></button>`;
+    snackbar.innerHTML = `<p class="fs-400 msg"><span>${msg}</span></p> ${closeBtn}`;
+    setMsgIcons(snackbar.querySelector(".msg"), status);
     document.querySelector(".snackbar-sec").prepend(snackbar);
 
     // SNACKBAR CLOSING - Automatic - Add animation and remove
@@ -91,7 +97,10 @@ export function createSnackbar(options = {}) {
 }
 
 
-//  DIALOG BOX COMPONENT CREATOR
+/* ///////////////
+    DIALOG BOX GENERATION CODE
+/////////////// */
+
 
 export function createDialog(options = {}) {
     // INITIALIZATION - Set default options and handle mandatory conditons
@@ -107,7 +116,6 @@ export function createDialog(options = {}) {
         primaryAction = function () { return true },
         secondaryAction = function () { return true },
         danger = false,
-        invert = false
     } = options;
 
     if (!headline) throw new Error("Provide a headline for Dialog");
@@ -142,8 +150,6 @@ export function createDialog(options = {}) {
     document.body.prepend(dialogSec);
     dialogSec.style.animation = `fadeIn 0.5s linear`;
 
-    refreshInputs();
-
     // Function Remove the Dialog box
     function removeDialogBox() {
         component?.setAttribute("aria-hidden", "true");
@@ -173,5 +179,43 @@ export function createDialog(options = {}) {
             removeDialogBox();
             return true;
         }
+    })
+}
+
+/* ///////////////
+    Give HORIZONTAL SLIDER EFFECT TO ELEMENTS
+/////////////// */
+
+export function setAsSlider(slider) {
+    slider.classList.add("slider");
+
+    const elemChildrenList = Array.from(slider.children);
+    elemChildrenList.forEach(child => child.classList.add("slide"));
+
+    let isDown = false;
+    let startX, scrollLeft;
+
+    slider.addEventListener("mousedown", (e) => {
+        isDown = true;
+        startX = e.pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+        slider.style.cursor = "grabbing";
+    })
+    slider.addEventListener("mouseleave", (e) => {
+        isDown = false;
+        slider.style.cursor = "grab";
+    })
+    slider.addEventListener("mouseup", (e) => {
+        isDown = false;
+        slider.style.cursor = "grab";
+    })
+    slider.addEventListener("mousemove", (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+
+        const x = e.pageX - slider.offsetLeft;
+        const walk = x - startX;
+        slider.scrollLeft = scrollLeft - walk;
+
     })
 }

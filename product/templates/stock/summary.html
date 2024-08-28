@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Stock Summary</title>
+    <!-- FAVICON -->
+    <link rel="shortcut icon" href="{% static 'assets/logo/favicon.svg' %}" type="image/x-icon">
+
+    <!-- STYLE SHEET -->
+    <link rel="stylesheet" href="{% static 'style/main.css' %}">
+    <link rel="stylesheet" href="{% static 'style/stock/new.css' %}">
+</head>
+
+<body>
+
+    <!-- NAVIGATION SIDE BAR / NAVBAR STARTS -->
+    {% include 'components/navbar.html' %}
+    <!-- NAVIGATION SIDE BAR / NAVBAR ENDS -->
+
+    <!-- MAIN STARTS -->
+    <main>
+
+        <!-- Header Starts -->
+        <header class="center-mobile">
+            <button class="text desk-only">
+                <a href="{% url 'stock-new' %}">
+                    <svg class="icon">
+                        <use href="{% static 'assets/icon-sprite.svg' %}#arrow-left" />
+                    </svg> Back
+                </a>
+            </button>
+            <!-- Header content -->
+            <h1 class="fs-600">New Stock Summary</h1>
+            <!-- Today's date -->
+            <p class="nowrap">
+                <svg class="icon">
+                    <use href="{% static 'assets/icon-sprite.svg' %}#calendar-date" />
+                </svg>
+                <span class="date"></span>
+            </p>
+        </header>
+        <!-- Header Ends -->
+
+        <!-- MAIN CONTENT STARTS -->
+        <section class="main-content">
+
+            <section class="summary-main-content">
+                <section class="col-left">
+                    <div class="back-box">
+                        <button class="text mobile-only">
+                            <a href="{% url 'stock-new' %}">
+                                <svg class="icon">
+                                    <use href="{% static 'assets/icon-sprite.svg' %}#arrow-left" />
+                                </svg> Back
+                            </a>
+                        </button>
+                    </div>
+
+                    <!-- OVERVIEW STARTS -->
+                    <div class="overview-sec" id="overview_sec"></div>
+                    <!-- OVERVIEW ENDS -->
+
+                    <!-- NOTES SECTION -->
+                    <div>
+                        <p class="note info"><span>The products with <b>same name and brand</b> (if any) are merged together.</span></p>
+                        <p class="note">Please double-check all product information before saving. This will help prevent errors and ensure the smooth addition of new stock items.</p>
+                    </div>
+
+                    <!-- ADD PRODUCT BUTTONS -->
+                    <div class="btn-box">
+                        <button class="primary" id="confirm_save_btn" style="margin-left: auto;">
+                            <svg class="icon">
+                                <use href="{% static 'assets/icon-sprite.svg' %}#check" />
+                            </svg>
+                            Confirm Save
+                        </button>
+                    </div>
+
+                </section>
+                <section class="col-right">
+                    <p class="overline">Details</p>
+
+                    <!-- PRODUCT LIST STARTS -->
+                    <div class="summary-product-list" id="summary_product_list"></div>
+                    <!-- PRODUCT LIST ENDS -->
+                </section>
+
+            </section>
+
+
+        </section>
+        <!-- MAIN CONTENT ENDS -->
+
+
+    </main>
+    <!-- MAIN ENDS -->
+
+    <!-- SCRIPT -->
+    <script type="module" src="{% static 'script/main.js' %}"></script>
+    <script type="module" src="{% static 'script/stock-summary.js' %}"></script>
+</body>
+
+</html>
