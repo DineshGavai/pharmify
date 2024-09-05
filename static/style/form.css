@@ -334,6 +334,9 @@ fieldset label {
   font-size: var(--fs-300);
   justify-content: space-between;
   cursor: text;
+  text-wrap: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 fieldset:has(.text-input:hover) label {
@@ -486,6 +489,8 @@ fieldset .password-visibility-btn.visible .eye-slash {
   background-color: var(--clr-white);
   padding: 0 0.4rem;
   border-radius: 0.4rem;
+  max-width: 100%;
+  display: block;
 }
 
 .product-form .icon-frame .text-input,
@@ -680,7 +685,8 @@ fieldset .check-radio-box input[type="checkbox"] {
 }
 
 fieldset .msg.error,
-.note.error {
+.note.error,
+.snackbar.error {
   --clr-status: var(--clr-status-negative-light-text);
   --clr-status-bg: var(--clr-status-negative-light-bg);
 }

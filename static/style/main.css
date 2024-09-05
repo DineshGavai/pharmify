@@ -285,7 +285,7 @@ SNACKBAR COMPONENT
 
 .snackbar {
   --clr-snackbar-theme: var(--clr-status-info-dark-text);
-  border: 2px solid var(--clr-snackbar-theme);
+  border: 2px solid var(--clr-snackbar-theme) !important;
   background-color: var(--clr-status-info-dark-bg);
   min-height: 6.4rem;
   border-radius: 0.8rem;
@@ -335,7 +335,7 @@ SNACKBAR COMPONENT
 
 .snackbar .msg {
   font-weight: 400;
-  color: var(--clr-snackbar-theme);
+  color: var(--clr-snackbar-theme) !important;
   display: flex;
   gap: 0.8rem;
 }
