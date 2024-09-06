@@ -34,14 +34,77 @@
         <!-- MAIN CONTENT STARTS -->
         <section class="main-content" id="inventory_overview_sec">
 
+            <!-- Stock Overview Section Starts -->
             <section class="stock-overview-sec">
-                
+                <h2>Stock Overview</h2>
+                <!-- Chart Column -->
+                <div class="col-left">
+                    <!-- Donut Chart -->
+                    <div id="overview_donut_chart"></div>
+                    <div>
+                        <strong id="overview_product_count"></strong>
+                        <div class="subtitle">Products</div>
+                    </div>
+                </div>
+                <!-- Index Column -->
+                <div class="col-right">
+                    <!-- Available -->
+                    <div class="overview-chart-index-item">
+                        <span class="color-dot" style="background-color: var(--clr-primary-dark);"></span>
+                        <span id="overview_product_in_stock_count"></span>
+                    </div>
+                    <!-- Low Stock -->
+                    <div class="overview-chart-index-item">
+                        <span class="color-dot" style="background-color: var(--clr-primary-light);"></span>
+                        <span id="overview_product_low_stock_count"></span>
+                    </div>
+                    <!-- Out of Stock -->
+                    <div class="overview-chart-index-item">
+                        <span class="color-dot" style="background-color: var(--clr-grey-divider);"></span>
+                        <span id="overview_product_out_of_stock_count"></span>
+                    </div>
+
+                    <!-- Note and Edit warning limit link -->
+                    <p class="subtitle" style="margin: 1.6rem 0; max-width: 35ch;">Stocks are considered to be low in
+                        quantity when there are <b>less than 5 items</b> available. <a href="{% url 'settings' %}"
+                            class="text-link">Edit Limit.</a></p>
+                </div>
             </section>
+            <!-- Stock Overview Section Ends -->
 
-            <section class="financial-overview-sec">
+            <!-- Expiration Overview Section Starts -->
+            <section class="expiration-overview-sec">
+                <h2>Expiration Overview</h2>
+
+                <div class="expiry-card-box">
+                    <!-- Expired Products -->
+                    <div>
+                        <span><svg class="icon">
+                                <use href="{% static 'assets/icon-sprite.svg' %}#warn-protection" />
+                            </svg></span>
+                        <strong id="overview_expired_count" class="safe">00</strong>
+                        <span>Products<br>Has been Expired</span>
+                    </div>
+
+                    <!-- Expiry Soon Products -->
+                    <div>
+                        <span><svg class="icon">
+                                <use href="{% static 'assets/icon-sprite.svg' %}#warn" />
+                            </svg></span>
+                        <strong id="overview_expiry_soon_count" class="safe">10</strong>
+                        <span>Products<br>About to expire</span>
+                    </div>
+                </div>
+
+
+                <!-- Note and Edit warning limit link -->
+                <p class="subtitle" style="margin-top: 1.6rem;"> You are warned about expiry <b>before 5 days</b>. <a href="{% url 'settings' %}"
+                        class="text-link">Edit Limit.</a></p>
 
             </section>
+            <!-- Expiration Overview Section Ends -->
 
+            <section class="financial-overview-sec"></section>
         </section>
         <!-- MAIN CONTENT ENDS -->
     </main>

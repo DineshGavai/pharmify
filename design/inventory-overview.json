@@ -6,13 +6,18 @@
       "productsInStock": "Number of products in Stock",
       "productsOutOfStock": "Number of products out of Stock",
       "productsLowStock": "Number of products low in stock (below a given limit set in settings)",
+      "productsExpired": "Number of expired products",
       "productsNearExpiry": "Number of products about to be expired (before N days set in settings)",
       "productsMostSold": "Number of most sold products",
       "productsLeastSold": "Number of least sold products"
     },
     "types": {
-      "names": ["Array of names of types (Of only available products) (Descending order)"],
-      "counts": ["Array of products available in corresponding types (Descending order)"]
+      "names": [
+        "Array of names of types (Of only available products) (Descending order)"
+      ],
+      "counts": [
+        "Array of products available in corresponding types (Descending order)"
+      ]
     },
     "financial": {
       "cost": "Total selling price of the entire inventory",

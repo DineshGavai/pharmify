@@ -1,0 +1,143 @@
+#inventory_overview_sec {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 1.6rem;
+  max-height: fit-content;
+}
+
+#inventory_overview_sec > * {
+  flex-grow: 1;
+  min-width: 100%;
+  max-height: fit-content;
+  border: 1px solid var(--clr-grey-divider);
+  border-radius: 1.6rem;
+  padding: 1.6rem;
+  padding-top: 4rem;
+  position: relative;
+}
+
+#inventory_overview_sec > * > h2 {
+  position: absolute;
+  font-size: var(--fs-400);
+  margin-top: 0.8rem;
+  margin-left: 1.6rem;
+  top: 0;
+  left: 0;
+}
+
+@media (min-width: 375px) {
+  #inventory_overview_sec > * {
+    min-width: 24rem;
+  }
+}
+
+.stock-overview-sec {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.stock-overview-sec .col-left {
+  position: relative;
+  min-width: 16rem;
+  aspect-ratio: 1;
+}
+
+.stock-overview-sec .col-left > * {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 16rem;
+  height: 16rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.stock-overview-sec #overview_product_count {
+  font-size: var(--fs-600);
+  font-weight: 600;
+}
+
+.stock-overview-sec .col-right {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+@media (min-width: 426px) {
+  .stock-overview-sec {
+    flex-direction: row;
+  }
+  .stock-overview-sec .col-right {
+    flex-direction: column;
+  }
+}
+
+.stock-overview-sec .col-right > * {
+  flex-grow: 1;
+  min-width: fit-content;
+}
+
+.overview-chart-index-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.overview-chart-index-item .color-dot {
+  width: 1.2rem;
+  height: 1.2rem;
+  aspect-ratio: 1;
+  border-radius: 100%;
+}
+
+.expiry-card-box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.expiry-card-box > div {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1.6rem;
+  border-radius: 0.8rem;
+  text-align: right;
+}
+
+.expiry-card-box > div span:has(svg) {
+  margin-bottom: -2.4rem;
+}
+
+.expiry-card-box > div strong {
+  font-size: var(--fs-800);
+}
+
+.expiry-card-box > div:has(#overview_expired_count) {
+  color: var(--clr-status-negative-light-text);
+  background-color: var(--clr-status-negative-light-bg);
+}
+
+.expiry-card-box > div:has(#overview_expiry_soon_count) {
+  color: var(--clr-status-warn-light-text);
+  background-color: var(--clr-status-warn-light-bg);
+}
+
+.expiry-card-box > div:has(#overview_expired_count.safe),
+.expiry-card-box > div:has(#overview_expiry_soon_count.safe) {
+  color: var(--clr-grey-text);
+  background-color: var(--clr-grey-bg-light);
+}
+
+.expiry-card-box > div:has(#overview_expired_count.safe) svg,
+.expiry-card-box > div:has(#overview_expiry_soon_count.safe) svg {
+  opacity: 0;
+}

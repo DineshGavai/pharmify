@@ -219,3 +219,64 @@ export function setAsSlider(slider) {
 
     })
 }
+
+/* ///////////////
+    DATA VISUALIZATION
+/////////////// */
+
+/* ///////////////
+    DONUT
+/////////////// */
+
+function getDonutSVG() {
+
+}
+
+function getSemiDonutSVG() {
+
+}
+
+export function createChartDonut(sliceDataList, isHalf = false) {
+    let totalValue = 0;
+    sliceDataList.forEach(data => totalValue += data.value);
+
+
+    // Circle dimensions
+    const radius = 368;
+    const circumference = 2 * Math.PI * radius;
+    const gapSize = 0.02;
+    let startAngle = 0;
+    let circleSVG = totalValue > 0
+        ? ``
+        : `<circle cx="400" cy="400" fill="none" stroke-width="32" r="${radius}" stroke="var(--clr-grey-bg)"/>`;
+    let rotate = isHalf ? 0 : 7;
+
+    // For each slice
+    sliceDataList.forEach(data => {
+        // Percentage per slice
+        if (data.value > 0) {
+            let percentage = (data.value / totalValue) - gapSize;
+            if (isHalf) percentage /= 2;
+
+            // Stroke Dasharray, Dashoffset and Starting angle
+            let strokeDasharray = (circumference * percentage) + ' ' + (circumference * (1 - percentage));
+            let strokeDashoffset = circumference * (0.25 - startAngle) + (circumference * gapSize / 2);
+            startAngle += percentage + gapSize;
+
+            // Create individual circles based on data
+            circleSVG += `
+            <circle 
+            class="slice-${data.label.split(" ", "-", ",").join("-").toLowerCase()}" 
+            cx="400" cy="400" fill="none" stroke-width="32" stroke-linecap="round"
+            r="${radius}"
+            stroke="${data.color}" 
+            stroke-dasharray="${strokeDasharray}"
+            stroke-dashoffset="${strokeDashoffset}"
+            transform="rotate(${rotate} 400 400)"
+            />`;
+        }
+    });
+
+    // Return Final Donut Chart SVG
+    return `<svg viewBox="0 0 800 800" class="donut-chart" xmlns="http://www.w3.org/2000/svg">${circleSVG}</svg>`;
+}
