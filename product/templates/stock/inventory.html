@@ -33,7 +33,6 @@
 
         <!-- MAIN CONTENT STARTS -->
         <section class="main-content" id="inventory_overview_sec">
-
             <!-- Stock Overview Section Starts -->
             <section class="stock-overview-sec">
                 <h2>Stock Overview</h2>
@@ -98,13 +97,55 @@
 
 
                 <!-- Note and Edit warning limit link -->
-                <p class="subtitle" style="margin-top: 1.6rem;"> You are warned about expiry <b>before 5 days</b>. <a href="{% url 'settings' %}"
-                        class="text-link">Edit Limit.</a></p>
+                <p class="subtitle" style="margin-top: 1.6rem;"> You are warned about expiry <b>before 5 days</b>. <a
+                        href="{% url 'settings' %}" class="text-link">Edit Limit.</a></p>
 
             </section>
             <!-- Expiration Overview Section Ends -->
 
-            <section class="financial-overview-sec"></section>
+            <!-- Financial Overview Section Starts -->
+            <section class="financial-overview-sec">
+                <h2>Financial Overview</h2>
+
+                <!-- Total Value -->
+                <div>
+                    <p class="subtitle">Total Value</p>
+                    <p><span>₹</span><strong id="overview_total_value">00,000</strong></p>
+                </div>
+
+                <!-- Profit and Loss Percent and Selling price Comparison -->
+                <div class="price-comparison">
+                    <!-- Loss. Sold Cheaper -->
+                    <div>
+                        <span><svg class="icon"><use href="{% static 'assets/icon-sprite.svg' %}#chart-line-down" /></svg></span>
+                        <span class="subtitle">
+                            <span><strong>0000</strong> Products are sold</span>
+                            <span>cheaper than purchase price</span>
+                        </span>
+                        <strong id="overview_loss_percent">-0000%</strong>
+                    </div>
+                    <!-- No Profit No Loss. Sold same as purchase price -->
+                    <div>
+                        <span><svg class="icon"><use href="{% static 'assets/icon-sprite.svg' %}#chart-line-horizontal" /></svg></span>
+                        <span class="subtitle">
+                            <span><strong>0000</strong> Products are sold</span>
+                            <span>at purchase price</span>
+                        </span>
+                        <strong>0000%</strong>
+                    </div>
+                    <!-- Profit. Sold more than purchase price -->
+                    <div>
+                        <span><svg class="icon"><use href="{% static 'assets/icon-sprite.svg' %}#chart-line-up" /></svg></span>
+                        <span class="subtitle">
+                            <span><strong>0000</strong> Products are sold</span>
+                            <span>more than purchase price</span>
+                        </span>
+                        <strong id="overview_profit_percent">+0000%</strong>
+                    </div>
+                </div>
+
+            </section>
+            <!-- Financial Overview Section Ends -->
         </section>
         <!-- MAIN CONTENT ENDS -->
     </main>

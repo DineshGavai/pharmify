@@ -4,13 +4,12 @@
   align-items: stretch;
   justify-content: flex-start;
   gap: 1.6rem;
-  max-height: fit-content;
 }
 
 #inventory_overview_sec > * {
   flex-grow: 1;
   min-width: 100%;
-  max-height: fit-content;
+  height: fit-content;
   border: 1px solid var(--clr-grey-divider);
   border-radius: 1.6rem;
   padding: 1.6rem;
@@ -21,6 +20,7 @@
 #inventory_overview_sec > * > h2 {
   position: absolute;
   font-size: var(--fs-400);
+  font-weight: 400;
   margin-top: 0.8rem;
   margin-left: 1.6rem;
   top: 0;
@@ -29,9 +29,20 @@
 
 @media (min-width: 375px) {
   #inventory_overview_sec > * {
-    min-width: 24rem;
+    min-width: 16rem;
   }
 }
+
+@media (min-width: 1024px) {
+  #inventory_overview_sec {
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+}
+
+/* /////////////////////////
+  STOCK OVERVIEW
+///////////////////////// */
 
 .stock-overview-sec {
   display: flex;
@@ -98,9 +109,18 @@
   border-radius: 100%;
 }
 
+/* /////////////////////////
+  EXPIRATION OVERVIEW
+///////////////////////// */
+
+.expiration-overview-sec > *,
+.financial-overview-sec > * {
+  max-width: 36rem;
+  margin: auto;
+}
+
 .expiry-card-box {
   display: flex;
-  flex-wrap: wrap;
   gap: 0.8rem;
 }
 
@@ -140,4 +160,92 @@
 .expiry-card-box > div:has(#overview_expired_count.safe) svg,
 .expiry-card-box > div:has(#overview_expiry_soon_count.safe) svg {
   opacity: 0;
+}
+
+/* /////////////////////////
+  FINANCIAL OVERVIEW
+///////////////////////// */
+
+.financial-overview-sec div:has(#overview_total_value) {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.financial-overview-sec p:has(#overview_total_value) {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  gap: 0.4rem;
+}
+
+.financial-overview-sec #overview_total_value {
+  font-size: var(--fs-600);
+}
+
+.price-comparison {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  column-gap: 1.2rem;
+  margin-top: 0.8rem;
+}
+
+.price-comparison > div {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 0.8rem;
+  padding: 0.4rem;
+  --clr-bg: var(--clr-status-warn-light-bg);
+  --clr-stroke: var(--clr-status-warn-light-text);
+}
+
+.price-comparison span:has(svg) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--clr-bg);
+  min-width: 4.2rem !important;
+  min-height: 4.2rem !important;
+  aspect-ratio: 1 !important;
+  border-radius: 0.4rem;
+}
+
+.price-comparison svg {
+  stroke: var(--clr-stroke);
+}
+
+.price-comparison > div:has(#overview_loss_percent) {
+  --clr-bg: var(--clr-status-negative-light-bg);
+}
+
+.price-comparison > div:has(#overview_profit_percent) {
+  --clr-bg: var(--clr-status-success-light-bg);
+}
+
+.price-comparison > div:has(#overview_loss_percent) svg {
+  --clr-stroke: var(--clr-status-negative-light-text);
+}
+
+.price-comparison > div:has(#overview_profit_percent) svg {
+  --clr-stroke: var(--clr-status-success-light-text);
+}
+
+.price-comparison span.subtitle {
+  display: flex;
+  flex-direction: column;
+  font-size: var(--fs-200);
+  width: 100%;
+}
+
+.price-comparison span.subtitle span {
+  text-wrap: nowrap;
+}
+
+.price-comparison > div > strong {
+  margin-left: auto;
+  padding-left: 0.8rem;
+  text-align: right;
+  font-size: var(--fs-500);
 }

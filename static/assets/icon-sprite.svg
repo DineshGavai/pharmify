@@ -271,6 +271,25 @@
                 stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
         </symbol>
 
+        <!-- Chart Line Up -->
+        <symbol id="chart-line-up" viewBox="0 0 24 24">
+            <path
+                d="M19.3138 7L13.3534 12.6641C13.1568 12.8509 12.8471 12.847 12.6554 12.6552L10.3645 10.3643C10.165 10.1649 9.84014 10.1698 9.64683 10.3753L5 15.3136"
+                stroke-width="1.5" stroke-linecap="round" />
+        </symbol>
+
+        <!-- Chart Line Down -->
+        <symbol id="chart-line-down" viewBox="0 0 24 24">
+            <path
+                d="M4.99995 7L10.9603 12.6641C11.1569 12.8509 11.4666 12.847 11.6583 12.6552L13.9492 10.3643C14.1487 10.1649 14.4736 10.1698 14.6669 10.3753L19.3137 15.3136"
+                stroke-width="1.5" stroke-linecap="round" />
+        </symbol>
+
+        <!-- Chart Line Horizontal -->
+        <symbol id="chart-line-horizontal" viewBox="0 0 24 24">
+            <path d="M4.84497 12.155H19.155" stroke-width="1.5" stroke-linecap="round" />
+        </symbol>
+
         <!-- DATE AND TIME -->
         <!-- Calendar Date -->
         <symbol id="calendar-date" viewBox="0 0 24 24">
