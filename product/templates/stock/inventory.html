@@ -23,11 +23,11 @@
     <!-- MAIN STARTS -->
     <main>
 
-        <header class="collapsable" data-scrollable="inventory_overview_sec">
+        <header data-scrollable="inventory_overview_sec">
             <h1>Inventory</h1>
             <div class="subtitle" style="text-align: right;">
                 <div class="fs-200">Last updated</div>
-                <span class="date-last-updated" style="color: var(--clr-black);"> 01 Aug, 2024</span>
+                <span class="date-last-updated" style="color: var(--clr-black);"> N/A</span>
             </div>
         </header>
 
@@ -41,7 +41,7 @@
                     <!-- Donut Chart -->
                     <div id="overview_donut_chart"></div>
                     <div>
-                        <strong id="overview_product_count"></strong>
+                        <strong id="overview_product_count">N/A</strong>
                         <div class="subtitle">Products</div>
                     </div>
                 </div>
@@ -63,9 +63,11 @@
                         <span id="overview_product_out_of_stock_count"></span>
                     </div>
 
+                    <button class="text"><a href="#">Add Stock</a></button>
+
                     <!-- Note and Edit warning limit link -->
-                    <p class="subtitle" style="margin: 1.6rem 0; max-width: 35ch;">Stocks are considered to be low in
-                        quantity when there are <b>less than 5 items</b> available. <a href="{% url 'settings' %}"
+                    <p class="subtitle" style="margin: .6rem 0; max-width: 35ch;">Stocks are considered to be low in
+                        quantity when there are <b>less than N/A items</b> available. <a href="{% url 'settings' %}"
                             class="text-link">Edit Limit.</a></p>
                 </div>
             </section>
@@ -81,7 +83,7 @@
                         <span><svg class="icon">
                                 <use href="{% static 'assets/icon-sprite.svg' %}#warn-protection" />
                             </svg></span>
-                        <strong id="overview_expired_count" class="safe">00</strong>
+                        <strong id="overview_expired_count" class="safe">N/A</strong>
                         <span>Products<br>Has been Expired</span>
                     </div>
 
@@ -90,14 +92,14 @@
                         <span><svg class="icon">
                                 <use href="{% static 'assets/icon-sprite.svg' %}#warn" />
                             </svg></span>
-                        <strong id="overview_expiry_soon_count" class="safe">10</strong>
-                        <span>Products<br>About to expire</span>
+                        <strong id="overview_expiry_soon_count" class="safe">N/A</strong>
+                        <span>Products<br>About to Expire</span>
                     </div>
                 </div>
 
 
                 <!-- Note and Edit warning limit link -->
-                <p class="subtitle" style="margin-top: 1.6rem;"> You are warned about expiry <b>before 5 days</b>. <a
+                <p class="subtitle" style="margin-top: 1.6rem;"> You are warned about expiry <b>before N/A days</b>. <a
                         href="{% url 'settings' %}" class="text-link">Edit Limit.</a></p>
 
             </section>
@@ -110,37 +112,43 @@
                 <!-- Total Value -->
                 <div>
                     <p class="subtitle">Total Value</p>
-                    <p><span>₹</span><strong id="overview_total_value">00,000</strong></p>
+                    <p><span>₹</span><strong id="overview_total_value">N/A</strong></p>
                 </div>
 
                 <!-- Profit and Loss Percent and Selling price Comparison -->
                 <div class="price-comparison">
                     <!-- Loss. Sold Cheaper -->
                     <div>
-                        <span><svg class="icon"><use href="{% static 'assets/icon-sprite.svg' %}#chart-line-down" /></svg></span>
+                        <span><svg class="icon">
+                                <use href="{% static 'assets/icon-sprite.svg' %}#chart-line-down" />
+                            </svg></span>
                         <span class="subtitle">
-                            <span><strong>0000</strong> Products are sold</span>
+                            <span><strong id="overview_loss_products">N/A</strong> Products are sold</span>
                             <span>cheaper than purchase price</span>
                         </span>
-                        <strong id="overview_loss_percent">-0000%</strong>
+                        <strong id="overview_loss_percent">-N/A%</strong>
                     </div>
                     <!-- No Profit No Loss. Sold same as purchase price -->
                     <div>
-                        <span><svg class="icon"><use href="{% static 'assets/icon-sprite.svg' %}#chart-line-horizontal" /></svg></span>
+                        <span><svg class="icon">
+                                <use href="{% static 'assets/icon-sprite.svg' %}#chart-line-horizontal" />
+                            </svg></span>
                         <span class="subtitle">
-                            <span><strong>0000</strong> Products are sold</span>
+                            <span><strong id="overview_same_products">N/A</strong> Products are sold</span>
                             <span>at purchase price</span>
                         </span>
-                        <strong>0000%</strong>
+                        <strong>No Profit</strong>
                     </div>
                     <!-- Profit. Sold more than purchase price -->
                     <div>
-                        <span><svg class="icon"><use href="{% static 'assets/icon-sprite.svg' %}#chart-line-up" /></svg></span>
+                        <span><svg class="icon">
+                                <use href="{% static 'assets/icon-sprite.svg' %}#chart-line-up" />
+                            </svg></span>
                         <span class="subtitle">
-                            <span><strong>0000</strong> Products are sold</span>
+                            <span><strong id="overview_profit_products">N/A</strong> Products are sold</span>
                             <span>more than purchase price</span>
                         </span>
-                        <strong id="overview_profit_percent">+0000%</strong>
+                        <strong id="overview_profit_percent">N/A</strong>
                     </div>
                 </div>
 
