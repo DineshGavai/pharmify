@@ -43,7 +43,7 @@ function getNewProductHTML(idNum, savedItem = undefined) {
             <input type="date" required class="text-input product-date-expiry" value="${savedItem?.dateExpiry || ""}" id="product_date_expiry_${idNum}" name="product_date_expiry_${idNum}">
         </fieldset>
         <fieldset>
-            <label for="product_wholesale_price_${idNum}">Wholesale Price</label>
+            <label for="product_wholesale_price_${idNum}">Wholesale (Purchase) Price</label>
             <div class="icon-frame">
                 <span class="lead">₹</span>
                 <span class="trail">per pack</span>
@@ -301,16 +301,13 @@ document.addEventListener("DOMContentLoaded", () => {
                         type: "POST",
                         data: formdata,
                         success: function (response) {
-                            console.log("Data received:", response);
-                            // TODO: create a msg box to show that seller is added
+                            createSnackbar({ msg: "Added new seller", status: UI_STATUS_FEEDBACK.success });
+                            setTimeout(() => window.location.reload(), 1000);
                         },
                         error: function (xhr, status, error) {
                             console.log("Error:", error);
                         }
                     });
-                    // setTimeout(() => {
-                    //     newSellerForm.reset();
-                    // }, 1000);
                     // IMP: Don't remove following line
                     return true;
                 }

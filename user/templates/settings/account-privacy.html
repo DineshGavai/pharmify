@@ -27,8 +27,8 @@
     <main>
 
         <!-- Header -->
-        <header class="center-mobile collapsable">
-            <h1 class="fs-600">Account & privacy</h1>
+        <header class="center-mobile collapsable" data-scrollable="account_privacy_content">
+            <h1>Account & privacy</h1>
         </header>
 
         <!-- Tab navigation -->
@@ -39,7 +39,7 @@
             <span class="indicator"></span>
         </section>
 
-        <section class="main-content">
+        <section class="main-content" id="account_privacy_content">
 
             <a href="{% url 'password_reset' %}">
                 <h2 class="fs-500">Change Password</h2>

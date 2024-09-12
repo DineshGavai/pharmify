@@ -9,7 +9,7 @@ import {
   UI_STATUS_FEEDBACK,
 } from "./utils/const.js";
 import { refreshInputs } from "./utils/inputs.js";
-import { toTwoDigit, setTitleAttr, setMsgIcons, formatCommonDate } from "./utils/utils.js";
+import { toTwoDigit, setTitleAttr, setMsgIcons, formatDateCommon } from "./utils/utils.js";
 
 document.addEventListener("DOMContentLoaded", function () {
   /* ///////////////
@@ -147,7 +147,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const DATE = new Date();
 
     dateBoxList?.forEach(elem => {
-      elem.innerHTML = formatCommonDate(DATE);
+      elem.innerHTML = formatDateCommon(DATE);
     })
 
     // Date Day Number

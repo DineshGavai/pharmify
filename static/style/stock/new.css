@@ -205,10 +205,6 @@ NEW PRODUCT LIST
   margin: auto;
 }
 
-.summary-main-content .col-right .overline {
-  margin-bottom: -1.6rem;
-}
-
 .summary-main-content .back-box {
   max-width: 100rem;
 }
@@ -283,6 +279,9 @@ NEW PRODUCT LIST
 
 .summary-product .days-left {
   color: var(--clr-black);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 .summary-product .days-left.warn {
   color: var(--clr-status-warn-light-text);
@@ -337,5 +336,9 @@ NEW PRODUCT LIST
     max-width: 56rem;
     margin: auto;
     margin-top: 2.4rem;
+  }
+
+  .summary-main-content .col-right .overline {
+    margin-bottom: -1.6rem;
   }
 }

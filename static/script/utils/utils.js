@@ -141,7 +141,7 @@ export function getFromStorage(key) {
   DATE, TIME and CURRENCY FORMMATING
 /////////////// */
 
-export function formatCommonDate(dateStr) {
+export function formatDateCommon(dateStr) {
   const DATE = new Date(dateStr);
   return `${toTwoDigit(DATE.getDate())} ${DATE_MONTHS_SHORT[DATE.getMonth()]}, ${DATE.getFullYear()}`;
 }
@@ -158,8 +158,8 @@ export function addDates(date1, date2) {
 export function subtractDates(date1, date2) {
   const date1MS = new Date(date1).getTime();
   const date2MS = new Date(date2).getTime();
-  const daysDiff = Math.floor((date2MS - date1MS) / (1000 * 60 * 60 * 24));
-  return daysDiff;
+  let daysDiff = Math.floor((date2MS - date1MS) / (1000 * 60 * 60 * 24));
+  return ++daysDiff;
 }
 
 export function formatINR(num, isCurrency = true) {
