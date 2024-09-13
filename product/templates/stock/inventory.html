@@ -23,7 +23,7 @@
     <!-- MAIN STARTS -->
     <main>
 
-        <header data-scrollable="inventory_overview_sec">
+        <header>
             <h1>Inventory</h1>
             <div class="subtitle" style="text-align: right;">
                 <div class="fs-200">Last updated</div>
@@ -31,129 +31,180 @@
             </div>
         </header>
 
+
         <!-- MAIN CONTENT STARTS -->
-        <section class="main-content" id="inventory_overview_sec">
-            <!-- Stock Overview Section Starts -->
-            <section class="stock-overview-sec">
-                <h2>Stock Overview</h2>
-                <!-- Chart Column -->
-                <div class="col-left">
-                    <!-- Donut Chart -->
-                    <div id="overview_donut_chart"></div>
-                    <div>
-                        <strong id="overview_product_count">N/A</strong>
-                        <div class="subtitle">Products</div>
+
+        <section class="main-content">
+            <section id="inventory_overview_sec">
+                <!-- Stock Overview Section Starts -->
+                <section class="stock-overview-sec">
+                    <h2>Stock Overview</h2>
+                    <!-- Chart Column -->
+                    <div class="col-left">
+                        <!-- Donut Chart -->
+                        <div id="overview_donut_chart"></div>
+                        <div>
+                            <strong id="overview_product_count">N/A</strong>
+                            <div class="subtitle">Products</div>
+                            <button class="text"><a href="{% url 'stock-new' %}">Add Stock</a></button>
+                        </div>
                     </div>
-                </div>
-                <!-- Index Column -->
-                <div class="col-right">
-                    <!-- Available -->
-                    <div class="overview-chart-index-item">
-                        <span class="color-dot" style="background-color: var(--clr-primary-dark);"></span>
-                        <span id="overview_product_in_stock_count"></span>
+                    <!-- Index Column -->
+                    <div class="col-right">
+                        <!-- Available -->
+                        <div class="overview-chart-index-item">
+                            <span class="color-dot" style="background-color: var(--clr-primary-dark);"></span>
+                            <span id="overview_product_in_stock_count"></span>
+                        </div>
+                        <!-- Low Stock -->
+                        <div class="overview-chart-index-item">
+                            <span class="color-dot" style="background-color: var(--clr-primary-light);"></span>
+                            <span id="overview_product_low_stock_count"></span>
+                        </div>
+                        <!-- Out of Stock -->
+                        <div class="overview-chart-index-item">
+                            <span class="color-dot" style="background-color: var(--clr-grey-divider);"></span>
+                            <span id="overview_product_out_of_stock_count"></span>
+                        </div>
+
+                        <!-- Note and Edit warning limit link -->
+                        <p class="subtitle" style="margin: .6rem 0; max-width: 35ch;">Stocks are considered to be low in
+                            quantity when there are <b>less than N/A items</b> available. <a href="{% url 'settings' %}"
+                                class="text-link">Edit Limit.</a></p>
                     </div>
-                    <!-- Low Stock -->
-                    <div class="overview-chart-index-item">
-                        <span class="color-dot" style="background-color: var(--clr-primary-light);"></span>
-                        <span id="overview_product_low_stock_count"></span>
-                    </div>
-                    <!-- Out of Stock -->
-                    <div class="overview-chart-index-item">
-                        <span class="color-dot" style="background-color: var(--clr-grey-divider);"></span>
-                        <span id="overview_product_out_of_stock_count"></span>
+                </section>
+                <!-- Stock Overview Section Ends -->
+
+                <!-- Expiration Overview Section Starts -->
+                <section class="expiration-overview-sec">
+                    <h2>Expiration Overview</h2>
+
+                    <div class="expiry-card-box">
+                        <!-- Expired Products -->
+                        <div>
+                            <span><svg class="icon">
+                                    <use href="{% static 'assets/icon-sprite.svg' %}#warn-protection" />
+                                </svg></span>
+                            <strong id="overview_expired_count" class="safe">N/A</strong>
+                            <span>Products are<br>Expired</span>
+                        </div>
+
+                        <!-- Expiry Soon Products -->
+                        <div>
+                            <span><svg class="icon">
+                                    <use href="{% static 'assets/icon-sprite.svg' %}#warn" />
+                                </svg></span>
+                            <strong id="overview_expiry_soon_count" class="safe">N/A</strong>
+                            <span>Products will<br>Expire Soon</span>
+                        </div>
                     </div>
 
-                    <button class="text"><a href="#">Add Stock</a></button>
 
                     <!-- Note and Edit warning limit link -->
-                    <p class="subtitle" style="margin: .6rem 0; max-width: 35ch;">Stocks are considered to be low in
-                        quantity when there are <b>less than N/A items</b> available. <a href="{% url 'settings' %}"
-                            class="text-link">Edit Limit.</a></p>
-                </div>
-            </section>
-            <!-- Stock Overview Section Ends -->
+                    <p class="subtitle" style="margin-top: 1.6rem;"> You are warned about expiry <b>before N/A
+                            days</b>.<a href="{% url 'settings' %}" class="text-link">Edit Limit.</a></p>
 
-            <!-- Expiration Overview Section Starts -->
-            <section class="expiration-overview-sec">
-                <h2>Expiration Overview</h2>
+                </section>
+                <!-- Expiration Overview Section Ends -->
 
-                <div class="expiry-card-box">
-                    <!-- Expired Products -->
+                <!-- Financial Overview Section Starts -->
+                <section class="financial-overview-sec">
+                    <h2>Financial Overview</h2>
+
+                    <!-- Total Value -->
                     <div>
-                        <span><svg class="icon">
-                                <use href="{% static 'assets/icon-sprite.svg' %}#warn-protection" />
-                            </svg></span>
-                        <strong id="overview_expired_count" class="safe">N/A</strong>
-                        <span>Products<br>Has been Expired</span>
+                        <p class="subtitle">Total Value</p>
+                        <p><span>₹</span><strong id="overview_total_value">N/A</strong></p>
                     </div>
 
-                    <!-- Expiry Soon Products -->
-                    <div>
-                        <span><svg class="icon">
-                                <use href="{% static 'assets/icon-sprite.svg' %}#warn" />
-                            </svg></span>
-                        <strong id="overview_expiry_soon_count" class="safe">N/A</strong>
-                        <span>Products<br>About to Expire</span>
+                    <!-- Profit and Loss Percent and Selling price Comparison -->
+                    <div class="price-comparison">
+                        <!-- Loss. Sold Cheaper -->
+                        <div>
+                            <span><svg class="icon">
+                                    <use href="{% static 'assets/icon-sprite.svg' %}#chart-line-down" />
+                                </svg></span>
+                            <span class="subtitle">
+                                <span><strong id="overview_loss_products">N/A</strong> Products are sold</span>
+                                <span>cheaper than purchase price</span>
+                            </span>
+                            <strong id="overview_loss_percent">-N/A%</strong>
+                        </div>
+                        <!-- No Profit No Loss. Sold same as purchase price -->
+                        <div>
+                            <span><svg class="icon">
+                                    <use href="{% static 'assets/icon-sprite.svg' %}#chart-line-horizontal" />
+                                </svg></span>
+                            <span class="subtitle">
+                                <span><strong id="overview_same_products">N/A</strong> Products are sold</span>
+                                <span>at purchase price</span>
+                            </span>
+                            <strong>No Profit</strong>
+                        </div>
+                        <!-- Profit. Sold more than purchase price -->
+                        <div>
+                            <span><svg class="icon">
+                                    <use href="{% static 'assets/icon-sprite.svg' %}#chart-line-up" />
+                                </svg></span>
+                            <span class="subtitle">
+                                <span><strong id="overview_profit_products">N/A</strong> Products are sold</span>
+                                <span>more than purchase price</span>
+                            </span>
+                            <strong id="overview_profit_percent">N/A</strong>
+                        </div>
                     </div>
-                </div>
 
-
-                <!-- Note and Edit warning limit link -->
-                <p class="subtitle" style="margin-top: 1.6rem;"> You are warned about expiry <b>before N/A days</b>. <a
-                        href="{% url 'settings' %}" class="text-link">Edit Limit.</a></p>
-
+                </section>
+                <!-- Financial Overview Section Ends -->
             </section>
-            <!-- Expiration Overview Section Ends -->
 
-            <!-- Financial Overview Section Starts -->
-            <section class="financial-overview-sec">
-                <h2>Financial Overview</h2>
 
-                <!-- Total Value -->
+            <!-- FILTERS SECTION STARTS -->
+            <section class="filter-sec">
+                <h2 class="fs-500">Filters</h2>
+
                 <div>
-                    <p class="subtitle">Total Value</p>
-                    <p><span>₹</span><strong id="overview_total_value">N/A</strong></p>
+                    
                 </div>
-
-                <!-- Profit and Loss Percent and Selling price Comparison -->
-                <div class="price-comparison">
-                    <!-- Loss. Sold Cheaper -->
-                    <div>
-                        <span><svg class="icon">
-                                <use href="{% static 'assets/icon-sprite.svg' %}#chart-line-down" />
-                            </svg></span>
-                        <span class="subtitle">
-                            <span><strong id="overview_loss_products">N/A</strong> Products are sold</span>
-                            <span>cheaper than purchase price</span>
-                        </span>
-                        <strong id="overview_loss_percent">-N/A%</strong>
-                    </div>
-                    <!-- No Profit No Loss. Sold same as purchase price -->
-                    <div>
-                        <span><svg class="icon">
-                                <use href="{% static 'assets/icon-sprite.svg' %}#chart-line-horizontal" />
-                            </svg></span>
-                        <span class="subtitle">
-                            <span><strong id="overview_same_products">N/A</strong> Products are sold</span>
-                            <span>at purchase price</span>
-                        </span>
-                        <strong>No Profit</strong>
-                    </div>
-                    <!-- Profit. Sold more than purchase price -->
-                    <div>
-                        <span><svg class="icon">
-                                <use href="{% static 'assets/icon-sprite.svg' %}#chart-line-up" />
-                            </svg></span>
-                        <span class="subtitle">
-                            <span><strong id="overview_profit_products">N/A</strong> Products are sold</span>
-                            <span>more than purchase price</span>
-                        </span>
-                        <strong id="overview_profit_percent">N/A</strong>
-                    </div>
-                </div>
-
             </section>
-            <!-- Financial Overview Section Ends -->
+            <!-- FILTERS SECTION ENDS -->
+
+            <!-- DATA TABLE SECTION STARTS -->
+            <section class="data-table-sec" id="data_table_sec">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Brand</th>
+                            <th>Category</th>
+                            <th>Seller</th>
+                            <th>Manufacture Date</th>
+                            <th>Date Added</th>
+                            <th>Expiry Date</th>
+                            <th>Purchase Price</th>
+                            <th>Selling Price</th>
+                            <th>Quantity Available</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Name</td>
+                            <td>Brand</td>
+                            <td>Category</td>
+                            <td>Seller</td>
+                            <td>Manufacture Date</td>
+                            <td>Date Added</td>
+                            <td>Expiry Date</td>
+                            <td>Purchase Price</td>
+                            <td>Selling Price</td>
+                            <td>Quantity Available</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+            <!-- DATA TABLE SECTION ENDS -->
+
+
         </section>
         <!-- MAIN CONTENT ENDS -->
     </main>

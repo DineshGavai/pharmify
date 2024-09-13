@@ -9,7 +9,6 @@
 #inventory_overview_sec > * {
   flex-grow: 1;
   min-width: 100%;
-  border: 1px solid var(--clr-grey-divider);
   border-radius: 1.6rem;
   padding: 1.6rem;
   padding-top: 4rem;
@@ -24,6 +23,12 @@
   margin-left: 1.6rem;
   top: 0;
   left: 0;
+}
+
+@media (max-width: 320px) {
+  #inventory_overview_sec > * > h2 {
+    margin-left: 0.4rem;
+  }
 }
 
 @media (min-width: 375px) {
