@@ -228,14 +228,6 @@ export function setAsSlider(slider) {
     DONUT
 /////////////// */
 
-function getDonutSVG() {
-
-}
-
-function getSemiDonutSVG() {
-
-}
-
 export function createChartDonut(sliceDataList, isHalf = false) {
     let totalValue = 0;
     sliceDataList.forEach(data => totalValue += data.value);
