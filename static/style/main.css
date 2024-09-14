@@ -877,10 +877,3 @@ main header.collapsable.collapse {
     gap: 1.6rem;
   }
 }
-
-@media (max-width: 320px) {
-  main .main-content {
-    padding-left: 0;
-    padding-right: 0;
-  }
-}
