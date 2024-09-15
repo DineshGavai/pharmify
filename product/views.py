@@ -4,7 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import *
 import json
 from django.core.serializers.json import DjangoJSONEncoder
-from django.db.models import Sum, F, ExpressionWrapper, DecimalField, Avg
+from django.db.models import Sum, F, ExpressionWrapper, DecimalField, Avg, Count
 from datetime import timedelta
 from django.utils import timezone
 
@@ -194,6 +194,12 @@ def stock_inventory(request):
     ).count()
     print("same_as_wholesale_amount:", same_as_wholesale_amount)
 
+    product_type_count = Product.objects.values("product_type").annotate(
+        count=Count("product_type")
+    )
+    for item in product_type_count:
+        print(f"{item['product_type']}, Count: {item['count']}")
+
     inventory_overview = {
         "lastUpdated": last_updated,
         "count": {
@@ -206,9 +212,7 @@ def stock_inventory(request):
         },
         "types": {
             "names": [product.name for product in products_in_stock],
-            "counts": [
-                "Array of products available in corresponding types (Descending order)"
-            ],
+            "counts": product_type_count,
         },
         "financial": {
             "cost": total_selling_price,
@@ -222,5 +226,9 @@ def stock_inventory(request):
 
     json_data = json.dumps(inventory_data, cls=DjangoJSONEncoder)
 
-    context = {"currentPage": "stock-inventory", "inventory_data": json_data}
+    context = {
+        "currentPage": "stock-inventory",
+        "inventory_data": json_data,
+        "inventory_overview": inventory_overview,
+    }
     return render(request, "stock/inventory.html", context)

@@ -21,6 +21,7 @@
     <!-- NAVIGATION SIDE BAR / NAVBAR ENDS -->
 
     <!-- MAIN STARTS -->
+
     <main>
 
         <header data-scrollable="inventory_overview_sec">
@@ -151,11 +152,45 @@
                         <strong id="overview_profit_percent">N/A</strong>
                     </div>
                 </div>
-
             </section>
             <!-- Financial Overview Section Ends -->
         </section>
-        <!-- MAIN CONTENT ENDS -->
+        <!-- hello world -->
+
+        <h1>Inventory Overview</h1>
+
+        <!-- Display the last updated time -->
+        <p>Last Updated: {{ inventory_overview.lastUpdated }}</p>
+
+        <!-- Display Product Counts -->
+        <h2>Product Counts</h2>
+        <p>Total Products: {{ inventory_overview.count.products }}</p>
+        <p>Products in Stock: {{ inventory_overview.count.productsInStock }}</p>
+        <p>Products Out of Stock: {{ inventory_overview.count.productsOutOfStock }}</p>
+        <p>Low Stock Products: {{ inventory_overview.count.productsLowStock }}</p>
+        <p>Expired Products: {{ inventory_overview.count.productExpired }}</p>
+        <p>Products Near Expiry: {{ inventory_overview.count.productsNearExpiry }}</p>
+
+        <!-- Display Product Types -->
+        <!-- <h2>Product Types</h2>
+        {% for name in inventory_overview.types.names %}
+        <p>Product Name: {{ name }}</p>
+        {% endfor %} -->
+
+        <!-- Display Product Type Counts -->
+        <p>Product Type Count: {{ inventory_overview.types.counts }}</p>
+
+        <!-- Display Financial Data -->
+        <h2>Financial Overview</h2>
+        <p>Total Cost: {{ inventory_overview.financial.cost }}</p>
+        <p>Profit Product Count: {{ inventory_overview.financial.profitProductCount }}</p>
+        <p>Profit Percent: {{ inventory_overview.financial.profitPercent }}%</p>
+        <p>Loss Product Count: {{ inventory_overview.financial.lossProductCount }}</p>
+        <p>Loss Percent: {{ inventory_overview.financial.lossPercent }}%</p>
+        <p>Same As Wholesale Amount: {{ inventory_overview.financial.sameAsWholesaleAmount }}
+
+
+            <!-- MAIN CONTENT ENDS -->
     </main>
     <!-- MAIN ENDS -->
 
