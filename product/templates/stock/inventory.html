@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add New Stock</title>
+    <title>Inventory</title>
     <!-- FAVICON -->
     <link rel="shortcut icon" href="{% static 'assets/logo/favicon.svg' %}" type="image/x-icon">
 
@@ -21,9 +21,10 @@
     <!-- NAVIGATION SIDE BAR / NAVBAR ENDS -->
 
     <!-- MAIN STARTS -->
+
     <main>
 
-        <header>
+        <header data-scrollable="inventory_overview_sec">
             <h1>Inventory</h1>
             <div class="subtitle" style="text-align: right;">
                 <div class="fs-200">Last updated</div>
@@ -31,150 +32,165 @@
             </div>
         </header>
 
-
         <!-- MAIN CONTENT STARTS -->
-
-        <section class="main-content">
-            <section id="inventory_overview_sec">
-                <!-- Stock Overview Section Starts -->
-                <section class="stock-overview-sec">
-                    <h2>Stock Overview</h2>
-                    <!-- Chart Column -->
-                    <div class="col-left">
-                        <!-- Donut Chart -->
-                        <div id="overview_donut_chart"></div>
-                        <div>
-                            <strong id="overview_product_count">N/A</strong>
-                            <div class="subtitle">Products</div>
-                            <button class="text"><a href="{% url 'stock-new' %}">Add Stock</a></button>
-                        </div>
+        <section class="main-content" id="inventory_overview_sec">
+            <!-- Stock Overview Section Starts -->
+            <section class="stock-overview-sec">
+                <h2>Stock Overview</h2>
+                <!-- Chart Column -->
+                <div class="col-left">
+                    <!-- Donut Chart -->
+                    <div id="overview_donut_chart"></div>
+                    <div>
+                        <strong id="overview_product_count">N/A</strong>
+                        <div class="subtitle">Products</div>
                     </div>
-                    <!-- Index Column -->
-                    <div class="col-right">
-                        <!-- Available -->
-                        <div class="overview-chart-index-item">
-                            <span class="color-dot" style="background-color: var(--clr-primary-dark);"></span>
-                            <span id="overview_product_in_stock_count"></span>
-                        </div>
-                        <!-- Low Stock -->
-                        <div class="overview-chart-index-item">
-                            <span class="color-dot" style="background-color: var(--clr-primary-light);"></span>
-                            <span id="overview_product_low_stock_count"></span>
-                        </div>
-                        <!-- Out of Stock -->
-                        <div class="overview-chart-index-item">
-                            <span class="color-dot" style="background-color: var(--clr-grey-divider);"></span>
-                            <span id="overview_product_out_of_stock_count"></span>
-                        </div>
-
-                        <!-- Note and Edit warning limit link -->
-                        <p class="subtitle" style="margin: .6rem 0; max-width: 35ch;">Stocks are considered to be low in
-                            quantity when there are <b>less than N/A items</b> available. <a href="{% url 'settings' %}"
-                                class="text-link">Edit Limit.</a></p>
+                </div>
+                <!-- Index Column -->
+                <div class="col-right">
+                    <!-- Available -->
+                    <div class="overview-chart-index-item">
+                        <span class="color-dot" style="background-color: var(--clr-primary-dark);"></span>
+                        <span id="overview_product_in_stock_count"></span>
                     </div>
-                </section>
-                <!-- Stock Overview Section Ends -->
-
-                <!-- Expiration Overview Section Starts -->
-                <section class="expiration-overview-sec">
-                    <h2>Expiration Overview</h2>
-
-                    <div class="expiry-card-box">
-                        <!-- Expired Products -->
-                        <div>
-                            <span><svg class="icon">
-                                    <use href="{% static 'assets/icon-sprite.svg' %}#warn-protection" />
-                                </svg></span>
-                            <strong id="overview_expired_count" class="safe">N/A</strong>
-                            <span>Products are<br>Expired</span>
-                        </div>
-
-                        <!-- Expiry Soon Products -->
-                        <div>
-                            <span><svg class="icon">
-                                    <use href="{% static 'assets/icon-sprite.svg' %}#warn" />
-                                </svg></span>
-                            <strong id="overview_expiry_soon_count" class="safe">N/A</strong>
-                            <span>Products will<br>Expire Soon</span>
-                        </div>
+                    <!-- Low Stock -->
+                    <div class="overview-chart-index-item">
+                        <span class="color-dot" style="background-color: var(--clr-primary-light);"></span>
+                        <span id="overview_product_low_stock_count"></span>
+                    </div>
+                    <!-- Out of Stock -->
+                    <div class="overview-chart-index-item">
+                        <span class="color-dot" style="background-color: var(--clr-grey-divider);"></span>
+                        <span id="overview_product_out_of_stock_count"></span>
                     </div>
 
+                    <button class="text"><a href="#">Add Stock</a></button>
 
                     <!-- Note and Edit warning limit link -->
-                    <p class="subtitle" style="margin-top: 1.6rem;"> You are warned about expiry <b>before N/A
-                            days</b>.<a href="{% url 'settings' %}" class="text-link">Edit Limit.</a></p>
-
-                </section>
-                <!-- Expiration Overview Section Ends -->
-
-                <!-- Financial Overview Section Starts -->
-                <section class="financial-overview-sec">
-                    <h2>Financial Overview</h2>
-
-                    <!-- Total Value -->
-                    <div>
-                        <p class="subtitle">Total Value</p>
-                        <p><span>₹</span><strong id="overview_total_value">N/A</strong></p>
-                    </div>
-
-                    <!-- Profit and Loss Percent and Selling price Comparison -->
-                    <div class="price-comparison">
-                        <!-- Loss. Sold Cheaper -->
-                        <div>
-                            <span><svg class="icon">
-                                    <use href="{% static 'assets/icon-sprite.svg' %}#chart-line-down" />
-                                </svg></span>
-                            <span class="subtitle">
-                                <span><strong id="overview_loss_products">N/A</strong> Products are sold</span>
-                                <span>cheaper than purchase price</span>
-                            </span>
-                            <strong id="overview_loss_percent">-N/A%</strong>
-                        </div>
-                        <!-- No Profit No Loss. Sold same as purchase price -->
-                        <div>
-                            <span><svg class="icon">
-                                    <use href="{% static 'assets/icon-sprite.svg' %}#chart-line-horizontal" />
-                                </svg></span>
-                            <span class="subtitle">
-                                <span><strong id="overview_same_products">N/A</strong> Products are sold</span>
-                                <span>at purchase price</span>
-                            </span>
-                            <strong>No Profit</strong>
-                        </div>
-                        <!-- Profit. Sold more than purchase price -->
-                        <div>
-                            <span><svg class="icon">
-                                    <use href="{% static 'assets/icon-sprite.svg' %}#chart-line-up" />
-                                </svg></span>
-                            <span class="subtitle">
-                                <span><strong id="overview_profit_products">N/A</strong> Products are sold</span>
-                                <span>more than purchase price</span>
-                            </span>
-                            <strong id="overview_profit_percent">N/A</strong>
-                        </div>
-                    </div>
-
-                </section>
-                <!-- Financial Overview Section Ends -->
-            </section>
-
-
-            <!-- FILTERS SECTION STARTS -->
-            <section class="filter-sec">
-                <h2 class="fs-500">Filters</h2>
-
-                <div>
-
+                    <p class="subtitle" style="margin: .6rem 0; max-width: 35ch;">Stocks are considered to be low in
+                        quantity when there are <b>less than N/A items</b> available. <a href="{% url 'settings' %}"
+                            class="text-link">Edit Limit.</a></p>
                 </div>
             </section>
-            <!-- FILTERS SECTION ENDS -->
+            <!-- Stock Overview Section Ends -->
+
+            <!-- Expiration Overview Section Starts -->
+            <section class="expiration-overview-sec">
+                <h2>Expiration Overview</h2>
+
+                <div class="expiry-card-box">
+                    <!-- Expired Products -->
+                    <div>
+                        <span><svg class="icon">
+                                <use href="{% static 'assets/icon-sprite.svg' %}#warn-protection" />
+                            </svg></span>
+                        <strong id="overview_expired_count" class="safe">N/A</strong>
+                        <span>Products<br>Has been Expired</span>
+                    </div>
+
+                    <!-- Expiry Soon Products -->
+                    <div>
+                        <span><svg class="icon">
+                                <use href="{% static 'assets/icon-sprite.svg' %}#warn" />
+                            </svg></span>
+                        <strong id="overview_expiry_soon_count" class="safe">N/A</strong>
+                        <span>Products<br>About to Expire</span>
+                    </div>
+                </div>
 
 
+                <!-- Note and Edit warning limit link -->
+                <p class="subtitle" style="margin-top: 1.6rem;"> You are warned about expiry <b>before N/A days</b>. <a
+                        href="{% url 'settings' %}" class="text-link">Edit Limit.</a></p>
 
+            </section>
+            <!-- Expiration Overview Section Ends -->
 
+            <!-- Financial Overview Section Starts -->
+            <section class="financial-overview-sec">
+                <h2>Financial Overview</h2>
+
+                <!-- Total Value -->
+                <div>
+                    <p class="subtitle">Total Value</p>
+                    <p><span>₹</span><strong id="overview_total_value">N/A</strong></p>
+                </div>
+
+                <!-- Profit and Loss Percent and Selling price Comparison -->
+                <div class="price-comparison">
+                    <!-- Loss. Sold Cheaper -->
+                    <div>
+                        <span><svg class="icon">
+                                <use href="{% static 'assets/icon-sprite.svg' %}#chart-line-down" />
+                            </svg></span>
+                        <span class="subtitle">
+                            <span><strong id="overview_loss_products">N/A</strong> Products are sold</span>
+                            <span>cheaper than purchase price</span>
+                        </span>
+                        <strong id="overview_loss_percent">-N/A%</strong>
+                    </div>
+                    <!-- No Profit No Loss. Sold same as purchase price -->
+                    <div>
+                        <span><svg class="icon">
+                                <use href="{% static 'assets/icon-sprite.svg' %}#chart-line-horizontal" />
+                            </svg></span>
+                        <span class="subtitle">
+                            <span><strong id="overview_same_products">N/A</strong> Products are sold</span>
+                            <span>at purchase price</span>
+                        </span>
+                        <strong>No Profit</strong>
+                    </div>
+                    <!-- Profit. Sold more than purchase price -->
+                    <div>
+                        <span><svg class="icon">
+                                <use href="{% static 'assets/icon-sprite.svg' %}#chart-line-up" />
+                            </svg></span>
+                        <span class="subtitle">
+                            <span><strong id="overview_profit_products">N/A</strong> Products are sold</span>
+                            <span>more than purchase price</span>
+                        </span>
+                        <strong id="overview_profit_percent">N/A</strong>
+                    </div>
+                </div>
+            </section>
+            <!-- Financial Overview Section Ends -->
         </section>
-        <!-- MAIN CONTENT ENDS -->
+        <!-- hello world -->
 
+        <h1>Inventory Overview</h1>
+
+        <!-- Display the last updated time -->
+        <p>Last Updated: {{ inventory_overview.lastUpdated }}</p>
+
+        <!-- Display Product Counts -->
+        <h2>Product Counts</h2>
+        <p>Total Products: {{ inventory_overview.count.products }}</p>
+        <p>Products in Stock: {{ inventory_overview.count.productsInStock }}</p>
+        <p>Products Out of Stock: {{ inventory_overview.count.productsOutOfStock }}</p>
+        <p>Low Stock Products: {{ inventory_overview.count.productsLowStock }}</p>
+        <p>Expired Products: {{ inventory_overview.count.productExpired }}</p>
+        <p>Products Near Expiry: {{ inventory_overview.count.productsNearExpiry }}</p>
+
+        <!-- Display Product Types -->
+        <h2>Product Types</h2>
+        {% for name in inventory_overview.types.names %}
+        <p>Product Name: {{ name }}</p>
+        {% endfor %}
+
+        <!-- Display Product Type Counts -->
+        <p>Product Type Count: {{ inventory_overview.types.counts }}</p>
+
+        <!-- Display Financial Data -->
+        <h2>Financial Overview</h2>
+        <p>Total Cost: {{ inventory_overview.financial.cost }}</p>
+        <p>Profit Product Count: {{ inventory_overview.financial.profitProductCount }}</p>
+        <p>Profit Percent: {{ inventory_overview.financial.profitPercent }}%</p>
+        <p>Loss Product Count: {{ inventory_overview.financial.lossProductCount }}</p>
+        <p>Loss Percent: {{ inventory_overview.financial.lossPercent }}%</p>
+        <p>Same As Wholesale Amount: {{ inventory_overview.financial.sameAsWholesaleAmount }}
+
+
+            <!-- MAIN CONTENT ENDS -->
     </main>
     <!-- MAIN ENDS -->
 

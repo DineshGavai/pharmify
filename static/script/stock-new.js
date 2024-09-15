@@ -1,4 +1,4 @@
-import { allowNumberInputOnly, incrementWithDifference, refreshInputs, removeInputMsg, setDropDownMenu, setIncDecOnKeypress, setInputMsg, updateDropDownPosition, validateInput } from "./utils/inputs.js";
+import { allowNumberInputOnly, incrementWithDifference, refreshInputs, removeInputMsg, setDatalist, setIncDecOnKeypress, setInputMsg, updateDatalistPosition, validateInput } from "./utils/inputs.js";
 import { toTwoDigit, saveToStorage, getFromStorage } from "./utils/utils.js";
 import { createSnackbar, createDialog } from "./utils/components.js";
 import { UI_STATUS_FEEDBACK } from "./utils/const.js";
@@ -8,7 +8,7 @@ function getNewProductHTML(idNum, savedItem = undefined) {
         <fieldset>
             <label for="product_name_${idNum}">Name</label>
             <div class="icon-frame">
-                <input type="text" required class="text-input product-name" value="${savedItem?.name || ""}" pattern="^[a-zA-Z0-9_.,&\\s\\-]+$" id="product_name_${idNum}" name="product_name_${idNum}" data-drop-down="existing_products" data-error-msg="Only alphabets, numbers and some special characters allowed.">
+                <input type="text" required class="text-input product-name" value="${savedItem?.name || ""}" pattern="^[a-zA-Z0-9_.,&\\s\\-]+$" id="product_name_${idNum}" name="product_name_${idNum}" data-list="existing_products" data-error-msg="Only alphabets, numbers and some special characters allowed.">
             </div>
         </fieldset>
 
@@ -16,7 +16,7 @@ function getNewProductHTML(idNum, savedItem = undefined) {
             <label for="product_brand_${idNum}">Brand</label>
             <div class="icon-frame">
             <input type="text" required class="text-input product-brand" value="${savedItem?.brand || ""}" pattern="^[a-zA-Z0-9_.,&\\s\\-]+$" id="product_brand_${idNum}" name="product_brand_${idNum}" 
-            data-drop-down="product_brand_list" data-error-msg="Only alphabets, numbers and some special characters allowed.">
+            data-list="product_brand_list" data-error-msg="Only alphabets, numbers and some special characters allowed.">
             </div>
         </fieldset>
 
@@ -24,13 +24,13 @@ function getNewProductHTML(idNum, savedItem = undefined) {
             <label for="product_type_${idNum}">Product Type</label>
             <div class="icon-frame">
                 <input type="text" required class="text-input product-type" value="${savedItem?.type || ""}" pattern="^[a-zA-Z:,.&\\s\\-]+$" id="product_type_${idNum}" name="product_type_${idNum}"
-                    data-drop-down="product_type_list" data-error-msg="Only alphabets and some special characters allowed. Numbers are not allowed.">
+                    data-list="product_type_list" data-error-msg="Only alphabets and some special characters allowed. Numbers are not allowed.">
             </div>
         </fieldset>
         <fieldset>
             <label for="product_seller_${idNum}">Seller</label>
             <div class="icon-frame combo-box">
-                <input type="text" required class="text-input product-seller-name" value="${savedItem?.sellerName || ""}" pattern="^[a-zA-Z0-9_.,\\s\\-]+$" id="product_seller_${idNum}" name="product_seller_${idNum}" data-drop-down="product_seller_list" data-error-msg="Only alphabets, numbers and some special characters allowed.">
+                <input type="text" required class="text-input product-seller-name" value="${savedItem?.sellerName || ""}" pattern="^[a-zA-Z0-9_.,\\s\\-]+$" id="product_seller_${idNum}" name="product_seller_${idNum}" data-list="product_seller_list" data-error-msg="Only alphabets, numbers and some special characters allowed.">
             </div>
         </fieldset>
         <fieldset>
@@ -145,9 +145,9 @@ function handleNewProductTile() {
             li.addEventListener("click", () => setStatus(statusList[i], input)));
 
         // Setting DATALIST
-        setDropDownMenu(input, true);
+        setDatalist(input);
 
-        document.getElementById(input.getAttribute("data-drop-down")).querySelectorAll("li").forEach(li =>
+        document.getElementById(input.getAttribute("data-list")).querySelectorAll("li").forEach(li =>
             li.addEventListener("click", () => {
                 if (!input.value) statusList[i].classList.add("hidden");
                 else setStatus(statusList[i], input);
@@ -155,11 +155,11 @@ function handleNewProductTile() {
     });
 
     // SETTING DATALIST TO BRAND NAME
-    brandList.forEach(input => setDropDownMenu(input, true));
+    brandList.forEach(input => setDatalist(input));
     // SETTING DATALIST TO PRODUCT TYPE
-    typeList.forEach(input => setDropDownMenu(input, true))
+    typeList.forEach(input => setDatalist(input))
     // SETTING DATALIST TO SELLER NAME
-    sellerNameList.forEach(input => setDropDownMenu(input, true));
+    sellerNameList.forEach(input => setDatalist(input));
 
     // Numeric Inputs
     priceWholesaleList.forEach(input => allowNumberInputOnly(input, true, false));
@@ -420,7 +420,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!input.value) return;
             let matchFound = false;
             // Search value with every datalist item
-            document.getElementById(input.getAttribute("data-drop-down")).querySelectorAll("li").forEach(li => {
+            document.getElementById(input.getAttribute("data-list")).querySelectorAll("li").forEach(li => {
                 let matches = li.textContent.trim().replace(/\s+/g, ' ').toLowerCase() == input.value.toLowerCase();
                 if (matches) matchFound = true;
             });

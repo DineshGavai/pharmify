@@ -447,102 +447,92 @@ function searchInDatalist(input, datalist) {
 
 let associatedInput = null;
 
-// FUNCTION TO UPDATE DROP DOWN POSITION
-export function updateDropDownPosition(elem, dropDownElem, isInput) {
-  const list = dropDownElem.querySelector(".datalist-body");
-  const { top, left, height } = elem.getBoundingClientRect();
+// FUNCTION TO UPDATE DATALIST POSITION
+export function updateDatalistPosition(input, datalist) {
+  associatedInput = input;
+  const list = datalist.querySelector(".datalist-body");
+  const { top, left, height } = input.getBoundingClientRect();
   Object.assign(list.style, {
     top: `${top + height + 4}px`,
     left: `${left}px`,
-    minWidth: `${elem.clientWidth + 32}px`,
-    width: `fit-content`,
-    maxWidth: "700px"
+    width: `${input.clientWidth + 32}px`
   });
-  dropDownElem.classList.add("visible");
 
-  // Return and don't do further input handling
-  if (!isInput) return;
-
-  associatedInput = elem;
-  if (!dropDownElem.querySelector(".not-found")) {
+  datalist.classList.add("visible");
+  if (!datalist.querySelector(".not-found")) {
     let notFoundElem = document.createElement("p");
     notFoundElem.classList.add("not-found");
     notFoundElem.innerHTML = "No such items found. Try changing the prompt.";
     notFoundElem.style.display = "none";
-    dropDownElem.querySelector("ul").append(notFoundElem);
+    datalist.querySelector("ul").append(notFoundElem);
   }
 
   // Perform Searching
-  searchInDatalist(elem, dropDownElem);
+  searchInDatalist(input, datalist);
 }
 
-// FUNCTION TO REMOVE DROP DOWN MENU
-export function removeDropDownMenu(datalist, e = false) {
+// FUNCTION TO REMOVE DATALIST
+export function removeDatalist(datalist, e = false) {
   if (e && e.target != datalist) return;
   datalist.classList.remove("visible");
 }
 
-// FUNCTION to SET DROP DOWN MENU to the Associated Input, if isInput
-export function setDropDownMenu(elem, isInput) {
-  // Get Associated Drop Down Menu using ID
-  let dropDownElem = document.getElementById(elem.getAttribute("data-drop-down"));
+// FUNCTION to SET Datalist to the Associated Input
+export function setDatalist(input) {
+
+  // Disable autocomplete and browsers' default recent inputs' datalists
+  input.setAttribute("autocomplete", "off")
 
   // Create Trailing Chevron
-  if (!elem.parentNode.querySelector(".trail")) {
+  if (!input.parentNode.querySelector(".trail")) {
     let arrowDown = document.createElement("span");
     arrowDown.classList.add("trail");
     arrowDown.innerHTML =
       `<svg class="icon"><use href="/static/assets/icon-sprite.svg#chevron-down" /></svg>`;
-    elem.parentNode.append(arrowDown);
-    arrowDown.addEventListener("click", () => updateDropDownPosition(elem, dropDownElem, true));
+    input.parentNode.append(arrowDown);
+    arrowDown.addEventListener("click", () => updateDatalistPosition(input, datalist));
   }
 
-  // Show datalist on focus and click
-  elem.addEventListener("focus", () => updateDropDownPosition(elem, dropDownElem, true));
-  elem.addEventListener("click", () => updateDropDownPosition(elem, dropDownElem, true));
+  // Get Associated Datalist using ID
+  let datalist = document.getElementById(input.getAttribute("data-list"));
 
-  // REMOVE POPUP ON PRESSING KEYS
-  elem.addEventListener("keydown", (e) => {
+  // Show datalist on focus and click
+  input.addEventListener("focus", () => updateDatalistPosition(input, datalist));
+  input.addEventListener("click", () => updateDatalistPosition(input, datalist));
+
+  input.addEventListener("keydown", (e) => {
     // Hide datalist on blur and certain key presses
     let closeKeys = ["Tab", "Escape", "PageDown", "PageUp"];
-    if (closeKeys.includes(e.key)) removeDropDownMenu(dropDownElem);
+    if (closeKeys.includes(e.key)) removeDatalist(datalist);
     // Get the first visible list item and fill input with it on Enter
-    if (isInput && e.key == "Enter") {
-      if (!dropDownElem.classList.contains("visible")) return;
-      let firstVisibleItem = Array.from(dropDownElem.querySelectorAll("li")).find(li => li.style.display !== "none");
+    if (e.key == "Enter") {
+      if (!datalist.classList.contains("visible")) return;
+      let firstVisibleItem = Array.from(datalist.querySelectorAll("li")).find(li => li.style.display !== "none");
       if (firstVisibleItem) {
-        elem.value = firstVisibleItem.textContent.trim().replace(/\s+/g, ' ');
-        removeDropDownMenu(dropDownElem);
+        input.value = firstVisibleItem.textContent.trim().replace(/\s+/g, ' ');
+        removeDatalist(datalist);
       };
     }
   });
 
   // Hide datalist on click or scroll elsewhere
-  dropDownElem.addEventListener("click", (e) => removeDropDownMenu(dropDownElem, e));
-  dropDownElem.addEventListener("wheel", (e) => removeDropDownMenu(dropDownElem, e), { passive: true });
-
-  // Return and don't do further input handling if the drop down is an input
-  if (!isInput) return;
-
-  // Disable autocomplete and browsers' default recent inputs' datalists
-  elem.setAttribute("autocomplete", "off");
-
-  // Hide Drop Down if any option is chosen from the list
-  dropDownElem.querySelectorAll("button, a").forEach(btn => btn.addEventListener("click", () => removeDropDownMenu(dropDownElem)));
+  datalist.addEventListener("click", (e) => removeDatalist(datalist, e));
+  datalist.addEventListener("wheel", (e) => removeDatalist(datalist, e), { passive: true });
+  datalist.querySelectorAll("button, a").forEach(btn => btn.addEventListener("click", () => removeDatalist(datalist)));
 
   // Fill input on particular item click and close popup  
-  dropDownElem.querySelectorAll("li").forEach(li =>
+  datalist.querySelectorAll("li").forEach(li =>
     li.addEventListener("click", () => {
-      if (elem == associatedInput) {
-        elem.value = li.textContent.trim().replace(/\s+/g, ' ');
-        removeDropDownMenu(dropDownElem);
+      if (input == associatedInput) {
+        input.value = li.textContent.trim().replace(/\s+/g, ' ');
+        removeDatalist(datalist);
       }
     }))
 
   // Search filter the datalist based on input
-  elem.addEventListener("input", (e) => {
-    if (!dropDownElem.classList.contains("visible")) updateDropDownPosition(elem, dropDownElem, true);
+  input.addEventListener("input", (e) => {
+    if (!datalist.classList.contains("visible")) updateDatalistPosition(input, datalist);
     // Perform Searching
-    searchInDatalist(elem, dropDownElem);
+    searchInDatalist(input, datalist);
   });
 }
