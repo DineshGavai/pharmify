@@ -480,6 +480,9 @@ export function updateDropDownPosition(elem, dropDownElem, isInput) {
 export function removeDropDownMenu(datalist, e = false) {
   if (e && e.target != datalist) return;
   datalist.classList.remove("visible");
+  setTimeout(() => {
+    document.elementFromPoint(e.clientX, e.clientY).click();
+  }, 250);
 }
 
 // FUNCTION to SET DROP DOWN MENU to the Associated Input, if isInput
