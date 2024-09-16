@@ -131,6 +131,17 @@ UTILITY CLASSES
   background-color: var(--clr-white);
 }
 
+.tooltip {
+  position: fixed;
+  background-color: var(--clr-grey-tooltip);
+  font-size: var(--fs-300);
+  color: var(--clr-white);
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.4rem;
+  transition: none;
+  z-index: 999;
+}
+
 /* /////////////////////////
 DECORATIONS, ILLUSTRATIONS and ANIMATIONS
 ///////////////////////// */

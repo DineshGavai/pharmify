@@ -85,7 +85,7 @@
                             <span><svg class="icon">
                                     <use href="{% static 'assets/icon-sprite.svg' %}#warn-protection" />
                                 </svg></span>
-                            <strong id="overview_expired_count" class="safe">N/A</strong>
+                            <strong id="overview_expired_count" class="safe" data-tooltip="Expired">N/A</strong>
                             <span>Products are<br>Expired</span>
                         </div>
 
@@ -161,10 +161,27 @@
 
             <!-- FILTERS SECTION STARTS -->
             <section class="filter-sec">
-                <h2 class="fs-500">Filters</h2>
+                <h2 class="fs-500">Inventory Data</h2>
 
-                <div>
-                    
+                <div class="filter-options">
+                    <button class="text" data-drop-down="badges_drop_down_menu" id="badges_menu_btn">
+                        <svg class="icon">
+                            <use href="{% static 'assets/icon-sprite.svg' %}#badge" />
+                        </svg>
+                        Badges
+                    </button>
+                    <button class="text" data-drop-down="badges_drop_down_menu" id="column_menu_btn">
+                        <svg class="icon">
+                            <use href="{% static 'assets/icon-sprite.svg' %}#column-visibility" />
+                        </svg>
+                        Columns
+                    </button>
+                    <button class="text" data-drop-down="badges_drop_down_menu" id="filter_menu_btn">
+                        <svg class="icon">
+                            <use href="{% static 'assets/icon-sprite.svg' %}#manage" />
+                        </svg>
+                        Filters
+                    </button>
                 </div>
             </section>
             <!-- FILTERS SECTION ENDS -->
@@ -226,6 +243,16 @@
     </form>
     <!-- ADD NEW SELLER FORM ENDS -->
 
+    <!-- BADGES DROP DOWN MENU STARTS -->
+    <div class="drop-down-menu" id="badges_drop_down_menu">
+        <div class="drop-down-menu-body">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae quo cumque, sequi eius voluptates
+            reiciendis provident aliquam esse exercitationem incidunt fuga nihil voluptatibus aut tempora animi
+            excepturi dolore? Neque, velit.
+        </div>
+    </div>
+    <!-- BADGES DROP DOWN MENU ENDS -->
+
     <!-- EXISTING PRODUCTS LIST STARTS -->
     {% include 'components/product-name-list.html' %}
     <!-- EXISTING PRODUCTS LIST ENDS -->
@@ -241,7 +268,6 @@
     <!-- SELLER DATA LIST STARTS -->
     {% include 'components/product-seller-list.html' %}
     <!-- SELLER DATA LIST ENDS -->
-
 
 
     <!-- SCRIPT -->

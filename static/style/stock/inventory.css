@@ -254,3 +254,32 @@
   font-weight: 400;
   color: var(--clr-stroke);
 }
+
+/* /////////////////////////
+  INVENTORY DATA
+///////////////////////// */
+
+/* FILTER SECTION */
+
+.filter-sec {
+  padding-bottom: 1.6rem;
+  padding-top: 2.4rem;
+  border-top: 1px solid var(--clr-grey-divider);
+}
+
+.filter-sec,
+.filter-sec .filter-options {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.filter-sec > *,
+.filter-sec .filter-options > * {
+  width: fit-content;
+}
+
+.filter-options {
+  margin-left: auto;
+}

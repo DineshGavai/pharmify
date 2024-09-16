@@ -1,5 +1,6 @@
 import { createChartDonut } from "./utils/components.js"
-import { formatDateCommon, formatINR } from "./utils/utils.js"
+import { formatDateCommon, formatINR, setLocationByRegion } from "./utils/utils.js"
+import { setDropDownMenu } from "./utils/inputs.js"
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -105,4 +106,16 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("overview_profit_products"), document.getElementById("overview_profit_percent"),
         financial.profitProductCount, financial.profitPercent, "No Profit"
     )
+
+
+    /* ///////////////
+        DROP DOWN MENUS - BADGES, COLUMN VISIBILITY, FILTERS
+    /////////////// */
+
+    let menuBtnBadges = document.getElementById("badges_menu_btn");
+    let menuBtnColumn = document.getElementById("column_menu_btn");
+    let menuBtnFilter = document.getElementById("filter_menu_btn");
+    setDropDownMenu(menuBtnBadges);
+    setDropDownMenu(menuBtnColumn);
+    setDropDownMenu(menuBtnFilter);
 })

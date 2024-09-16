@@ -1,5 +1,5 @@
 import { UI_STATUS_FEEDBACK, UI_CLASS } from "./const.js";
-import { getFirstIfArray, getParentElement, setMsgIcons } from "./utils.js";
+import { setLocationByRegion, getFirstIfArray, getParentElement, setMsgIcons } from "./utils.js";
 
 /* ///////////////
     INPUT's FUNCTIONALITY
@@ -449,10 +449,10 @@ let associatedInput = null;
 
 // FUNCTION TO UPDATE DROP DOWN POSITION
 export function updateDropDownPosition(elem, dropDownElem, isInput) {
-  const list = dropDownElem.querySelector(".datalist-body");
-  const { top, left, height } = elem.getBoundingClientRect();
-  Object.assign(list.style, {
-    top: `${top + height + 4}px`,
+  const dropDownBody = dropDownElem.querySelector(".drop-down-menu-body");
+  let [top, left] = setLocationByRegion(elem, dropDownBody);
+  Object.assign(dropDownBody.style, {
+    top: `${top}px`,
     left: `${left}px`,
     minWidth: `${elem.clientWidth + 32}px`,
     width: `fit-content`,
@@ -483,23 +483,13 @@ export function removeDropDownMenu(datalist, e = false) {
 }
 
 // FUNCTION to SET DROP DOWN MENU to the Associated Input, if isInput
-export function setDropDownMenu(elem, isInput) {
+export function setDropDownMenu(elem, isInput = false) {
   // Get Associated Drop Down Menu using ID
   let dropDownElem = document.getElementById(elem.getAttribute("data-drop-down"));
 
-  // Create Trailing Chevron
-  if (!elem.parentNode.querySelector(".trail")) {
-    let arrowDown = document.createElement("span");
-    arrowDown.classList.add("trail");
-    arrowDown.innerHTML =
-      `<svg class="icon"><use href="/static/assets/icon-sprite.svg#chevron-down" /></svg>`;
-    elem.parentNode.append(arrowDown);
-    arrowDown.addEventListener("click", () => updateDropDownPosition(elem, dropDownElem, true));
-  }
-
   // Show datalist on focus and click
-  elem.addEventListener("focus", () => updateDropDownPosition(elem, dropDownElem, true));
-  elem.addEventListener("click", () => updateDropDownPosition(elem, dropDownElem, true));
+  elem.addEventListener("focus", () => updateDropDownPosition(elem, dropDownElem, isInput));
+  elem.addEventListener("click", () => updateDropDownPosition(elem, dropDownElem, isInput));
 
   // REMOVE POPUP ON PRESSING KEYS
   elem.addEventListener("keydown", (e) => {
@@ -524,6 +514,17 @@ export function setDropDownMenu(elem, isInput) {
   // Return and don't do further input handling if the drop down is an input
   if (!isInput) return;
 
+  // Create Trailing Chevron
+  if (!elem.parentNode.querySelector(".trail")) {
+    let arrowDown = document.createElement("span");
+    arrowDown.classList.add("trail");
+    arrowDown.innerHTML =
+      `<svg class="icon"><use href="/static/assets/icon-sprite.svg#chevron-down" /></svg>`;
+    elem.parentNode.append(arrowDown);
+    arrowDown.addEventListener("click", () => updateDropDownPosition(elem, dropDownElem, isInput));
+  }
+
+
   // Disable autocomplete and browsers' default recent inputs' datalists
   elem.setAttribute("autocomplete", "off");
 
@@ -541,7 +542,7 @@ export function setDropDownMenu(elem, isInput) {
 
   // Search filter the datalist based on input
   elem.addEventListener("input", (e) => {
-    if (!dropDownElem.classList.contains("visible")) updateDropDownPosition(elem, dropDownElem, true);
+    if (!dropDownElem.classList.contains("visible")) updateDropDownPosition(elem, dropDownElem, isInput);
     // Perform Searching
     searchInDatalist(elem, dropDownElem);
   });

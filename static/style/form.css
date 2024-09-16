@@ -304,7 +304,7 @@ fieldset .msg.info {
 }
 
 fieldset button,
-fieldset .datalist {
+fieldset .drop-down-menu {
   order: 8;
 }
 
@@ -596,7 +596,7 @@ fieldset .check-radio-box input[type="checkbox"] {
 
 /* DATA LISTS */
 
-.datalist {
+.drop-down-menu {
   position: fixed;
   width: 100%;
   height: 100%;
@@ -608,20 +608,20 @@ fieldset .check-radio-box input[type="checkbox"] {
   z-index: -1;
 }
 
-.datalist.visible {
+.drop-down-menu.visible {
   visibility: visible;
   opacity: 1;
   z-index: 999;
 }
 
-.datalist > ul,
-.datalist > ul :is(ul, ol) {
+.drop-down-menu-body,
+.drop-down-menu-body :is(ul, ol) {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-.datalist > ul {
+.drop-down-menu-body {
   max-height: 16rem;
   overflow: hidden auto;
   padding: 0.8rem;
@@ -633,27 +633,27 @@ fieldset .check-radio-box input[type="checkbox"] {
   border: 1px solid var(--clr-grey-divider);
 }
 
-.datalist > ul li:not(.overline) {
+.drop-down-menu-body li:not(.overline) {
   padding: 0.4rem 0.8rem;
   padding-left: 1.6rem;
   border-bottom: 1px solid var(--clr-grey-bg);
   cursor: pointer;
 }
 
-.datalist > ul li:not(.overline):hover {
+.drop-down-menu-body li:not(.overline):hover {
   background-color: var(--clr-primary-hover);
 }
-.datalist > ul > li:last-of-type {
+.drop-down-menu-body > li:last-of-type {
   border: none;
 }
 
-.datalist > ul .overline {
+.drop-down-menu-body .overline {
   padding: 0.2rem;
   padding-top: 0.8rem;
   color: var(--clr-primary);
 }
 
-.datalist ul .not-found {
+.drop-down-menu ul .not-found {
   font-size: var(--fs-300);
   color: var(--clr-grey-text);
 }
