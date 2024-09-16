@@ -46,32 +46,49 @@ def add_stock_summary(request):
 
             for product_group in product_data["newProductJSON"]:
                 for product in product_group:
-                    print(product)
                     name = product.get("name")
                     expiry_date = product.get("dateExpiry")
                     brand = product.get("brand")
                     product_type = product.get("type")
-                    manufcature_date = product.get("dateManufacture")
+                    manufacture_date = product.get("dateManufacture")
                     isNew = product.get("isNew")
                     selling_price = product.get("priceSelling")
                     wholesale_price = product.get("priceWholesale")
-                    quantity = product.get("quantity")
+                    quantity = int(product.get("quantity", 0)) 
                     seller_name = product.get("sellerName")
                     seller = Seller.objects.get(name=seller_name)
                     owner = request.user
 
-                    product = Product.objects.create(
+                    existing_product = Product.objects.filter(
                         owner_id=owner,
                         name=name,
                         brand=brand,
                         product_type=product_type,
-                        manufacture_date=manufcature_date,
+                        manufacture_date=manufacture_date,
                         expiry_date=expiry_date,
-                        available_quantity=quantity,
                         selling_price=selling_price,
                         wholesale_price=wholesale_price,
                         seller=seller,
-                    )
+                    ).first()
+
+                    if existing_product:
+                        # If the product exists, update the quantity
+                        existing_product.available_quantity += quantity
+                        existing_product.save()
+                    else:
+                        # If the product doesn't exist, create a new product
+                        Product.objects.create(
+                            owner_id=owner,
+                            name=name,
+                            brand=brand,
+                            product_type=product_type,
+                            manufacture_date=manufacture_date,
+                            expiry_date=expiry_date,
+                            available_quantity=quantity,
+                            selling_price=selling_price,
+                            wholesale_price=wholesale_price,
+                            seller=seller,
+                        )
 
             return JsonResponse({"redirect_url": "/stock/inventory"})
         except json.JSONDecodeError as e:
@@ -155,13 +172,13 @@ def stock_inventory(request):
     )["avg_profit_percent"]
 
     average_profit_percent = average_profit_percent or 0
-    print(f"Average profit percentage: {average_profit_percent:.2f}%")
+    # print(f"Average profit percentage: {average_profit_percent:.2f}%")
 
     # Loss
     loss_sold_items_count = SoldItem.objects.filter(
         selling_price__lt=models.F("product__wholesale_price")
     ).count()
-    print("loss_sold_items_count:", loss_sold_items_count)
+    # print("loss_sold_items_count:", loss_sold_items_count)
 
     # Calculate the loss percentage per sold item where selling price is less than wholesale price
     loss_percent_expression = ExpressionWrapper(
@@ -184,21 +201,20 @@ def stock_inventory(request):
     # Handle cases where there might not be any sold items
     average_loss_percent = average_loss_percent or 0
 
-    # Print or use the result
-    print(f"Average loss percentage: {average_loss_percent:.2f}%")
+    # print(f"Average loss percentage: {average_loss_percent:.2f}%")
 
     # sold for same as wholesale price
 
     same_as_wholesale_amount = SoldItem.objects.filter(
         selling_price__exact=F("product__wholesale_price")
     ).count()
-    print("same_as_wholesale_amount:", same_as_wholesale_amount)
+    # print("same_as_wholesale_amount:", same_as_wholesale_amount)
 
     product_type_count = Product.objects.values("product_type").annotate(
         count=Count("product_type")
     )
-    for item in product_type_count:
-        print(f"{item['product_type']}, Count: {item['count']}")
+    # for item in product_type_count:
+    #     print(f"{item['product_type']}, Count: {item['count']}")
 
     inventory_overview = {
         "lastUpdated": last_updated,
