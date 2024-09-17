@@ -41,7 +41,7 @@ button:focus-visible {
 button:disabled,
 fieldset input:disabled,
 fieldset label:has(input:disabled),
-fieldset .check-radio-box:has(input:disabled) *,
+.check-radio-box:has(input:disabled) *,
 *[aria-disabled="true"] {
   opacity: 0.5;
   pointer-events: none;
@@ -124,7 +124,6 @@ button.ghost {
 
 button.text {
   padding: 0.4rem;
-  letter-spacing: normal;
   width: fit-content;
   color: var(--clr-accent);
 }
@@ -191,6 +190,36 @@ button.icon:active {
   background-color: var(--clr-accent-focus);
 }
 
+/* Mini Buttons */
+
+button.mini {
+  color: var(--clr-black);
+  border-color: var(--clr-grey-divider) !important;
+  padding: 0.4rem 0.8rem;
+}
+
+button.mini .icon {
+  --size: 1.8rem;
+}
+
+button.overlay-badge {
+  --content: "";
+}
+
+button.overlay-badge::after {
+  content: var(--content);
+  font-family: var(--ff-def);
+  font-size: var(--fs-100);
+  background-color: var(--clr-accent);
+  color: var(--clr-white);
+  border-radius: 1.6rem;
+  font-weight: 600;
+  padding: 0.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 form .btn-box {
   display: flex;
   gap: 1.6rem;
@@ -237,7 +266,6 @@ form .btn-box :is(button.primary, button.ghost) {
   background-color: transparent;
   margin: 0;
   padding: 0.8rem;
-  letter-spacing: normal;
 }
 
 .toggle-btn-box > :is(button.primary, button.text, button.ghost):hover {
@@ -326,7 +354,7 @@ fieldset button.primary {
   max-width: 100%;
 }
 
-fieldset .check-radio-box label input {
+.check-radio-box label input {
   order: -1;
 }
 
@@ -532,12 +560,12 @@ fieldset .password-visibility-btn.visible .eye-slash {
 RADIO AND CHECKBOX
 ///////////////////////// */
 
-fieldset .check-radio-box {
+.check-radio-box {
   padding: 0 0.4rem;
 }
 
-fieldset .check-radio-box label {
-  gap: 0.8rem;
+.check-radio-box label {
+  gap: 0.8rem !important;
   font-size: var(--fs-400);
   color: var(--clr-text-black);
   justify-content: start;
@@ -548,50 +576,46 @@ fieldset .check-radio-box label {
   text-align: left;
 }
 
-fieldset .check-radio-box label input {
-  appearance: none;
-  width: 2.4rem;
-  aspect-ratio: 1;
-  padding: 0;
-  border: none;
-  box-shadow: inset 0 0 0 2px var(--clr-primary);
-  border-radius: 50%;
-  background-color: var(--clr-grey-bg);
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-}
-
-fieldset .check-radio-box label:has(input:hover) {
+.check-radio-box label:has(input:hover) {
   color: var(--clr-black) !important;
   background-color: var(--clr-primary-hover);
 }
 
-fieldset .check-radio-box label:has(input:checked) {
-  background-color: var(--clr-primary-focus);
+.check-radio-box input {
+  appearance: none;
+  --size: 2rem;
+  width: var(--size);
+  aspect-ratio: 1;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 2px var(--clr-primary);
+  background: var(--clr-white) center 0.4rem / calc(var(--size) - 0.6rem)
+    no-repeat url("/static/assets/check-large.png");
+  position: relative;
+  cursor: pointer;
+  z-index: 1;
 }
 
-fieldset .check-radio-box input::before {
+.check-radio-box input::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--clr-white);
-  background: var(--gradient-primary);
+  width: calc(var(--size) + 0.4rem);
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  aspect-ratio: 1;
+  z-index: -10;
 }
 
-fieldset .check-radio-box input:checked:before {
-  opacity: 1;
-}
-
-fieldset .check-radio-box input[type="checkbox"] {
+.check-radio-box input[type="checkbox"] {
   border-radius: 0.4rem;
+  background-position: center;
+}
+
+.check-radio-box input:checked {
+  box-shadow: inset 0 0 0 2px var(--clr-primary-dark);
+  background-color: var(--clr-primary-dark);
 }
 
 /* DROP DOWN MENU */
@@ -658,6 +682,23 @@ fieldset .check-radio-box input[type="checkbox"] {
 .drop-down-menu ul .not-found {
   font-size: var(--fs-300);
   color: var(--clr-grey-text);
+}
+
+@media (max-width: 768px) {
+  .drop-down-menu:has(.drop-down-menu-body:not(ul)) {
+    background-color: var(--clr-grey-overlay);
+  }
+
+  .drop-down-menu:has(.drop-down-menu-body:not(ul)) .drop-down-menu-body {
+    top: 50% !important;
+    left: 50% !important;
+    min-width: fit-content !important;
+    width: 80% !important;
+    height: fit-content !important;
+    max-height: 80vh !important;
+    transform: translate(-50%, -50%);
+    padding: 1.6rem;
+  }
 }
 
 /* INPUT TAG FEEDBACKS and Certain Notes on the page */

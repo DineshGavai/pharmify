@@ -167,6 +167,7 @@ COMPONENTS
 
 /* All FLEXBOXES */
 fieldset label,
+.check-radio-box label,
 fieldset .trail,
 fieldset .msg,
 .note,

@@ -1,5 +1,5 @@
 import { UI_STATUS_FEEDBACK, UI_LOADER, UI_SIZE } from "./const.js";
-import { setMsgIcons } from "./utils.js";
+import { setMsgIcons, toTwoDigit } from "./utils.js";
 
 /* ///////////////
     LOADERS - Spinners, Loading Bars, Skeletons
@@ -232,6 +232,8 @@ export function createChartDonut(sliceDataList, isHalf = false) {
     let totalValue = 0;
     sliceDataList.forEach(data => totalValue += data.value);
 
+    console.log(totalValue);
+    
 
     // Circle dimensions
     const radius = 368;

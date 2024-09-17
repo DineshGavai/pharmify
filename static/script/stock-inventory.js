@@ -8,12 +8,12 @@ document.addEventListener("DOMContentLoaded", () => {
     let overviewData = {
         lastUpdated: "2024-09-06",
         count: {
-            products: 21,
+            products: 40,
             productsInStock: 18,
             productsOutOfStock: 2,
-            productsLowStock: 1,
-            productsNearExpiry: 2,
-            productsExpired: 1,
+            productsLowStock: 18,
+            productsNearExpiry: 0,
+            productsExpired: 0,
             productsMostSold: 3,
             productsLeastSold: 1
         },
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
         donutChartData = [{ label: "Available", value: 0, color: "var(--clr-grey-divider)" }]
     } else {
         donutChartData = [
-            { label: "Available", value: count.productsInStock - count.productsLowStock, color: "var(--clr-primary-dark)" },
+            { label: "Available", value: count.productsInStock, color: "var(--clr-primary-dark)" },
             { label: "Low in Stock", value: count.productsLowStock, color: "var(--clr-primary-light)" },
             { label: "Out of Stock", value: count.productsOutOfStock, color: "var(--clr-grey-divider)" },
         ]
@@ -118,4 +118,6 @@ document.addEventListener("DOMContentLoaded", () => {
     setDropDownMenu(menuBtnBadges);
     setDropDownMenu(menuBtnColumn);
     setDropDownMenu(menuBtnFilter);
+
+    menuBtnBadges.click();
 })

@@ -31,7 +31,6 @@
             </div>
         </header>
 
-
         <!-- MAIN CONTENT STARTS -->
 
         <section class="main-content">
@@ -164,19 +163,25 @@
                 <h2 class="fs-500">Inventory Data</h2>
 
                 <div class="filter-options">
-                    <button class="text" data-drop-down="badges_drop_down_menu" id="badges_menu_btn">
+                    <button class="ghost mini" data-drop-down="badges_drop_down_menu" id="badges_menu_btn">
                         <svg class="icon">
                             <use href="{% static 'assets/icon-sprite.svg' %}#badge" />
                         </svg>
                         Badges
                     </button>
-                    <button class="text" data-drop-down="badges_drop_down_menu" id="column_menu_btn">
+                    <button class="ghost mini" data-drop-down="column_drop_down_menu" id="column_menu_btn">
                         <svg class="icon">
                             <use href="{% static 'assets/icon-sprite.svg' %}#column-visibility" />
                         </svg>
                         Columns
                     </button>
-                    <button class="text" data-drop-down="badges_drop_down_menu" id="filter_menu_btn">
+                    <button class="ghost mini" data-drop-down="column_drop_down_menu" id="column_menu_btn">
+                        <svg class="icon">
+                            <use href="{% static 'assets/icon-sprite.svg' %}#column-visibility" />
+                        </svg>
+                        Categories
+                    </button>
+                    <button class="ghost mini" data-drop-down="badges_drop_down_menu" id="filter_menu_btn">
                         <svg class="icon">
                             <use href="{% static 'assets/icon-sprite.svg' %}#manage" />
                         </svg>
@@ -191,6 +196,11 @@
                 <table>
                     <thead>
                         <tr>
+                            <th>
+                                <div class="check-radio-box">
+                                    <input type="checkbox" name="select_all" id="select_all">
+                                </div>
+                            </th>
                             <th>Name</th>
                             <th>Brand</th>
                             <th>Category</th>
@@ -246,12 +256,144 @@
     <!-- BADGES DROP DOWN MENU STARTS -->
     <div class="drop-down-menu" id="badges_drop_down_menu">
         <div class="drop-down-menu-body">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae quo cumque, sequi eius voluptates
-            reiciendis provident aliquam esse exercitationem incidunt fuga nihil voluptatibus aut tempora animi
-            excepturi dolore? Neque, velit.
+            <div class="overline">
+                Show Badges
+            </div>
+            <div>
+                <div class="check-radio-box">
+                    <label for="badge_vis_most_sold">
+                        <input type="checkbox" id="badge_vis_most_sold" name="badge_vis">
+                        Most Sold
+                    </label>
+                </div>
+                <div class="check-radio-box">
+                    <label for="badge_vis_expired">
+                        <input type="checkbox" id="badge_vis_expired" name="badge_vis">
+                        Expired
+                    </label>
+                </div>
+                <div class="check-radio-box">
+                    <label for="badge_vis_days_left">
+                        <input type="checkbox" id="badge_vis_days_left" name="badge_vis">
+                        Days Left
+                    </label>
+                </div>
+                <div class="check-radio-box">
+                    <label for="badge_vis_low_in_stock">
+                        <input type="checkbox" id="badge_vis_low_in_stock" name="badge_vis">
+                        Low in Stock
+                    </label>
+                </div>
+                <div class="check-radio-box">
+                    <label for="badge_vis_out_of_stock">
+                        <input type="checkbox" id="badge_vis_out_of_stock" name="badge_vis">
+                        Out of Stock
+                    </label>
+                </div>
+                <div class="check-radio-box">
+                    <label for="badge_vis_no_profit">
+                        <input type="checkbox" id="badge_vis_no_profit" name="badge_vis">
+                        No Profit
+                    </label>
+                </div>
+                <div class="check-radio-box">
+                    <label for="badge_vis_in_loss">
+                        <input type="checkbox" id="badge_vis_in_loss" name="badge_vis">
+                        In Loss
+                    </label>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+            <div>
+                <button class="primary" id="badge_vis_show_all">Show All</button>
+            </div>
         </div>
     </div>
     <!-- BADGES DROP DOWN MENU ENDS -->
+
+    <!-- COLUMN VISIBILITY DROP DOWN MENU STARTS -->
+    <div class="drop-down-menu" id="column_drop_down_menu">
+        <div class="drop-down-menu-body">
+            <div class="overline">
+                Show Columns
+            </div>
+            <div>
+                <div class="check-radio-box">
+                    <label for="column_vis_serial_num">
+                        <input type="checkbox" id="column_vis_serial_num" disabled checked>
+                        Sr. No.
+                    </label>
+                </div>
+                <div class="check-radio-box">
+                    <label for="column_vis_name">
+                        <input type="checkbox" id="column_vis_name" disabled checked>
+                        Name
+                    </label>
+                </div>
+                <div class="check-radio-box">
+                    <label for="column_vis_brand">
+                        <input type="checkbox" id="column_vis_brand" name="column_vis">
+                        Brand
+                    </label>
+                </div>
+                <div class="check-radio-box">
+                    <label for="column_vis_category">
+                        <input type="checkbox" id="column_vis_category" name="column_vis">
+                        Category
+                    </label>
+                </div>
+                <div class="check-radio-box">
+                    <label for="column_vis_seller">
+                        <input type="checkbox" id="column_vis_seller" name="column_vis">
+                        Seller
+                    </label>
+                </div>
+                <div class="check-radio-box">
+                    <label for="column_vis_manufacture_date">
+                        <input type="checkbox" id="column_vis_manufacture_date" name="column_vis">
+                        Manufacture Date
+                    </label>
+                </div>
+                <div class="check-radio-box">
+                    <label for="column_vis_date_added">
+                        <input type="checkbox" id="column_vis_date_added" name="column_vis">
+                        Date Added
+                    </label>
+                </div>
+                <div class="check-radio-box">
+                    <label for="column_vis_expiry_date">
+                        <input type="checkbox" id="column_vis_expiry_date" name="column_vis">
+                        Expiry Date
+                    </label>
+                </div>
+                <div class="check-radio-box">
+                    <label for="column_vis_purchase_price">
+                        <input type="checkbox" id="column_vis_purchase_price" name="column_vis">
+                        Purchase Price
+                    </label>
+                </div>
+                <div class="check-radio-box">
+                    <label for="column_vis_selling_price">
+                        <input type="checkbox" id="column_vis_selling_price" name="column_vis">
+                        Selling Price
+                    </label>
+                </div>
+                <div class="check-radio-box">
+                    <label for="column_vis_quantity">
+                        <input type="checkbox" id="column_vis_quantity" name="column_vis">
+                        Quantity
+                    </label>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+            <div>
+                <button class="primary" id="column_vis_show_all">Show All</button>
+            </div>
+        </div>
+    </div>
+    <!-- COLUMN VISIBILITY DROP DOWN MENU ENDS -->
 
     <!-- EXISTING PRODUCTS LIST STARTS -->
     {% include 'components/product-name-list.html' %}
