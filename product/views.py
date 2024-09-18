@@ -11,7 +11,7 @@ from django.utils import timezone
 
 def stock_new(request):
     sellers = list(Seller.objects.values_list("name", flat=True))
-    products = list(Product.objects.values_list("name", flat=True))
+    products = set(Product.objects.values_list("name", flat=True))
     brands = set(Product.objects.values_list("brand", flat=True))
     sellers.reverse()
     context = {
@@ -54,7 +54,7 @@ def add_stock_summary(request):
                     isNew = product.get("isNew")
                     selling_price = product.get("priceSelling")
                     wholesale_price = product.get("priceWholesale")
-                    quantity = int(product.get("quantity", 0)) 
+                    quantity = int(product.get("quantity", 0))
                     seller_name = product.get("sellerName")
                     seller = Seller.objects.get(name=seller_name)
                     owner = request.user
