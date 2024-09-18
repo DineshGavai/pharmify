@@ -1,4 +1,4 @@
-import { createChartDonut } from "./utils/components.js"
+import { createChartDonut, setAsSlider } from "./utils/components.js"
 import { formatDateCommon, formatINR, setLocationByRegion } from "./utils/utils.js"
 import { setDropDownMenu } from "./utils/inputs.js"
 
@@ -112,12 +112,17 @@ document.addEventListener("DOMContentLoaded", () => {
         DROP DOWN MENUS - BADGES, COLUMN VISIBILITY, FILTERS
     /////////////// */
 
+    let menuOptionsSec = document.getElementById("inventory_filter_options");
+    setAsSlider(menuOptionsSec);
+
     let menuBtnBadges = document.getElementById("badges_menu_btn");
     let menuBtnColumn = document.getElementById("column_menu_btn");
-    let menuBtnFilter = document.getElementById("filter_menu_btn");
+    let menuBtnCategory = document.getElementById("category_menu_btn");
+    let menuBtnFilter = document.getElementById("more_filter_menu_btn");
     setDropDownMenu(menuBtnBadges);
     setDropDownMenu(menuBtnColumn);
+    setDropDownMenu(menuBtnCategory);
     setDropDownMenu(menuBtnFilter);
 
-    menuBtnBadges.click();
+    menuBtnFilter.click();
 })

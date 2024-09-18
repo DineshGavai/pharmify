@@ -508,9 +508,10 @@ export function setDropDownMenu(elem, isInput = false) {
   });
 
   // Hide datalist on click or scroll elsewhere
-  dropDownElem.addEventListener("click", (e) => removeDropDownMenu(dropDownElem, e));
-  dropDownElem.addEventListener("wheel", (e) => removeDropDownMenu(dropDownElem, e), { passive: true });
-
+  if (true) {
+    dropDownElem.addEventListener("click", (e) => removeDropDownMenu(dropDownElem, e));
+    dropDownElem.addEventListener("wheel", (e) => removeDropDownMenu(dropDownElem, e), { passive: true });
+  }
   // Return and don't do further input handling if the drop down is an input
   if (!isInput) return;
 

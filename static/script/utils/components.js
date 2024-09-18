@@ -232,9 +232,6 @@ export function createChartDonut(sliceDataList, isHalf = false) {
     let totalValue = 0;
     sliceDataList.forEach(data => totalValue += data.value);
 
-    console.log(totalValue);
-    
-
     // Circle dimensions
     const radius = 368;
     const circumference = 2 * Math.PI * radius;

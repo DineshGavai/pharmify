@@ -314,8 +314,8 @@
                 stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
         </symbol>
 
-        <!-- Category -->
-        <symbol id="category" viewBox="0 0 24 24">
+        <!-- Categories -->
+        <symbol id="categories" viewBox="0 0 24 24">
             <circle cx="17" cy="7" r="3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
             <circle cx="7" cy="17" r="3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
             <path d="M14 14H20V19C20 19.5523 19.5523 20 19 20H15C14.4477 20 14 19.5523 14 19V14Z" stroke-width="1.5"

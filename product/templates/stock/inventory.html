@@ -162,7 +162,7 @@
             <section class="filter-sec">
                 <h2 class="fs-500">Inventory Data</h2>
 
-                <div class="filter-options">
+                <div class="filter-options" id="inventory_filter_options">
                     <button class="ghost mini" data-drop-down="badges_drop_down_menu" id="badges_menu_btn">
                         <svg class="icon">
                             <use href="{% static 'assets/icon-sprite.svg' %}#badge" />
@@ -175,17 +175,17 @@
                         </svg>
                         Columns
                     </button>
-                    <button class="ghost mini" data-drop-down="column_drop_down_menu" id="column_menu_btn">
+                    <button class="ghost mini" data-drop-down="category_drop_down_menu" id="category_menu_btn">
                         <svg class="icon">
-                            <use href="{% static 'assets/icon-sprite.svg' %}#column-visibility" />
+                            <use href="{% static 'assets/icon-sprite.svg' %}#categories" />
                         </svg>
                         Categories
                     </button>
-                    <button class="ghost mini" data-drop-down="badges_drop_down_menu" id="filter_menu_btn">
+                    <button class="ghost mini" data-drop-down="more_filter_drop_down_menu" id="more_filter_menu_btn">
                         <svg class="icon">
                             <use href="{% static 'assets/icon-sprite.svg' %}#manage" />
                         </svg>
-                        Filters
+                        More
                     </button>
                 </div>
             </section>
@@ -256,58 +256,55 @@
     <!-- BADGES DROP DOWN MENU STARTS -->
     <div class="drop-down-menu" id="badges_drop_down_menu">
         <div class="drop-down-menu-body">
-            <div class="overline">
-                Show Badges
-            </div>
-            <div>
+            <p class="overline">Show Badges</p>
+            <div class="drop-down-menu-content">
                 <div class="check-radio-box">
                     <label for="badge_vis_most_sold">
-                        <input type="checkbox" id="badge_vis_most_sold" name="badge_vis">
+                        <input type="checkbox" id="badge_vis_most_sold" name="badge_vis" checked>
                         Most Sold
                     </label>
                 </div>
                 <div class="check-radio-box">
                     <label for="badge_vis_expired">
-                        <input type="checkbox" id="badge_vis_expired" name="badge_vis">
+                        <input type="checkbox" id="badge_vis_expired" name="badge_vis" checked>
                         Expired
                     </label>
                 </div>
                 <div class="check-radio-box">
                     <label for="badge_vis_days_left">
-                        <input type="checkbox" id="badge_vis_days_left" name="badge_vis">
+                        <input type="checkbox" id="badge_vis_days_left" name="badge_vis" checked>
                         Days Left
                     </label>
                 </div>
                 <div class="check-radio-box">
                     <label for="badge_vis_low_in_stock">
-                        <input type="checkbox" id="badge_vis_low_in_stock" name="badge_vis">
+                        <input type="checkbox" id="badge_vis_low_in_stock" name="badge_vis" checked>
                         Low in Stock
                     </label>
                 </div>
                 <div class="check-radio-box">
                     <label for="badge_vis_out_of_stock">
-                        <input type="checkbox" id="badge_vis_out_of_stock" name="badge_vis">
+                        <input type="checkbox" id="badge_vis_out_of_stock" name="badge_vis" checked>
                         Out of Stock
                     </label>
                 </div>
                 <div class="check-radio-box">
                     <label for="badge_vis_no_profit">
-                        <input type="checkbox" id="badge_vis_no_profit" name="badge_vis">
+                        <input type="checkbox" id="badge_vis_no_profit" name="badge_vis" checked>
                         No Profit
                     </label>
                 </div>
                 <div class="check-radio-box">
                     <label for="badge_vis_in_loss">
-                        <input type="checkbox" id="badge_vis_in_loss" name="badge_vis">
+                        <input type="checkbox" id="badge_vis_in_loss" name="badge_vis" checked>
                         In Loss
                     </label>
                 </div>
             </div>
-
-            <div class="divider"></div>
-            <div>
-                <button class="primary" id="badge_vis_show_all">Show All</button>
-            </div>
+            <footer class="btn-box">
+                <button class="text" id="badge_vis_select_all">Select All</button>
+                <button class="primary" id="badge_vis_done">Done</button>
+            </footer>
         </div>
     </div>
     <!-- BADGES DROP DOWN MENU ENDS -->
@@ -315,10 +312,8 @@
     <!-- COLUMN VISIBILITY DROP DOWN MENU STARTS -->
     <div class="drop-down-menu" id="column_drop_down_menu">
         <div class="drop-down-menu-body">
-            <div class="overline">
-                Show Columns
-            </div>
-            <div>
+            <p class="overline">Show Columns</p>
+            <div class="drop-down-menu-content">
                 <div class="check-radio-box">
                     <label for="column_vis_serial_num">
                         <input type="checkbox" id="column_vis_serial_num" disabled checked>
@@ -333,67 +328,180 @@
                 </div>
                 <div class="check-radio-box">
                     <label for="column_vis_brand">
-                        <input type="checkbox" id="column_vis_brand" name="column_vis">
+                        <input type="checkbox" id="column_vis_brand" name="column_vis" checked>
                         Brand
                     </label>
                 </div>
                 <div class="check-radio-box">
                     <label for="column_vis_category">
-                        <input type="checkbox" id="column_vis_category" name="column_vis">
+                        <input type="checkbox" id="column_vis_category" name="column_vis" checked>
                         Category
                     </label>
                 </div>
                 <div class="check-radio-box">
                     <label for="column_vis_seller">
-                        <input type="checkbox" id="column_vis_seller" name="column_vis">
+                        <input type="checkbox" id="column_vis_seller" name="column_vis" checked>
                         Seller
                     </label>
                 </div>
                 <div class="check-radio-box">
                     <label for="column_vis_manufacture_date">
-                        <input type="checkbox" id="column_vis_manufacture_date" name="column_vis">
+                        <input type="checkbox" id="column_vis_manufacture_date" name="column_vis" checked>
                         Manufacture Date
                     </label>
                 </div>
                 <div class="check-radio-box">
                     <label for="column_vis_date_added">
-                        <input type="checkbox" id="column_vis_date_added" name="column_vis">
+                        <input type="checkbox" id="column_vis_date_added" name="column_vis" checked>
                         Date Added
                     </label>
                 </div>
                 <div class="check-radio-box">
                     <label for="column_vis_expiry_date">
-                        <input type="checkbox" id="column_vis_expiry_date" name="column_vis">
+                        <input type="checkbox" id="column_vis_expiry_date" name="column_vis" checked>
                         Expiry Date
                     </label>
                 </div>
                 <div class="check-radio-box">
                     <label for="column_vis_purchase_price">
-                        <input type="checkbox" id="column_vis_purchase_price" name="column_vis">
+                        <input type="checkbox" id="column_vis_purchase_price" name="column_vis" checked>
                         Purchase Price
                     </label>
                 </div>
                 <div class="check-radio-box">
                     <label for="column_vis_selling_price">
-                        <input type="checkbox" id="column_vis_selling_price" name="column_vis">
+                        <input type="checkbox" id="column_vis_selling_price" name="column_vis" checked>
                         Selling Price
                     </label>
                 </div>
                 <div class="check-radio-box">
                     <label for="column_vis_quantity">
-                        <input type="checkbox" id="column_vis_quantity" name="column_vis">
+                        <input type="checkbox" id="column_vis_quantity" name="column_vis" checked>
                         Quantity
                     </label>
                 </div>
             </div>
-
-            <div class="divider"></div>
-            <div>
-                <button class="primary" id="column_vis_show_all">Show All</button>
-            </div>
+            <footer class="btn-box">
+                <button class="text" id="column_vis_select_all">Select All</button>
+                <button class="primary" id="column_vis_done">Done</button>
+            </footer>
         </div>
     </div>
     <!-- COLUMN VISIBILITY DROP DOWN MENU ENDS -->
+
+    <!-- CATEGORIES DROP DOWN MENU STARTS -->
+    <div class="drop-down-menu" id="category_drop_down_menu">
+        <div class="drop-down-menu-body">
+            <p class="overline">Show Categories</p>
+            <div class="drop-down-menu-content">
+                <div class="check-radio-box">
+                    <label for="category_vis_example1">
+                        <input type="checkbox" id="category_vis_example1" checked>
+                        Example $
+                    </label>
+                </div>
+                <div class="check-radio-box">
+                    <label for="category_vis_example2">
+                        <input type="checkbox" id="category_vis_example2" checked>
+                        Example $
+                    </label>
+                </div>
+                <div class="check-radio-box">
+                    <label for="category_vis_example3">
+                        <input type="checkbox" id="category_vis_example3" name="category_vis" checked>
+                        Example $
+                    </label>
+                </div>
+                <div class="check-radio-box">
+                    <label for="category_vis_example4">
+                        <input type="checkbox" id="category_vis_example4" name="category_vis" checked>
+                        Example $
+                    </label>
+                </div>
+            </div>
+            <footer class="btn-box">
+                <button class="text" id="category_vis_select_all">Select All</button>
+                <button class="primary" id="category_vis_done">Done</button>
+            </footer>
+        </div>
+    </div>
+    <!-- CATEGORIES DROP DOWN MENU ENDS -->
+
+    <!-- MORE FILTERS DROP DOWN MENU STARTS -->
+    <div class="drop-down-menu" id="more_filter_drop_down_menu">
+        <div class="drop-down-menu-body filter-menu">
+            <!-- Menu Header -->
+            <header>
+                <h3 class="fs-400">More Filters</h3>
+                <button class="icon lg">
+                    <svg class="icon">
+                        <use href="{% static 'assets/icon-sprite.svg' %}#cross" />
+                    </svg>
+                </button>
+            </header>
+            <!-- Menu Content -->
+            <div class="drop-down-menu-content">
+                <div class="accordion">
+                    <div class="title">
+                        <p>Date</p>
+                        <button class="icon"><svg class="icon"><use href="{% static 'assets/icon-sprite.svg' %}#chevron-down" /></svg></button>
+                    </div>
+                    <div class="content">
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime veritatis deserunt nam eum
+                        necessitatibus voluptates aut et blanditiis accusantium at?
+                    </div>
+                </div>
+                <div class="accordion">
+                    <div class="title">
+                        <p>Financial</p>
+                        <button class="icon"><svg class="icon"><use href="{% static 'assets/icon-sprite.svg' %}#chevron-down" /></svg></button>
+                    </div>
+                    <div class="content">
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime veritatis deserunt nam eum
+                        necessitatibus voluptates aut et blanditiis accusantium at?
+                    </div>
+                </div>
+                <div class="accordion">
+                    <div class="title">
+                        <p>Price & Quantity</p>
+                        <button class="icon"><svg class="icon"><use href="{% static 'assets/icon-sprite.svg' %}#chevron-down" /></svg></button>
+                    </div>
+                    <div class="content">
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime veritatis deserunt nam eum
+                        necessitatibus voluptates aut et blanditiis accusantium at?
+                    </div>
+                </div>
+                <div class="accordion">
+                    <div class="title">
+                        <p>Seller</p>
+                        <button class="icon"><svg class="icon"><use href="{% static 'assets/icon-sprite.svg' %}#chevron-down" /></svg></button>
+                    </div>
+                    <div class="content">
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime veritatis deserunt nam eum
+                        necessitatibus voluptates aut et blanditiis accusantium at?
+                    </div>
+                </div>
+                <div class="accordion">
+                    <div class="title">
+                        <p>Brand</p>
+                        <button class="icon"><svg class="icon"><use href="{% static 'assets/icon-sprite.svg' %}#chevron-down" /></svg></button>
+                    </div>
+                    <div class="content">
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime veritatis deserunt nam eum
+                        necessitatibus voluptates aut et blanditiis accusantium at?
+                    </div>
+                </div>
+            </div>
+            <!-- Footer -->
+            <footer class="btn-box">
+                <button class="text" id="more_filter_reset">Reset</button>
+                <button class="primary" id="more_filter_apply">Apply</button>
+            </footer>
+        </div>
+    </div>
+    <!-- MORE FILTERS DROP DOWN MENU STARTS -->
+
+
 
     <!-- EXISTING PRODUCTS LIST STARTS -->
     {% include 'components/product-name-list.html' %}

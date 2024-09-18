@@ -271,29 +271,21 @@
 .filter-sec .filter-options {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
   gap: 1.2rem;
+}
+
+.filter-sec {
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.6rem;
+}
+
+.filter-sec .filter-options {
+  max-width: 100%;
+  overflow: auto;
 }
 
 .filter-sec > *,
 .filter-sec .filter-options > * {
   width: fit-content;
-}
-
-.filter-options {
-  margin-left: auto;
-}
-
-:is(#badges_drop_down_menu, #column_drop_down_menu) .drop-down-menu-body {
-  min-width: 18rem !important;
-}
-
-:is(#badges_drop_down_menu, #column_drop_down_menu) .drop-down-menu-body > div {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
-:is(#badges_drop_down_menu, #column_drop_down_menu) .divider {
-  margin: 0.8rem 0;
 }
