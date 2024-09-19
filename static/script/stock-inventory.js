@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
     )
 
     setFinancialData(
-        document.getElementById("overview_same_products"), null,
+        document.getElementById("overview_no_change_products"), null,
         financial.sameAsWholesaleAmount, null, null
     )
 
@@ -124,5 +124,5 @@ document.addEventListener("DOMContentLoaded", () => {
     setDropDownMenu(menuBtnCategory);
     setDropDownMenu(menuBtnFilter);
 
-    menuBtnFilter.click();
+    menuBtnColumn.click();
 })

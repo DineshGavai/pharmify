@@ -135,7 +135,7 @@
                                     <use href="{% static 'assets/icon-sprite.svg' %}#chart-line-horizontal" />
                                 </svg></span>
                             <span class="subtitle">
-                                <span><strong id="overview_same_products">N/A</strong> Products are sold</span>
+                                <span><strong id="overview_no_change_products">N/A</strong> Products are sold</span>
                                 <span>at purchase price</span>
                             </span>
                             <strong>No Profit</strong>
@@ -263,38 +263,26 @@
                         <input type="checkbox" id="badge_vis_most_sold" name="badge_vis" checked>
                         Most Sold
                     </label>
-                </div>
-                <div class="check-radio-box">
                     <label for="badge_vis_expired">
                         <input type="checkbox" id="badge_vis_expired" name="badge_vis" checked>
                         Expired
                     </label>
-                </div>
-                <div class="check-radio-box">
                     <label for="badge_vis_days_left">
                         <input type="checkbox" id="badge_vis_days_left" name="badge_vis" checked>
                         Days Left
                     </label>
-                </div>
-                <div class="check-radio-box">
                     <label for="badge_vis_low_in_stock">
                         <input type="checkbox" id="badge_vis_low_in_stock" name="badge_vis" checked>
                         Low in Stock
                     </label>
-                </div>
-                <div class="check-radio-box">
                     <label for="badge_vis_out_of_stock">
                         <input type="checkbox" id="badge_vis_out_of_stock" name="badge_vis" checked>
                         Out of Stock
                     </label>
-                </div>
-                <div class="check-radio-box">
                     <label for="badge_vis_no_profit">
                         <input type="checkbox" id="badge_vis_no_profit" name="badge_vis" checked>
                         No Profit
                     </label>
-                </div>
-                <div class="check-radio-box">
                     <label for="badge_vis_in_loss">
                         <input type="checkbox" id="badge_vis_in_loss" name="badge_vis" checked>
                         In Loss
@@ -314,15 +302,15 @@
         <div class="drop-down-menu-body">
             <p class="overline">Show Columns</p>
             <div class="drop-down-menu-content">
-                <div class="check-radio-box">
-                    <label for="column_vis_serial_num">
-                        <input type="checkbox" id="column_vis_serial_num" disabled checked>
+                <div class="check-radio-box" aria-disabled="false">
+                    <label>
+                        <input type="checkbox" id="column_vis_serial_num" disabled checked
+                            style="background-image: url('/static/assets/lock.svg');">
                         Sr. No.
                     </label>
-                </div>
-                <div class="check-radio-box">
-                    <label for="column_vis_name">
-                        <input type="checkbox" id="column_vis_name" disabled checked>
+                    <label>
+                        <input type="checkbox" id="column_vis_name" disabled checked
+                            style="background-image: url('/static/assets/lock.svg');">
                         Name
                     </label>
                 </div>
@@ -331,50 +319,34 @@
                         <input type="checkbox" id="column_vis_brand" name="column_vis" checked>
                         Brand
                     </label>
-                </div>
-                <div class="check-radio-box">
                     <label for="column_vis_category">
                         <input type="checkbox" id="column_vis_category" name="column_vis" checked>
                         Category
                     </label>
-                </div>
-                <div class="check-radio-box">
                     <label for="column_vis_seller">
                         <input type="checkbox" id="column_vis_seller" name="column_vis" checked>
                         Seller
                     </label>
-                </div>
-                <div class="check-radio-box">
                     <label for="column_vis_manufacture_date">
                         <input type="checkbox" id="column_vis_manufacture_date" name="column_vis" checked>
                         Manufacture Date
                     </label>
-                </div>
-                <div class="check-radio-box">
                     <label for="column_vis_date_added">
                         <input type="checkbox" id="column_vis_date_added" name="column_vis" checked>
                         Date Added
                     </label>
-                </div>
-                <div class="check-radio-box">
                     <label for="column_vis_expiry_date">
                         <input type="checkbox" id="column_vis_expiry_date" name="column_vis" checked>
                         Expiry Date
                     </label>
-                </div>
-                <div class="check-radio-box">
                     <label for="column_vis_purchase_price">
                         <input type="checkbox" id="column_vis_purchase_price" name="column_vis" checked>
                         Purchase Price
                     </label>
-                </div>
-                <div class="check-radio-box">
                     <label for="column_vis_selling_price">
                         <input type="checkbox" id="column_vis_selling_price" name="column_vis" checked>
                         Selling Price
                     </label>
-                </div>
-                <div class="check-radio-box">
                     <label for="column_vis_quantity">
                         <input type="checkbox" id="column_vis_quantity" name="column_vis" checked>
                         Quantity
@@ -399,20 +371,14 @@
                         <input type="checkbox" id="category_vis_example1" checked>
                         Example $
                     </label>
-                </div>
-                <div class="check-radio-box">
                     <label for="category_vis_example2">
                         <input type="checkbox" id="category_vis_example2" checked>
                         Example $
                     </label>
-                </div>
-                <div class="check-radio-box">
                     <label for="category_vis_example3">
                         <input type="checkbox" id="category_vis_example3" name="category_vis" checked>
                         Example $
                     </label>
-                </div>
-                <div class="check-radio-box">
                     <label for="category_vis_example4">
                         <input type="checkbox" id="category_vis_example4" name="category_vis" checked>
                         Example $
@@ -441,7 +407,8 @@
             </header>
             <!-- Menu Content -->
             <div class="drop-down-menu-content">
-                <div class="accordion visible">
+                <!-- DATE FILTER ACCRODION -->
+                <div class="accordion">
                     <div class="title">
                         <p>Date</p>
                         <button class="icon"><svg class="icon">
@@ -451,7 +418,7 @@
                     <div class="content">
                         <div class="check-radio-box">
                             <label for="filter_date_all_dates">
-                                <input type="radio" id="filter_date_all_dates" name="filter_date">
+                                <input type="radio" id="filter_date_all_dates" name="filter_date" checked>
                                 All Dates
                             </label>
                         </div>
@@ -482,22 +449,51 @@
                                 Date Range
                             </label>
                         </div>
+                        <!-- Date Range Inputs -->
                         <div class="range-input-box" id="filter_date_range_box">
                             <fieldset>
                                 <label for="filter_date_from">From</label>
-                                <input type="text" class="text-input" id="filter_date_from" name="filter_date_from">
+                                <input type="date" class="text-input" id="filter_date_from" name="filter_date_from">
                             </fieldset>
                             <svg class="icon">
                                 <use href="{% static 'assets/icon-sprite.svg' %}#arrow-right" />
                             </svg>
                             <fieldset>
                                 <label for="filter_date_to">To</label>
-                                <input type="text" class="text-input" id="filter_date_to" name="filter_date_to">
+                                <input type="date" class="text-input" id="filter_date_to" name="filter_date_to">
                             </fieldset>
                         </div>
                     </div>
                 </div>
-                <div class="accordion">
+                <!-- PROFIT AND LOSS FILTER ACCRODION -->
+                <div class="accordion visible">
+                    <div class="title">
+                        <p>Profit or Loss</p>
+                        <button class="icon"><svg class="icon">
+                                <use href="{% static 'assets/icon-sprite.svg' %}#chevron-down" />
+                            </svg></button>
+                    </div>
+                    <div class="content">
+                        <!-- Profit or Loss Checkboxes -->
+                        <div class="check-radio-box">
+                            <label for="filter_profit_loss_profit">
+                                <input type="checkbox" id="filter_profit_loss_profit" name="filter_profit_loss" checked>
+                                In Profit
+                            </label>
+                            <label for="filter_profit_loss_loss">
+                                <input type="checkbox" id="filter_profit_loss_loss" name="filter_profit_loss" checked>
+                                In Loss
+                            </label>
+                            <label for="filter_profit_loss_no_change">
+                                <input type="checkbox" id="filter_profit_loss_no_change" name="filter_profit_loss"
+                                    checked>
+                                No Change (Same as Purchase Price)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <!-- PRICES AND QUANTITY FILTER ACCRODION -->
+                <div class="accordion visible">
                     <div class="title">
                         <p>Prices & Quantity</p>
                         <button class="icon"><svg class="icon">
@@ -505,8 +501,56 @@
                             </svg></button>
                     </div>
                     <div class="content">
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime veritatis deserunt nam eum
-                        necessitatibus voluptates aut et blanditiis accusantium at?
+                        <!-- Purchase Price Range -->
+                        <p class="subtitle">Purchase Price Range</p>
+                        <div class="range-input-box">
+                            <fieldset>
+                                <label for="filter_purchase_price_from">From</label>
+                                <input type="text" class="text-input" id="filter_purchase_price_from"
+                                    name="filter_purchase_price_from">
+                            </fieldset>
+                            <svg class="icon">
+                                <use href="{% static 'assets/icon-sprite.svg' %}#arrow-right" />
+                            </svg>
+                            <fieldset>
+                                <label for="filter_purchase_price_to">To</label>
+                                <input type="text" class="text-input" id="filter_purchase_price_to"
+                                    name="filter_purchase_price_to">
+                            </fieldset>
+                        </div>
+                        <!-- Selling Price Range -->
+                        <p class="subtitle">Selling Price Range</p>
+                        <div class="range-input-box">
+                            <fieldset>
+                                <label for="filter_selling_price_from">From</label>
+                                <input type="text" class="text-input" id="filter_selling_price_from"
+                                    name="filter_selling_price_from">
+                            </fieldset>
+                            <svg class="icon">
+                                <use href="{% static 'assets/icon-sprite.svg' %}#arrow-right" />
+                            </svg>
+                            <fieldset>
+                                <label for="filter_selling_price_to">To</label>
+                                <input type="text" class="text-input" id="filter_selling_price_to"
+                                    name="filter_selling_price_to">
+                            </fieldset>
+                        </div>
+                        <!-- Quantity Range -->
+                        <p class="subtitle">Quantity Range</p>
+                        <div class="range-input-box">
+                            <fieldset>
+                                <label for="filter_quantity_from">From</label>
+                                <input type="text" class="text-input" id="filter_quantity_from"
+                                    name="filter_quantity_from">
+                            </fieldset>
+                            <svg class="icon">
+                                <use href="{% static 'assets/icon-sprite.svg' %}#arrow-right" />
+                            </svg>
+                            <fieldset>
+                                <label for="filter_quantity_to">To</label>
+                                <input type="text" class="text-input" id="filter_quantity_to" name="filter_quantity_to">
+                            </fieldset>
+                        </div>
                     </div>
                 </div>
                 <div class="accordion">
