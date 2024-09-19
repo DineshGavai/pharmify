@@ -441,30 +441,68 @@
             </header>
             <!-- Menu Content -->
             <div class="drop-down-menu-content">
-                <div class="accordion">
+                <div class="accordion visible">
                     <div class="title">
                         <p>Date</p>
-                        <button class="icon"><svg class="icon"><use href="{% static 'assets/icon-sprite.svg' %}#chevron-down" /></svg></button>
+                        <button class="icon"><svg class="icon">
+                                <use href="{% static 'assets/icon-sprite.svg' %}#chevron-down" />
+                            </svg></button>
                     </div>
                     <div class="content">
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime veritatis deserunt nam eum
-                        necessitatibus voluptates aut et blanditiis accusantium at?
+                        <div class="check-radio-box">
+                            <label for="filter_date_all_dates">
+                                <input type="radio" id="filter_date_all_dates" name="filter_date">
+                                All Dates
+                            </label>
+                        </div>
+                        <div class="check-radio-box">
+                            <label for="filter_date_last_7_Days">
+                                <input type="radio" id="filter_date_last_7_Days" name="filter_date">
+                                Last 7 Days
+                            </label>
+                        </div>
+                        <div class="check-radio-box">
+                            <label for="filter_date_last_30_days">
+                                <input type="radio" id="filter_date_last_30_days" name="filter_date">
+                                Last 30 Days
+                            </label>
+                        </div>
+                        <div class="check-radio-box">
+                            <label for="filter_date_this_month">
+                                <input type="radio" id="filter_date_this_month" name="filter_date">
+                                <span>This month
+                                    <b class="date-month"></b>
+                                    <b class="date-year"></b>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="check-radio-box">
+                            <label for="filter_date_range">
+                                <input type="radio" id="filter_date_range" name="filter_date">
+                                Date Range
+                            </label>
+                        </div>
+                        <div class="range-input-box" id="filter_date_range_box">
+                            <fieldset>
+                                <label for="filter_date_from">From</label>
+                                <input type="text" class="text-input" id="filter_date_from" name="filter_date_from">
+                            </fieldset>
+                            <svg class="icon">
+                                <use href="{% static 'assets/icon-sprite.svg' %}#arrow-right" />
+                            </svg>
+                            <fieldset>
+                                <label for="filter_date_to">To</label>
+                                <input type="text" class="text-input" id="filter_date_to" name="filter_date_to">
+                            </fieldset>
+                        </div>
                     </div>
                 </div>
                 <div class="accordion">
                     <div class="title">
-                        <p>Financial</p>
-                        <button class="icon"><svg class="icon"><use href="{% static 'assets/icon-sprite.svg' %}#chevron-down" /></svg></button>
-                    </div>
-                    <div class="content">
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime veritatis deserunt nam eum
-                        necessitatibus voluptates aut et blanditiis accusantium at?
-                    </div>
-                </div>
-                <div class="accordion">
-                    <div class="title">
-                        <p>Price & Quantity</p>
-                        <button class="icon"><svg class="icon"><use href="{% static 'assets/icon-sprite.svg' %}#chevron-down" /></svg></button>
+                        <p>Prices & Quantity</p>
+                        <button class="icon"><svg class="icon">
+                                <use href="{% static 'assets/icon-sprite.svg' %}#chevron-down" />
+                            </svg></button>
                     </div>
                     <div class="content">
                         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime veritatis deserunt nam eum
@@ -474,7 +512,9 @@
                 <div class="accordion">
                     <div class="title">
                         <p>Seller</p>
-                        <button class="icon"><svg class="icon"><use href="{% static 'assets/icon-sprite.svg' %}#chevron-down" /></svg></button>
+                        <button class="icon"><svg class="icon">
+                                <use href="{% static 'assets/icon-sprite.svg' %}#chevron-down" />
+                            </svg></button>
                     </div>
                     <div class="content">
                         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime veritatis deserunt nam eum
@@ -484,7 +524,9 @@
                 <div class="accordion">
                     <div class="title">
                         <p>Brand</p>
-                        <button class="icon"><svg class="icon"><use href="{% static 'assets/icon-sprite.svg' %}#chevron-down" /></svg></button>
+                        <button class="icon"><svg class="icon">
+                                <use href="{% static 'assets/icon-sprite.svg' %}#chevron-down" />
+                            </svg></button>
                     </div>
                     <div class="content">
                         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime veritatis deserunt nam eum

@@ -166,7 +166,6 @@ COMPONENTS
 ///////////////////////// */
 
 /* All FLEXBOXES */
-fieldset label,
 .check-radio-box label,
 fieldset .trail,
 fieldset .msg,
@@ -991,7 +990,6 @@ DIALOG COMPONENT
 }
 
 .drop-down-menu-body {
-  max-height: 16rem;
   overflow: hidden auto;
   padding: 0.8rem;
   border-radius: 0.8rem;
@@ -1000,6 +998,10 @@ DIALOG COMPONENT
   position: fixed;
   transition: all 0s;
   border: 1px solid var(--clr-grey-divider);
+}
+
+ul.drop-down-menu-body {
+  max-height: 16rem;
 }
 
 .drop-down-menu-body li:not(.overline) {
