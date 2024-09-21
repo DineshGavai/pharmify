@@ -1,5 +1,6 @@
-import { createChartDonut } from "./utils/components.js"
-import { formatDateCommon, formatINR } from "./utils/utils.js"
+import { createChartDonut, setAsSlider } from "./utils/components.js"
+import { formatDateCommon, formatINR, setLocationByRegion } from "./utils/utils.js"
+import { setDropDownMenu } from "./utils/inputs.js"
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -7,12 +8,12 @@ document.addEventListener("DOMContentLoaded", () => {
     let overviewData = {
         lastUpdated: "2024-09-06",
         count: {
-            products: 21,
+            products: 40,
             productsInStock: 18,
             productsOutOfStock: 2,
-            productsLowStock: 1,
-            productsNearExpiry: 2,
-            productsExpired: 1,
+            productsLowStock: 18,
+            productsNearExpiry: 0,
+            productsExpired: 0,
             productsMostSold: 3,
             productsLeastSold: 1
         },
@@ -48,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
         donutChartData = [{ label: "Available", value: 0, color: "var(--clr-grey-divider)" }]
     } else {
         donutChartData = [
-            { label: "Available", value: count.productsInStock - count.productsLowStock, color: "var(--clr-primary-dark)" },
+            { label: "Available", value: count.productsInStock, color: "var(--clr-primary-dark)" },
             { label: "Low in Stock", value: count.productsLowStock, color: "var(--clr-primary-light)" },
             { label: "Out of Stock", value: count.productsOutOfStock, color: "var(--clr-grey-divider)" },
         ]
@@ -97,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
     )
 
     setFinancialData(
-        document.getElementById("overview_same_products"), null,
+        document.getElementById("overview_no_change_products"), null,
         financial.sameAsWholesaleAmount, null, null
     )
 
@@ -105,4 +106,23 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("overview_profit_products"), document.getElementById("overview_profit_percent"),
         financial.profitProductCount, financial.profitPercent, "No Profit"
     )
+
+
+    /* ///////////////
+        DROP DOWN MENUS - BADGES, COLUMN VISIBILITY, FILTERS
+    /////////////// */
+
+    let menuOptionsSec = document.getElementById("inventory_filter_options");
+    setAsSlider(menuOptionsSec);
+
+    let menuBtnBadges = document.getElementById("badges_menu_btn");
+    let menuBtnColumn = document.getElementById("column_menu_btn");
+    let menuBtnCategory = document.getElementById("category_menu_btn");
+    let menuBtnFilter = document.getElementById("more_filter_menu_btn");
+    setDropDownMenu(menuBtnBadges);
+    setDropDownMenu(menuBtnColumn);
+    setDropDownMenu(menuBtnCategory);
+    setDropDownMenu(menuBtnFilter);
+
+    menuBtnColumn.click();
 })

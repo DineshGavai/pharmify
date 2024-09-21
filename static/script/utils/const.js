@@ -88,6 +88,19 @@ export const UI_LOADER = {
     skeleton: "skeleton"
 }
 
+// MAP Regions
+export const UI_REGIONS = {
+    northWest: "northWest",
+    north: "north",
+    northEast: "northEast",
+    east: "east",
+    southEast: "southEast",
+    south: "south",
+    southWest: "southWest",
+    west: "west",
+    center: "center"
+};
+
 /* ///////////////
     OTHER DATA
 /////////////// */

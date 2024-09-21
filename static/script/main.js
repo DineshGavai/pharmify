@@ -286,5 +286,16 @@ document.addEventListener("DOMContentLoaded", function () {
   })
 
 
+  /* ///////////////
+    ACCORDIONS TOGGLE
+  /////////////// */
+
+  let accordionList = document.querySelectorAll(".accordion");
+
+  accordionList.forEach(elem => {
+    elem.querySelector(".title").addEventListener("click", () => {
+      elem.classList.toggle("visible");
+    })
+  })
 
 });
