@@ -141,7 +141,7 @@ export function getFromStorage(key) {
   DATE, TIME and CURRENCY FORMMATING
 /////////////// */
 
-export function formatCommonDate(dateStr) {
+export function formatDateCommon(dateStr) {
   const DATE = new Date(dateStr);
   return `${toTwoDigit(DATE.getDate())} ${DATE_MONTHS_SHORT[DATE.getMonth()]}, ${DATE.getFullYear()}`;
 }
@@ -158,8 +158,8 @@ export function addDates(date1, date2) {
 export function subtractDates(date1, date2) {
   const date1MS = new Date(date1).getTime();
   const date2MS = new Date(date2).getTime();
-  const daysDiff = Math.floor((date2MS - date1MS) / (1000 * 60 * 60 * 24));
-  return daysDiff;
+  let daysDiff = Math.floor((date2MS - date1MS) / (1000 * 60 * 60 * 24));
+  return ++daysDiff;
 }
 
 export function formatINR(num, isCurrency = true) {
@@ -171,4 +171,50 @@ export function formatINR(num, isCurrency = true) {
   // Join the Integer + Decimal part if it exists
   num = decimalPart ? `${integerPart}.${decimalPart}` : integerPart;
   return isCurrency ? "₹ " + num : num;
+}
+
+
+/* ///////////////
+  GET REGION OF THE ELEMENT
+/////////////// */
+export function setLocationByRegion(elem, popupElem) {
+  // Viewport's height and width
+  const viewportWidth = window.innerWidth;
+  const viewportHeight = window.innerHeight;
+
+  // Get X and Y position of the Center of the Element
+  let { top, left, width, height } = elem.getBoundingClientRect();
+  let popupHeight = popupElem.getBoundingClientRect().height;
+  let popupWidth = popupElem.getBoundingClientRect().width;
+
+  let centerX = left + width / 2;
+  let centerY = top + height / 2;
+
+  // Default - dropdown below and aligned left
+  let posTop = top + height + 4;
+  let posLeft = left;
+
+  if (centerX < viewportWidth / 4 && centerY < viewportHeight / 4) {
+    // north west
+  } else if (centerX > 3 * viewportWidth / 4 && centerY < viewportHeight / 4) {
+    // north east
+    posLeft = left + width - popupWidth; // Align to the right
+  } else if (centerX < viewportWidth / 4 && centerY > 3 * viewportHeight / 4) {
+    // south west
+    posTop = top - popupHeight - 4; // Show above the button
+  } else if (centerX > 3 * viewportWidth / 4 && centerY > 3 * viewportHeight / 4) {
+    // south east
+    posTop = top - popupHeight - 4; // Show above the button
+    posLeft = left + width - popupWidth; // Align to the right
+  } else if (centerX < viewportWidth / 4) {
+    // west
+  } else if (centerX > 3 * viewportWidth / 4) {
+    // east
+    posLeft = left + width - popupWidth; // Align to the right
+  } else if (centerY > 3 * viewportHeight / 4) {
+    // south
+    posTop = top - popupHeight - 4; // Show above the button
+  }
+
+  return [posTop, posLeft];
 }

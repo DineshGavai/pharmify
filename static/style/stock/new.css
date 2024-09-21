@@ -52,6 +52,10 @@ main .summary-main-content {
 NEW PRODUCT LIST
 ///////////////////////// */
 
+fieldset {
+  margin: 0;
+}
+
 .new-product-list-sec,
 .new-product-list,
 .summary-product-list {
@@ -205,10 +209,6 @@ NEW PRODUCT LIST
   margin: auto;
 }
 
-.summary-main-content .col-right .overline {
-  margin-bottom: -1.6rem;
-}
-
 .summary-main-content .back-box {
   max-width: 100rem;
 }
@@ -340,5 +340,9 @@ NEW PRODUCT LIST
     max-width: 56rem;
     margin: auto;
     margin-top: 2.4rem;
+  }
+
+  .summary-main-content .col-right .overline {
+    margin-bottom: -1.6rem;
   }
 }

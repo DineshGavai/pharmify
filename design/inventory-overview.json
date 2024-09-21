@@ -6,19 +6,24 @@
       "productsInStock": "Number of products in Stock",
       "productsOutOfStock": "Number of products out of Stock",
       "productsLowStock": "Number of products low in stock (below a given limit set in settings)",
-      "productsNearExpiry": "Number of products about to be expired (before N days set in settings)",
-      "productsMostSold": "Number of most sold products",
-      "productsLeastSold": "Number of least sold products"
+      "productsExpired": "Number of expired products",
+      "productsNearExpiry": "Number of products about to be expired (before N days set in settings)"
     },
     "types": {
-      "names": ["Array of names of types (Of only available products) (Descending order)"],
-      "counts": ["Array of products available in corresponding types (Descending order)"]
+      "names": [
+        "Array of names of types (Of only available products) (Descending order)"
+      ],
+      "counts": [
+        "Array of products available in corresponding types (Descending order)"
+      ]
     },
     "financial": {
       "cost": "Total selling price of the entire inventory",
-      "profitAmount": "If selling price is more than wholesale, calculate profit amount",
-      "lossAmount": "If selling price is less than wholesale, calculate loss amount",
-      "sameAsWholesale": "Number of products having same wholesale and selling"
+      "profitProductCount": "Number of products being sold more than the wholesale price",
+      "profitPercent": "If selling price is more than wholesale, calculate profit amount",
+      "lossProductCount": "Number of products being sold less than the wholesale price",
+      "lossPercent": "If selling price is less than wholesale, calculate loss amount",
+      "sameAsWholesaleAmount": "Number of products having same wholesale and selling"
     }
   }
 }

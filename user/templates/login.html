@@ -50,11 +50,13 @@
 
                 <!-- Password -->
                 <fieldset>
-                    <label for="login_password">Password <a href="{% url 'password_reset' %}">Forgot?</a></label>
+                    <label for="login_password">Password</label>
                     <div class="icon-frame">
                         <input type="password" name="login_password" id="login_password" class="text-input"
                             placeholder="kept secret." autocomplete="current-password" required>
                     </div>
+                    <p class="msg"><a href="{% url 'password_reset' %}" class="text-link"
+                            style="margin-left: auto; margin-bottom: -0.4rem;">Forgot?</a></p>
                 </fieldset>
 
                 <!-- Login Button -->

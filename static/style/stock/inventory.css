@@ -1,0 +1,304 @@
+#inventory_overview_sec {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 1.6rem;
+}
+
+#inventory_overview_sec > * {
+  flex-grow: 1;
+  min-width: 100%;
+  border-radius: 1.6rem;
+  padding: 1.6rem;
+  padding-top: 4rem;
+  position: relative;
+}
+
+#inventory_overview_sec > * > h2 {
+  position: absolute;
+  font-size: var(--fs-400);
+  font-weight: 400;
+  margin-top: 0.8rem;
+  margin-left: 1.6rem;
+  top: 0;
+  left: 0;
+}
+
+@media (max-width: 320px) {
+  #inventory_overview_sec > * > h2 {
+    margin-left: 0.4rem;
+  }
+}
+
+@media (min-width: 375px) {
+  #inventory_overview_sec > * {
+    min-width: 16rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  #inventory_overview_sec {
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+}
+
+/* /////////////////////////
+  STOCK OVERVIEW
+///////////////////////// */
+
+.stock-overview-sec {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.stock-overview-sec .col-left {
+  position: relative;
+  min-width: 16rem;
+  aspect-ratio: 1;
+}
+
+.stock-overview-sec .col-left > * {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 16rem;
+  height: 16rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.stock-overview-sec #overview_product_count {
+  font-size: var(--fs-600);
+  font-weight: 600;
+}
+
+.stock-overview-sec .col-right {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+@media (min-width: 426px) {
+  .stock-overview-sec {
+    flex-direction: row;
+  }
+  .stock-overview-sec .col-right {
+    flex-direction: column;
+  }
+}
+
+.stock-overview-sec .col-right > * {
+  flex-grow: 1;
+  min-width: fit-content;
+}
+
+.overview-chart-index-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.overview-chart-index-item .color-dot {
+  width: 1.2rem;
+  height: 1.2rem;
+  aspect-ratio: 1;
+  border-radius: 100%;
+}
+
+/* /////////////////////////
+  EXPIRATION OVERVIEW
+///////////////////////// */
+
+.expiration-overview-sec > *,
+.financial-overview-sec > * {
+  max-width: 36rem;
+  margin: auto;
+}
+
+.expiry-card-box {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.expiry-card-box > div {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1.6rem;
+  border-radius: 0.8rem;
+  text-align: right;
+}
+
+.expiry-card-box > div span:has(svg) {
+  margin-bottom: -2.4rem;
+}
+
+.expiry-card-box > div strong {
+  font-size: var(--fs-800);
+}
+
+.expiry-card-box > div:has(#overview_expired_count) {
+  color: var(--clr-status-negative-light-text);
+  background-color: var(--clr-status-negative-light-bg);
+}
+
+.expiry-card-box > div:has(#overview_expiry_soon_count) {
+  color: var(--clr-status-warn-light-text);
+  background-color: var(--clr-status-warn-light-bg);
+}
+
+.expiry-card-box > div:has(#overview_expired_count.safe),
+.expiry-card-box > div:has(#overview_expiry_soon_count.safe) {
+  color: var(--clr-primary-light);
+  background-color: var(--clr-primary-hover);
+}
+
+.expiry-card-box > div:has(#overview_expired_count.safe) svg,
+.expiry-card-box > div:has(#overview_expiry_soon_count.safe) svg {
+  opacity: 0;
+}
+
+/* /////////////////////////
+  FINANCIAL OVERVIEW
+///////////////////////// */
+
+.financial-overview-sec div:has(#overview_total_value) {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.financial-overview-sec p:has(#overview_total_value) {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  gap: 0.4rem;
+}
+
+.financial-overview-sec #overview_total_value {
+  font-size: var(--fs-600);
+}
+
+.price-comparison {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  column-gap: 1.2rem;
+  margin-top: 0.8rem;
+}
+
+.price-comparison > div {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 0.8rem;
+  padding: 0.4rem;
+  --clr-bg: var(--clr-grey-bg);
+  --clr-stroke: var(--clr-grey-text);
+}
+
+.price-comparison span:has(svg) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--clr-bg);
+  min-width: 4.2rem !important;
+  min-height: 4.2rem !important;
+  aspect-ratio: 1 !important;
+  border-radius: 0.4rem;
+}
+
+.price-comparison svg {
+  stroke: var(--clr-stroke);
+}
+
+.price-comparison > div:has(#overview_loss_percent) {
+  --clr-bg: var(--clr-status-negative-light-bg);
+  --clr-stroke: var(--clr-status-negative-light-text);
+}
+
+.price-comparison > div:has(#overview_profit_percent) {
+  --clr-bg: var(--clr-status-success-light-bg);
+  --clr-stroke: var(--clr-status-success-light-text);
+}
+
+.price-comparison > div:has(.safe) {
+  --clr-bg: var(--clr-grey-bg) !important;
+  --clr-stroke: var(--clr-grey-text) !important;
+}
+
+.price-comparison span.subtitle {
+  display: flex;
+  flex-direction: column;
+  font-size: var(--fs-200);
+  width: 100%;
+}
+
+.price-comparison span.subtitle span {
+  text-wrap: nowrap;
+}
+
+.price-comparison > div > strong {
+  margin-left: auto;
+  padding-left: 0.8rem;
+  text-align: right;
+  text-wrap: nowrap;
+  font-weight: 400;
+  color: var(--clr-stroke);
+}
+
+/* /////////////////////////
+  INVENTORY DATA
+///////////////////////// */
+
+/* FILTER SECTION */
+
+.filter-sec {
+  padding-bottom: 1.6rem;
+  padding-top: 2.4rem;
+  border-top: 1px solid var(--clr-grey-divider);
+}
+
+.filter-sec,
+.filter-sec .filter-options {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.filter-sec {
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.6rem;
+}
+
+.filter-sec .filter-options {
+  max-width: 100%;
+  overflow: auto;
+}
+
+.filter-sec > *,
+.filter-sec .filter-options > * {
+  width: fit-content;
+}
+
+#filter_date_range_box {
+  padding-left: 3.2rem;
+  padding-top: 0.4rem;
+}
+
+.accordion .subtitle {
+  color: var(--clr-black);
+}
+
+.accordion .subtitle:not(:nth-of-type(1)) {
+  margin-top: 1.6rem;
+}

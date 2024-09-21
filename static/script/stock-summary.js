@@ -1,4 +1,4 @@
-import { toTwoDigit, formatCommonDate, saveToStorage, getFromStorage, subtractDates, formatINR, popFromArray, setMsgIcons } from "./utils/utils.js";
+import { toTwoDigit, formatDateCommon, saveToStorage, getFromStorage, subtractDates, formatINR, popFromArray, setMsgIcons } from "./utils/utils.js";
 import { createDialog } from "./utils/components.js";
 
 
@@ -53,15 +53,15 @@ function getProductSummaryHTML(data, count, allowTitle = true) {
     <div>
         <p>
             <span class="subtitle">Manufacture Date</span><br>
-            <span class="date-manufacture">${formatCommonDate(data.dateManufacture)}</span>
+            <span class="date-manufacture">${formatDateCommon(data.dateManufacture)}</span>
         </p>
         <p>
             <span class="days-total">Total ${totalDays} days</span><br>
-            <span class="days-left ${daysLeft <= 5 ? "warn" : ""}">${daysLeft} days left from today</span>
+            <span class="days-left ${daysLeft <= 5 ? "warn" : ""}">${daysLeft <= 1 ? "Expiry tommorrow" : daysLeft + " days left from today"}</span>
         </p>
         <p>
             <span class="subtitle">Expiry Date</span><br>
-            <span class="date-expiry">${formatCommonDate(data.dateExpiry)}</span>
+            <span class="date-expiry">${formatDateCommon(data.dateExpiry)}</span>
         </p>
     </div>
     <div>
@@ -237,9 +237,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     })
                     .then((data) => {
                         if (data.redirect_url) {
+                            // TODO: After production
+                            // saveToStorage("new_products", [])
                             window.location.href = data.redirect_url;
-                        } else {
-                            console.log(data); // Handle other JSON data if needed
                         }
                     })
                     .catch((error) => console.error("Error:", error));

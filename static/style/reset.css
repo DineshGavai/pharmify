@@ -43,6 +43,7 @@ IMPORTS and SETUPS
   --clr-grey-bg: #efefef;
   --clr-grey-bg-light: #f7f7f7;
   --clr-grey-hover: #ebebeb;
+  --clr-grey-tooltip: #232f34;
 
   /* Status Colors */
   /* Info */
@@ -61,7 +62,7 @@ IMPORTS and SETUPS
   --clr-status-warn-light-text: #c79f00;
   --clr-status-warn-dark-text: #ffe066;
   /* Negative */
-  --clr-status-negative-light-bg: #f3d0cc;
+  --clr-status-negative-light-bg: #ffe7e4;
   --clr-status-negative-dark-bg: #6a0b00;
   --clr-status-negative-light-text: #ae1100;
   --clr-status-negative-dark-text: #ff1900;
@@ -216,7 +217,8 @@ h5,
 }
 
 h4,
-.fs-600 {
+.fs-600,
+main header h1 {
   font-size: var(--fs-600);
 }
 
