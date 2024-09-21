@@ -172,3 +172,49 @@ export function formatINR(num, isCurrency = true) {
   num = decimalPart ? `${integerPart}.${decimalPart}` : integerPart;
   return isCurrency ? "₹ " + num : num;
 }
+
+
+/* ///////////////
+  GET REGION OF THE ELEMENT
+/////////////// */
+export function setLocationByRegion(elem, popupElem) {
+  // Viewport's height and width
+  const viewportWidth = window.innerWidth;
+  const viewportHeight = window.innerHeight;
+
+  // Get X and Y position of the Center of the Element
+  let { top, left, width, height } = elem.getBoundingClientRect();
+  let popupHeight = popupElem.getBoundingClientRect().height;
+  let popupWidth = popupElem.getBoundingClientRect().width;
+
+  let centerX = left + width / 2;
+  let centerY = top + height / 2;
+
+  // Default - dropdown below and aligned left
+  let posTop = top + height + 4;
+  let posLeft = left;
+
+  if (centerX < viewportWidth / 4 && centerY < viewportHeight / 4) {
+    // north west
+  } else if (centerX > 3 * viewportWidth / 4 && centerY < viewportHeight / 4) {
+    // north east
+    posLeft = left + width - popupWidth; // Align to the right
+  } else if (centerX < viewportWidth / 4 && centerY > 3 * viewportHeight / 4) {
+    // south west
+    posTop = top - popupHeight - 4; // Show above the button
+  } else if (centerX > 3 * viewportWidth / 4 && centerY > 3 * viewportHeight / 4) {
+    // south east
+    posTop = top - popupHeight - 4; // Show above the button
+    posLeft = left + width - popupWidth; // Align to the right
+  } else if (centerX < viewportWidth / 4) {
+    // west
+  } else if (centerX > 3 * viewportWidth / 4) {
+    // east
+    posLeft = left + width - popupWidth; // Align to the right
+  } else if (centerY > 3 * viewportHeight / 4) {
+    // south
+    posTop = top - popupHeight - 4; // Show above the button
+  }
+
+  return [posTop, posLeft];
+}

@@ -52,6 +52,10 @@ main .summary-main-content {
 NEW PRODUCT LIST
 ///////////////////////// */
 
+fieldset {
+  margin: 0;
+}
+
 .new-product-list-sec,
 .new-product-list,
 .summary-product-list {

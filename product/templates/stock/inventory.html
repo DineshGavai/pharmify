@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventory</title>
+    <title>Add New Stock</title>
     <!-- FAVICON -->
     <link rel="shortcut icon" href="{% static 'assets/logo/favicon.svg' %}" type="image/x-icon">
 
@@ -21,10 +21,9 @@
     <!-- NAVIGATION SIDE BAR / NAVBAR ENDS -->
 
     <!-- MAIN STARTS -->
-
     <main>
 
-        <header data-scrollable="inventory_overview_sec">
+        <header>
             <h1>Inventory</h1>
             <div class="subtitle" style="text-align: right;">
                 <div class="fs-200">Last updated</div>
@@ -33,164 +32,208 @@
         </header>
 
         <!-- MAIN CONTENT STARTS -->
-        <section class="main-content" id="inventory_overview_sec">
-            <!-- Stock Overview Section Starts -->
-            <section class="stock-overview-sec">
-                <h2>Stock Overview</h2>
-                <!-- Chart Column -->
-                <div class="col-left">
-                    <!-- Donut Chart -->
-                    <div id="overview_donut_chart"></div>
-                    <div>
-                        <strong id="overview_product_count">N/A</strong>
-                        <div class="subtitle">Products</div>
+
+        <section class="main-content">
+            <section id="inventory_overview_sec">
+                <!-- Stock Overview Section Starts -->
+                <section class="stock-overview-sec">
+                    <h2>Stock Overview</h2>
+                    <!-- Chart Column -->
+                    <div class="col-left">
+                        <!-- Donut Chart -->
+                        <div id="overview_donut_chart"></div>
+                        <div>
+                            <strong id="overview_product_count">N/A</strong>
+                            <div class="subtitle">Products</div>
+                            <button class="text"><a href="{% url 'stock-new' %}">Add Stock</a></button>
+                        </div>
                     </div>
-                </div>
-                <!-- Index Column -->
-                <div class="col-right">
-                    <!-- Available -->
-                    <div class="overview-chart-index-item">
-                        <span class="color-dot" style="background-color: var(--clr-primary-dark);"></span>
-                        <span id="overview_product_in_stock_count"></span>
+                    <!-- Index Column -->
+                    <div class="col-right">
+                        <!-- Available -->
+                        <div class="overview-chart-index-item">
+                            <span class="color-dot" style="background-color: var(--clr-primary-dark);"></span>
+                            <span id="overview_product_in_stock_count"></span>
+                        </div>
+                        <!-- Low Stock -->
+                        <div class="overview-chart-index-item">
+                            <span class="color-dot" style="background-color: var(--clr-primary-light);"></span>
+                            <span id="overview_product_low_stock_count"></span>
+                        </div>
+                        <!-- Out of Stock -->
+                        <div class="overview-chart-index-item">
+                            <span class="color-dot" style="background-color: var(--clr-grey-divider);"></span>
+                            <span id="overview_product_out_of_stock_count"></span>
+                        </div>
+
+                        <!-- Note and Edit warning limit link -->
+                        <p class="subtitle" style="margin: .6rem 0; max-width: 35ch;">Stocks are considered to be low in
+                            quantity when there are <b>less than N/A items</b> available. <a href="{% url 'settings' %}"
+                                class="text-link">Edit Limit.</a></p>
                     </div>
-                    <!-- Low Stock -->
-                    <div class="overview-chart-index-item">
-                        <span class="color-dot" style="background-color: var(--clr-primary-light);"></span>
-                        <span id="overview_product_low_stock_count"></span>
-                    </div>
-                    <!-- Out of Stock -->
-                    <div class="overview-chart-index-item">
-                        <span class="color-dot" style="background-color: var(--clr-grey-divider);"></span>
-                        <span id="overview_product_out_of_stock_count"></span>
+                </section>
+                <!-- Stock Overview Section Ends -->
+
+                <!-- Expiration Overview Section Starts -->
+                <section class="expiration-overview-sec">
+                    <h2>Expiration Overview</h2>
+
+                    <div class="expiry-card-box">
+                        <!-- Expired Products -->
+                        <div>
+                            <span><svg class="icon">
+                                    <use href="{% static 'assets/icon-sprite.svg' %}#warn-protection" />
+                                </svg></span>
+                            <strong id="overview_expired_count" class="safe" data-tooltip="Expired">N/A</strong>
+                            <span>Products are<br>Expired</span>
+                        </div>
+
+                        <!-- Expiry Soon Products -->
+                        <div>
+                            <span><svg class="icon">
+                                    <use href="{% static 'assets/icon-sprite.svg' %}#warn" />
+                                </svg></span>
+                            <strong id="overview_expiry_soon_count" class="safe">N/A</strong>
+                            <span>Products will<br>Expire Soon</span>
+                        </div>
                     </div>
 
-                    <button class="text"><a href="#">Add Stock</a></button>
 
                     <!-- Note and Edit warning limit link -->
-                    <p class="subtitle" style="margin: .6rem 0; max-width: 35ch;">Stocks are considered to be low in
-                        quantity when there are <b>less than N/A items</b> available. <a href="{% url 'settings' %}"
-                            class="text-link">Edit Limit.</a></p>
+                    <p class="subtitle" style="margin-top: 1.6rem;"> You are warned about expiry <b>before N/A
+                            days</b>.<a href="{% url 'settings' %}" class="text-link">Edit Limit.</a></p>
+
+                </section>
+                <!-- Expiration Overview Section Ends -->
+
+                <!-- Financial Overview Section Starts -->
+                <section class="financial-overview-sec">
+                    <h2>Financial Overview</h2>
+
+                    <!-- Total Value -->
+                    <div>
+                        <p class="subtitle">Total Value</p>
+                        <p><span>₹</span><strong id="overview_total_value">N/A</strong></p>
+                    </div>
+
+                    <!-- Profit and Loss Percent and Selling price Comparison -->
+                    <div class="price-comparison">
+                        <!-- Loss. Sold Cheaper -->
+                        <div>
+                            <span><svg class="icon">
+                                    <use href="{% static 'assets/icon-sprite.svg' %}#chart-line-down" />
+                                </svg></span>
+                            <span class="subtitle">
+                                <span><strong id="overview_loss_products">N/A</strong> Products are sold</span>
+                                <span>cheaper than purchase price</span>
+                            </span>
+                            <strong id="overview_loss_percent">-N/A%</strong>
+                        </div>
+                        <!-- No Profit No Loss. Sold same as purchase price -->
+                        <div>
+                            <span><svg class="icon">
+                                    <use href="{% static 'assets/icon-sprite.svg' %}#chart-line-horizontal" />
+                                </svg></span>
+                            <span class="subtitle">
+                                <span><strong id="overview_no_change_products">N/A</strong> Products are sold</span>
+                                <span>at purchase price</span>
+                            </span>
+                            <strong>No Profit</strong>
+                        </div>
+                        <!-- Profit. Sold more than purchase price -->
+                        <div>
+                            <span><svg class="icon">
+                                    <use href="{% static 'assets/icon-sprite.svg' %}#chart-line-up" />
+                                </svg></span>
+                            <span class="subtitle">
+                                <span><strong id="overview_profit_products">N/A</strong> Products are sold</span>
+                                <span>more than purchase price</span>
+                            </span>
+                            <strong id="overview_profit_percent">N/A</strong>
+                        </div>
+                    </div>
+
+                </section>
+                <!-- Financial Overview Section Ends -->
+            </section>
+
+
+            <!-- FILTERS SECTION STARTS -->
+            <section class="filter-sec">
+                <h2 class="fs-500">Inventory Data</h2>
+
+                <div class="filter-options" id="inventory_filter_options">
+                    <button class="ghost mini" data-drop-down="badges_drop_down_menu" id="badges_menu_btn">
+                        <svg class="icon">
+                            <use href="{% static 'assets/icon-sprite.svg' %}#badge" />
+                        </svg>
+                        Badges
+                    </button>
+                    <button class="ghost mini" data-drop-down="column_drop_down_menu" id="column_menu_btn">
+                        <svg class="icon">
+                            <use href="{% static 'assets/icon-sprite.svg' %}#column-visibility" />
+                        </svg>
+                        Columns
+                    </button>
+                    <button class="ghost mini" data-drop-down="category_drop_down_menu" id="category_menu_btn">
+                        <svg class="icon">
+                            <use href="{% static 'assets/icon-sprite.svg' %}#categories" />
+                        </svg>
+                        Categories
+                    </button>
+                    <button class="ghost mini" data-drop-down="more_filter_drop_down_menu" id="more_filter_menu_btn">
+                        <svg class="icon">
+                            <use href="{% static 'assets/icon-sprite.svg' %}#manage" />
+                        </svg>
+                        More
+                    </button>
                 </div>
             </section>
-            <!-- Stock Overview Section Ends -->
+            <!-- FILTERS SECTION ENDS -->
 
-            <!-- Expiration Overview Section Starts -->
-            <section class="expiration-overview-sec">
-                <h2>Expiration Overview</h2>
-
-                <div class="expiry-card-box">
-                    <!-- Expired Products -->
-                    <div>
-                        <span><svg class="icon">
-                                <use href="{% static 'assets/icon-sprite.svg' %}#warn-protection" />
-                            </svg></span>
-                        <strong id="overview_expired_count" class="safe">N/A</strong>
-                        <span>Products<br>Has been Expired</span>
-                    </div>
-
-                    <!-- Expiry Soon Products -->
-                    <div>
-                        <span><svg class="icon">
-                                <use href="{% static 'assets/icon-sprite.svg' %}#warn" />
-                            </svg></span>
-                        <strong id="overview_expiry_soon_count" class="safe">N/A</strong>
-                        <span>Products<br>About to Expire</span>
-                    </div>
-                </div>
-
-
-                <!-- Note and Edit warning limit link -->
-                <p class="subtitle" style="margin-top: 1.6rem;"> You are warned about expiry <b>before N/A days</b>. <a
-                        href="{% url 'settings' %}" class="text-link">Edit Limit.</a></p>
-
+            <!-- DATA TABLE SECTION STARTS -->
+            <section class="data-table-sec" id="data_table_sec">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                <div class="check-radio-box">
+                                    <input type="checkbox" name="select_all" id="select_all">
+                                </div>
+                            </th>
+                            <th>Name</th>
+                            <th>Brand</th>
+                            <th>Category</th>
+                            <th>Seller</th>
+                            <th>Manufacture Date</th>
+                            <th>Date Added</th>
+                            <th>Expiry Date</th>
+                            <th>Purchase Price</th>
+                            <th>Selling Price</th>
+                            <th>Quantity Available</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Name</td>
+                            <td>Brand</td>
+                            <td>Category</td>
+                            <td>Seller</td>
+                            <td>Manufacture Date</td>
+                            <td>Date Added</td>
+                            <td>Expiry Date</td>
+                            <td>Purchase Price</td>
+                            <td>Selling Price</td>
+                            <td>Quantity Available</td>
+                        </tr>
+                    </tbody>
+                </table>
             </section>
-            <!-- Expiration Overview Section Ends -->
+            <!-- DATA TABLE SECTION ENDS -->
 
-            <!-- Financial Overview Section Starts -->
-            <section class="financial-overview-sec">
-                <h2>Financial Overview</h2>
 
-                <!-- Total Value -->
-                <div>
-                    <p class="subtitle">Total Value</p>
-                    <p><span>₹</span><strong id="overview_total_value">N/A</strong></p>
-                </div>
-
-                <!-- Profit and Loss Percent and Selling price Comparison -->
-                <div class="price-comparison">
-                    <!-- Loss. Sold Cheaper -->
-                    <div>
-                        <span><svg class="icon">
-                                <use href="{% static 'assets/icon-sprite.svg' %}#chart-line-down" />
-                            </svg></span>
-                        <span class="subtitle">
-                            <span><strong id="overview_loss_products">N/A</strong> Products are sold</span>
-                            <span>cheaper than purchase price</span>
-                        </span>
-                        <strong id="overview_loss_percent">-N/A%</strong>
-                    </div>
-                    <!-- No Profit No Loss. Sold same as purchase price -->
-                    <div>
-                        <span><svg class="icon">
-                                <use href="{% static 'assets/icon-sprite.svg' %}#chart-line-horizontal" />
-                            </svg></span>
-                        <span class="subtitle">
-                            <span><strong id="overview_same_products">N/A</strong> Products are sold</span>
-                            <span>at purchase price</span>
-                        </span>
-                        <strong>No Profit</strong>
-                    </div>
-                    <!-- Profit. Sold more than purchase price -->
-                    <div>
-                        <span><svg class="icon">
-                                <use href="{% static 'assets/icon-sprite.svg' %}#chart-line-up" />
-                            </svg></span>
-                        <span class="subtitle">
-                            <span><strong id="overview_profit_products">N/A</strong> Products are sold</span>
-                            <span>more than purchase price</span>
-                        </span>
-                        <strong id="overview_profit_percent">N/A</strong>
-                    </div>
-                </div>
-            </section>
-            <!-- Financial Overview Section Ends -->
         </section>
-        <!-- hello world -->
-
-        <h1>Inventory Overview</h1>
-
-        <!-- Display the last updated time -->
-        <p>Last Updated: {{ inventory_overview.lastUpdated }}</p>
-
-        <!-- Display Product Counts -->
-        <h2>Product Counts</h2>
-        <p>Total Products: {{ inventory_overview.count.products }}</p>
-        <p>Products in Stock: {{ inventory_overview.count.productsInStock }}</p>
-        <p>Products Out of Stock: {{ inventory_overview.count.productsOutOfStock }}</p>
-        <p>Low Stock Products: {{ inventory_overview.count.productsLowStock }}</p>
-        <p>Expired Products: {{ inventory_overview.count.productExpired }}</p>
-        <p>Products Near Expiry: {{ inventory_overview.count.productsNearExpiry }}</p>
-
-        <!-- Display Product Types -->
-        <h2>Product Types</h2>
-        {% for name in inventory_overview.types.names %}
-        <p>Product Name: {{ name }}</p>
-        {% endfor %}
-
-        <!-- Display Product Type Counts -->
-        <p>Product Type Count: {{ inventory_overview.types.counts }}</p>
-
-        <!-- Display Financial Data -->
-        <h2>Financial Overview</h2>
-        <p>Total Cost: {{ inventory_overview.financial.cost }}</p>
-        <p>Profit Product Count: {{ inventory_overview.financial.profitProductCount }}</p>
-        <p>Profit Percent: {{ inventory_overview.financial.profitPercent }}%</p>
-        <p>Loss Product Count: {{ inventory_overview.financial.lossProductCount }}</p>
-        <p>Loss Percent: {{ inventory_overview.financial.lossPercent }}%</p>
-        <p>Same As Wholesale Amount: {{ inventory_overview.financial.sameAsWholesaleAmount }}
-
-
-            <!-- MAIN CONTENT ENDS -->
+        <!-- MAIN CONTENT ENDS -->
     </main>
     <!-- MAIN ENDS -->
 
@@ -210,6 +253,342 @@
     </form>
     <!-- ADD NEW SELLER FORM ENDS -->
 
+    <!-- BADGES DROP DOWN MENU STARTS -->
+    <div class="drop-down-menu" id="badges_drop_down_menu">
+        <div class="drop-down-menu-body">
+            <p class="overline">Show Badges</p>
+            <div class="drop-down-menu-content">
+                <div class="check-radio-box">
+                    <label for="badge_vis_most_sold">
+                        <input type="checkbox" id="badge_vis_most_sold" name="badge_vis" checked>
+                        Most Sold
+                    </label>
+                    <label for="badge_vis_expired">
+                        <input type="checkbox" id="badge_vis_expired" name="badge_vis" checked>
+                        Expired
+                    </label>
+                    <label for="badge_vis_days_left">
+                        <input type="checkbox" id="badge_vis_days_left" name="badge_vis" checked>
+                        Days Left
+                    </label>
+                    <label for="badge_vis_low_in_stock">
+                        <input type="checkbox" id="badge_vis_low_in_stock" name="badge_vis" checked>
+                        Low in Stock
+                    </label>
+                    <label for="badge_vis_out_of_stock">
+                        <input type="checkbox" id="badge_vis_out_of_stock" name="badge_vis" checked>
+                        Out of Stock
+                    </label>
+                    <label for="badge_vis_no_profit">
+                        <input type="checkbox" id="badge_vis_no_profit" name="badge_vis" checked>
+                        No Profit
+                    </label>
+                    <label for="badge_vis_in_loss">
+                        <input type="checkbox" id="badge_vis_in_loss" name="badge_vis" checked>
+                        In Loss
+                    </label>
+                </div>
+            </div>
+            <footer class="btn-box">
+                <button class="text" id="badge_vis_select_all">Select All</button>
+                <button class="primary" id="badge_vis_done">Done</button>
+            </footer>
+        </div>
+    </div>
+    <!-- BADGES DROP DOWN MENU ENDS -->
+
+    <!-- COLUMN VISIBILITY DROP DOWN MENU STARTS -->
+    <div class="drop-down-menu" id="column_drop_down_menu">
+        <div class="drop-down-menu-body">
+            <p class="overline">Show Columns</p>
+            <div class="drop-down-menu-content">
+                <div class="check-radio-box" aria-disabled="false">
+                    <label>
+                        <input type="checkbox" id="column_vis_serial_num" disabled checked
+                            style="background-image: url('/static/assets/lock.svg');">
+                        Sr. No.
+                    </label>
+                    <label>
+                        <input type="checkbox" id="column_vis_name" disabled checked
+                            style="background-image: url('/static/assets/lock.svg');">
+                        Name
+                    </label>
+                </div>
+                <div class="check-radio-box">
+                    <label for="column_vis_brand">
+                        <input type="checkbox" id="column_vis_brand" name="column_vis" checked>
+                        Brand
+                    </label>
+                    <label for="column_vis_category">
+                        <input type="checkbox" id="column_vis_category" name="column_vis" checked>
+                        Category
+                    </label>
+                    <label for="column_vis_seller">
+                        <input type="checkbox" id="column_vis_seller" name="column_vis" checked>
+                        Seller
+                    </label>
+                    <label for="column_vis_manufacture_date">
+                        <input type="checkbox" id="column_vis_manufacture_date" name="column_vis" checked>
+                        Manufacture Date
+                    </label>
+                    <label for="column_vis_date_added">
+                        <input type="checkbox" id="column_vis_date_added" name="column_vis" checked>
+                        Date Added
+                    </label>
+                    <label for="column_vis_expiry_date">
+                        <input type="checkbox" id="column_vis_expiry_date" name="column_vis" checked>
+                        Expiry Date
+                    </label>
+                    <label for="column_vis_purchase_price">
+                        <input type="checkbox" id="column_vis_purchase_price" name="column_vis" checked>
+                        Purchase Price
+                    </label>
+                    <label for="column_vis_selling_price">
+                        <input type="checkbox" id="column_vis_selling_price" name="column_vis" checked>
+                        Selling Price
+                    </label>
+                    <label for="column_vis_quantity">
+                        <input type="checkbox" id="column_vis_quantity" name="column_vis" checked>
+                        Quantity
+                    </label>
+                </div>
+            </div>
+            <footer class="btn-box">
+                <button class="text" id="column_vis_select_all">Select All</button>
+                <button class="primary" id="column_vis_done">Done</button>
+            </footer>
+        </div>
+    </div>
+    <!-- COLUMN VISIBILITY DROP DOWN MENU ENDS -->
+
+    <!-- CATEGORIES DROP DOWN MENU STARTS -->
+    <div class="drop-down-menu" id="category_drop_down_menu">
+        <div class="drop-down-menu-body">
+            <p class="overline">Show Categories</p>
+            <div class="drop-down-menu-content">
+                <div class="check-radio-box">
+                    <label for="category_vis_example1">
+                        <input type="checkbox" id="category_vis_example1" checked>
+                        Example $
+                    </label>
+                    <label for="category_vis_example2">
+                        <input type="checkbox" id="category_vis_example2" checked>
+                        Example $
+                    </label>
+                    <label for="category_vis_example3">
+                        <input type="checkbox" id="category_vis_example3" name="category_vis" checked>
+                        Example $
+                    </label>
+                    <label for="category_vis_example4">
+                        <input type="checkbox" id="category_vis_example4" name="category_vis" checked>
+                        Example $
+                    </label>
+                </div>
+            </div>
+            <footer class="btn-box">
+                <button class="text" id="category_vis_select_all">Select All</button>
+                <button class="primary" id="category_vis_done">Done</button>
+            </footer>
+        </div>
+    </div>
+    <!-- CATEGORIES DROP DOWN MENU ENDS -->
+
+    <!-- MORE FILTERS DROP DOWN MENU STARTS -->
+    <div class="drop-down-menu" id="more_filter_drop_down_menu">
+        <div class="drop-down-menu-body filter-menu">
+            <!-- Menu Header -->
+            <header>
+                <h3 class="fs-400">More Filters</h3>
+                <button class="icon lg">
+                    <svg class="icon">
+                        <use href="{% static 'assets/icon-sprite.svg' %}#cross" />
+                    </svg>
+                </button>
+            </header>
+            <!-- Menu Content -->
+            <div class="drop-down-menu-content">
+                <!-- DATE FILTER ACCRODION -->
+                <div class="accordion">
+                    <div class="title">
+                        <p>Date</p>
+                        <button class="icon"><svg class="icon">
+                                <use href="{% static 'assets/icon-sprite.svg' %}#chevron-down" />
+                            </svg></button>
+                    </div>
+                    <div class="content">
+                        <div class="check-radio-box">
+                            <label for="filter_date_all_dates">
+                                <input type="radio" id="filter_date_all_dates" name="filter_date" checked>
+                                All Dates
+                            </label>
+                        </div>
+                        <div class="check-radio-box">
+                            <label for="filter_date_last_7_Days">
+                                <input type="radio" id="filter_date_last_7_Days" name="filter_date">
+                                Last 7 Days
+                            </label>
+                        </div>
+                        <div class="check-radio-box">
+                            <label for="filter_date_last_30_days">
+                                <input type="radio" id="filter_date_last_30_days" name="filter_date">
+                                Last 30 Days
+                            </label>
+                        </div>
+                        <div class="check-radio-box">
+                            <label for="filter_date_this_month">
+                                <input type="radio" id="filter_date_this_month" name="filter_date">
+                                <span>This month
+                                    <b class="date-month"></b>
+                                    <b class="date-year"></b>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="check-radio-box">
+                            <label for="filter_date_range">
+                                <input type="radio" id="filter_date_range" name="filter_date">
+                                Date Range
+                            </label>
+                        </div>
+                        <!-- Date Range Inputs -->
+                        <div class="range-input-box" id="filter_date_range_box">
+                            <fieldset>
+                                <label for="filter_date_from">From</label>
+                                <input type="date" class="text-input" id="filter_date_from" name="filter_date_from">
+                            </fieldset>
+                            <svg class="icon">
+                                <use href="{% static 'assets/icon-sprite.svg' %}#arrow-right" />
+                            </svg>
+                            <fieldset>
+                                <label for="filter_date_to">To</label>
+                                <input type="date" class="text-input" id="filter_date_to" name="filter_date_to">
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+                <!-- PROFIT AND LOSS FILTER ACCRODION -->
+                <div class="accordion visible">
+                    <div class="title">
+                        <p>Profit or Loss</p>
+                        <button class="icon"><svg class="icon">
+                                <use href="{% static 'assets/icon-sprite.svg' %}#chevron-down" />
+                            </svg></button>
+                    </div>
+                    <div class="content">
+                        <!-- Profit or Loss Checkboxes -->
+                        <div class="check-radio-box">
+                            <label for="filter_profit_loss_profit">
+                                <input type="checkbox" id="filter_profit_loss_profit" name="filter_profit_loss" checked>
+                                In Profit
+                            </label>
+                            <label for="filter_profit_loss_loss">
+                                <input type="checkbox" id="filter_profit_loss_loss" name="filter_profit_loss" checked>
+                                In Loss
+                            </label>
+                            <label for="filter_profit_loss_no_change">
+                                <input type="checkbox" id="filter_profit_loss_no_change" name="filter_profit_loss"
+                                    checked>
+                                No Change (Same as Purchase Price)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <!-- PRICES AND QUANTITY FILTER ACCRODION -->
+                <div class="accordion visible">
+                    <div class="title">
+                        <p>Prices & Quantity</p>
+                        <button class="icon"><svg class="icon">
+                                <use href="{% static 'assets/icon-sprite.svg' %}#chevron-down" />
+                            </svg></button>
+                    </div>
+                    <div class="content">
+                        <!-- Purchase Price Range -->
+                        <p class="subtitle">Purchase Price Range</p>
+                        <div class="range-input-box">
+                            <fieldset>
+                                <label for="filter_purchase_price_from">From</label>
+                                <input type="text" class="text-input" id="filter_purchase_price_from"
+                                    name="filter_purchase_price_from">
+                            </fieldset>
+                            <svg class="icon">
+                                <use href="{% static 'assets/icon-sprite.svg' %}#arrow-right" />
+                            </svg>
+                            <fieldset>
+                                <label for="filter_purchase_price_to">To</label>
+                                <input type="text" class="text-input" id="filter_purchase_price_to"
+                                    name="filter_purchase_price_to">
+                            </fieldset>
+                        </div>
+                        <!-- Selling Price Range -->
+                        <p class="subtitle">Selling Price Range</p>
+                        <div class="range-input-box">
+                            <fieldset>
+                                <label for="filter_selling_price_from">From</label>
+                                <input type="text" class="text-input" id="filter_selling_price_from"
+                                    name="filter_selling_price_from">
+                            </fieldset>
+                            <svg class="icon">
+                                <use href="{% static 'assets/icon-sprite.svg' %}#arrow-right" />
+                            </svg>
+                            <fieldset>
+                                <label for="filter_selling_price_to">To</label>
+                                <input type="text" class="text-input" id="filter_selling_price_to"
+                                    name="filter_selling_price_to">
+                            </fieldset>
+                        </div>
+                        <!-- Quantity Range -->
+                        <p class="subtitle">Quantity Range</p>
+                        <div class="range-input-box">
+                            <fieldset>
+                                <label for="filter_quantity_from">From</label>
+                                <input type="text" class="text-input" id="filter_quantity_from"
+                                    name="filter_quantity_from">
+                            </fieldset>
+                            <svg class="icon">
+                                <use href="{% static 'assets/icon-sprite.svg' %}#arrow-right" />
+                            </svg>
+                            <fieldset>
+                                <label for="filter_quantity_to">To</label>
+                                <input type="text" class="text-input" id="filter_quantity_to" name="filter_quantity_to">
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion">
+                    <div class="title">
+                        <p>Seller</p>
+                        <button class="icon"><svg class="icon">
+                                <use href="{% static 'assets/icon-sprite.svg' %}#chevron-down" />
+                            </svg></button>
+                    </div>
+                    <div class="content">
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime veritatis deserunt nam eum
+                        necessitatibus voluptates aut et blanditiis accusantium at?
+                    </div>
+                </div>
+                <div class="accordion">
+                    <div class="title">
+                        <p>Brand</p>
+                        <button class="icon"><svg class="icon">
+                                <use href="{% static 'assets/icon-sprite.svg' %}#chevron-down" />
+                            </svg></button>
+                    </div>
+                    <div class="content">
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime veritatis deserunt nam eum
+                        necessitatibus voluptates aut et blanditiis accusantium at?
+                    </div>
+                </div>
+            </div>
+            <!-- Footer -->
+            <footer class="btn-box">
+                <button class="text" id="more_filter_reset">Reset</button>
+                <button class="primary" id="more_filter_apply">Apply</button>
+            </footer>
+        </div>
+    </div>
+    <!-- MORE FILTERS DROP DOWN MENU STARTS -->
+
+
+
     <!-- EXISTING PRODUCTS LIST STARTS -->
     {% include 'components/product-name-list.html' %}
     <!-- EXISTING PRODUCTS LIST ENDS -->
@@ -225,7 +604,6 @@
     <!-- SELLER DATA LIST STARTS -->
     {% include 'components/product-seller-list.html' %}
     <!-- SELLER DATA LIST ENDS -->
-
 
 
     <!-- SCRIPT -->

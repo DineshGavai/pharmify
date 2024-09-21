@@ -41,7 +41,7 @@ button:focus-visible {
 button:disabled,
 fieldset input:disabled,
 fieldset label:has(input:disabled),
-fieldset .check-radio-box:has(input:disabled) *,
+.check-radio-box:has(input:disabled) *,
 *[aria-disabled="true"] {
   opacity: 0.5;
   pointer-events: none;
@@ -124,7 +124,6 @@ button.ghost {
 
 button.text {
   padding: 0.4rem;
-  letter-spacing: normal;
   width: fit-content;
   color: var(--clr-accent);
 }
@@ -191,6 +190,36 @@ button.icon:active {
   background-color: var(--clr-accent-focus);
 }
 
+/* Mini Buttons */
+
+button.mini {
+  color: var(--clr-black);
+  border-color: var(--clr-grey-divider) !important;
+  padding: 0.4rem 0.8rem;
+}
+
+button.mini .icon {
+  --size: 1.8rem;
+}
+
+button.overlay-badge {
+  --content: "";
+}
+
+button.overlay-badge::after {
+  content: var(--content);
+  font-family: var(--ff-def);
+  font-size: var(--fs-100);
+  background-color: var(--clr-accent);
+  color: var(--clr-white);
+  border-radius: 1.6rem;
+  font-weight: 600;
+  padding: 0.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 form .btn-box {
   display: flex;
   gap: 1.6rem;
@@ -203,6 +232,14 @@ form .btn-box {
 
 form .btn-box :is(button.primary, button.ghost) {
   width: 100%;
+}
+
+button.icon.lg {
+  --size: 4.4rem;
+}
+
+button.icon.lg .icon {
+  --size: 3.6rem;
 }
 
 @media (max-width: 769px) {
@@ -237,7 +274,6 @@ form .btn-box :is(button.primary, button.ghost) {
   background-color: transparent;
   margin: 0;
   padding: 0.8rem;
-  letter-spacing: normal;
 }
 
 .toggle-btn-box > :is(button.primary, button.text, button.ghost):hover {
@@ -263,7 +299,7 @@ fieldset {
   align-items: stretch;
   justify-content: stretch;
   position: relative;
-  margin: 0.8rem 0;
+  margin: 0.4rem 0;
   gap: 0.4rem;
   border: none;
   outline: none;
@@ -304,7 +340,7 @@ fieldset .msg.info {
 }
 
 fieldset button,
-fieldset .datalist {
+fieldset .drop-down-menu {
   order: 8;
 }
 
@@ -326,20 +362,32 @@ fieldset button.primary {
   max-width: 100%;
 }
 
-fieldset .check-radio-box label input {
+.check-radio-box label input {
   order: -1;
 }
 
 fieldset label {
-  font-size: var(--fs-300);
-  justify-content: space-between;
   cursor: text;
   text-wrap: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin-bottom: -1.4rem;
+  margin-left: 0.8rem;
+  z-index: 11;
+  font-size: var(--fs-200);
+  color: var(--clr-grey-text);
+  width: fit-content;
+  background-color: var(--clr-white);
+  padding: 0 0.4rem;
+  border-radius: 0.4rem;
+  max-width: 100%;
 }
 
-fieldset:has(.text-input:hover) label {
+fieldset:has(.check-radio-box) label {
+  margin-bottom: 0;
+}
+
+fieldset:has(.text-input:hover, .text-input:focus) label {
   color: var(--clr-accent);
 }
 
@@ -347,25 +395,28 @@ fieldset .text-input,
 fieldset .icon-frame {
   outline: none;
   border: none;
-  border-radius: 0.8rem 0.8rem 0 0;
-  background-color: var(--clr-grey-bg);
-  border-bottom: 2px solid var(--clr-primary-light);
   font-size: var(--fs-400);
+  border-radius: 0.4rem;
+  border: 1px solid var(--clr-grey-divider);
+  background-color: var(--clr-white);
 }
 
 fieldset .text-input {
   padding: 0.8rem;
+  padding-top: 1.2rem;
 }
 
 fieldset .text-input:hover,
-fieldset .icon-frame:has(.text-input:hover) {
-  background-color: var(--clr-primary-hover);
+fieldset .icon-frame:has(.text-input:hover),
+fieldset .text-input:focus,
+fieldset .icon-frame:has(.text-input:focus) {
+  border-color: var(--clr-grey-text);
+  background-color: var(--clr-grey-bg-light);
 }
 
 fieldset .text-input:focus,
-fieldset .icon-frame:has(.text-input:focus) {
-  background-color: var(--clr-primary-focus);
-  border-bottom-color: var(--clr-primary-dark);
+fieldset .icon-frame:focus {
+  border-color: var(--clr-black);
 }
 
 fieldset textarea {
@@ -410,7 +461,7 @@ fieldset .otp-input .text-input:focus {
   background-color: var(--clr-primary-hover);
 }
 
-.text-input[autocomplete="name"] {
+fieldset .text-input[autocomplete="name"] {
   text-transform: capitalize;
 }
 
@@ -420,11 +471,13 @@ fieldset .icon-frame {
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  background-color: var(--clr-grey-bg);
-  border-bottom: 2px solid var(--clr-primary-light);
   overflow: hidden;
   position: relative;
   z-index: 10;
+}
+
+fieldset .icon-frame :is(.lead, .trail) {
+  margin-top: 0.4rem;
 }
 
 fieldset .icon-frame .lead {
@@ -443,8 +496,9 @@ fieldset .icon-frame button.icon:hover {
 
 fieldset .icon-frame .text-input {
   order: 2;
-  border-bottom: none;
+  border: none;
   padding: 0.8rem;
+  padding-top: 1.2rem;
   border-radius: 0;
 }
 
@@ -472,72 +526,15 @@ fieldset .password-visibility-btn.visible .eye-slash {
 }
 
 /* /////////////////////////
-  Product Inputs
-///////////////////////// */
-
-.product-form fieldset {
-  margin: 0;
-}
-
-.product-form fieldset label {
-  margin-bottom: -1.4rem;
-  margin-left: 0.8rem;
-  z-index: 11;
-  font-size: var(--fs-200);
-  color: var(--clr-grey-text);
-  width: fit-content;
-  background-color: var(--clr-white);
-  padding: 0 0.4rem;
-  border-radius: 0.4rem;
-  max-width: 100%;
-  display: block;
-}
-
-.product-form .icon-frame .text-input,
-.product-form .icon-frame .text-input:hover,
-.product-form .icon-frame .text-input:focus {
-  border: none;
-}
-
-.product-form .text-input,
-.product-form .icon-frame .text-input {
-  padding-top: 1.2rem;
-}
-
-.product-form .text-input,
-.product-form .icon-frame {
-  border-radius: 0.4rem;
-  border: 1px solid var(--clr-grey-divider);
-  background-color: var(--clr-white);
-}
-
-.product-form .text-input:hover,
-.product-form .icon-frame:has(.text-input:hover),
-.product-form .text-input:focus,
-.product-form .icon-frame:has(.text-input:focus) {
-  border-color: var(--clr-grey-text);
-  background-color: var(--clr-grey-bg-light);
-}
-
-.product-form .text-input:focus,
-.product-form .icon-frame:focus {
-  border-color: var(--clr-black);
-}
-
-.product-form .icon-frame :is(.lead, .trail) {
-  margin-top: 0.4rem;
-}
-
-/* /////////////////////////
 RADIO AND CHECKBOX
 ///////////////////////// */
 
-fieldset .check-radio-box {
+.check-radio-box {
   padding: 0 0.4rem;
 }
 
-fieldset .check-radio-box label {
-  gap: 0.8rem;
+.check-radio-box label {
+  gap: 0.8rem !important;
   font-size: var(--fs-400);
   color: var(--clr-text-black);
   justify-content: start;
@@ -548,114 +545,47 @@ fieldset .check-radio-box label {
   text-align: left;
 }
 
-fieldset .check-radio-box label input {
-  appearance: none;
-  width: 2.4rem;
-  aspect-ratio: 1;
-  padding: 0;
-  border: none;
-  box-shadow: inset 0 0 0 2px var(--clr-primary);
-  border-radius: 50%;
-  background-color: var(--clr-grey-bg);
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-}
-
-fieldset .check-radio-box label:has(input:hover) {
+.check-radio-box label:has(input:hover) {
   color: var(--clr-black) !important;
   background-color: var(--clr-primary-hover);
 }
-
-fieldset .check-radio-box label:has(input:checked) {
-  background-color: var(--clr-primary-focus);
+.check-radio-box input {
+  appearance: none;
+  --size: 2rem;
+  width: var(--size);
+  aspect-ratio: 1;
+  padding: 0;
+  border: none;
+  border-radius: 0.4rem;
+  box-shadow: inset 0 0 0 2px var(--clr-primary);
+  background: var(--clr-white) center 0.5rem / calc(var(--size) - 0.6rem)
+    url("/static/assets/check-large.png") no-repeat;
+  position: relative;
+  cursor: pointer;
+  z-index: 1;
 }
 
-fieldset .check-radio-box input::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
+.check-radio-box input:checked {
+  box-shadow: inset 0 0 0 2px var(--clr-primary-dark);
+  background-position: center;
+  background-color: var(--clr-primary-dark);
+}
+
+.check-radio-box input[type="radio"] {
+  border-radius: 50%;
+  background: none;
+}
+
+.check-radio-box input[type="radio"]:checked {
+  box-shadow: inset 0 0 0 3px var(--clr-primary-dark),
+    inset 0 0 0 6px var(--clr-white), inset 0 0 0 10px var(--clr-primary-dark);
+}
+
+/* CUSTOM INPUTS */
+.range-input-box {
   display: flex;
   align-items: center;
-  justify-content: center;
-  color: var(--clr-white);
-  background: var(--gradient-primary);
-}
-
-fieldset .check-radio-box input:checked:before {
-  opacity: 1;
-}
-
-fieldset .check-radio-box input[type="checkbox"] {
-  border-radius: 0.4rem;
-}
-
-/* DATA LISTS */
-
-.datalist {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background-color: transparent;
-  visibility: hidden;
-  opacity: 0;
-  z-index: -1;
-}
-
-.datalist.visible {
-  visibility: visible;
-  opacity: 1;
-  z-index: 999;
-}
-
-.datalist > ul,
-.datalist > ul :is(ul, ol) {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-.datalist > ul {
-  max-height: 16rem;
-  overflow: hidden auto;
-  padding: 0.8rem;
-  border-radius: 0.8rem;
-  box-shadow: 0px 4px 12px #00000040;
-  background-color: var(--clr-white);
-  position: fixed;
-  transition: all 0s;
-  border: 1px solid var(--clr-grey-divider);
-}
-
-.datalist > ul li:not(.overline) {
-  padding: 0.4rem 0.8rem;
-  padding-left: 1.6rem;
-  border-bottom: 1px solid var(--clr-grey-bg);
-  cursor: pointer;
-}
-
-.datalist > ul li:not(.overline):hover {
-  background-color: var(--clr-primary-hover);
-}
-.datalist > ul > li:last-of-type {
-  border: none;
-}
-
-.datalist > ul .overline {
-  padding: 0.2rem;
-  padding-top: 0.8rem;
-  color: var(--clr-primary);
-}
-
-.datalist ul .not-found {
-  font-size: var(--fs-300);
-  color: var(--clr-grey-text);
+  gap: 0.8rem;
 }
 
 /* INPUT TAG FEEDBACKS and Certain Notes on the page */

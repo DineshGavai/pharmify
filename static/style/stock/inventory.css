@@ -9,7 +9,6 @@
 #inventory_overview_sec > * {
   flex-grow: 1;
   min-width: 100%;
-  border: 1px solid var(--clr-grey-divider);
   border-radius: 1.6rem;
   padding: 1.6rem;
   padding-top: 4rem;
@@ -24,6 +23,12 @@
   margin-left: 1.6rem;
   top: 0;
   left: 0;
+}
+
+@media (max-width: 320px) {
+  #inventory_overview_sec > * > h2 {
+    margin-left: 0.4rem;
+  }
 }
 
 @media (min-width: 375px) {
@@ -152,8 +157,8 @@
 
 .expiry-card-box > div:has(#overview_expired_count.safe),
 .expiry-card-box > div:has(#overview_expiry_soon_count.safe) {
-  color: var(--clr-grey-text);
-  background-color: var(--clr-grey-bg-light);
+  color: var(--clr-primary-light);
+  background-color: var(--clr-primary-hover);
 }
 
 .expiry-card-box > div:has(#overview_expired_count.safe) svg,
@@ -248,4 +253,52 @@
   text-wrap: nowrap;
   font-weight: 400;
   color: var(--clr-stroke);
+}
+
+/* /////////////////////////
+  INVENTORY DATA
+///////////////////////// */
+
+/* FILTER SECTION */
+
+.filter-sec {
+  padding-bottom: 1.6rem;
+  padding-top: 2.4rem;
+  border-top: 1px solid var(--clr-grey-divider);
+}
+
+.filter-sec,
+.filter-sec .filter-options {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.filter-sec {
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.6rem;
+}
+
+.filter-sec .filter-options {
+  max-width: 100%;
+  overflow: auto;
+}
+
+.filter-sec > *,
+.filter-sec .filter-options > * {
+  width: fit-content;
+}
+
+#filter_date_range_box {
+  padding-left: 3.2rem;
+  padding-top: 0.4rem;
+}
+
+.accordion .subtitle {
+  color: var(--clr-black);
+}
+
+.accordion .subtitle:not(:nth-of-type(1)) {
+  margin-top: 1.6rem;
 }
