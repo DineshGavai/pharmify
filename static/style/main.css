@@ -41,12 +41,15 @@ UTILITY CLASSES
   opacity: 0;
 }
 
+.empty-box,
 *[aria-hidden="true"] {
   display: none;
   opacity: 0;
   visibility: hidden;
   position: absolute;
   z-index: -1;
+  width: 0;
+  height: 0;
 }
 
 .fit {
@@ -107,6 +110,16 @@ UTILITY CLASSES
   align-items: center !important;
   padding: 1.6rem;
   border-radius: 1.6rem;
+}
+
+.empty-sec .empty-box {
+  position: inherit;
+  width: fit-content;
+  height: fit-content;
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  z-index: initial;
 }
 
 .badge {
@@ -338,7 +351,7 @@ LOADERS
 ///////////////////////// */
 
 .accordion {
-  border-left: 2px solid transparent;
+  border-left: 2px solid var(--clr-primary-focus);
   overflow: hidden;
   margin-bottom: 0.8rem;
 }
@@ -1076,7 +1089,7 @@ ul.drop-down-menu-body {
 }
 
 /* /////////////////////////
-  TABLE COMPONENTS
+  DATA TABLE COMPONENTS
 ///////////////////////// */
 
 /* /////////////////////////
@@ -1087,4 +1100,67 @@ ul.drop-down-menu-body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+/* /////////////////////////
+  DATA TABLE
+///////////////////////// */
+
+.data-table-sec {
+  max-width: 100%;
+  border: 1px solid var(--clr-grey-divider);
+  border-radius: 0.4rem;
+  overflow: auto hidden;
+}
+
+table {
+  border-collapse: collapse;
+  min-width: 40rem;
+}
+
+.data-table thead tr {
+  background-color: var(--clr-primary-hover);
+  border-bottom: 1px solid var(--clr-primary-focus);
+  color: var(--clr-primary-dark);
+  text-align: left;
+}
+
+.data-table thead tr th {
+  padding-top: 1.2rem;
+  padding-bottom: 1.2rem;
+}
+
+.data-table tbody tr:nth-of-type(even) {
+  background-color: var(--clr-grey-bg-light);
+}
+
+/* Other Styles */
+
+.data-table :is(th, td) {
+  padding: 0.8rem 1.6rem;
+  text-wrap: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 28ch;
+}
+
+.data-table td {
+  border-bottom: 1px solid var(--clr-grey-hover);
+}
+
+/* DATA TABLES'S INTERACTIVE ELEMENTS */
+.data-table :is(input[type="checkbox"], input[type="radio"], button.icon) {
+  position: relative;
+}
+
+.data-table
+  :is(input[type="checkbox"], input[type="radio"], button.icon)::after {
+  content: "";
+  position: absolute;
+  width: 3.6rem;
+  height: 3.6rem;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  display: block;
 }

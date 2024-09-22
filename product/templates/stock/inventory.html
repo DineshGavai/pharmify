@@ -193,7 +193,7 @@
 
             <!-- DATA TABLE SECTION STARTS -->
             <section class="data-table-sec" id="data_table_sec">
-                <table>
+                <table class="data-table">
                     <thead>
                         <tr>
                             <th>
@@ -201,6 +201,7 @@
                                     <input type="checkbox" name="select_all" id="select_all">
                                 </div>
                             </th>
+                            <th>Sr. No.</th>
                             <th>Name</th>
                             <th>Brand</th>
                             <th>Category</th>
@@ -215,16 +216,184 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Name</td>
-                            <td>Brand</td>
-                            <td>Category</td>
-                            <td>Seller</td>
-                            <td>Manufacture Date</td>
-                            <td>Date Added</td>
-                            <td>Expiry Date</td>
-                            <td>Purchase Price</td>
-                            <td>Selling Price</td>
-                            <td>Quantity Available</td>
+                            <td>
+                                <div class="check-radio-box">
+                                    <input type="checkbox" name="row_select">
+                                </div>
+                            </td>
+                            <td>1</td>
+                            <td>Paracetamol Tablets</td>
+                            <td>Bayer</td>
+                            <td>Over-the-Counter Medication</td>
+                            <td>ABC Pharmacy</td>
+                            <td>2024-09-01</td>
+                            <td>2024-09-10</td>
+                            <td>2025-09-01</td>
+                            <td>₹200</td>
+                            <td>₹250</td>
+                            <td>100</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="check-radio-box">
+                                    <input type="checkbox" name="row_select">
+                                </div>
+                            </td>
+                            <td>2</td>
+                            <td>Insulin Pens</td>
+                            <td>Novo Nordisk</td>
+                            <td>Prescription Medication</td>
+                            <td>XYZ Medical Store</td>
+                            <td>2024-08-15</td>
+                            <td>2024-09-15</td>
+                            <td>2025-08-15</td>
+                            <td>₹5000</td>
+                            <td>₹6000</td>
+                            <td>20</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="check-radio-box">
+                                    <input type="checkbox" name="row_select">
+                                </div>
+                            </td>
+                            <td>3</td>
+                            <td>Stethoscope</td>
+                            <td>Littmann</td>
+                            <td>Medical Medical Medical Equipment</td>
+                            <td>Medical Supplies Inc.</td>
+                            <td>2024-07-20</td>
+                            <td>2024-09-20</td>
+                            <td>2025-07-20</td>
+                            <td>₹3000</td>
+                            <td>₹4000</td>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="check-radio-box">
+                                    <input type="checkbox" name="row_select">
+                                </div>
+                            </td>
+                            <td>4</td>
+                            <td>Surgical Masks</td>
+                            <td>3M</td>
+                            <td>Personal Protective Equipment</td>
+                            <td>Medical Supply House</td>
+                            <td>2024-06-10</td>
+                            <td>2024-09-10</td>
+                            <td>2025-06-10</td>
+                            <td>₹1000</td>
+                            <td>₹1200</td>
+                            <td>500</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="check-radio-box">
+                                    <input type="checkbox" name="row_select">
+                                </div>
+                            </td>
+                            <td>5</td>
+                            <td>Blood Pressure Monitor</td>
+                            <td>Omron</td>
+                            <td>Medical Device</td>
+                            <td>Online Medical Store</td>
+                            <td>2024-05-05</td>
+                            <td>2024-09-05</td>
+                            <td>2025-05-05</td>
+                            <td>₹2500</td>
+                            <td>₹3000</td>
+                            <td>30</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="check-radio-box">
+                                    <input type="checkbox" name="row_select">
+                                </div>
+                            </td>
+                            <td>6</td>
+                            <td>Syringes</td>
+                            <td>BD</td>
+                            <td>Medical Supplies</td>
+                            <td>Medical Equipment Store</td>
+                            <td>2024-04-01</td>
+                            <td>2024-09-01</td>
+                            <td>2025-04-01</td>
+                            <td>₹500</td>
+                            <td>₹600</td>
+                            <td>1000</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="check-radio-box">
+                                    <input type="checkbox" name="row_select">
+                                </div>
+                            </td>
+                            <td>7</td>
+                            <td>Bandages</td>
+                            <td>Johnson & Johnson</td>
+                            <td>First Aid Supplies</td>
+                            <td>Local Pharmacy</td>
+                            <td>2024-03-15</td>
+                            <td>2024-09-15</td>
+                            <td>2025-03-15</td>
+                            <td>₹200</td>
+                            <td>₹250</td>
+                            <td>500</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="check-radio-box">
+                                    <input type="checkbox" name="row_select">
+                                </div>
+                            </td>
+                            <td>8</td>
+                            <td>Nebulizer</td>
+                            <td>Philips</td>
+                            <td>Respiratory Equipment</td>
+                            <td>Medical Equipment Supplier</td>
+                            <td>2024-02-20</td>
+                            <td>2024-09-20</td>
+                            <td>2025-02-20</td>
+                            <td>₹4000</td>
+                            <td>₹5000</td>
+                            <td>10</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="check-radio-box">
+                                    <input type="checkbox" name="row_select">
+                                </div>
+                            </td>
+                            <td>9</td>
+                            <td>Otoscope</td>
+                            <td>Welch Allyn</td>
+                            <td>Diagnostic Equipment</td>
+                            <td>Medical Supply Company</td>
+                            <td>2024-01-10</td>
+                            <td>2024-09-10</td>
+                            <td>2025-01-10</td>
+                            <td>₹3500</td>
+                            <td>₹4500</td>
+                            <td>20</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="check-radio-box">
+                                    <input type="checkbox" name="row_select">
+                                </div>
+                            </td>
+                            <td>10</td>
+                            <td>Test Tubes</td>
+                            <td>Corning</td>
+                            <td>Laboratory Supplies</td>
+                            <td>Scientific Equipment Store</td>
+                            <td>2024-12-31</td>
+                            <td>2024-09-30</td>
+                            <td>2025-12-31</td>
+                            <td>₹1000</td>
+                            <td>₹1200</td>
+                            <td>500</td>
                         </tr>
                     </tbody>
                 </table>
@@ -368,11 +537,11 @@
             <div class="drop-down-menu-content">
                 <div class="check-radio-box">
                     <label for="category_vis_example1">
-                        <input type="checkbox" id="category_vis_example1" checked>
+                        <input type="checkbox" id="category_vis_example1" name="category_vis" checked>
                         Example $
                     </label>
                     <label for="category_vis_example2">
-                        <input type="checkbox" id="category_vis_example2" checked>
+                        <input type="checkbox" id="category_vis_example2" name="category_vis" checked>
                         Example $
                     </label>
                     <label for="category_vis_example3">
@@ -394,12 +563,12 @@
     <!-- CATEGORIES DROP DOWN MENU ENDS -->
 
     <!-- MORE FILTERS DROP DOWN MENU STARTS -->
-    <div class="drop-down-menu" id="more_filter_drop_down_menu">
+    <div class="drop-down-menu large" id="more_filter_drop_down_menu">
         <div class="drop-down-menu-body filter-menu">
             <!-- Menu Header -->
             <header>
                 <h3 class="fs-400">More Filters</h3>
-                <button class="icon lg">
+                <button class="icon large">
                     <svg class="icon">
                         <use href="{% static 'assets/icon-sprite.svg' %}#cross" />
                     </svg>
@@ -466,7 +635,7 @@
                     </div>
                 </div>
                 <!-- PROFIT AND LOSS FILTER ACCRODION -->
-                <div class="accordion visible">
+                <div class="accordion">
                     <div class="title">
                         <p>Profit or Loss</p>
                         <button class="icon"><svg class="icon">
@@ -493,7 +662,7 @@
                     </div>
                 </div>
                 <!-- PRICES AND QUANTITY FILTER ACCRODION -->
-                <div class="accordion visible">
+                <div class="accordion">
                     <div class="title">
                         <p>Prices & Quantity</p>
                         <button class="icon"><svg class="icon">
@@ -561,8 +730,24 @@
                             </svg></button>
                     </div>
                     <div class="content">
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime veritatis deserunt nam eum
-                        necessitatibus voluptates aut et blanditiis accusantium at?
+                        <div class="check-radio-box">
+                            <label for="seller_example1">
+                                <input type="checkbox" id="seller_example1" name="seller" checked>
+                                Example $
+                            </label>
+                            <label for="seller_example2">
+                                <input type="checkbox" id="seller_example2" name="seller" checked>
+                                Example $
+                            </label>
+                            <label for="seller_example3">
+                                <input type="checkbox" id="seller_example3" name="seller" checked>
+                                Example $
+                            </label>
+                            <label for="seller_example4">
+                                <input type="checkbox" id="seller_example4" name="seller" checked>
+                                Example $
+                            </label>
+                        </div>
                     </div>
                 </div>
                 <div class="accordion">
@@ -573,8 +758,24 @@
                             </svg></button>
                     </div>
                     <div class="content">
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime veritatis deserunt nam eum
-                        necessitatibus voluptates aut et blanditiis accusantium at?
+                        <div class="check-radio-box">
+                            <label for="brand_example1">
+                                <input type="checkbox" id="brand_example1" name="brand" checked>
+                                Example $
+                            </label>
+                            <label for="brand_example2">
+                                <input type="checkbox" id="brand_example2" name="brand" checked>
+                                Example $
+                            </label>
+                            <label for="brand_example3">
+                                <input type="checkbox" id="brand_example3" name="brand" checked>
+                                Example $
+                            </label>
+                            <label for="brand_example4">
+                                <input type="checkbox" id="brand_example4" name="brand" checked>
+                                Example $
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>

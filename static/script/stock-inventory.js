@@ -124,5 +124,5 @@ document.addEventListener("DOMContentLoaded", () => {
     setDropDownMenu(menuBtnCategory);
     setDropDownMenu(menuBtnFilter);
 
-    menuBtnColumn.click();
+    // menuBtnFilter.click();
 })
