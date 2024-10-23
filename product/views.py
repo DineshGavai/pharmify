@@ -101,6 +101,7 @@ def add_stock_summary(request):
 
 def stock_inventory_api(request):
     products = Product.objects.all()
+    
     product_quantities = Product.objects.values("name").annotate(
         total_quantity=Sum("available_quantity")
     )
