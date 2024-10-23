@@ -1119,7 +1119,7 @@ table {
 }
 
 .data-table thead tr {
-  background-color: var(--clr-primary-hover);
+  background-color: var(--clr-primary-focus);
   border-bottom: 1px solid var(--clr-primary-focus);
   color: var(--clr-primary-dark);
   text-align: left;
@@ -1146,6 +1146,16 @@ table {
 
 .data-table td {
   border-bottom: 1px solid var(--clr-grey-hover);
+}
+
+.data-table
+  tbody
+  tr:has(td:hover, input[type="checkbox"]:hover, input[type="checkbox"]:focus) {
+  background-color: var(--clr-grey-bg);
+}
+
+.data-table tbody tr:has(input[type="checkbox"]:checked) {
+  background-color: var(--clr-primary-hover);
 }
 
 /* DATA TABLES'S INTERACTIVE ELEMENTS */
