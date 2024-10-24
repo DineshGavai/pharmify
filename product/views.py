@@ -240,6 +240,5 @@ def stock_inventory(request):
     return render(request, "stock/inventory.html",context)
 
 
-def stock_inventory_api_fun():
-    products = Product.objects.all()
+
 
