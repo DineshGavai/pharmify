@@ -42,6 +42,7 @@ UTILITY CLASSES
 }
 
 .empty-box,
+.empty-sec *:not(.empty-box),
 *[aria-hidden="true"] {
   display: none;
   opacity: 0;
@@ -120,6 +121,7 @@ UTILITY CLASSES
   opacity: 1;
   visibility: visible;
   z-index: initial;
+  text-align: center;
 }
 
 .badge {

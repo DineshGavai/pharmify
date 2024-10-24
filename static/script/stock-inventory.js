@@ -1,6 +1,7 @@
 import { createChartDonut, setAsSlider } from "./utils/components.js"
 import { formatDateCommon, formatINR, setLocationByRegion } from "./utils/utils.js"
 import { setDropDownMenu } from "./utils/inputs.js"
+import { STATUS_HTTP_RESPONSE } from "./utils/const.js";
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -47,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // */
 
             // If data is avaiable and is sent from backend
-            if (data != 0) {
+            if (data.inventory_status != STATUS_HTTP_RESPONSE.preconditionFailed) {
                 overviewData = data.inventory_overview;
             }
 
@@ -56,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Populate all the last update boxes
             document.querySelectorAll(".date-last-updated")
                 .forEach(elem => {
-                    if (!overviewData.lastUpdated || overviewData.lastUpdated == "") elem.setAttribute("aria-hidden", "true");
+                    if (!overviewData.lastUpdated || overviewData.lastUpdated == "") elem.parentNode.setAttribute("aria-hidden", "true");
                     elem.innerHTML = formatDateCommon(overviewData.lastUpdated)
                 })
 
@@ -113,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (elemPercent) elemPercent.innerHTML = percentData ? percentData + "%" : label;
             }
 
-            financialTotalValue.innerHTML = formatINR(financial.cost, false);
+            financialTotalValue.innerHTML = financial.cost == 0 ? "0.00" : formatINR(financial.cost, false);
 
             setFinancialData(
                 document.getElementById("overview_loss_products"), document.getElementById("overview_loss_percent"),
@@ -129,6 +130,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.getElementById("overview_profit_products"), document.getElementById("overview_profit_percent"),
                 financial.profitProductCount, financial.profitPercent, "No Profit"
             )
+
+            if (overviewData.count.products == 0) {
+                document.querySelector(".expiry-card-box").classList.add("empty-sec");
+            }
 
 
             /* ///////////////
