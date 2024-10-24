@@ -98,153 +98,148 @@ def add_stock_summary(request):
     return render(request, "stock/summary.html", context)
 
 
-def stock_inventory(request):
-    products = Product.objects.all()
-    product_quantities = Product.objects.values("name").annotate(
-        total_quantity=Sum("available_quantity")
-    )
-    product_quantity_dict = {
-        item["name"]: item["total_quantity"] for item in product_quantities
-    }
-    # inventory data
-    inventory_data = {
-        "inventoryData": {
-            "name": [product.name for product in products],
-            "brand": [product.brand for product in products],
-            "type": [product.product_type for product in products],
-            "dateManufacture": [product.manufacture_date for product in products],
-            "dateAdded": [product.product_added_date for product in products],
-            "dateExpiry": [product.expiry_date for product in products],
-            "priceWholesale": [product.wholesale_price for product in products],
-            "priceSelling": [product.selling_price for product in products],
-            "Quantity Available": [product.available_quantity for product in products],
+
+def stock_inventory_api(request):
+    products=Product.objects.all()
+    if products.exists():
+        product_quantities = Product.objects.values("name").annotate(
+            total_quantity=Sum("available_quantity")
+        )
+        product_quantity_dict = {
+            item["name"]: item["total_quantity"] for item in product_quantities
         }
+
+        # Inventory data
+        inventory_data = {
+            "inventoryData": {
+                "name": [product.name for product in products],
+                "brand": [product.brand for product in products],
+                "type": [product.product_type for product in products],
+                "dateManufacture": [product.manufacture_date for product in products],
+                "dateAdded": [product.product_added_date for product in products],
+                "dateExpiry": [product.expiry_date for product in products],
+                "priceWholesale": [product.wholesale_price for product in products],
+                "priceSelling": [product.selling_price for product in products],
+                "QuantityAvailable": [product.available_quantity for product in products],
+            }
+        }
+
+        # Inventory overview
+        last_added_product = Product.objects.latest("product_added_date")
+        last_updated = last_added_product.product_added_date
+
+        products_in_stock = Product.objects.filter(available_quantity__gt=0).order_by(
+            "-product_added_date"
+        )
+        product_in_stock_count = products_in_stock.count()
+        products_out_of_stock = Product.objects.filter(available_quantity__lt=1).count()
+        products_low_in_stock = Product.objects.filter(available_quantity__lte=5).count()
+
+        N = 7  # Number of days before expiry
+        expired_products = Product.objects.filter(
+            expiry_date__lt=timezone.now().date()
+        ).count()
+
+        near_expiry_date = timezone.now().date() + timedelta(days=N)
+        products_near_expiry = Product.objects.filter(
+            expiry_date__range=(timezone.now().date(), near_expiry_date),
+            available_quantity__gt=0,
+        ).count()
+
+        total_selling_price = SoldItem.objects.aggregate(total=Sum("selling_price"))[
+            "total"
+        ] or 0
+
+        # Profit calculation
+        profit_percent_expression = ExpressionWrapper(
+            (F("selling_price") - F("product__wholesale_price")) * 100
+            / F("product__wholesale_price"),
+            output_field=DecimalField(),
+        )
+
+        profit_sold_items = SoldItem.objects.filter(
+            product__selling_price__gt=F("product__wholesale_price")
+        )
+        average_profit_percent = profit_sold_items.aggregate(
+            avg_profit_percent=Avg(profit_percent_expression)
+        )["avg_profit_percent"] or 0
+
+        # Loss calculation
+        loss_percent_expression = ExpressionWrapper(
+            (F("product__wholesale_price") - F("selling_price")) * 100
+            / F("product__wholesale_price"),
+            output_field=DecimalField(),
+        )
+
+        loss_sold_items_count = SoldItem.objects.filter(
+            selling_price__lt=F("product__wholesale_price")
+        ).count()
+
+        loss_sold_items = SoldItem.objects.filter(
+            product__selling_price__lt=F("product__wholesale_price")
+        )
+        average_loss_percent = loss_sold_items.aggregate(
+            avg_loss_percent=Avg(loss_percent_expression)
+        )["avg_loss_percent"] or 0
+
+        # Same as wholesale price count
+        same_as_wholesale_amount = SoldItem.objects.filter(
+            selling_price=F("product__wholesale_price")
+        ).count()
+
+        # Product type count
+        product_type_count = Product.objects.values("product_type").annotate(
+            count=Count("product_type")
+        )
+
+        # Inventory overview data
+        inventory_overview = {
+            "lastUpdated": last_updated,
+            "count": {
+                "products": products.count(),
+                "productsInStock": product_in_stock_count,
+                "productsOutOfStock": products_out_of_stock,
+                "productsLowStock": products_low_in_stock,
+                "productExpired": expired_products,
+                "productsNearExpiry": products_near_expiry,
+            },
+            "types": {
+                "names": [product.name for product in products_in_stock],
+                "counts": list(product_type_count),
+            },
+            "financial": {
+                "cost": total_selling_price,
+                "profitProductCount": profit_sold_items.count(),
+                "profitPercent": average_profit_percent,
+                "lossProductCount": loss_sold_items_count,
+                "lossPercent": average_loss_percent,
+                "sameAsWholesaleAmount": same_as_wholesale_amount,
+            },
+        }
+
+        # JSON response
+        response_data = {
+            "inventory_data": inventory_data,
+            "inventory_overview": inventory_overview,
+            "inventory_status":200
+        }
+
+        return JsonResponse(response_data, safe=False, json_dumps_params={'indent': 2})
+    else:
+        response_data = {
+            
+            "inventory_status":412
+        }
+        return JsonResponse(response_data, safe=False, json_dumps_params={'indent': 2})
+
+
+def stock_inventory(request):
+    context={
+        "currentPage": "stock-inventory"
     }
+    return render(request, "stock/inventory.html",context)
 
-    # inventory json overview
-    last_added_product = Product.objects.latest("product_added_date")
-    last_updated = last_added_product.product_added_date
-    products_in_stock = Product.objects.filter(available_quantity__gt=0).order_by(
-        "-product_added_date"
-    )
-    product_in_stock_count = products_in_stock.count()
-    products_out_off_stock = Product.objects.filter(available_quantity__lt=1).count()
-    products_low_in_stock = Product.objects.filter(available_quantity__lte=5).count()
 
-    N = 7  # Number of days before expiry
-    expired_products = Product.objects.filter(
-        expiry_date__lt=timezone.now().date()
-    ).count()
+def stock_inventory_api_fun():
+    products = Product.objects.all()
 
-    near_expiry_date = timezone.now().date() + timedelta(days=N)
-    products_near_expiry = Product.objects.filter(
-        expiry_date__range=(timezone.now().date(), near_expiry_date),
-        available_quantity__gt=0,
-    ).count()
-
-    total_selling_price = SoldItem.objects.aggregate(total=Sum("selling_price"))[
-        "total"
-    ]
-
-    total_selling_price = total_selling_price or 0  # if there is no sold item
-
-    # Profit
-    profit_sold_items = SoldItem.objects.filter(
-        product__selling_price__gt=models.F("product__wholesale_price")
-    ).count()
-
-    # Calculate the profit percentage per sold item where selling price is greater than wholesale price
-    profit_percent_expression = ExpressionWrapper(
-        (F("selling_price") - F("product__wholesale_price"))
-        * 100
-        / F("product__wholesale_price"),
-        output_field=DecimalField(),
-    )
-
-    # Filter sold items where selling price is greater than wholesale price
-    profit_sold_items = SoldItem.objects.filter(
-        product__selling_price__gt=F("product__wholesale_price")
-    )
-
-    # Calculate the average profit percentage for all such sold items
-    average_profit_percent = profit_sold_items.aggregate(
-        avg_profit_percent=Avg(profit_percent_expression)
-    )["avg_profit_percent"]
-
-    average_profit_percent = average_profit_percent or 0
-    # print(f"Average profit percentage: {average_profit_percent:.2f}%")
-
-    # Loss
-    loss_sold_items_count = SoldItem.objects.filter(
-        selling_price__lt=models.F("product__wholesale_price")
-    ).count()
-    # print("loss_sold_items_count:", loss_sold_items_count)
-
-    # Calculate the loss percentage per sold item where selling price is less than wholesale price
-    loss_percent_expression = ExpressionWrapper(
-        (F("product__wholesale_price") - F("selling_price"))
-        * 100
-        / F("product__wholesale_price"),
-        output_field=DecimalField(),
-    )
-
-    # Filter sold items where the selling price is less than the wholesale price
-    loss_sold_items = SoldItem.objects.filter(
-        product__selling_price__lt=F("product__wholesale_price")
-    )
-
-    # Calculate the average loss percentage for all such sold items
-    average_loss_percent = loss_sold_items.aggregate(
-        avg_loss_percent=Avg(loss_percent_expression)
-    )["avg_loss_percent"]
-
-    # Handle cases where there might not be any sold items
-    average_loss_percent = average_loss_percent or 0
-
-    # print(f"Average loss percentage: {average_loss_percent:.2f}%")
-
-    # sold for same as wholesale price
-
-    same_as_wholesale_amount = SoldItem.objects.filter(
-        selling_price__exact=F("product__wholesale_price")
-    ).count()
-    # print("same_as_wholesale_amount:", same_as_wholesale_amount)
-
-    product_type_count = Product.objects.values("product_type").annotate(
-        count=Count("product_type")
-    )
-    # for item in product_type_count:
-    #     print(f"{item['product_type']}, Count: {item['count']}")
-
-    inventory_overview = {
-        "lastUpdated": last_updated,
-        "count": {
-            "products": products.count(),
-            "productsInStock": product_in_stock_count,
-            "productsOutOfStock": products_out_off_stock,
-            "productsLowStock": products_low_in_stock,
-            "productExpired": expired_products,
-            "productsNearExpiry": products_near_expiry,
-        },
-        "types": {
-            "names": [product.name for product in products_in_stock],
-            "counts": product_type_count,
-        },
-        "financial": {
-            "cost": total_selling_price,
-            "profitProductCount": profit_sold_items,
-            "profitPercent": average_profit_percent,
-            "lossProductCount": loss_sold_items_count,
-            "lossPercent": average_loss_percent,
-            "sameAsWholesaleAmount": same_as_wholesale_amount,
-        },
-    }
-
-    json_data = json.dumps(inventory_data, cls=DjangoJSONEncoder)
-
-    context = {
-        "currentPage": "stock-inventory",
-        "inventory_data": json_data,
-        "inventory_overview": inventory_overview,
-    }
-    return render(request, "stock/inventory.html", context)

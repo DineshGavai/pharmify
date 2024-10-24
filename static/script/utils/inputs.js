@@ -456,8 +456,9 @@ export function updateDropDownPosition(elem, dropDownElem, isInput) {
     left: `${left}px`,
     minWidth: `${elem.clientWidth + 32}px`,
     width: `fit-content`,
-    maxWidth: "700px"
+    maxWidth: "700px",
   });
+  if (top > 0) dropDownBody.style.maxHeight = `calc(100vh - ${top}px)`
   dropDownElem.classList.add("visible");
 
   // Return and don't do further input handling
