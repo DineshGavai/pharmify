@@ -42,7 +42,7 @@ UTILITY CLASSES
 }
 
 .empty-box,
-.empty-sec *:not(.empty-box),
+.empty-sec *:not(.empty-box, .empty-box *),
 *[aria-hidden="true"] {
   display: none;
   opacity: 0;
@@ -117,10 +117,14 @@ UTILITY CLASSES
   position: inherit;
   width: fit-content;
   height: fit-content;
-  display: block;
   opacity: 1;
   visibility: visible;
   z-index: initial;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
   text-align: center;
 }
 
@@ -1113,6 +1117,10 @@ ul.drop-down-menu-body {
   border: 1px solid var(--clr-grey-divider);
   border-radius: 0.4rem;
   overflow: auto hidden;
+}
+
+.data-table-sec .empty-box {
+  min-height: 12rem;
 }
 
 table {

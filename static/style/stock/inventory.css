@@ -305,3 +305,9 @@
 .data-table tbody td:nth-of-type(3) {
   font-weight: 500;
 }
+
+.data-table tbody td:nth-of-type(10),
+.data-table tbody td:nth-of-type(11),
+.data-table tbody td:nth-of-type(12) {
+  text-align: right;
+}

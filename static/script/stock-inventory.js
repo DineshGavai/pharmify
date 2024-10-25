@@ -107,8 +107,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
             let financialTotalValue = document.getElementById("overview_total_value");
 
-            function setFinancialData(elemCount, elemPercent, countData, percentData, label) {
-                if (percentData && percentData > 0) percentData = "+" + percentData;
+            function setFinancialData(elemCount, elemPercent, countData, percentData, label, sign = "+") {
+                if (percentData && percentData > 0) {
+                    console.log(percentData);
+                    percentData = sign + percentData
+                };
+
                 if (!countData) elemCount.classList.add("safe");
                 if (elemCount) elemCount.innerHTML = formatINR(countData, false);
                 if (elemPercent) elemPercent.innerHTML = percentData ? percentData + "%" : label;
@@ -118,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             setFinancialData(
                 document.getElementById("overview_loss_products"), document.getElementById("overview_loss_percent"),
-                financial.lossProductCount, financial.lossPercent, "No Loss"
+                financial.lossProductCount, financial.lossPercent, "No Loss", "-"
             )
 
             setFinancialData(
@@ -153,6 +157,79 @@ document.addEventListener("DOMContentLoaded", () => {
             setDropDownMenu(menuBtnFilter);
 
             // menuBtnFilter.click();
+
+
+            /* ///////////////
+                DYNAMIC DATA TABLE LIST POPULATIONS
+            /////////////// */
+
+            let dataTableBody = document.getElementById("data_table_body");
+
+            console.log(data.inventory_data.inventoryData);
+
+
+            let inventoryData = data.inventory_data.inventoryData;
+
+            if (!inventoryData || inventoryData.name.length == 0) {
+                document.getElementById("data_table_sec").classList.add("empty-sec")
+            } else {
+                inventoryData.name.forEach((name, i) => {
+                    let row = document.createElement("tr");
+                    let srNo = i + 1;
+                    let brand = inventoryData.brand[i];
+                    let type = inventoryData.type[i];
+                    let seller = inventoryData.seller[i];
+                    let dateManufacture = inventoryData.dateManufacture[i];
+                    let dateAdded = inventoryData.dateAdded[i];
+                    let dateExpiry = inventoryData.dateExpiry[i];
+                    let priceWholesale = inventoryData.priceWholesale[i];
+                    let priceSelling = inventoryData.priceSelling[i];
+                    let quantityAvailable = inventoryData.QuantityAvailable[i];
+
+                    row.innerHTML = `
+                    <td>
+                        <div class="check-radio-box">
+                            <input type="checkbox" name="row_select" id="row_select_${srNo}">
+                        </div>
+                    </td>
+                    <td>${srNo}</td>
+                    <td>${name}</td>
+                    <td>${brand}</td>
+                    <td>${type}</td>
+                    <td>${seller}</td>
+                    <td>${formatDateCommon(dateManufacture)}</td>
+                    <td>${formatDateCommon(dateAdded)}</td>
+                    <td>${formatDateCommon(dateExpiry)}</td>
+                    <td>${formatINR(priceWholesale)}</td>
+                    <td>${formatINR(priceSelling)}</td>
+                    <td>${formatINR(quantityAvailable, false)}</td>
+                    `;
+
+                    dataTableBody.append(row);
+                })
+            }
+
+
+            `<tr>
+                <td>
+                <div class="check-radio-box">
+                    <input type="checkbox" name="row_select">
+                </div>
+            </td>
+            <td>4</td>
+            <td>Surgical Masks</td>
+            <td>3M</td>
+            <td>Personal Protective Equipment</td>
+            <td>Medical Supply House</td>
+            <td>2024-06-10</td>
+            <td>2024-09-10</td>
+            <td>2025-06-10</td>
+            <td>₹1000</td>
+            <td>₹1200</td>
+            <td>500</td>
+        </tr>`
+
+
 
         })
         .catch(error => {
