@@ -148,9 +148,10 @@ def stock_inventory_api(request):
             available_quantity__gt=0,
         ).count()
 
-        total_selling_price = SoldItem.objects.aggregate(total=Sum("selling_price"))[
-            "total"
-        ] or 0
+        
+        total_selling_price = SoldItem.objects.aggregate(
+            total=Sum(F("selling_price") * F("quantity_sold"))
+        )["total"] or 0
 
         # Profit calculation
         profit_percent_expression = ExpressionWrapper(
