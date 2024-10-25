@@ -169,6 +169,9 @@ document.addEventListener("DOMContentLoaded", () => {
             if (data.inventory_status != STATUS_HTTP_RESPONSE.preconditionFailed)
                 inventoryData = data.inventory_data.inventoryData;
 
+            console.log(inventoryData.dateExpiry);
+
+
             if (!inventoryData || !inventoryData.name || !inventoryData.name.lenght == 0) {
                 document.getElementById("data_table_sec").classList.add("empty-sec")
             } else {
@@ -198,7 +201,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <td>${formatINR(priceSelling)}</td>
                     <td>${formatINR(quantityAvailable, false)}</td>
                     <td>${formatDateCommon(dateManufacture)}</td>
-                    <td>${formatDateCommon(dateExpiry)}</td>
+                    <td>${formatDateCommon(dateExpiry.replace("/", "-"))}</td>
                     <td>${formatDateCommon(dateAdded)}</td>
                     <td>${type}</td>
                     <td>${seller}</td>

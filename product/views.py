@@ -99,10 +99,6 @@ def add_stock_summary(request):
     return render(request, "stock/summary.html", context)
 
 
-def format_date(date):
-    """Helper function to format date to DD/MM/YYYY."""
-    return date.strftime('%d/%m/%Y') if date else None
-
 def stock_inventory_api(request):
     products = Product.objects.filter(owner_id=request.user).order_by('name')
 
@@ -121,9 +117,9 @@ def stock_inventory_api(request):
                 "brand": [product.brand for product in products],
                 "type": [product.product_type for product in products],
                 "seller": [product.seller.name for product in products],
-                "dateManufacture": [format_date(product.manufacture_date) for product in products],
+                "dateManufacture": [product.manufacture_date for product in products],
                 "dateAdded": [product.product_added_date for product in products],
-                "dateExpiry": [format_date(product.expiry_date) for product in products],
+                "dateExpiry": [product.expiry_date for product in products],
                 "priceWholesale": [product.wholesale_price for product in products],
                 "priceSelling": [product.selling_price for product in products],
                 "QuantityAvailable": [product.available_quantity for product in products],
@@ -132,14 +128,13 @@ def stock_inventory_api(request):
 
         # Inventory overview
         last_added_product = Product.objects.latest("product_added_date")
-        last_updated = format_date(last_added_product.product_added_date)
+        last_updated = last_added_product.product_added_date
 
         products_in_stock = Product.objects.filter(owner_id=request.user, available_quantity__gt=0).order_by(
             "-product_added_date"
         )
         product_in_stock_count = products_in_stock.count()
         products_out_of_stock = Product.objects.filter(available_quantity__lt=1).count()
-        # TODO: CHANGE THIS TO 0 to 5 instead of less than 5
         products_low_in_stock = Product.objects.filter(Q(available_quantity__lt=5) & Q(available_quantity__gt=0)).count()
         N = 7  # Number of days before expiry
         expired_products = Product.objects.filter(
