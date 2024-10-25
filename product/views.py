@@ -100,7 +100,8 @@ def add_stock_summary(request):
 
 
 def stock_inventory_api(request):
-    products=Product.objects.all()
+    products=Product.objects.all().order_by('name')
+    
     if products.exists():
         product_quantities = Product.objects.values("name").annotate(
             total_quantity=Sum("available_quantity")
@@ -115,6 +116,7 @@ def stock_inventory_api(request):
                 "name": [product.name for product in products],
                 "brand": [product.brand for product in products],
                 "type": [product.product_type for product in products],
+                "seller":[product.seller.name for product in products],
                 "dateManufacture": [product.manufacture_date for product in products],
                 "dateAdded": [product.product_added_date for product in products],
                 "dateExpiry": [product.expiry_date for product in products],
@@ -166,18 +168,20 @@ def stock_inventory_api(request):
 
         # Loss calculation
         loss_percent_expression = ExpressionWrapper(
-            (F("product__wholesale_price") - F("selling_price")) * 100
-            / F("product__wholesale_price"),
+            (F("product__wholesale_price") - F("selling_price")) * 100 / F("product__wholesale_price"),
             output_field=DecimalField(),
         )
 
+        # Get count of items sold below wholesale price
         loss_sold_items_count = SoldItem.objects.filter(
             selling_price__lt=F("product__wholesale_price")
         ).count()
 
+        # Get sold items where selling price is less than wholesale price
         loss_sold_items = SoldItem.objects.filter(
-            product__selling_price__lt=F("product__wholesale_price")
+            selling_price__lt=F("product__wholesale_price")
         )
+        print(loss_sold_items)
         average_loss_percent = loss_sold_items.aggregate(
             avg_loss_percent=Avg(loss_percent_expression)
         )["avg_loss_percent"] or 0
@@ -238,7 +242,3 @@ def stock_inventory(request):
         "currentPage": "stock-inventory"
     }
     return render(request, "stock/inventory.html",context)
-
-
-
-
