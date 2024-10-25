@@ -1,6 +1,7 @@
 {% load static %}
 <div class="drop-down-menu" id="existing_products">
     <ul class="drop-down-menu-body">
+        <p class="not-found">No such product found. Adding new product.</p>
         {% for product in products %}
 
         <li>{{product}}</li>

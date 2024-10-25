@@ -1139,10 +1139,10 @@ table {
   padding-top: 1.2rem;
   padding-bottom: 1.2rem;
 }
-
+/* 
 .data-table tbody tr:nth-of-type(even) {
   background-color: var(--clr-grey-bg-light);
-}
+} */
 
 /* Other Styles */
 
@@ -1161,11 +1161,11 @@ table {
 .data-table
   tbody
   tr:has(td:hover, input[type="checkbox"]:hover, input[type="checkbox"]:focus) {
-  background-color: var(--clr-grey-bg);
+  background-color: var(--clr-accent-hover);
 }
 
 .data-table tbody tr:has(input[type="checkbox"]:checked) {
-  background-color: var(--clr-primary-hover);
+  background-color: var(--clr-accent-focus);
 }
 
 /* DATA TABLES'S INTERACTIVE ELEMENTS */
