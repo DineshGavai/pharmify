@@ -154,6 +154,86 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // menuBtnFilter.click();
 
+
+            /* ///////////////
+                DYNAMIC DATA TABLE LIST POPULATIONS
+            /////////////// */
+
+            let dataTableBody = document.getElementById("data_table_body");
+
+            console.log(data.inventory_data.inventoryData);
+
+
+            let inventoryData = data.inventory_data.inventoryData;
+
+            if (!inventoryData || inventoryData.name.length == 0) {
+                document.getElementById("data_table_sec").classList.add("empty-sec")
+            } else {
+                inventoryData.name.forEach((name, i) => {
+                    let row = document.createElement("tr");
+                    let srNo = i + 1;
+
+                    // TODO: Add seller later
+                    // let { brand, type, dateManufacture, dateAdded, dateExpiry, priceWholesale, priceSelling, QuantityAvailable }
+                    //     = inventoryData[i];
+
+                    let brand = inventoryData.brand[i];
+                    let type = inventoryData.type[i];
+                    let dateManufacture = inventoryData.dateManufacture[i];
+                    let dateAdded = inventoryData.dateAdded[i];
+                    let dateExpiry = inventoryData.dateExpiry[i];
+                    let priceWholesale = inventoryData.priceWholesale[i];
+                    let priceSelling = inventoryData.priceSelling[i];
+                    let quantityAvailable = inventoryData.QuantityAvailable[i];
+
+
+
+
+                    row.innerHTML = `
+                    <td>
+                        <div class="check-radio-box">
+                            <input type="checkbox" name="row_select" id="row_select_${srNo}">
+                        </div>
+                    </td>
+                    <td>${srNo}</td>
+                    <td>${name}</td>
+                    <td>${brand}</td>
+                    <td>${type}</td>
+                    <td>Medical Supply House</td>
+                    <td>${dateManufacture}</td>
+                    <td>${dateAdded}</td>
+                    <td>${dateExpiry}</td>
+                    <td>${priceWholesale}</td>
+                    <td>${priceSelling}</td>
+                    <td>${quantityAvailable}</td>
+                    `;
+
+                    dataTableBody.append(row);
+                })
+            }
+
+
+            `<tr>
+                <td>
+                <div class="check-radio-box">
+                    <input type="checkbox" name="row_select">
+                </div>
+            </td>
+            <td>4</td>
+            <td>Surgical Masks</td>
+            <td>3M</td>
+            <td>Personal Protective Equipment</td>
+            <td>Medical Supply House</td>
+            <td>2024-06-10</td>
+            <td>2024-09-10</td>
+            <td>2025-06-10</td>
+            <td>₹1000</td>
+            <td>₹1200</td>
+            <td>500</td>
+        </tr>`
+
+
+
         })
         .catch(error => {
             console.error('There has been a problem with your fetch operation:', error);
