@@ -10,4 +10,5 @@ urlpatterns = [
     path("stock/summary", add_stock_summary, name="stock-summary"),
     path("stock/inventory", stock_inventory, name="stock-inventory"),
     path("stock/inventory/api",stock_inventory_api,name="stock-inventory-api"),
+    path("stock/inventory/api2",stock_by_user,name="stock-inventory-api"),
 ]
