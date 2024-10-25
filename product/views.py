@@ -4,7 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import *
 import json
 from django.core.serializers.json import DjangoJSONEncoder
-from django.db.models import Sum, F, ExpressionWrapper, DecimalField, Avg, Count
+from django.db.models import Sum, F, ExpressionWrapper, DecimalField, Avg, Count,Q
 from datetime import timedelta
 from django.utils import timezone
 from user.models import Owner
@@ -139,8 +139,8 @@ def stock_inventory_api(request):
         )
         product_in_stock_count = products_in_stock.count()
         products_out_of_stock = Product.objects.filter(available_quantity__lt=1).count()
-        products_low_in_stock = Product.objects.filter(available_quantity__lte=5).count()
-
+        # TODO: CHANGE THIS TO 0 to 5 instead of less than 5
+        products_low_in_stock = Product.objects.filter(Q(available_quantity__lt=5) & Q(available_quantity__gt=0)).count()
         N = 7  # Number of days before expiry
         expired_products = Product.objects.filter(
             expiry_date__lt=timezone.now().date()
