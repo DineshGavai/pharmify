@@ -33,7 +33,8 @@ def add_seller(request):
         if seller_name in exists_seller:
             return HttpResponse("Seller Already Present")
         else:
-            seller = Seller.objects.create(name=seller_name, phone_number=seller_number)
+            seller = Seller.objects.create(
+                name=seller_name, phone_number=seller_number)
             return HttpResponse("Seller Added Successfully")
 
 
@@ -135,7 +136,8 @@ def stock_inventory_api(request):
         )
         product_in_stock_count = products_in_stock.count()
         products_out_of_stock = Product.objects.filter(available_quantity__lt=1).count()
-        products_low_in_stock = Product.objects.filter(Q(available_quantity__lt=5) & Q(available_quantity__gt=0)).count()
+        products_low_in_stock = Product.objects.filter(available_quantity__lte=5).count()
+
         N = 7  # Number of days before expiry
         expired_products = Product.objects.filter(
             expiry_date__lt=timezone.now().date()
@@ -167,7 +169,8 @@ def stock_inventory_api(request):
 
         # Loss calculation
         loss_percent_expression = ExpressionWrapper(
-            (F("product__wholesale_price") - F("selling_price")) * 100 / F("product__wholesale_price"),
+            (F("product__wholesale_price") - F("selling_price")) *
+            100 / F("product__wholesale_price"),
             output_field=DecimalField(),
         )
 
@@ -229,14 +232,15 @@ def stock_inventory_api(request):
         }
         return JsonResponse(response_data, safe=False, json_dumps_params={'indent': 2})
 
+
 def stock_inventory(request):
-    context={
+    context = {
         "currentPage": "stock-inventory"
     }
-    return render(request, "stock/inventory.html",context)
+    return render(request, "stock/inventory.html", context)
+
 
 def stock_by_user(request):
     products = Product.objects.filter(owner_id=request.user)
     print(products)
     return HttpResponse("success")
-    
