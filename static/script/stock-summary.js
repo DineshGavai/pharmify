@@ -57,7 +57,7 @@ function getProductSummaryHTML(data, count, allowTitle = true) {
         </p>
         <p>
             <span class="days-total">Total ${totalDays} days</span><br>
-            <span class="days-left ${daysLeft <= 5 ? "warn" : ""}">${daysLeft <= 1 ? "Expiry tommorrow" : daysLeft + " days left from today"}</span>
+            <span class="days-left ${daysLeft <= 10 ? "warn" : ""}">${daysLeft <= 1 ? "Expiry tommorrow" : daysLeft + " days left from today"}</span>
         </p>
         <p>
             <span class="subtitle">Expiry Date</span><br>

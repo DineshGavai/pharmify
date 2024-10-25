@@ -1,5 +1,5 @@
 import { createChartDonut, setAsSlider } from "./utils/components.js"
-import { formatDateCommon, formatINR, setLocationByRegion } from "./utils/utils.js"
+import { formatDateCommon, formatINR, setLocationByRegion, subtractDates } from "./utils/utils.js"
 import { setDropDownMenu } from "./utils/inputs.js"
 import { STATUS_HTTP_RESPONSE } from "./utils/const.js";
 
@@ -165,12 +165,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
             let dataTableBody = document.getElementById("data_table_body");
 
-            console.log(data.inventory_data.inventoryData);
+            let inventoryData = {};
+            if (data.inventory_status != STATUS_HTTP_RESPONSE.preconditionFailed)
+                inventoryData = data.inventory_data.inventoryData;
 
-
-            let inventoryData = data.inventory_data.inventoryData;
-
-            if (!inventoryData || inventoryData.name.length == 0) {
+            if (!inventoryData || !inventoryData.name || !inventoryData.name.lenght == 0) {
                 document.getElementById("data_table_sec").classList.add("empty-sec")
             } else {
                 inventoryData.name.forEach((name, i) => {
@@ -195,15 +194,28 @@ document.addEventListener("DOMContentLoaded", () => {
                     <td>${srNo}</td>
                     <td>${name}</td>
                     <td>${brand}</td>
-                    <td>${type}</td>
-                    <td>${seller}</td>
-                    <td>${formatDateCommon(dateManufacture)}</td>
-                    <td>${formatDateCommon(dateAdded)}</td>
-                    <td>${formatDateCommon(dateExpiry)}</td>
                     <td>${formatINR(priceWholesale)}</td>
                     <td>${formatINR(priceSelling)}</td>
                     <td>${formatINR(quantityAvailable, false)}</td>
+                    <td>${formatDateCommon(dateManufacture)}</td>
+                    <td>${formatDateCommon(dateExpiry)}</td>
+                    <td>${formatDateCommon(dateAdded)}</td>
+                    <td>${type}</td>
+                    <td>${seller}</td>
                     `;
+
+                    const today = new Date();
+                    let daysLeft = subtractDates(new Date(), dateExpiry);
+
+                    if (new Date(dateExpiry) < today) {
+                        row.classList.add("status-expired");
+                    } else if (daysLeft <= 10) {
+                        row.classList.add("status-expiry-soon");
+                    } else if (Number(quantityAvailable) < 1) {
+                        row.classList.add("status-out-of-stock");
+                    } else if (Number(quantityAvailable) < 11) {
+                        row.classList.add("status-low-in-stock");
+                    }
 
                     dataTableBody.append(row);
                 })

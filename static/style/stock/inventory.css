@@ -306,8 +306,29 @@
   font-weight: 500;
 }
 
-.data-table tbody td:nth-of-type(10),
-.data-table tbody td:nth-of-type(11),
-.data-table tbody td:nth-of-type(12) {
+.data-table tbody td:nth-of-type(5),
+.data-table tbody td:nth-of-type(6),
+.data-table tbody td:nth-of-type(7) {
   text-align: right;
 }
+
+.data-table tr.status-low-in-stock {
+  background-color: var(--clr-grey-bg) !important;
+  color: var(--clr-grey-text) !important;
+}
+
+.data-table tr.status-out-of-stock {
+  background-color: var(--clr-grey-bg) !important;
+  color: var(--clr-grey-divider) !important;
+}
+
+.data-table tr.status-expiry-soon {
+  background-color: var(--clr-status-warn-light-bg) !important;
+  color: var(--clr-status-warn-dark-bg) !important;
+}
+
+.data-table tr.status-expired {
+  background-color: var(--clr-status-negative-light-bg) !important;
+  color: var(--clr-status-negative-light-text) !important;
+}
+
