@@ -69,6 +69,10 @@ document.addEventListener("DOMContentLoaded", () => {
             // Populating Donut Chart
             let donutChartData = [];
 
+            count.productsLowStock = 1;
+            count.productsOutOfStock = 1;
+
+
             if (count.products == 0) {
                 donutChartData = [{ label: "Available", value: 0, color: "var(--clr-grey-divider)" }]
             } else {
@@ -185,37 +189,44 @@ document.addEventListener("DOMContentLoaded", () => {
                     let priceSelling = inventoryData.priceSelling[i];
                     let quantityAvailable = inventoryData.QuantityAvailable[i];
 
+                    const today = new Date();
+                    let daysLeft = subtractDates(new Date(), dateExpiry);
+
+                    let isExpired = false, isExpirySoon = false, isLowInStock = false, isOutOfStock;
+
+                    if (new Date(dateExpiry) < today) {
+                        row.classList.add("status-expired");
+                        isExpired = true;
+                    } else if (daysLeft <= 10) {
+                        row.classList.add("status-expiry-soon");
+                        isExpirySoon = true;
+                    } else if (Number(quantityAvailable) < 1) {
+                        row.classList.add("status-out-of-stock");
+                        isOutOfStock = true;
+                    } else if (Number(quantityAvailable) < 11) {
+                        row.classList.add("status-low-in-stock");
+                        isLowInStock = true;
+                    }
+
+
                     row.innerHTML = `
                     <td>
                         <div class="check-radio-box">
                             <input type="checkbox" name="row_select" id="row_select_${srNo}">
                         </div>
                     </td>
-                    <td>${srNo}</td>
-                    <td>${name}</td>
-                    <td>${brand}</td>
-                    <td>${formatINR(priceWholesale)}</td>
-                    <td>${formatINR(priceSelling)}</td>
-                    <td>${formatINR(quantityAvailable, false)}</td>
-                    <td>${formatDateCommon(dateManufacture)}</td>
-                    <td>${formatDateCommon(dateExpiry)}</td>
-                    <td>${formatDateCommon(dateAdded)}</td>
-                    <td>${type}</td>
-                    <td>${seller}</td>
+                    <td><span>${srNo}</span></td>
+                    <td><span>${name}</span></td>
+                    <td><span>${brand}</span></td>
+                    <td><span>${formatINR(priceWholesale)}</span></td>
+                    <td><span>${formatINR(priceSelling)}</span></td>
+                    <td><span>${formatINR(quantityAvailable, false)} <span class="badge low ${isOutOfStock ? "" : "hidden"}">Out of Stock</span><span class="badge low ${!isOutOfStock && isLowInStock ? "" : "hidden"}">Low in Stock</span> </span></td>
+                    <td><span>${formatDateCommon(dateManufacture)}</span></td>
+                    <td><span>${formatDateCommon(dateExpiry)} <span class="badge negative ${isExpired ? "" : "hidden"}">Expired</span><span class="badge warn ${!isExpired && isExpirySoon ? "" : "hidden"}">Expiry Soon</span> </span></td>
+                    <td><span>${formatDateCommon(dateAdded)}</span></td>
+                    <td><span>${type}</span></td>
+                    <td><span>${seller}</span></td>
                     `;
-
-                    const today = new Date();
-                    let daysLeft = subtractDates(new Date(), dateExpiry);
-
-                    if (new Date(dateExpiry) < today) {
-                        row.classList.add("status-expired");
-                    } else if (daysLeft <= 10) {
-                        row.classList.add("status-expiry-soon");
-                    } else if (Number(quantityAvailable) < 1) {
-                        row.classList.add("status-out-of-stock");
-                    } else if (Number(quantityAvailable) < 11) {
-                        row.classList.add("status-low-in-stock");
-                    }
 
                     dataTableBody.append(row);
                 })
