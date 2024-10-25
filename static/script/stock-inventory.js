@@ -107,8 +107,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
             let financialTotalValue = document.getElementById("overview_total_value");
 
-            function setFinancialData(elemCount, elemPercent, countData, percentData, label) {
-                if (percentData && percentData > 0) percentData = "+" + percentData;
+            function setFinancialData(elemCount, elemPercent, countData, percentData, label, sign = "+") {
+                if (percentData && percentData > 0) {
+                    console.log(percentData);
+                    percentData = sign + percentData
+                };
+
                 if (!countData) elemCount.classList.add("safe");
                 if (elemCount) elemCount.innerHTML = formatINR(countData, false);
                 if (elemPercent) elemPercent.innerHTML = percentData ? percentData + "%" : label;
@@ -118,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             setFinancialData(
                 document.getElementById("overview_loss_products"), document.getElementById("overview_loss_percent"),
-                financial.lossProductCount, financial.lossPercent, "No Loss"
+                financial.lossProductCount, financial.lossPercent, "No Loss", "-"
             )
 
             setFinancialData(
@@ -172,22 +176,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 inventoryData.name.forEach((name, i) => {
                     let row = document.createElement("tr");
                     let srNo = i + 1;
-
-                    // TODO: Add seller later
-                    // let { brand, type, dateManufacture, dateAdded, dateExpiry, priceWholesale, priceSelling, QuantityAvailable }
-                    //     = inventoryData[i];
-
                     let brand = inventoryData.brand[i];
                     let type = inventoryData.type[i];
+                    let seller = inventoryData.seller[i];
                     let dateManufacture = inventoryData.dateManufacture[i];
                     let dateAdded = inventoryData.dateAdded[i];
                     let dateExpiry = inventoryData.dateExpiry[i];
                     let priceWholesale = inventoryData.priceWholesale[i];
                     let priceSelling = inventoryData.priceSelling[i];
                     let quantityAvailable = inventoryData.QuantityAvailable[i];
-
-
-
 
                     row.innerHTML = `
                     <td>
@@ -199,13 +196,13 @@ document.addEventListener("DOMContentLoaded", () => {
                     <td>${name}</td>
                     <td>${brand}</td>
                     <td>${type}</td>
-                    <td>Medical Supply House</td>
-                    <td>${dateManufacture}</td>
-                    <td>${dateAdded}</td>
-                    <td>${dateExpiry}</td>
-                    <td>${priceWholesale}</td>
-                    <td>${priceSelling}</td>
-                    <td>${quantityAvailable}</td>
+                    <td>${seller}</td>
+                    <td>${formatDateCommon(dateManufacture)}</td>
+                    <td>${formatDateCommon(dateAdded)}</td>
+                    <td>${formatDateCommon(dateExpiry)}</td>
+                    <td>${formatINR(priceWholesale)}</td>
+                    <td>${formatINR(priceSelling)}</td>
+                    <td>${formatINR(quantityAvailable, false)}</td>
                     `;
 
                     dataTableBody.append(row);
