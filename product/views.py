@@ -7,6 +7,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models import Sum, F, ExpressionWrapper, DecimalField, Avg, Count
 from datetime import timedelta
 from django.utils import timezone
+from user.models import Owner
 
 
 def stock_new(request):
@@ -98,10 +99,13 @@ def add_stock_summary(request):
     return render(request, "stock/summary.html", context)
 
 
+def format_date(date):
+    """Helper function to format date to DD/MM/YYYY."""
+    return date.strftime('%d/%m/%Y') if date else None
 
 def stock_inventory_api(request):
-    products=Product.objects.all().order_by('name')
-    
+    products = Product.objects.filter(owner_id=request.user).order_by('name')
+
     if products.exists():
         product_quantities = Product.objects.values("name").annotate(
             total_quantity=Sum("available_quantity")
@@ -110,16 +114,16 @@ def stock_inventory_api(request):
             item["name"]: item["total_quantity"] for item in product_quantities
         }
 
-        # Inventory data
+        # Inventory data with formatted dates
         inventory_data = {
             "inventoryData": {
                 "name": [product.name for product in products],
                 "brand": [product.brand for product in products],
                 "type": [product.product_type for product in products],
-                "seller":[product.seller.name for product in products],
-                "dateManufacture": [product.manufacture_date for product in products],
+                "seller": [product.seller.name for product in products],
+                "dateManufacture": [format_date(product.manufacture_date) for product in products],
                 "dateAdded": [product.product_added_date for product in products],
-                "dateExpiry": [product.expiry_date for product in products],
+                "dateExpiry": [format_date(product.expiry_date) for product in products],
                 "priceWholesale": [product.wholesale_price for product in products],
                 "priceSelling": [product.selling_price for product in products],
                 "QuantityAvailable": [product.available_quantity for product in products],
@@ -128,9 +132,9 @@ def stock_inventory_api(request):
 
         # Inventory overview
         last_added_product = Product.objects.latest("product_added_date")
-        last_updated = last_added_product.product_added_date
+        last_updated = format_date(last_added_product.product_added_date)
 
-        products_in_stock = Product.objects.filter(available_quantity__gt=0).order_by(
+        products_in_stock = Product.objects.filter(owner_id=request.user, available_quantity__gt=0).order_by(
             "-product_added_date"
         )
         product_in_stock_count = products_in_stock.count()
@@ -148,9 +152,9 @@ def stock_inventory_api(request):
             available_quantity__gt=0,
         ).count()
 
-        total_selling_price = SoldItem.objects.aggregate(total=Sum("selling_price"))[
-            "total"
-        ] or 0
+        total_selling_price = SoldItem.objects.aggregate(
+            total=Sum(F("selling_price") * F("quantity_sold"))
+        )["total"] or 0
 
         # Profit calculation
         profit_percent_expression = ExpressionWrapper(
@@ -172,26 +176,21 @@ def stock_inventory_api(request):
             output_field=DecimalField(),
         )
 
-        # Get count of items sold below wholesale price
         loss_sold_items_count = SoldItem.objects.filter(
             selling_price__lt=F("product__wholesale_price")
         ).count()
 
-        # Get sold items where selling price is less than wholesale price
         loss_sold_items = SoldItem.objects.filter(
             selling_price__lt=F("product__wholesale_price")
         )
-        print(loss_sold_items)
         average_loss_percent = loss_sold_items.aggregate(
             avg_loss_percent=Avg(loss_percent_expression)
         )["avg_loss_percent"] or 0
 
-        # Same as wholesale price count
         same_as_wholesale_amount = SoldItem.objects.filter(
             selling_price=F("product__wholesale_price")
         ).count()
 
-        # Product type count
         product_type_count = Product.objects.values("product_type").annotate(
             count=Count("product_type")
         )
@@ -225,20 +224,24 @@ def stock_inventory_api(request):
         response_data = {
             "inventory_data": inventory_data,
             "inventory_overview": inventory_overview,
-            "inventory_status":200
+            "inventory_status": 200
         }
 
         return JsonResponse(response_data, safe=False, json_dumps_params={'indent': 2})
     else:
         response_data = {
-            
-            "inventory_status":412
+            "inventory_status": 412
         }
         return JsonResponse(response_data, safe=False, json_dumps_params={'indent': 2})
-
 
 def stock_inventory(request):
     context={
         "currentPage": "stock-inventory"
     }
     return render(request, "stock/inventory.html",context)
+
+def stock_by_user(request):
+    products = Product.objects.filter(owner_id=request.user)
+    print(products)
+    return HttpResponse("success")
+    
