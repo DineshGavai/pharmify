@@ -141,6 +141,25 @@ export function getFromStorage(key) {
   DATE, TIME and CURRENCY FORMMATING
 /////////////// */
 
+export function parseDateToDDMMYYYY(dateInput) {
+  console.log(dateInput);
+  
+  // Attempt to parse the date input
+  const parsedDate = new Date(dateInput);
+
+  // Check if the date is valid
+  if (isNaN(parsedDate)) {
+    throw new Error("Invalid date format");
+  }
+
+  // Format the date as dd-mm-yyyy
+  const day = String(parsedDate.getDate()).padStart(2, '0');
+  const month = String(parsedDate.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+  const year = parsedDate.getFullYear();
+
+  return `${day}-${month}-${year}`;
+}
+
 export function formatDateCommon(dateStr) {
   const DATE = new Date(dateStr);
   return `${toTwoDigit(DATE.getDate())} ${DATE_MONTHS_SHORT[DATE.getMonth()]}, ${DATE.getFullYear()}`;
