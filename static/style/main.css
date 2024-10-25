@@ -144,10 +144,30 @@ UTILITY CLASSES
 
 .badge.hidden {
   opacity: 0;
+  position: absolute;
   visibility: hidden;
   max-width: 0;
   padding: 0;
+  display: none;
   background-color: var(--clr-white);
+}
+
+.badge.negative {
+  background-color: transparent;
+  border: 1px solid var(--clr-status-negative-dark-bg);
+  color: var(--clr-status-negative-light-text);
+}
+
+.badge.warn {
+  background-color: transparent;
+  border: 1px solid var(--clr-status-warn-dark-bg);
+  color: var(--clr-status-warn-light-text);
+}
+
+.badge.low {
+  background-color: transparent;
+  border: 1px solid var(--clr-grey-divider);
+  color: var(--clr-grey-text);
 }
 
 .tooltip {
