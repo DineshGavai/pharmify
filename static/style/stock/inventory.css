@@ -306,20 +306,20 @@
   font-weight: 500;
 }
 
-.data-table tbody td:nth-of-type(5),
-.data-table tbody td:nth-of-type(6),
-.data-table tbody td:nth-of-type(7) {
+.data-table :is(tbody, thead) :is(td, th):nth-of-type(5),
+.data-table :is(tbody, thead) :is(td, th):nth-of-type(6),
+.data-table :is(tbody, thead) :is(td, th):nth-of-type(7) {
   text-align: right;
 }
 
 .data-table tr.status-low-in-stock {
   background-color: var(--clr-grey-bg) !important;
-  color: var(--clr-grey-text) !important;
+  color: var(--clr-black) !important;
 }
 
 .data-table tr.status-out-of-stock {
   background-color: var(--clr-grey-bg) !important;
-  color: var(--clr-grey-divider) !important;
+  color: var(--clr-grey-text) !important;
 }
 
 .data-table tr.status-expiry-soon {
@@ -332,3 +332,16 @@
   color: var(--clr-status-negative-light-text) !important;
 }
 
+.data-table tbody tr td {
+  align-content: start;
+}
+
+.data-table tbody tr td > span {
+  display: flex;
+  justify-content: start;
+  flex-direction: column;
+}
+
+.data-table tbody tr td .badge {
+  margin-left: auto;
+}
