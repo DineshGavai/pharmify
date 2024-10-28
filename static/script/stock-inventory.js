@@ -69,8 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Populating Donut Chart
             let donutChartData = [];
 
-            count.productsLowStock = 1;
-            count.productsOutOfStock = 1;
+
 
 
             if (count.products == 0) {
@@ -113,7 +112,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             function setFinancialData(elemCount, elemPercent, countData, percentData, label, sign = "+") {
                 if (percentData && percentData > 0) {
-                    console.log(percentData);
                     percentData = sign + percentData
                 };
 
@@ -136,7 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             setFinancialData(
                 document.getElementById("overview_profit_products"), document.getElementById("overview_profit_percent"),
-                financial.profitProductCount, financial.profitPercent, "No Profit"
+                financial.profitProductCount, financial.profitPercent * -1, "No Profit"
             )
 
             if (overviewData.count.products == 0) {

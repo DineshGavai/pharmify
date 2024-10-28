@@ -12,9 +12,8 @@ from django.template.loader import render_to_string
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.views import PasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
-from django.views.generic.edit import FormView
-from django.contrib.auth.tokens import default_token_generator
 from django.core.files.storage import FileSystemStorage
+from django.contrib.auth.decorators import login_required
 
 
 def loginUser(request):
@@ -142,7 +141,7 @@ class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
 
 
 # Profile Update
-
+@login_required
 def profileEdit(request):
     user = request.user
     owners = Owner.objects.get(email=user)
