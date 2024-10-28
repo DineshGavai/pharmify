@@ -242,7 +242,3 @@ def stock_inventory(request):
     return render(request, "stock/inventory.html", context)
 
 
-def stock_by_user(request):
-    products = Product.objects.filter(owner_id=request.user)
-    print(products)
-    return HttpResponse("success")

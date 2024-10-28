@@ -148,3 +148,4 @@ EMAIL_HOST_PASSWORD = 'puktidupjuikgfwn'
 
 MEDIA_URL='media/'
 MEDIA_ROOT= BASE_DIR/'static/media'
+LOGIN_URL = '/login/'  # Redirect path if not logged in
