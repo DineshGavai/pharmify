@@ -69,8 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Populating Donut Chart
             let donutChartData = [];
 
-            count.productsLowStock = 1;
-            count.productsOutOfStock = 1;
+
 
 
             if (count.products == 0) {

@@ -4,12 +4,12 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import *
 import json
 from django.core.serializers.json import DjangoJSONEncoder
-from django.db.models import Sum, F, ExpressionWrapper, DecimalField, Avg, Count
+from django.db.models import Sum, F, ExpressionWrapper, DecimalField, Avg, Count,Q
 from datetime import timedelta
 from django.utils import timezone
-from user.models import Owner
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def stock_new(request):
     sellers = list(Seller.objects.values_list("name", flat=True))
     products = set(Product.objects.values_list("name", flat=True))
@@ -24,6 +24,7 @@ def stock_new(request):
     return render(request, "stock/new.html", context)
 
 
+@login_required
 @csrf_exempt
 def add_seller(request):
     if request.method == "POST":
@@ -38,6 +39,7 @@ def add_seller(request):
             return HttpResponse("Seller Added Successfully")
 
 
+@login_required
 @csrf_exempt
 def add_stock_summary(request):
     if request.method == "POST":
@@ -98,13 +100,13 @@ def add_stock_summary(request):
 
     context = {"currentPage": "stock-new"}
     return render(request, "stock/summary.html", context)
-
-
+@login_required
 def stock_inventory_api(request):
     products = Product.objects.filter(owner_id=request.user).order_by('name')
 
     if products.exists():
-        product_quantities = Product.objects.values("name").annotate(
+        # Aggregate total quantities for each product name
+        product_quantities = products.values("name").annotate(
             total_quantity=Sum("available_quantity")
         )
         product_quantity_dict = {
@@ -127,35 +129,35 @@ def stock_inventory_api(request):
             }
         }
 
-        # Inventory overview
-        last_added_product = Product.objects.latest("product_added_date")
+        # Overview calculations using the same products queryset
+        last_added_product = products.latest("product_added_date")
         last_updated = last_added_product.product_added_date
 
-        products_in_stock = Product.objects.filter(owner_id=request.user, available_quantity__gt=0).order_by(
-            "-product_added_date"
-        )
+        # Filter products from the same queryset to avoid redundant queries
+        products_in_stock = products.filter(available_quantity__gt=0)
         product_in_stock_count = products_in_stock.count()
-        products_out_of_stock = Product.objects.filter(
-            available_quantity__lt=1).count()
-        products_low_in_stock = Product.objects.filter(
-            available_quantity__lte=5).count()
-
-        N = 7  # Number of days before expiry
-        expired_products = Product.objects.filter(
-            expiry_date__lt=timezone.now().date()
+        
+        products_out_of_stock_count = products.filter(available_quantity__lt=1).count()
+        products_low_in_stock_count = products.filter(
+            Q(available_quantity__lte=10) & Q(available_quantity__gt=0)
         ).count()
 
-        near_expiry_date = timezone.now().date() + timedelta(days=N)
-        products_near_expiry = Product.objects.filter(
-            expiry_date__range=(timezone.now().date(), near_expiry_date),
+        # Expired and near-expiry calculations
+        N = 7  # Number of days before expiry
+        today = timezone.now().date()
+        expired_products_count = products.filter(expiry_date__lt=today).count()
+        near_expiry_date = today + timedelta(days=N)
+        products_near_expiry_count = products.filter(
+            expiry_date__range=(today, near_expiry_date),
             available_quantity__gt=0,
         ).count()
 
+        # Financial calculations
         total_selling_price = SoldItem.objects.aggregate(
             total=Sum(F("selling_price") * F("quantity_sold"))
         )["total"] or 0
 
-        # Profit calculation
+        # Profit and loss calculations
         profit_percent_expression = ExpressionWrapper(
             (F("selling_price") - F("product__wholesale_price")) * 100
             / F("product__wholesale_price"),
@@ -163,35 +165,31 @@ def stock_inventory_api(request):
         )
 
         profit_sold_items = SoldItem.objects.filter(
-            product__selling_price__gt=F("product__wholesale_price")
+            product__in=products, selling_price__gt=F("product__wholesale_price")
         )
         average_profit_percent = profit_sold_items.aggregate(
             avg_profit_percent=Avg(profit_percent_expression)
         )["avg_profit_percent"] or 0
 
-        # Loss calculation
         loss_percent_expression = ExpressionWrapper(
-            (F("product__wholesale_price") - F("selling_price")) *
-            100 / F("product__wholesale_price"),
+            (F("product__wholesale_price") - F("selling_price")) * 100
+            / F("product__wholesale_price"),
             output_field=DecimalField(),
         )
 
-        loss_sold_items_count = SoldItem.objects.filter(
-            selling_price__lt=F("product__wholesale_price")
-        ).count()
-
         loss_sold_items = SoldItem.objects.filter(
-            selling_price__lt=F("product__wholesale_price")
+            product__in=products, selling_price__lt=F("product__wholesale_price")
         )
+        loss_sold_items_count = loss_sold_items.count()
         average_loss_percent = loss_sold_items.aggregate(
             avg_loss_percent=Avg(loss_percent_expression)
         )["avg_loss_percent"] or 0
 
         same_as_wholesale_amount = SoldItem.objects.filter(
-            selling_price=F("product__wholesale_price")
+            product__in=products, selling_price=F("product__wholesale_price")
         ).count()
 
-        product_type_count = Product.objects.values("product_type").annotate(
+        product_type_count = products.values("product_type").annotate(
             count=Count("product_type")
         )
 
@@ -201,10 +199,10 @@ def stock_inventory_api(request):
             "count": {
                 "products": products.count(),
                 "productsInStock": product_in_stock_count,
-                "productsOutOfStock": products_out_of_stock,
-                "productsLowStock": products_low_in_stock,
-                "productExpired": expired_products,
-                "productsNearExpiry": products_near_expiry,
+                "productsOutOfStock": products_out_of_stock_count,
+                "productsLowStock": products_low_in_stock_count,
+                "productExpired": expired_products_count,
+                "productsNearExpiry": products_near_expiry_count,
             },
             "types": {
                 "names": [product.name for product in products_in_stock],
@@ -229,16 +227,12 @@ def stock_inventory_api(request):
 
         return JsonResponse(response_data, safe=False, json_dumps_params={'indent': 2})
     else:
-        response_data = {
-            "inventory_status": 412
-        }
-        return JsonResponse(response_data, safe=False, json_dumps_params={'indent': 2})
+        return JsonResponse({"inventory_status": 412}, safe=False, json_dumps_params={'indent': 2})
 
 
+@login_required
 def stock_inventory(request):
     context = {
         "currentPage": "stock-inventory"
     }
     return render(request, "stock/inventory.html", context)
-
-
