@@ -20,9 +20,6 @@ def loginUser(request):
     if request.method == "POST":
         email = request.POST.get('login_email')
         password = request.POST.get('login_password')
-
-        print(email)
-        print(password)
         try:
             user = Owner.objects.get(email=email)
             user = authenticate(request, email=email, password=password)
