@@ -1,8 +1,7 @@
 from django.urls import path
-from product.views.data_add_views import *
-from product.views.stock_views import *
-from django.contrib.auth import views as auth_views
-from django.conf.urls.static import static
+from .views.data_add_views import *
+from .views.stock_views import *
+
 
 urlpatterns = [
     path('stock/new', stock_new, name='stock-new'),
