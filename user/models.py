@@ -21,3 +21,6 @@ class Owner(AbstractUser):
         return self.email
     
     objects = OwnerManager()
+
+    class Meta:
+        indexes=[models.Index(fields=['email'])]
