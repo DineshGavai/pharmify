@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { cloneElement } from "react";
-import { icons } from "../assets/iconSprite.jsx";
+import { icons } from "../assets/icon-sprite.jsx";
 
 // Function to reset the SVG attributes
 const resetSVGAttr = (icon) => {
