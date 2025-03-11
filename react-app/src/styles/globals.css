@@ -1,0 +1,62 @@
+/* Base */
+@import url("./base/reset.css");
+@import url("./base/typography.css");
+@import url("./base/variable.css");
+
+/* Components */
+@import url("./components/buttons.css");
+@import url("./components/tabs.css");
+
+/* Layouts */
+@import url("./layouts/header.css");
+@import url("./layouts/navigation.css");
+
+
+/* /////////////////////////
+  MAIN CONTAINERS
+///////////////////////// */
+
+main {
+  display: flex;
+  flex-direction: column;
+}
+
+main .main-body {
+  height: calc(100vh - var(--header-height));
+  overflow: auto;
+  padding-bottom: 16rem;
+}
+
+@media screen and (min-width: 1024px) {
+  #root:has(nav.active) main {
+    margin-left: 26rem;
+  }
+
+  #root:has(nav.active) header .nav-open-btn {
+    max-width: 0;
+    min-width: 0;
+    overflow: hidden;
+    position: absolute;
+  }
+}
+
+section.main-sec {
+  padding: 1.6rem;
+}
+
+@media screen and (min-width: 769px) {
+  section.main-sec {
+    padding: 1.6rem 3.2rem;
+  }
+}
+
+section.main-sec h2 {
+  font-size: var(--fs-500);
+  margin-bottom: 0.4rem;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 11;
+  background-color: hsl(var(--clr-white));
+  padding: 0.8rem 0;
+}

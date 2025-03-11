@@ -14,14 +14,14 @@ const resetSVGAttr = (icon) => {
     });
 };
 
-const Icon = ({ name }) => {
-    const iconSVG = icons[name.toLowerCase()];
-    if (!iconSVG) throw new Error(`Icon Not Found: "${name}" is not available`);
+const Icon = ({ iconName }) => {
+    const iconSVG = icons[iconName.toLowerCase()];
+    if (!iconSVG) throw new Error(`Icon Not Found: "${iconName}" is not available`);
     return resetSVGAttr(iconSVG);
 };
 
 Icon.propTypes = {
-    name: PropTypes.string.isRequired,
+    iconName: PropTypes.string.isRequired,
 };
 
 export default Icon;

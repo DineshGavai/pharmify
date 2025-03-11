@@ -1,11 +1,19 @@
+import { GlobalProvider } from "./context/GlobalContext.jsx";
+import { UserProvider } from "./context/UserContext.jsx";
+import Header from "./components/Header";
 import Icon from "./components/Icon";
+import Navigation from "./components/Navigation.jsx";
 
 function App() {
+
   return (
     <>
-      <h1>Welcome to Your React App</h1>
-      <Icon name={"home"}  />
-      <Icon name={"eye"}  />
+      <GlobalProvider >
+        <UserProvider >
+          <Header />
+          <Navigation />
+        </UserProvider>
+      </GlobalProvider>
     </>
   );
 }
