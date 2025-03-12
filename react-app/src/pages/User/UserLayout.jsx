@@ -1,6 +1,7 @@
 import CTAButton from "../../components/Button/CTAButton";
 import Tabs from "../../components/Tabs";
-import EditProfile from "./EditProfile";
+import EditProfile from "./EditProfile.jsx";
+import DataPrivacy from "./DataPrivacy.jsx"
 
 const UserLayout = () => {
 
@@ -16,7 +17,7 @@ const UserLayout = () => {
         },
         {
             button: <CTAButton label={"Data & Privacy"} className="tab-btn" />,
-            content: <section className="hello">Replace this later...</section>,
+            content: <DataPrivacy />,
         },
     ]
 

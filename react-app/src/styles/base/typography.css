@@ -58,6 +58,7 @@ a.text {
 p {
   font-size: var(--fs-300);
   margin-bottom: 0.2rem;
+  text-wrap: pretty;
 }
 
 .text-emphasis {

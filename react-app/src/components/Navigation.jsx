@@ -42,7 +42,7 @@ const Navigation = () => {
                 <section className="nav-contents">
                     <menu>
                         <button className="menu user-info">
-                            <img src={userInfo.profile_picture} />
+                            <img src={userInfo.profile_picture || "./src/assets/illus/default-avatar.png"} />
                             <div>
                                 <span className="name fs-400">{userInfo?.name || "Vedant Mali"}</span>
                                 <span className="email fs-300">{userInfo?.email || "vedantmali05@gmail.com"}</span>

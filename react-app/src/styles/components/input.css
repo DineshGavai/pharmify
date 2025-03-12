@@ -1,0 +1,64 @@
+.input-box {
+  margin-top: 0.8rem;
+  position: relative;
+}
+
+.input-box:not(:last-of-type) {
+  margin-bottom: 2.4rem;
+}
+
+.input-box label {
+  font-size: var(--fs-400);
+  margin-bottom: 0.4rem;
+  display: flex;
+  position: absolute;
+  color: hsl(var(--clr-neutral-800));
+  background-color: hsl(var(--clr-white));
+  left: .9rem;
+  top: 1.1rem;
+  padding: 0 0.4rem;
+  z-index: 11;
+}
+
+.input-box.has-trail-item label {
+  left: 3.7rem;
+}
+
+.input-box:has(input:focus) label,
+.input-box.filled label {
+  font-size: var(--fs-300);
+  top: -0.8rem;
+}
+
+.input-frame.text-input {
+  border: 1.5px solid hsl(var(--clr-neutral-400));
+  border-radius: 0.4rem;
+  overflow: hidden;
+  background-color: hsl(var(--clr-white));
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 1.2rem;
+  padding: 0 1.2rem;
+}
+
+.input-box.has-trail-item .input-frame.text-input {
+  padding-left: .8rem;
+  padding-right: .8rem;
+}
+
+.input-frame.text-input input {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: var(--fs-400);
+  padding: 1rem 0;
+}
+
+.input-frame.text-input:has(input:hover) {
+  border-color: hsl(var(--clr-neutral-600));
+}
+
+.input-frame.text-input:has(input:focus) {
+  border-color: hsl(var(--clr-neutral-900));
+}

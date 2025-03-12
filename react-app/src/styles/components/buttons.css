@@ -6,7 +6,7 @@ button {
   white-space: nowrap;
   border-radius: 0.2rem;
   height: fit-content;
-  font-size: var(--fs-400);
+  font-size: var(--fs-300);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -73,6 +73,10 @@ button .emoji-icon {
 button.primary {
   background-color: hsl(var(--clr-neutral-900));
   color: hsl(var(--clr-white));
+}
+
+button.primary svg.icon {
+  stroke: hsl(var(--clr-white));
 }
 
 button.ghost {

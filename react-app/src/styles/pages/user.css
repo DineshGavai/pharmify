@@ -10,55 +10,127 @@
   left: 0;
   z-index: 11;
   width: 100%;
+  margin: auto;
+  max-width: 62rem;
+  margin-bottom: 1.6rem;
 }
 
 .edit-profile-sec > * {
   background-color: hsl(var(--clr-white));
-  padding: 1.6rem;
+  padding: 1.6rem 2.4rem;
   margin: auto;
   margin-bottom: 1.6rem;
   border-radius: 0.8rem;
-  max-width: 60rem;
+  max-width: 62rem;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
-.edit-profile-sec .profile-picture-sec .sec-content {
+/* /////////////////////////
+  PROFILE PICTURE 
+///////////////////////// */
+
+.edit-profile-sec :is(.profile-picture-sec, .other-doc-sec) .sec-content {
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
   align-items: center;
 }
 
-.edit-profile-sec .profile-picture-sec h2 {
+.edit-profile-sec h2 {
   position: static !important;
 }
 
-.edit-profile-sec .profile-picture-sec img {
-  width: 12.8rem;
-  aspect-ratio: 1;
+.edit-profile-sec :is(.profile-picture-sec, .other-doc-sec) img {
   object-fit: cover;
 }
 
-.edit-profile-sec .profile-picture-sec div:has(> p) {
+.edit-profile-sec :is(.profile-picture-sec, .other-doc-sec) img {
+  width: 12.8rem;
+  aspect-ratio: 1;
+}
+
+.edit-profile-sec :is(.profile-picture-sec, .other-doc-sec) div:has(> p) {
   margin-bottom: 1.6rem;
 }
 
-.edit-profile-sec .profile-picture-sec .btn-box {
+.edit-profile-sec :is(.profile-picture-sec, .other-doc-sec) .btn-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-profile-sec
+  :is(.profile-picture-sec, .other-doc-sec)
+  .btn-box
+  button.icon {
+  margin-right: auto;
+}
+
+@media screen and (min-width: 768px) {
+  .edit-profile-sec :is(.profile-picture-sec, .other-doc-sec) .sec-content {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+  }
+  .edit-profile-sec :is(.profile-picture-sec, .other-doc-sec) img {
+    width: 17rem;
+  }
+
+  .edit-profile-sec :is(.profile-picture-sec, .other-doc-sec) .btn-box {
+    justify-content: space-between;
+    margin-top: 3.2rem;
+  }
+
+  .edit-profile-sec
+    :is(.profile-picture-sec, .other-doc-sec)
+    .btn-box
+    button.primary {
+    margin-left: auto;
+  }
+}
+
+/* /////////////////////////
+  USER INFO
+///////////////////////// */
+
+.user-info-sec .sec-content {
+  padding-top: 0.8rem;
+}
+
+.user-info-sec .btn-box {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-@media screen and (min-width: 768px) {
-  .user-main-sec .tab-btns {
-    position: static;
-    width: fit-content;
-  }
+/* /////////////////////////
+  RETAIL DRUG LICENSE
+///////////////////////// */
 
-  .edit-profile-sec .profile-picture-sec .sec-content {
-    display: flex;
-    flex-direction: row;
-  }
-  .edit-profile-sec .profile-picture-sec img {
-    width: 17rem;
-  }
+.edit-profile-sec .other-doc-sec img {
+  width: 16rem;
+}
+
+/* /////////////////////////
+  OTHER LINKS
+///////////////////////// */
+
+.edit-profile-link {
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem .8rem;
+  padding-left: 1.2rem !important;
+  gap: 2.4rem;
+  margin-bottom: .8rem;
+}
+
+.edit-profile-link .text-emphasis {
+  font-size: var(--fs-400);
+  margin-bottom: 0.4rem;
+}
+
+.edit-profile-link svg.icon {
+  --size: 3.2rem;
 }

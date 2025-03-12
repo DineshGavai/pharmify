@@ -6,6 +6,7 @@
 /* Components */
 @import url("./components/buttons.css");
 @import url("./components/tabs.css");
+@import url("./components/input.css");
 
 /* Layouts */
 @import url("./layouts/header.css");
