@@ -11,11 +11,14 @@ button {
   align-items: center;
   justify-content: center;
   gap: 0.8rem;
-  padding: 0.8rem 1.2rem;
-  padding-left: 0.8rem;
+  padding: 0.8rem 1.6rem;
   text-transform: capitalize;
   user-select: none;
   overflow: hidden;
+}
+
+button:not(.icon):has(> svg.icon) {
+  padding-left: 0.8rem;
 }
 
 button:disabled,
@@ -86,4 +89,33 @@ button.x-large {
 
 button.ghost.x-large {
   border-color: hsl(var(--clr-neutral-200));
+}
+
+/* /////////////////////////
+  DIFFERENT BUTTON STATES
+///////////////////////// */
+
+button.danger,
+button.negative,
+button.error {
+  color: red;
+}
+
+button.danger svg.icon,
+button.negative svg.icon,
+button.error svg.icon {
+  stroke: red;
+}
+
+button.primary.danger,
+button.primary.negative,
+button.primary.error {
+  background-color: red;
+  color: hsl(var(--clr-white));
+}
+
+button.primary.danger svg.icon,
+button.primary.negative svg.icon,
+button.primary.error svg.icon {
+  stroke: hsl(var(--clr-white));
 }

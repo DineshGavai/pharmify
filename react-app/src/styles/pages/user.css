@@ -1,0 +1,64 @@
+.user-main-sec {
+  background-color: hsl(var(--clr-neutral-100));
+  padding-bottom: 16rem !important;
+  margin-bottom: -16rem;
+}
+
+.user-main-sec .tab-btns {
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 11;
+  width: 100%;
+}
+
+.edit-profile-sec > * {
+  background-color: hsl(var(--clr-white));
+  padding: 1.6rem;
+  margin: auto;
+  margin-bottom: 1.6rem;
+  border-radius: 0.8rem;
+  max-width: 60rem;
+}
+
+.edit-profile-sec .profile-picture-sec .sec-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  align-items: center;
+}
+
+.edit-profile-sec .profile-picture-sec h2 {
+  position: static !important;
+}
+
+.edit-profile-sec .profile-picture-sec img {
+  width: 12.8rem;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.edit-profile-sec .profile-picture-sec div:has(> p) {
+  margin-bottom: 1.6rem;
+}
+
+.edit-profile-sec .profile-picture-sec .btn-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media screen and (min-width: 768px) {
+  .user-main-sec .tab-btns {
+    position: static;
+    width: fit-content;
+  }
+
+  .edit-profile-sec .profile-picture-sec .sec-content {
+    display: flex;
+    flex-direction: row;
+  }
+  .edit-profile-sec .profile-picture-sec img {
+    width: 17rem;
+  }
+}

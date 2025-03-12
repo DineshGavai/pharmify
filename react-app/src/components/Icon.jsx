@@ -15,6 +15,7 @@ const resetSVGAttr = (icon) => {
 };
 
 const Icon = ({ iconName }) => {
+    
     const iconSVG = icons[iconName.toLowerCase()];
     if (!iconSVG) throw new Error(`Icon Not Found: "${iconName}" is not available`);
     return resetSVGAttr(iconSVG);

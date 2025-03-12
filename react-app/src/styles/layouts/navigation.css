@@ -97,6 +97,8 @@ nav button.user-info img {
   object-fit: cover;
   overflow: hidden;
   --size: 4rem;
+  width: var(--size);
+  height: var(--size);
   min-width: var(--size);
   min-height: var(--size);
 }
@@ -108,10 +110,47 @@ nav button.user-info div span {
   text-align: start;
 }
 
+nav button.user-info .email {
+  font-size: var(--fs-300);
+  color: hsl(var(--clr-neutral-700));
+}
+
+nav .nav-footer {
+  margin-top: auto;
+  padding-top: 1.6rem;
+  border-top: 1px solid hsl(var(--clr-neutral-150));
+}
+
+nav .nav-footer > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 1.2rem;
+}
+
+:is(.project-links, .social-links) {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  gap: 0.8rem;
+  max-width: 1000px;
+  max-height: 1000px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+:is(.project-links, .social-links) a {
+  font-size: var(--fs-300);
+}
+
+:is(.project-links, .social-links) span {
+  font-size: var(--fs-500);
+}
+
 @media screen and (min-width: 1024px) {
   nav,
   nav.active {
-    position: fixed;
+    position: static;
     opacity: 1;
     visibility: visible;
     width: 26rem;
@@ -121,7 +160,7 @@ nav button.user-info div span {
   }
 
   nav {
-    max-width: 0px;
+    max-width: 6rem;
     overflow: hidden;
   }
 
@@ -136,35 +175,34 @@ nav button.user-info div span {
     opacity: 1;
     visibility: visible;
   }
-}
 
-nav .nav-footer {
-  margin-top: auto;
-  padding-top: 1.6rem;
-  border-top: 1px solid hsl(var(--clr-neutral-150));
-}
+  nav .nav-header button.icon.close-nav {
+    margin-left: 0;
+  }
 
-nav .nav-footer > div {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 1.2rem;
-}
+  nav:not(.active) button.menu,
+  nav:not(.active) button.menu.user-info {
+    width: 4rem;
+    gap: 10rem;
+    padding-right: 0 !important;
+  }
 
-:is(.project-links, .social-links) {
-  display: flex;
-  align-items: center;
-  justify-content: left;
-  gap: 0.8rem;
-}
+  nav:not(.active) button.menu.user-info {
+    padding-left: 0px !important;
+    height: 5.7rem;
+  }
 
-:is(.project-links, .social-links) a {
-  font-size: var(--fs-300);
-}
+  nav:not(.active) button.menu {
+    padding-left: 9px !important;
+    height: 4rem;
+  }
 
-:is(.project-links, .social-links) span {
-  font-size: var(--fs-500);
-}
+  nav:not(.active) .nav-footer > div {
+    flex-direction: column;
+  }
 
-.logout-btn svg.icon {
-  stroke: red;
+  nav:not(.active) :is(.project-links, .social-links) {
+    max-width: 0px;
+    max-height: 0px;
+  }
 }

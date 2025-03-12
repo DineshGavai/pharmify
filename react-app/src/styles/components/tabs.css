@@ -1,0 +1,28 @@
+.tab-sec .tab-btns {
+    border-radius: 0.8rem;
+    display: flex;
+    background-color: hsl(var(--clr-neutral-150));
+    width: fit-content;
+    margin-bottom: 1.6rem;
+  }
+  
+  .tab-sec .tab-btns button.tab-btn {
+    font-size: var(--fs-300);
+    border-radius: 0.8rem;
+    border: 1.5px solid transparent;
+    padding: 0.8rem 1.6rem;
+  }
+  
+  .tab-sec .tab-btns button.tab-btn.active {
+    background-color: hsl(var(--clr-white));
+    border-color: hsl(var(--clr-neutral-200));
+  }
+  
+  .tab-sec .tab-content .tab-item {
+    display: none !important;
+  }
+  
+  .tab-sec .tab-content .tab-item.active {
+    display: block !important;
+  }
+  

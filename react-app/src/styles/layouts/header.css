@@ -3,6 +3,7 @@
   padding: 1.2rem 1.6rem;
   background-color: hsl(var(--clr-neutral-100));
   border-bottom: 1px solid hsl(var(--clr-neutral-150));
+  min-height: 5.65rem;
 }
 
 header,

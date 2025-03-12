@@ -11,6 +11,8 @@
 @import url("./layouts/header.css");
 @import url("./layouts/navigation.css");
 
+/* Pages */
+@import url("./pages/user.css");
 
 /* /////////////////////////
   MAIN CONTAINERS
@@ -19,24 +21,25 @@
 main {
   display: flex;
   flex-direction: column;
+  height: 100vh;
 }
 
 main .main-body {
   height: calc(100vh - var(--header-height));
+  height: 100vh;
   overflow: auto;
   padding-bottom: 16rem;
 }
 
 @media screen and (min-width: 1024px) {
-  #root:has(nav.active) main {
-    margin-left: 26rem;
+  #root {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
   }
 
-  #root:has(nav.active) header .nav-open-btn {
-    max-width: 0;
-    min-width: 0;
-    overflow: hidden;
-    position: absolute;
+  #root main {
+    flex: 1;
   }
 }
 

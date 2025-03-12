@@ -11,7 +11,11 @@ const Header = ({ heading = "" }) => {
 
     return (
         <header id="main_header">
-            <IconButton icon={"hamburger_menu"} />
+            <IconButton
+                iconName={"hamburger_menu"}
+                className="mobile-tab-only"
+                onClick={() => setIsNavActive(true)}
+            />
 
             <div>
                 <h1 className="fs-500">{heading || "Pharmify"}</h1>

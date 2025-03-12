@@ -54,3 +54,17 @@ a {
 a.text {
   text-decoration: underline;
 }
+
+p {
+  font-size: var(--fs-300);
+  margin-bottom: 0.2rem;
+}
+
+.text-emphasis {
+  font-weight: 600;
+}
+
+.text-muted {
+  font-size: var(--fs-300);
+  color: hsl(var(--clr-neutral-600));
+}

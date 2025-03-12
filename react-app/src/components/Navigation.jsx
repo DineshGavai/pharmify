@@ -6,6 +6,7 @@ import { UserContext } from "../context/UserContext.jsx";
 
 const Navigation = () => {
     const { activePage, setActivePage } = useContext(GlobalContext)
+    const { isNavActive, setIsNavActive } = useContext(GlobalContext)
     const { userInfo, setUserInfo } = useContext(UserContext)
 
     const menuItems = [
@@ -16,20 +17,32 @@ const Navigation = () => {
         { iconName: "customers", label: "Customers", key: "customers" }
     ];
 
+    function closeNav(e) {
+        if (e.target.tagName.toLowerCase() === "Nav".toLowerCase())
+            setIsNavActive(false)
+    }
+
     return (
-        <nav className="active">
+        <nav
+            className={isNavActive ? "active" : ""}
+            onClick={(e) => closeNav(e)}
+        >
             {/* Body */}
             <section className="nav-body">
                 {/* Header */}
                 <section className="nav-header">
-                    <IconButton icon={"cross"} className="close-nav" />
+                    <IconButton
+                        iconName={isNavActive ? "cross" : "hamburger_menu"}
+                        className="close-nav"
+                        onClick={() => setIsNavActive(!isNavActive)}
+                    />
                 </section>
 
                 {/* Menus */}
                 <section className="nav-contents">
                     <menu>
                         <button className="menu user-info">
-                            <img src="./src/assets/logo/logo.svg" />
+                            <img src={userInfo.profile_picture} />
                             <div>
                                 <span className="name fs-400">{userInfo?.name || "Vedant Mali"}</span>
                                 <span className="email fs-300">{userInfo?.email || "vedantmali05@gmail.com"}</span>
@@ -54,8 +67,8 @@ const Navigation = () => {
                 {/* Footer */}
                 <section className="nav-footer">
                     <div>
-                        <IconButton icon={"logout"} className="logout-btn" />
-                        <IconButton icon={"settings"} />
+                        <IconButton iconName={"logout"} className="logout-btn danger" />
+                        <IconButton iconName={"settings"} />
                     </div>
                     <p className="project-links">
                         <a href="#" className="text">About Us</a> <span>·</span>

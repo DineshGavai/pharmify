@@ -35,7 +35,7 @@ export const icons = {
             </g>
             <defs>
                 <clipPath id="clip0_2497_26266">
-                    <rect width="24" height="24" fill="white" />
+                    <rect width="24" height="24" />
                 </clipPath>
             </defs>
         </svg>
@@ -48,7 +48,7 @@ export const icons = {
     ),
     customers: (
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M21 19.9999C21 18.2583 19.3304 16.7767 17 16.2275M15 20C15 17.7909 12.3137 16 9 16C5.68629 16 3 17.7909 3 20M15 13C17.2091 13 19 11.2091 19 9C19 6.79086 17.2091 5 15 5M9 13C6.79086 13 5 11.2091 5 9C5 6.79086 6.79086 5 9 5C11.2091 5 13 6.79086 13 9C13 11.2091 11.2091 13 9 13Z" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M21 19.9999C21 18.2583 19.3304 16.7767 17 16.2275M15 20C15 17.7909 12.3137 16 9 16C5.68629 16 3 17.7909 3 20M15 13C17.2091 13 19 11.2091 19 9C19 6.79086 17.2091 5 15 5M9 13C6.79086 13 5 11.2091 5 9C5 6.79086 6.79086 5 9 5C11.2091 5 13 6.79086 13 9C13 11.2091 11.2091 13 9 13Z" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
     ),
     logout: (
@@ -68,5 +68,36 @@ export const icons = {
             <path d="M14.7 12.5C14.7 14.0385 13.4912 15.2857 12 15.2857C10.5088 15.2857 9.3 14.0385 9.3 12.5C9.3 10.9615 10.5088 9.71429 12 9.71429C13.4912 9.71429 14.7 10.9615 14.7 12.5Z" strokeLinecap="round" strokeLinejoin="round" />
             <path d="M3 12.5C4.44012 8.69531 7.80243 6 12 6C16.1976 6 19.5599 8.69531 21 12.5C19.5599 16.3047 16.1976 19 12 19C7.80243 19 4.44012 16.3047 3 12.5Z" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
+    ),
+    upload: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clipPath="url(#clip0_4613_2717)">
+                <path d="M17 9L12 4M12 4L7 9M12 4L12 17" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M3.5 17L3.61803 17.2361C4.46499 18.93 6.19631 20 8.09017 20H16.9098C18.8037 20 20.535 18.93 21.382 17.2361L21.5 17" strokeLinecap="round" strokeLinejoin="round" />
+            </g>
+            <defs>
+                <clipPath id="clip0_4613_2717">
+                    <rect width="24" height="24" />
+                </clipPath>
+            </defs>
+        </svg>
+
+    ),
+    trash: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clipPath="url(#clip0_4493_9194)">
+                <path d="M14 11V17" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M10 11V17" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M6 7V19C6 20.1046 6.89543 21 8 21H16C17.1046 21 18 20.1046 18 19V7" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M4 7H20" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M7 7L9 3H15L17 7" strokeLinecap="round" strokeLinejoin="round" />
+            </g>
+            <defs>
+                <clipPath id="clip0_4493_9194">
+                    <rect width="24" height="24" />
+                </clipPath>
+            </defs>
+        </svg>
+
     ),
 };
