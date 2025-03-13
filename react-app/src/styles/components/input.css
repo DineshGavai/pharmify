@@ -8,7 +8,7 @@
 }
 
 .input-box label {
-  font-size: var(--fs-400);
+  font-size: var(--fs-300);
   margin-bottom: 0.4rem;
   display: flex;
   position: absolute;

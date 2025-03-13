@@ -159,7 +159,7 @@ export const icons = {
 
     // Flags
     flag_india: (
-        <svg class="icon" viewBox="0 0 513 342" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 513 342" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clipPath="url(#clip0_301_989)">
                 <path d="M17.3 -0.00585938H495.7V341.994H17.3V-0.00585938Z" fill="#181A93" />
                 <path d="M0 -0.00585938H513V113.994H0V-0.00585938Z" fill="#FFA44A" />

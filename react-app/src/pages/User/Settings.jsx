@@ -1,44 +1,46 @@
 import { useContext, useId } from "react"
 import { UserContext } from "../../context/UserContext.jsx"
-import CTAButton from "../../components/Button/CTAButton.jsx"
-import IconButton from "../../components/Button/IconButton.jsx"
-import Input from "../../components/Input/Input.jsx"
-import { regexPatterns } from "../../utils/data.jsx"
 
-const DataPrivacy = () => {
+const Settings = () => {
 
     const { userInfo, setUserInfo } = useContext(UserContext)
 
     return (
-        <section className="data-privacy-sec">
+        <section className="settings-sec">
 
-            {/* Security Settings Sec */}
+            {/* Settings Sec */}
             <section className="todo-sec">
-                <h2>Security Settings</h2>
+            <h2>Appearance</h2>
 
                 <div className="sec-content">
                     <div>
                         <p className="text-muted">TODO: </p>
                         <p className="text-emphasis">
-                            Change Password → Option to update/reset passwords.
+                            Light / Dark Mode → Toggle between light and dark themes.
                         </p>
                     </div>
                     <div>
                         <p className="text-muted">TODO: </p>
                         <p className="text-emphasis">
-                            Enable Two-Factor Authentication (2FA) → If Pharmify supports multi-factor authentication.
+                            Font Size & Scaling → Small / Medium / Large text size for better readability.
                         </p>
                     </div>
                     <div>
                         <p className="text-muted">TODO: </p>
                         <p className="text-emphasis">
-                            Manage Connected Devices → Show a list of logged-in devices with an option to revoke access.
+                            Grid / List View for Inventory → Choose how items in the inventory are displayed.
                         </p>
                     </div>
                     <div>
                         <p className="text-muted">TODO: </p>
                         <p className="text-emphasis">
-                            Session & Login History → Display recent logins with timestamps and locations.
+                            Pop-up Notifications → Enable/disable pop-ups for important updates.
+                        </p>
+                    </div>
+                    <div>
+                        <p className="text-muted">TODO: </p>
+                        <p className="text-emphasis">
+                            Control Number of stock additions limit, and other limts
                         </p>
                     </div>
                 </div>
@@ -51,4 +53,4 @@ const DataPrivacy = () => {
 }
 
 
-export default DataPrivacy
+export default Settings
