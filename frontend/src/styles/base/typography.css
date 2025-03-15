@@ -47,12 +47,12 @@ h5,
 }
 
 a {
-  font-size: var(--fs-400);
   text-decoration: none;
 }
 
 a.text {
   text-decoration: underline;
+  color: inherit;
 }
 
 p {

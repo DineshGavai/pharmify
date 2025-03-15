@@ -5,11 +5,3 @@
   border-bottom: 1px solid hsl(var(--clr-neutral-150));
   min-height: 5.65rem;
 }
-
-header,
-header > div,
-header div.options {
-  gap: 1.6rem;
-  display: flex;
-  align-items: center;
-}

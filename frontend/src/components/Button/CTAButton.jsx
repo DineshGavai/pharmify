@@ -10,17 +10,16 @@ const CTAButton = forwardRef(({
     rightIcon = false,
     ...rest
 }, ref) => {
+
+    let iconSVG = iconType.toLowerCase() == "custom"
+        ? iconName
+        : iconSVG = <Icon iconName={iconName} />;
+
     return (
         <button className={className} {...rest}>
-            {
-                !rightIcon && iconName &&
-                <Icon iconName={iconName} />
-            }
+            {!rightIcon && iconName && iconSVG}
             {label}
-            {
-                rightIcon && iconName &&
-                <Icon iconName={iconName} />
-            }
+            {rightIcon && iconName && iconSVG}
         </button>
     )
 })

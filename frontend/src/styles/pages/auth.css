@@ -1,0 +1,25 @@
+.auth-main .main-sec {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  max-width: 56rem;
+  text-align: center;
+  gap: 3.2rem;
+}
+
+.auth-main h1 {
+  font-size: var(--fs-700);
+  margin-bottom: 0.6rem;
+}
+
+.auth-main p {
+  margin: auto;
+  margin-bottom: 1.2rem;
+}
+
+.auth-main .one-tap-sign-in-btn {
+  font-size: var(--fs-400);
+  font-weight: 500;
+  border-radius: 100rem;
+  text-transform: none;
+}

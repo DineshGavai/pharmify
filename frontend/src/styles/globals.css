@@ -13,6 +13,7 @@
 @import url("./layouts/navigation.css");
 
 /* Pages */
+@import url("./pages/auth.css");
 @import url("./pages/user.css");
 
 /* /////////////////////////
