@@ -19,8 +19,9 @@ from django.contrib.auth.decorators import login_required
 @csrf_exempt
 def loginUser(request):
     if request.method == "POST":
-        email = request.POST.get('login_email')
-        password = request.POST.get('login_password')
+        data = json.loads(request.body) 
+        email = data.get('sign_in_email')
+        password = data.get('sign_in_password')
 
         if not email or not password:
             return JsonResponse({'message': 'Email and password are required', 'status': 400}, status=400)
