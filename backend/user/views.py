@@ -1,5 +1,6 @@
 import random
 import os
+import json
 from .models import *
 from .utils import *
 from django.urls import *
@@ -20,24 +21,23 @@ def loginUser(request):
     if request.method == "POST":
         email = request.POST.get('login_email')
         password = request.POST.get('login_password')
-        try:
-            user = Owner.objects.get(email=email)
-            user = authenticate(request, email=email, password=password)
-            if user is not None:
-                auth_login(request, user)
-                print("logged in")
-                return redirect('index')
-            else:
-                messages.error(request, "Password does not match")
-        except:
-            messages.error(request, "User not found")
 
-    return render(request, 'login.html')
+        if not email or not password:
+            return JsonResponse({'message': 'Email and password are required', 'status': 400}, status=400)
 
+        
+        user = authenticate(request, email=email, password=password)
+        if user is not None:
+            auth_login(request, user)
+            return JsonResponse({'message': 'Logged in successfully', 'status': 200}, status=200)
+        else:
+            return JsonResponse({'message': 'Invalid credentials', 'status': 400}, status=400)
+
+    return JsonResponse({'message': 'Invalid request method', 'status': 405}, status=405)
 
 def logoutUser(request):
     logout(request)
-    return redirect('index')
+    return JsonResponse({'message': 'User logged out','status':'success'},status=200)
 
 
 def verifyEmail(request):
