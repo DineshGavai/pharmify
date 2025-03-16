@@ -1,10 +1,11 @@
-.input-box {
-  margin-top: 0.8rem;
-  position: relative;
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
-.input-box:not(:last-of-type) {
-  margin-bottom: 2.4rem;
+.input-box {
+  position: relative;
 }
 
 .input-box label {
@@ -15,7 +16,7 @@
   color: hsl(var(--clr-neutral-800));
   background-color: hsl(var(--clr-white));
   left: .9rem;
-  top: 1.1rem;
+  top: 1.4rem;
   padding: 0 0.4rem;
   z-index: 11;
 }

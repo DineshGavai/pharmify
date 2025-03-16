@@ -7,8 +7,8 @@ const Input = ({
     // Core Input Attributes
     label = "",
     type = "text",
-    name = "",
-    id = "",
+    name,
+    id,
     defaultValue = "",
     placeholder = "",
     autoComplete = "off",

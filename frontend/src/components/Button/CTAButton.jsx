@@ -13,7 +13,7 @@ const CTAButton = forwardRef(({
 
     let iconSVG = iconType.toLowerCase() == "custom"
         ? iconName
-        : iconSVG = <Icon iconName={iconName} />;
+        : <Icon iconName={iconName} />;
 
     return (
         <button className={className} {...rest}>

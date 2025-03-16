@@ -2,7 +2,8 @@
   display: flex;
   flex-direction: column;
   margin: auto;
-  max-width: 56rem;
+  width: 100%;
+  max-width: 35rem;
   text-align: center;
   gap: 3.2rem;
 }
@@ -12,12 +13,27 @@
   margin-bottom: 0.6rem;
 }
 
-.auth-main p {
+.auth-main p{
   margin: auto;
   margin-bottom: 1.2rem;
 }
 
-.auth-main .one-tap-sign-in-btn {
+.auth-main p:last-of-type {
+  margin-bottom: 0;
+}
+
+form p {
+  text-align: start;
+  margin: 0 !important;
+}
+
+.auth-main .one-tap-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.auth-main .one-tap-btn {
   font-size: var(--fs-400);
   font-weight: 500;
   border-radius: 100rem;

@@ -66,6 +66,6 @@ p {
 }
 
 .text-muted {
-  font-size: var(--fs-300);
+  /* font-size: var(--fs-300); */
   color: hsl(var(--clr-neutral-600));
 }
