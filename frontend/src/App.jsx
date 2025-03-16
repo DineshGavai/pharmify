@@ -21,7 +21,7 @@ function App() {
           {
             !isSignedIn &&
             <>
-              <SignIn />
+              <SignIn onSignInSuccess={() => setIsSignedIn(true)} />
               <CreateAccount />
             </>
           }
