@@ -14,12 +14,13 @@ const SignIn = () => {
                     <p className="text-muted">New to Pharmify? <a href="#" className="text text-emphasis">Create Account</a>.</p>
                 </header>
 
-                <form action="" id="sign_in_form" name="sign_in_form">
+                <form action="http://127.0.0.1:8000/login/" id="sign_in_form" name="sign_in_form">
 
                     <Input
                         label="Email"
                         id={"sign_in_email"}
                         name={"sign_in_email"}
+                        defaultValue=""
                     />
 
                     <Input
