@@ -1,39 +1,27 @@
 import { useState } from "react";
 import { ThirdPartyLogos } from "../../assets/illus/logo-third-party";
+import { Link } from "react-router-dom";
 import CTAButton from "../../components/Button/CTAButton";
 import Input from "../../components/Input/Input.jsx"
+import { apiRequest } from "../../utils/api.js";
 
 const SignIn = ({ onSignInSuccess }) => {
 
     const [email, setEmail] = useState("vedant@gmail.com");
-    const [pasword, setPassword] = useState("Pass@123");
+    const [password, setPassword] = useState("Pass@123");
 
     const handleSignIn = async (e) => {
         e.preventDefault();
 
-        if (!email || !pasword) return;
+        if (!email || !password) return;
 
-        try {
-
-            const response = await fetch("http://127.0.0.1:8000/login/", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-
-                body: JSON.stringify({ sign_in_email: email, sign_in_password: pasword })
-            })
-
-            const data = await response.json();
-
-            if (data.status === 200) onSignInSuccess();
-            else console.log("Invalid credentials.");
-
-
-        } catch (error) {
-            console.log("Something went wrong!");
-
-        }
+        await apiRequest({
+            url: "http://127.0.0.1:8000/login/",
+            method: "POST",
+            body: { sign_in_email: email, sign_in_password: password },
+            onSuccess: () => onSignInSuccess(),
+            onError: () => console.log("Invalid Credentials"),
+        })
     }
 
 
@@ -45,7 +33,10 @@ const SignIn = ({ onSignInSuccess }) => {
 
                 <header>
                     <h1>Sign In to Pharmify</h1>
-                    <p className="text-muted">New to Pharmify? <a href="#" className="text text-emphasis">Create Account</a>.</p>
+                    <p className="text-muted">
+                        New to Pharmify? <span> </span>
+                        <Link to="/create-account" className="text text-emphasis">Create Account</Link>.
+                    </p>
                 </header>
 
                 <form
@@ -66,7 +57,7 @@ const SignIn = ({ onSignInSuccess }) => {
                         label="Password"
                         id={"sign_in_password"}
                         name={"sign_in_password"}
-                        defaultValue={pasword}
+                        defaultValue={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
 

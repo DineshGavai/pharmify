@@ -1,5 +1,6 @@
 import { ThirdPartyLogos } from "../../assets/illus/logo-third-party";
 import CTAButton from "../../components/Button/CTAButton";
+import { Link } from "react-router-dom";
 
 const CreateAccount = () => {
 
@@ -23,7 +24,7 @@ const CreateAccount = () => {
 
                 <footer>
                     <p className="text-muted">By creating an account, you agree to our <br /><a href="#" className="text">Terms of Service</a> & <a href="#" className="text">Privacy Policy</a>.</p>
-                    <p className="fs-400">Already have an Account? <a href="#" className="text text-emphasis">Sign In</a>.</p>
+                    <p className="fs-400">Already have an Account? <Link to="/signin" className="text text-emphasis">Sign In</Link>.</p>
                 </footer>
             </section>
 

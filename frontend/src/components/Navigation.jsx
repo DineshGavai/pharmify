@@ -4,7 +4,7 @@ import CTAButton from "./Button/CTAButton.jsx"
 import { GlobalContext } from "../context/GlobalContext.jsx"
 import { UserContext } from "../context/UserContext.jsx";
 
-const Navigation = () => {
+const Navigation = ({ setIsSignedIn }) => {
     const { activePage, setActivePage } = useContext(GlobalContext)
     const { isNavActive, setIsNavActive } = useContext(GlobalContext)
     const { userInfo, setUserInfo } = useContext(UserContext)
@@ -67,7 +67,14 @@ const Navigation = () => {
                 {/* Footer */}
                 <section className="nav-footer">
                     <div>
-                        <IconButton iconName={"logout"} className="logout-btn danger" />
+                        <IconButton
+                            iconName={"logout"}
+                            className="logout-btn danger"
+                            onClick={() => {
+                                setIsSignedIn(false);
+                                localStorage.removeItem("isSignedIn");
+                            }}
+                        />
                         <IconButton iconName={"settings"} />
                     </div>
                     <p className="project-links">

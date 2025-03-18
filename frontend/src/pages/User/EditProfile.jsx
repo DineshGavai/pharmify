@@ -3,7 +3,7 @@ import { UserContext } from "../../context/UserContext.jsx"
 import CTAButton from "../../components/Button/CTAButton.jsx"
 import IconButton from "../../components/Button/IconButton.jsx"
 import Input from "../../components/Input/Input.jsx"
-import { regexPatterns } from "../../utils/data.jsx"
+import { regexPatterns } from "../../utils/data.js"
 import Icon from "../../components/Icon.jsx"
 
 const EditProfile = () => {
