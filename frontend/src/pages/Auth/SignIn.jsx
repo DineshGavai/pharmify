@@ -10,7 +10,7 @@ const SignIn = ({ onSignInSuccess }) => {
     const [email, setEmail] = useState("vedant@gmail.com");
     const [password, setPassword] = useState("Pass@123");
 
-    const handleSignIn = async (e) => {
+    const handleFormSubmit = async (e) => {
         e.preventDefault();
 
         if (!email || !password) return;
@@ -40,7 +40,7 @@ const SignIn = ({ onSignInSuccess }) => {
                 </header>
 
                 <form
-                    onSubmit={(e) => handleSignIn(e)}
+                    onSubmit={(e) => handleFormSubmit(e)}
                     id="sign_in_form"
                     name="sign_in_form">
 
@@ -73,7 +73,9 @@ const SignIn = ({ onSignInSuccess }) => {
 
                 <div className="one-tap-options">
 
-                    <p className="text-muted">- OR -</p>
+                    <p className="text-muted" style={{
+                        textAlign: "center"
+                    }}>- OR -</p>
 
                     <CTAButton
                         iconName={ThirdPartyLogos.google}

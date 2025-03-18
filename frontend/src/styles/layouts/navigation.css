@@ -111,7 +111,7 @@ nav button.user-info div span {
 }
 
 nav button.user-info .email {
-  font-size: var(--fs-300);
+  font-size: var(--fs-200);
   color: hsl(var(--clr-neutral-700));
 }
 
@@ -140,11 +140,11 @@ nav .nav-footer > div {
 }
 
 :is(.project-links, .social-links) a {
-  font-size: var(--fs-300);
+  font-size: var(--fs-200);
 }
 
 :is(.project-links, .social-links) span {
-  font-size: var(--fs-500);
+  font-size: var(--fs-600);
 }
 
 @media screen and (min-width: 1024px) {

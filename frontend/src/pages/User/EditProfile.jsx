@@ -40,11 +40,11 @@ const EditProfile = () => {
             </form>
 
             {/* User Information Sec */}
-            <form className="user-info-sec">
+            <section className="user-info-sec">
 
                 <h2>Your Information</h2>
 
-                <section className="sec-content">
+                <form className="sec-content">
 
                     <Input
                         label="Your Name"
@@ -76,8 +76,8 @@ const EditProfile = () => {
                         <CTAButton className="primary" label="Save changes" />
                     </div>
 
-                </section>
-            </form>
+                </form>
+            </section>
 
             {/* Other Documents Sec */}
             <form className="other-doc-sec">

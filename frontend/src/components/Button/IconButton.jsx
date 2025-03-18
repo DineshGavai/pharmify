@@ -3,7 +3,6 @@ import Icon from "../Icon.jsx";
 
 const IconButton = ({ iconName, iconType = "icon", className = "", ...rest }) => {
 
-
     return (
         <button className={`icon ${className}`} {...rest}>
             {<Icon iconName={iconName} />}

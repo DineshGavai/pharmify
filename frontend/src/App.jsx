@@ -7,6 +7,7 @@ import UserLayout from "./pages/User/UserLayout.jsx";
 import { useState } from "react";
 import SignIn from "./pages/Auth/SignIn.jsx";
 import CreateAccount from "./pages/Auth/CreateAccount.jsx";
+import CompleteProfile from "./pages/Auth/CompleteProfile.jsx";
 
 function App() {
 
@@ -28,6 +29,10 @@ function App() {
               }} />}
             />
             <Route path="/create-account" element={<CreateAccount />} />
+<<<<<<< HEAD
+=======
+            <Route path="/create-account/complete-profile" element={<CompleteProfile />} />
+>>>>>>> 50dce2a (Sign In session handling, react router, and create account pages UI)
             <Route path="*" element={<Navigate to="/signin" />} />
           </Routes>
         ) : (
