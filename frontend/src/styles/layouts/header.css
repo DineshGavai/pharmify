@@ -4,4 +4,15 @@
   background-color: hsl(var(--clr-neutral-100));
   border-bottom: 1px solid hsl(var(--clr-neutral-150));
   min-height: 5.65rem;
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+#main_header > div {
+  display: contents;
+}
+
+#main_header > div h1 {
+  flex: 1;
 }

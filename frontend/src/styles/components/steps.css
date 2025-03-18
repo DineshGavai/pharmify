@@ -1,0 +1,23 @@
+.step-box {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  padding-top: 1.2rem;
+}
+
+.step-box .step-info {
+  flex: 1;
+}
+
+.step-box .step-info p {
+  margin-bottom: 0.4rem;
+}
+
+.step-box .step-info p.text-emphasis {
+  font-size: var(--fs-600);
+}
+
+.step-box .step-count {
+  font-weight: 500;
+  font-size: var(--fs-500);
+}

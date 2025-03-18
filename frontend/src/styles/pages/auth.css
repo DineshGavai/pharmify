@@ -1,20 +1,34 @@
+.auth-main {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  overflow: auto;
+}
+
 .auth-main .main-sec {
   display: flex;
   flex-direction: column;
-  margin: auto;
   width: 100%;
-  max-width: 35rem;
-  text-align: center;
+  max-width: 40rem;
   gap: 3.2rem;
+  padding: 6.4rem;
+  padding-left: 2.4rem;
+  padding-right: 2.4rem;
+}
+
+@media screen and (min-width: 480px) {
+  .auth-main .main-sec {
+    padding-left: 1.6rem;
+    padding-right: 1.6rem;
+  }  
 }
 
 .auth-main h1 {
-  font-size: var(--fs-700);
-  margin-bottom: 0.6rem;
+  font-size: var(--fs-800);
+  margin-bottom: 1rem;
 }
 
-.auth-main p{
-  margin: auto;
+.auth-main p {
   margin-bottom: 1.2rem;
 }
 
@@ -22,9 +36,8 @@
   margin-bottom: 0;
 }
 
-form p {
-  text-align: start;
-  margin: 0 !important;
+.auth-main form {
+  margin-top: 0.8rem;
 }
 
 .auth-main .one-tap-options {
