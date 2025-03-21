@@ -35,19 +35,20 @@ function App() {
         ) : (
           <>
             <Navigation setIsSignedIn={setIsSignedIn} />
-            <main>
-              <Header />
-              <section className="main-body">
+          <main>  
+            <Header />
+            <section className="main-body">
                 <Routes>
                   <Route path="/" element={<UserLayout />} />
                   <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
-              </section>
-            </main>
+            </section>
+          </main>
           </>
         )}
-      </UserProvider>
-    </GlobalProvider>
+        </UserProvider>
+      </GlobalProvider>
+    
   );
 }
 
