@@ -2,6 +2,8 @@ import { useState } from "react";
 import { ThirdPartyLogos } from "../../assets/illus/logo-third-party";
 import CTAButton from "../../components/Button/CTAButton";
 import Input from "../../components/Input/Input.jsx"
+import { GoogleLogin } from "@react-oauth/google";
+import axios from "axios";
 
 const SignIn = ({ onSignInSuccess }) => {
 
@@ -35,6 +37,20 @@ const SignIn = ({ onSignInSuccess }) => {
 
         }
     }
+    // Handle Google Login Success
+    const handleGoogleSuccess = async (response) => {
+        console.log(response.credential)
+        try {
+            const res = await axios.post("http://localhost:8000/api/auth/google/", {
+                access_token: response.credential,
+            });
+
+            console.log("Google Login Success:", res.data);
+            onSignInSuccess(); // Call the sign-in success callback
+        } catch (error) {
+            console.error("Google Login Failed:", error);
+        }
+    };
 
 
 
@@ -84,12 +100,8 @@ const SignIn = ({ onSignInSuccess }) => {
 
                     <p className="text-muted">- OR -</p>
 
-                    <CTAButton
-                        iconName={ThirdPartyLogos.google}
-                        iconType="custom"
-                        label="Sign in with Google"
-                        className="ghost one-tap-btn"
-                    />
+                    <GoogleLogin onSuccess={handleGoogleSuccess} onError={() => console.log("Google Sign-In Failed")}  useOneTap/>
+
                 </div>
 
                 <footer>

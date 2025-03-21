@@ -2,6 +2,7 @@ from django.urls import path
 from .views import *
 from django.contrib.auth import views as auth_views
 from django.conf.urls.static import static
+from .views import GoogleLogin  
 
 
 
@@ -25,6 +26,9 @@ urlpatterns = [
     # profile edit 
     path('settings/edit-profile',profileEdit,name='edit-profile'),
     path('settings/account-privacy',privacySecurity,name="account-privacy"),
-    path('settings/settings',userSetting,name="settings")
+    path('settings/settings',userSetting,name="settings"),
 
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    # google authentication
+    path('api/auth/google/', GoogleLogin.as_view(), name='google_authenticate'),
+
+]

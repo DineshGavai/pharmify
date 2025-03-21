@@ -15,6 +15,20 @@ from django.contrib.auth.views import PasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.decorators import login_required
+from rest_framework import serializers
+
+# user/views.py
+
+from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
+from dj_rest_auth.registration.views import SocialLoginView
+from allauth.socialaccount.providers.oauth2.client import OAuth2Client
+
+
+class GoogleLogin(SocialLoginView):
+    adapter_class = GoogleOAuth2Adapter
+    client_class = OAuth2Client  # Add this line
+    callback_url = "http://localhost:5173" 
+
 
 @csrf_exempt
 def loginUser(request):
@@ -30,7 +44,7 @@ def loginUser(request):
         user = authenticate(request, email=email, password=password)
         if user is not None:
             auth_login(request, user)
-            return JsonResponse({'message': 'Logged in successfully', 'status': 200}, status=200)
+            return JsonResponse({'message': 'Logged in successfully', 'user':user.to_dict(),'status': 200}, status=200)
         else:
             return JsonResponse({'message': 'Invalid credentials', 'status': 400}, status=400)
 
@@ -79,21 +93,24 @@ def verify(request):
         else:
             return JsonResponse({'success': False})
 
-
+@csrf_exempt
 def signup(request):
-    if request.method == "POST":
-        name = request.POST.get('signup_full_name')
-        shop_name = request.POST.get('signup_shop_name')
-        phone_number = request.POST.get('signup_phone')
-        password1 = request.POST.get('signup_create_password')
-        password2 = request.POST.get('signup_confirm_password')
-        email = request.session.get('email')
-        first_name, last_name = name.split(' ', 1)
-
+    name = request.POST.get('signup_full_name')
+    shop_name = request.POST.get('signup_shop_name')
+    phone_number = request.POST.get('signup_phone')
+    password1 = request.POST.get('signup_create_password')
+    password2 = request.POST.get('signup_confirm_password')
+    email = request.POST.get('email')
+    first_name, last_name = name.split(' ', 1)
+    try:
+        print(email)
+        user = Owner.objects.get(email=email)
+        return JsonResponse({"message": "Email Already Exist."}, status=400)
+    except:
         if password1 != password2:
             return render(request, 'signup.html', {'error': 'Passwords do not match'})
-
         user = Owner(
+            username=email,
             name=name,
             first_name=first_name,
             last_name=last_name,
@@ -104,9 +121,8 @@ def signup(request):
         )
         user.save()
         auth_login(request, user)
-        return redirect('index')
-    # http://127.0.0.1:8000/signup/ use for see web page
-    return render(request, "signup.html")
+        return JsonResponse({"message":"Accout Created successfully"},status=200),
+    
 
 
 # Password Reset View

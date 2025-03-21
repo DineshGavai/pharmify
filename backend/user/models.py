@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from .manager import OwnerManager
 
 class Owner(AbstractUser):
-    username = None
+    # username = None
     owner_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
     shop_name = models.CharField(max_length=255)
@@ -21,6 +21,16 @@ class Owner(AbstractUser):
         return self.email
     
     objects = OwnerManager()
+
+    def to_dict(self):
+        return {
+            'name': self.name,
+            'email': self.email,
+            'shop_name':self.shop_name,
+            'phone_number':self.phone_number,
+            'owner_id':self.owner_id,
+
+        }
 
     class Meta:
         indexes=[models.Index(fields=['email'])]
