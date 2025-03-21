@@ -29,10 +29,7 @@ function App() {
               }} />}
             />
             <Route path="/create-account" element={<CreateAccount />} />
-<<<<<<< HEAD
-=======
             <Route path="/create-account/complete-profile" element={<CompleteProfile />} />
->>>>>>> 50dce2a (Sign In session handling, react router, and create account pages UI)
             <Route path="*" element={<Navigate to="/signin" />} />
           </Routes>
         ) : (

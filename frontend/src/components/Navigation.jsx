@@ -78,13 +78,13 @@ const Navigation = ({ setIsSignedIn }) => {
                         <IconButton iconName={"settings"} />
                     </div>
                     <p className="project-links">
-                        <a href="#" className="text">About Us</a> <span>·</span>
-                        <a href="#" className="text">Terms</a><span>·</span>
-                        <a href="#" className="text">Privacy Policy</a>
+                        <a href="#" className="text" tabIndex={isNavActive ? undefined : "-1"}>About Us</a> <span>·</span>
+                        <a href="#" className="text" tabIndex={isNavActive ? undefined : "-1"}>Terms</a><span>·</span>
+                        <a href="#" className="text" tabIndex={isNavActive ? undefined : "-1"}>Privacy Policy</a>
                     </p>
-                    <p className="social-links">
-                        <a href="#" className="text">Dinesh Gavai</a> <span>·</span>
-                        <a href="#" className="text">Vedant Mali</a>
+                    <p className="social-links" aria-disabled={!isNavActive}>
+                        <a href="#" className="text" tabIndex={isNavActive ? undefined : "-1"}>Dinesh Gavai</a> <span>·</span>
+                        <a href="#" className="text" tabIndex={isNavActive ? undefined : "-1"}>Vedant Mali</a>
                     </p>
                 </section>
 
