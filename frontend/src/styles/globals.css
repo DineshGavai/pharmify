@@ -1,12 +1,13 @@
 /* Base */
+@import url("./base/variable.css");
 @import url("./base/reset.css");
 @import url("./base/typography.css");
-@import url("./base/variable.css");
 
 /* Components */
 @import url("./components/buttons.css");
 @import url("./components/tabs.css");
 @import url("./components/input.css");
+@import url("./components/steps.css");
 
 /* Layouts */
 @import url("./layouts/header.css");
@@ -56,7 +57,7 @@ section.main-sec {
 }
 
 section.main-sec h2 {
-  font-size: var(--fs-500);
+  font-size: var(--fs-600);
   margin-bottom: 0.4rem;
   position: sticky;
   top: 0;

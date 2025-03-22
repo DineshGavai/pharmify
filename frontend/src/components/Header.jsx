@@ -18,7 +18,7 @@ const Header = ({ heading = "" }) => {
             />
 
             <div>
-                <h1 className="fs-500">{heading || "Pharmify"}</h1>
+                <h1 className="fs-700">{heading || "Pharmify"}</h1>
                 <div className="options">{headerChildren}</div>
             </div>
         </header>

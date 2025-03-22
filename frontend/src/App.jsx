@@ -1,59 +1,55 @@
 import { GlobalProvider } from "./context/GlobalContext.jsx";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { UserProvider } from "./context/UserContext.jsx";
 import Header from "./components/Header";
 import Navigation from "./components/Navigation.jsx";
 import UserLayout from "./pages/User/UserLayout.jsx";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import SignIn from "./pages/Auth/SignIn.jsx";
 import CreateAccount from "./pages/Auth/CreateAccount.jsx";
-import { GoogleOAuthProvider } from "@react-oauth/google";
+import CompleteProfile from "./pages/Auth/CompleteProfile.jsx";
+
 
 function App() {
+
   const [isSignedIn, setIsSignedIn] = useState(
     localStorage.getItem("isSignedIn") === "true"
   );
 
-  // Handle Sign-In
-  const handleSignInSuccess = () => {
-    setIsSignedIn(true);
-    localStorage.setItem("isSignedIn", "true");
-  };
-
-  // Handle Sign-Out
-  const handleSignOut = () => {
-    setIsSignedIn(false);
-    localStorage.removeItem("isSignedIn");
-  };
 
   return (
-    <GoogleOAuthProvider clientId="452648896308-f63luqd4l007jbd0i334ubejqssus4om.apps.googleusercontent.com">
-      <GlobalProvider>
-        <UserProvider>
-          {/* If Not Signed In */}
-          {!isSignedIn ? (
-            <>
-              <SignIn onSignInSuccess={handleSignInSuccess} />
-              <CreateAccount />
-            </>
-          ) : (
-            // If Signed In
-            <>
-              <Navigation />
-              <main>
-                <Header />
-                <section className="main-body">
-                  <UserLayout />
-                </section>
-                {/* Add Sign-Out Button */}
-                <button onClick={handleSignOut} className="logout-btn">
-                  Sign Out
-                </button>
-              </main>
-            </>
-          )}
+    <GlobalProvider>
+      <UserProvider>
+        {!isSignedIn ? (
+          <Routes>
+            <Route
+              path="/signin"
+              element={<SignIn onSignInSuccess={() => {
+                setIsSignedIn(true)
+                localStorage.setItem("isSignedIn", "true");
+              }} />}
+            />
+            <Route path="/create-account" element={<CreateAccount />} />
+            <Route path="/create-account/complete-profile" element={<CompleteProfile />} />
+            <Route path="*" element={<Navigate to="/signin" />} />
+          </Routes>
+        ) : (
+          <>
+            <Navigation setIsSignedIn={setIsSignedIn} />
+          <main>  
+            <Header />
+            <section className="main-body">
+                <Routes>
+                  <Route path="/" element={<UserLayout />} />
+                  <Route path="*" element={<Navigate to="/" />} />
+                </Routes>
+            </section>
+          </main>
+          </>
+        )}
         </UserProvider>
       </GlobalProvider>
-    </GoogleOAuthProvider>
+    
   );
 }
 
