@@ -17,17 +17,6 @@ from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.decorators import login_required
 from rest_framework import serializers
 
-# user/views.py
-
-from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
-from dj_rest_auth.registration.views import SocialLoginView
-from allauth.socialaccount.providers.oauth2.client import OAuth2Client
-
-
-class GoogleLogin(SocialLoginView):
-    adapter_class = GoogleOAuth2Adapter
-    client_class = OAuth2Client  # Add this line
-    callback_url = "http://localhost:5173" 
 
 
 @csrf_exempt
