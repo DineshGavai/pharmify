@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { useState } from "react";
 import { ThirdPartyLogos } from "../../assets/illus/logo-third-party";
 import { Link } from "react-router-dom";
 import CTAButton from "../../components/Button/CTAButton";
 import Input from "../../components/Input/Input.jsx"
+import { GoogleLogin } from "@react-oauth/google";
+import axios from "axios";
 import { apiRequest } from "../../utils/api.js";
 
 const SignIn = ({ onSignInSuccess }) => {
@@ -23,8 +26,20 @@ const SignIn = ({ onSignInSuccess }) => {
             onError: () => console.log("Invalid Credentials"),
         })
     }
+    // Handle Google Login Success
+    const handleGoogleSuccess = async (response) => {
+        console.log(response.credential)
+        try {
+            const res = await axios.post("http://localhost:8000/api/auth/google/", {
+                access_token: response.credential,
+            });
 
-
+            console.log("Google Login Success:", res.data);
+            onSignInSuccess(); // Call the sign-in success callback
+        } catch (error) {
+            console.error("Google Login Failed:", error);
+        }
+    }
 
     return (
         <main className="auth-main">
@@ -91,7 +106,6 @@ const SignIn = ({ onSignInSuccess }) => {
 
         </main>
     );
+};
 
-}
-
-export default SignIn
+export default SignIn;
