@@ -41,6 +41,40 @@ const SignIn = ({ onSignInSuccess }) => {
     }
 
 
+const SignIn = ({ onSignInSuccess }) => {
+
+    const [email, setEmail] = useState("vedant@gmail.com");
+    const [pasword, setPassword] = useState("Pass@123");
+
+    const handleSignIn = async (e) => {
+        e.preventDefault();
+
+        if (!email || !pasword) return;
+
+        try {
+
+            const response = await fetch("http://127.0.0.1:8000/login/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+
+                body: JSON.stringify({ sign_in_email: email, sign_in_password: pasword })
+            })
+
+            const data = await response.json();
+
+            if (data.status === 200) onSignInSuccess();
+            else console.log("Invalid credentials.");
+
+
+        } catch (error) {
+            console.log("Something went wrong!");
+
+        }
+    }
+
+
 
     return (
         <main className="auth-main">
@@ -56,7 +90,7 @@ const SignIn = ({ onSignInSuccess }) => {
                 </header>
 
                 <form
-                    onSubmit={(e) => handleFormSubmit(e)}
+                    onSubmit={(e) => handleSignIn(e)}
                     id="sign_in_form"
                     name="sign_in_form">
 
@@ -73,7 +107,7 @@ const SignIn = ({ onSignInSuccess }) => {
                         label="Password"
                         id={"sign_in_password"}
                         name={"sign_in_password"}
-                        defaultValue={password}
+                        defaultValue={pasword}
                         onChange={(e) => setPassword(e.target.value)}
                     />
 
@@ -105,7 +139,6 @@ const SignIn = ({ onSignInSuccess }) => {
 
         </main>
     );
+};
 
-}
-
-export default SignIn
+export default SignIn;

@@ -33,7 +33,7 @@ def loginUser(request):
         user = authenticate(request, email=email, password=password)
         if user is not None:
             auth_login(request, user)
-            return JsonResponse({'message': 'Logged in successfully', 'user':user.to_dict(),'status': 200}, status=200)
+            return JsonResponse({'message': 'Logged in successfully', 'status': 200}, status=200)
         else:
             return JsonResponse({'message': 'Invalid credentials', 'status': 400}, status=400)
 
@@ -42,8 +42,6 @@ def loginUser(request):
 def logoutUser(request):
     logout(request)
     return JsonResponse({'message': 'User logged out','status':'success'},status=200)
-
-
 
 
 def verifyEmail(request):
