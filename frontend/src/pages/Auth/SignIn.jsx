@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useState } from "react";
 import { ThirdPartyLogos } from "../../assets/illus/logo-third-party";
 import { Link } from "react-router-dom";
 import CTAButton from "../../components/Button/CTAButton";
@@ -10,8 +9,8 @@ import { apiRequest } from "../../utils/api.js";
 
 const SignIn = ({ onSignInSuccess }) => {
 
-    const [email, setEmail] = useState("vedant@gmail.com");
-    const [password, setPassword] = useState("Pass@123");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
@@ -22,8 +21,8 @@ const SignIn = ({ onSignInSuccess }) => {
             url: "http://127.0.0.1:8000/login/",
             method: "POST",
             body: { sign_in_email: email, sign_in_password: password },
-            onSuccess: () => onSignInSuccess(),
-            onError: () => console.log("Invalid Credentials"),
+            onSuccess: (data) => onSignInSuccess(),
+            onError: (error) => console.log(error.message),
         })
     }
     // Handle Google Login Success
@@ -63,9 +62,8 @@ const SignIn = ({ onSignInSuccess }) => {
                         label="Email"
                         id={"sign_in_email"}
                         name={"sign_in_email"}
-                        defaultValue={email}
+                        value={email || ""}
                         onChange={(e) => setEmail(e.target.value)}
-
                     />
 
                     <Input

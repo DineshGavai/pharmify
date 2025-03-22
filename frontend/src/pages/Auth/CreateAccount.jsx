@@ -1,17 +1,30 @@
 import { useState } from "react";
 import { ThirdPartyLogos } from "../../assets/illus/logo-third-party";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CTAButton from "../../components/Button/CTAButton";
 import Input from "../../components/Input/Input.jsx"
 import { apiRequest } from "../../utils/api.js";
 
-const CreateAccount = ({ onSignInSuccess }) => {
+const CreateAccount = () => {
 
     const [email, setEmail] = useState("vedant@gmail.com");
+    const navigate = useNavigate();
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
+
         if (!email) return;
+
+        navigate("complete-profile");
+
+        await apiRequest({
+            url: "http://127.0.0.1:8000/verify-email/",
+            method: "POST",
+            body: { email },
+            onSuccess: () => navigate("complete-profile"),
+            onError: (error) => console.log(error.message),
+        })
+
     }
 
     return (

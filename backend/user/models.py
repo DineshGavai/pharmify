@@ -3,11 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from .manager import OwnerManager
 
 class Owner(AbstractUser):
-<<<<<<< HEAD
-    username = None
-=======
     # username = None
->>>>>>> 4d4840667f178da5011fcb0999f229ac8d2ade38
     owner_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
     shop_name = models.CharField(max_length=255)
@@ -26,8 +22,6 @@ class Owner(AbstractUser):
     
     objects = OwnerManager()
 
-<<<<<<< HEAD
-=======
     def to_dict(self):
         return {
             'name': self.name,
@@ -38,6 +32,5 @@ class Owner(AbstractUser):
 
         }
 
->>>>>>> 4d4840667f178da5011fcb0999f229ac8d2ade38
     class Meta:
         indexes=[models.Index(fields=['email'])]

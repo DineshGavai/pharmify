@@ -16,6 +16,10 @@ function App() {
     localStorage.getItem("isSignedIn") === "true"
   );
 
+  const onSignInSuccess = () => {
+    setIsSignedIn(true)
+    localStorage.setItem("isSignedIn", "true");
+  }
 
   return (
     <GlobalProvider>
@@ -24,32 +28,29 @@ function App() {
           <Routes>
             <Route
               path="/signin"
-              element={<SignIn onSignInSuccess={() => {
-                setIsSignedIn(true)
-                localStorage.setItem("isSignedIn", "true");
-              }} />}
+              element={<SignIn onSignInSuccess={onSignInSuccess} />}
             />
             <Route path="/create-account" element={<CreateAccount />} />
-            <Route path="/create-account/complete-profile" element={<CompleteProfile />} />
+            <Route path="/create-account/complete-profile" element={<CompleteProfile onSignInSuccess={onSignInSuccess} />} />
             <Route path="*" element={<Navigate to="/signin" />} />
           </Routes>
         ) : (
           <>
             <Navigation setIsSignedIn={setIsSignedIn} />
-          <main>  
-            <Header />
-            <section className="main-body">
+            <main>
+              <Header />
+              <section className="main-body">
                 <Routes>
                   <Route path="/" element={<UserLayout />} />
                   <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
-            </section>
-          </main>
+              </section>
+            </main>
           </>
         )}
-        </UserProvider>
-      </GlobalProvider>
-    
+      </UserProvider>
+    </GlobalProvider>
+
   );
 }
 
