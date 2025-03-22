@@ -15,6 +15,12 @@ from django.contrib.auth.views import PasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.decorators import login_required
+<<<<<<< HEAD
+=======
+from rest_framework import serializers
+
+
+>>>>>>> 4d4840667f178da5011fcb0999f229ac8d2ade38
 
 @csrf_exempt
 def loginUser(request):
@@ -67,6 +73,167 @@ def verifyEmail(request):
 
     return render(request, 'verify-email.html')
 
+<<<<<<< HEAD
+=======
+@csrf_exempt
+def verifyEmail(request):
+
+    email=request.POST.get("email")
+    try:
+        user_exist=Owner.objects.get(email=email)
+        return JsonResponse({"status": "success", "message": "User exists", "exists": True}, status=200)
+    except:
+        return JsonResponse({"status": "error", "message": "User does not exist", "exists": False}, status=404)
+
+
+
+
+@csrf_exempt
+def signup(request):
+    name = request.POST.get('signup_full_name')
+    shop_name = request.POST.get('signup_shop_name')
+    phone_number = request.POST.get('signup_phone')
+    password1 = request.POST.get('signup_create_password')
+    password2 = request.POST.get('signup_confirm_password')
+    email = request.POST.get('email')
+
+    first_name, last_name = name.split(' ', 1)
+
+    
+    if password1 != password2:
+        return JsonResponse({
+            "status": "error",
+            "message": "Passwords do not match"
+        }, status=400)
+
+    user = Owner(
+        username=email,
+        name=name,
+        first_name=first_name,
+        last_name=last_name,
+        shop_name=shop_name,
+        phone_number=phone_number,
+        password=make_password(password1),  
+        email=email
+    )
+
+    user.save()
+
+
+    user.backend = 'allauth.account.auth_backends.AuthenticationBackend'    
+    auth_login(request, user)
+
+    
+    return JsonResponse({
+        "status": "success",
+        "message": "Account created successfully",
+        "data": {
+            "name": user.name,
+            "email": user.email,
+            "shop_name": user.shop_name,
+            "phone_number": user.phone_number
+        }
+    }, status=200)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# def verifyEmail(request):
+#     if request.method == "POST":
+#         user = None
+#         email = request.POST.get('email')
+#         try:
+#             user = Owner.objects.get(email=email)
+#             return JsonResponse({"message": "Email Already Exist."}, status=200)
+#         except:
+#             # for taking email directly after verification
+#             request.session['email'] = email
+#             # Store OTP in session
+#             OTP = random.randint(100000, 999999)
+#             request.session['OTP'] = OTP
+#             request.session.modified = True
+#             # Now sent_otp_email method return True if email is send
+#             otp_sent_successfully = send_otp_email(OTP, email)
+#             if otp_sent_successfully:  # If True then comp-otp-form.html render honar
+#                 otp_form_html = render_to_string(
+#                     'comp-otp-form.html', {'email': email})
+#                 return JsonResponse({'success': True, 'html': otp_form_html})
+#             else:
+#                 # if seccess False alert disnar Failed to send OTP
+#                 return JsonResponse({'success': False})
+
+#     return render(request, 'verify-email.html')
+
+
+
+>>>>>>> 4d4840667f178da5011fcb0999f229ac8d2ade38
 
 @csrf_exempt
 def verify(request):
@@ -79,6 +246,7 @@ def verify(request):
         else:
             return JsonResponse({'success': False})
 
+<<<<<<< HEAD
 
 def signup(request):
     if request.method == "POST":
@@ -107,6 +275,9 @@ def signup(request):
         return redirect('index')
     # http://127.0.0.1:8000/signup/ use for see web page
     return render(request, "signup.html")
+=======
+    
+>>>>>>> 4d4840667f178da5011fcb0999f229ac8d2ade38
 
 
 # Password Reset View

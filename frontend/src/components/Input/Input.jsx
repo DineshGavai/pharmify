@@ -40,14 +40,8 @@ const Input = ({
     clearable = false,
 
     // Icons & Buttons
-    leftIcon,
-    rightIcon,
-    leftButton,
-    rightButton,
-    leftButtonClass,
-    rightButtonClass,
-    leftButtonOnClick,
-    rightButtonOnClick,
+    leftElem,
+    rightElem,
 
     // Messaging
     helpText,
@@ -59,9 +53,10 @@ const Input = ({
 
     const [inputValue, setInputValue] = useState(defaultValue || "");
 
+    leftElem = leftElem ? (<span className="left-elem">{leftElem}</span>) : null;
 
     return (
-        <div className={`input-box ${inputValue.length > 0 ? "filled" : ""} ${(leftIcon || leftButton) ? "has-trail-item" : ""}`}>
+        <div className={`input-box ${inputValue.length > 0 ? "filled" : ""} ${(leftElem) ? "has-trail-item" : ""}`}>
 
             {
                 label &&
@@ -74,18 +69,7 @@ const Input = ({
 
             <div className="input-frame text-input">
                 {/* Left Icon or Button */}
-                {
-                    leftIcon &&
-                    <Icon iconName={leftIcon} className="left-elem" />
-                }
-                {
-                    leftButton &&
-                    <CTAButton
-                        iconName={leftButton}
-                        className={leftButtonClass}
-                        onClick={leftButtonOnClick}
-                    />
-                }
+                {leftElem}
                 {/* Input */}
                 <input
                     type={type}
@@ -107,19 +91,9 @@ const Input = ({
 
                 />
                 {/* Right Icon or Button */}
-                {
-                    rightIcon &&
-                    <Icon iconName={rightIcon} />
-                }
-                {
-                    rightButton &&
-                    <CTAButton
-                        iconName={rightButton}
-                        className={rightButtonClass}
-                        onClick={rightButtonOnClick}
-                    />
-                }
+                {rightElem}
             </div>
+            <p className="help-text text-muted">{helpText}</p>
         </div>
     );
 };

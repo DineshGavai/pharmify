@@ -1,47 +1,55 @@
-import { GlobalProvider, GlobalContext } from "./context/GlobalContext.jsx";
-import { UserContext, UserProvider } from "./context/UserContext.jsx";
+import { GlobalProvider } from "./context/GlobalContext.jsx";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { UserProvider } from "./context/UserContext.jsx";
 import Header from "./components/Header";
-import Icon from "./components/Icon";
 import Navigation from "./components/Navigation.jsx";
 import UserLayout from "./pages/User/UserLayout.jsx";
 import { useState } from "react";
-import { useContext } from "react";
 import SignIn from "./pages/Auth/SignIn.jsx";
 import CreateAccount from "./pages/Auth/CreateAccount.jsx";
+import CompleteProfile from "./pages/Auth/CompleteProfile.jsx";
+
 
 function App() {
 
-  const [isSignedIn, setIsSignedIn] = useState(false);
+  const [isSignedIn, setIsSignedIn] = useState(
+    localStorage.getItem("isSignedIn") === "true"
+  );
+
 
   return (
-    <>
-      <GlobalProvider >
-        <UserProvider >
-          {/* If not Signed In */}
-          {
-            !isSignedIn &&
-            <>
-              <SignIn onSignInSuccess={() => setIsSignedIn(true)} />
-              <CreateAccount />
-            </>
-          }
-
-          {/* If Signed In */}
-          {
-            isSignedIn &&
-            <>
-              <Navigation />
-              <main>
-                <Header />
-                <section className="main-body">
-                  <UserLayout />
-                </section>
-              </main>
-            </>
-          }
+    <GlobalProvider>
+      <UserProvider>
+        {!isSignedIn ? (
+          <Routes>
+            <Route
+              path="/signin"
+              element={<SignIn onSignInSuccess={() => {
+                setIsSignedIn(true)
+                localStorage.setItem("isSignedIn", "true");
+              }} />}
+            />
+            <Route path="/create-account" element={<CreateAccount />} />
+            <Route path="/create-account/complete-profile" element={<CompleteProfile />} />
+            <Route path="*" element={<Navigate to="/signin" />} />
+          </Routes>
+        ) : (
+          <>
+            <Navigation setIsSignedIn={setIsSignedIn} />
+          <main>  
+            <Header />
+            <section className="main-body">
+                <Routes>
+                  <Route path="/" element={<UserLayout />} />
+                  <Route path="*" element={<Navigate to="/" />} />
+                </Routes>
+            </section>
+          </main>
+          </>
+        )}
         </UserProvider>
       </GlobalProvider>
-    </>
+    
   );
 }
 
