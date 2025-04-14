@@ -59,13 +59,16 @@ const Input = ({
 
     leftElem = leftElem ? (<span className="left-elem">{leftElem}</span>) : null;
 
-    rightElem = showPasswordButton ? <IconButton
-        iconName={inputType == "password" ? "eye" : "eye_slash"}
-        type="button"
-        onClick={(e) => {
-            setInputType(inputType == "password" ? "text" : "password")
-        }}
-    /> : null;
+    if (showPasswordButton) {
+        rightElem =
+            <IconButton
+                iconName={inputType == "password" ? "eye" : "eye_slash"}
+                type="button"
+                onClick={(e) => {
+                    setInputType(inputType == "password" ? "text" : "password")
+                }}
+            />
+    }
 
     return (
         <div className={`input-box ${inputValue.length > 0 ? "filled" : ""} ${(leftElem) ? "has-trail-item" : ""}`}>

@@ -4,14 +4,13 @@ export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
 
-    const [userInfo, setUserInfo] = useState({
-        name: "Vedant Mali",
-        email: "vedantmali05@gmail.com",
-    })
+    const [userInfo, setUserInfo] = useState({})
+    const [createAccountInputData, setCreateAccountInputData] = useState({})
 
     return (
         <UserContext.Provider value={{
-            userInfo, setUserInfo
+            userInfo, setUserInfo,
+            createAccountInputData, setCreateAccountInputData
         }}>
             {children}
         </UserContext.Provider>

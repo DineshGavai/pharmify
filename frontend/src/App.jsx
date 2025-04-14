@@ -8,17 +8,17 @@ import { useState } from "react";
 import SignIn from "./pages/Auth/SignIn.jsx";
 import CreateAccount from "./pages/Auth/CreateAccount.jsx";
 import CompleteProfile from "./pages/Auth/CompleteProfile.jsx";
+import { getFromLocalStorage, saveToLocalStorage } from "./utils/browserStorage.js";
 
 
 function App() {
 
-  const [isSignedIn, setIsSignedIn] = useState(
-    localStorage.getItem("isSignedIn") === "true"
-  );
+  const [isSignedIn, setIsSignedIn] = useState(getFromLocalStorage("isSignedIn") || false);
+
 
   const onSignInSuccess = () => {
+    saveToLocalStorage("isSignedIn", true);
     setIsSignedIn(true)
-    localStorage.setItem("isSignedIn", "true");
   }
 
   return (
