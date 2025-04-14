@@ -46,14 +46,31 @@ def logoutUser(request):
 
 @csrf_exempt
 def verifyEmail(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            email = data.get("email")
+            print("Received email:", email)
 
-    email=request.POST.get("email")
-    try:
-        user_exist=Owner.objects.get(email=email)
-        return JsonResponse({"status": "error", "message": "User does not exist", "exists": False}, status=404)
-    except:
-        return JsonResponse({"status": "success", "message": "User exists", "exists": True}, status=200)
-
+            user_exist = Owner.objects.get(email=email)
+            return JsonResponse({
+                "status": "error",
+                "message": "Email already exists",
+                "exists": True
+            }, status=400)
+        except Owner.DoesNotExist:
+            return JsonResponse({
+                "status": "success",
+                "message": "New email",
+                "exists": False
+            }, status=200)
+        except Exception as e:
+            return JsonResponse({
+                "status": "error",
+                "message": str(e)
+            }, status=500)
+    else:
+        return JsonResponse({"message": "Invalid request method"}, status=405)
 
 
 
