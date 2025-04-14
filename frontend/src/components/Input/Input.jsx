@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Icon from "../Icon";
 import CTAButton from "../Button/CTAButton";
+import IconButton from "../Button/IconButton";
 
 const Input = ({
     // Core Input Attributes
@@ -9,6 +10,7 @@ const Input = ({
     type = "text",
     name,
     id,
+    value,
     defaultValue = "",
     placeholder = "",
     autoComplete = "off",
@@ -16,6 +18,7 @@ const Input = ({
     required = true,
     disabled = false,
     readOnly = false,
+    showPasswordButton = false,
 
     // Validation
     maxLength,
@@ -32,7 +35,7 @@ const Input = ({
     spellCheck = false,
 
     // Events
-    onChange = () => { },
+    onChange,
 
     // UI Enhancements
     className = "",
@@ -51,9 +54,21 @@ const Input = ({
 
 }) => {
 
-    const [inputValue, setInputValue] = useState(defaultValue || "");
+    const [inputValue, setInputValue] = useState(value || "");
+    const [inputType, setInputType] = useState(type);
 
     leftElem = leftElem ? (<span className="left-elem">{leftElem}</span>) : null;
+
+    if (showPasswordButton) {
+        rightElem =
+            <IconButton
+                iconName={inputType == "password" ? "eye" : "eye_slash"}
+                type="button"
+                onClick={(e) => {
+                    setInputType(inputType == "password" ? "text" : "password")
+                }}
+            />
+    }
 
     return (
         <div className={`input-box ${inputValue.length > 0 ? "filled" : ""} ${(leftElem) ? "has-trail-item" : ""}`}>
@@ -72,10 +87,10 @@ const Input = ({
                 {leftElem}
                 {/* Input */}
                 <input
-                    type={type}
+                    type={inputType}
                     id={id}
                     name={name}
-                    value={inputValue}
+                    value={value}
                     placeholder={placeholder}
                     autoComplete={autoComplete}
                     autoFocus={autoFocus}
@@ -87,7 +102,10 @@ const Input = ({
                     pattern={pattern}
 
                     // Events
-                    onChange={(e) => setInputValue(e.target.value)}
+                    onChange={(e) => {
+                        setInputValue(e.target.value)
+                        if (onChange) onChange(e)
+                    }}
 
                 />
                 {/* Right Icon or Button */}

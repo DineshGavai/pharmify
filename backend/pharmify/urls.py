@@ -23,5 +23,8 @@ urlpatterns = [
     path('',index,name="index"),
     path('',include('user.urls')),
     path('',include('product.urls')),
+    path('accounts/', include('allauth.urls')),  # Google login
+    path('auth/', include('dj_rest_auth.urls')),
+    
     
 ]

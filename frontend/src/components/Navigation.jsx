@@ -3,6 +3,7 @@ import IconButton from "./Button/IconButton.jsx";
 import CTAButton from "./Button/CTAButton.jsx"
 import { GlobalContext } from "../context/GlobalContext.jsx"
 import { UserContext } from "../context/UserContext.jsx";
+import { removeFromLocalStorage } from "../utils/browserStorage.js";
 
 const Navigation = ({ setIsSignedIn }) => {
     const { activePage, setActivePage } = useContext(GlobalContext)
@@ -72,7 +73,7 @@ const Navigation = ({ setIsSignedIn }) => {
                             className="logout-btn danger"
                             onClick={() => {
                                 setIsSignedIn(false);
-                                localStorage.removeItem("isSignedIn");
+                                removeFromLocalStorage("isSignedIn")
                             }}
                         />
                         <IconButton iconName={"settings"} />

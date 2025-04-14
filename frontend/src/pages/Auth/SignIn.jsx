@@ -3,12 +3,14 @@ import { ThirdPartyLogos } from "../../assets/illus/logo-third-party";
 import { Link } from "react-router-dom";
 import CTAButton from "../../components/Button/CTAButton";
 import Input from "../../components/Input/Input.jsx"
+import { GoogleLogin } from "@react-oauth/google";
+import axios from "axios";
 import { apiRequest } from "../../utils/api.js";
 
 const SignIn = ({ onSignInSuccess }) => {
 
-    const [email, setEmail] = useState("vedant@gmail.com");
-    const [password, setPassword] = useState("Pass@123");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
@@ -19,12 +21,24 @@ const SignIn = ({ onSignInSuccess }) => {
             url: "http://127.0.0.1:8000/login/",
             method: "POST",
             body: { sign_in_email: email, sign_in_password: password },
-            onSuccess: () => onSignInSuccess(),
-            onError: () => console.log("Invalid Credentials"),
+            onSuccess: (data) => onSignInSuccess(),
+            onError: (error) => console.log(error.message),
         })
     }
+    // Handle Google Login Success
+    const handleGoogleSuccess = async (response) => {
+        console.log(response.credential)
+        try {
+            const res = await axios.post("http://localhost:8000/api/auth/google/", {
+                access_token: response.credential,
+            });
 
-
+            console.log("Google Login Success:", res.data);
+            onSignInSuccess(); // Call the sign-in success callback
+        } catch (error) {
+            console.error("Google Login Failed:", error);
+        }
+    }
 
     return (
         <main className="auth-main">
@@ -48,9 +62,8 @@ const SignIn = ({ onSignInSuccess }) => {
                         label="Email"
                         id={"sign_in_email"}
                         name={"sign_in_email"}
-                        defaultValue={email}
+                        value={email || ""}
                         onChange={(e) => setEmail(e.target.value)}
-
                     />
 
                     <Input
@@ -91,7 +104,6 @@ const SignIn = ({ onSignInSuccess }) => {
 
         </main>
     );
+};
 
-}
-
-export default SignIn
+export default SignIn;

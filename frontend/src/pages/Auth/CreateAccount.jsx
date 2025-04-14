@@ -1,17 +1,33 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ThirdPartyLogos } from "../../assets/illus/logo-third-party";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CTAButton from "../../components/Button/CTAButton";
 import Input from "../../components/Input/Input.jsx"
 import { apiRequest } from "../../utils/api.js";
+import { UserContext } from "../../context/UserContext.jsx";
 
-const CreateAccount = ({ onSignInSuccess }) => {
+const CreateAccount = () => {
 
-    const [email, setEmail] = useState("vedant@gmail.com");
+    const { createAccountInputData, setCreateAccountInputData } = useContext(UserContext);
+
+    const navigate = useNavigate();
+
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
-        if (!email) return;
+
+        if (!createAccountInputData.email) return;
+
+        await apiRequest({
+            url: "http://127.0.0.1:8000/verify-email/",
+            method: "POST",
+            body: { email: createAccountInputData.email },
+            onSuccess: (data) => {
+                navigate("complete-profile")
+            },
+            onError: (error) => console.log(error.message),
+        })
+
     }
 
     return (
@@ -34,10 +50,13 @@ const CreateAccount = ({ onSignInSuccess }) => {
 
                     <Input
                         label="Email"
+                        type="email"
                         id={"create_account_email"}
                         name={"create_account_email"}
-                        defaultValue={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        value={createAccountInputData.email || ""}
+                        onChange={(e) => setCreateAccountInputData((data) =>
+                            ({ ...data, email: e.target.value })
+                        )}
 
                     />
 

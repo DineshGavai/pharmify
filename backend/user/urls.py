@@ -4,7 +4,6 @@ from django.contrib.auth import views as auth_views
 from django.conf.urls.static import static
 
 
-
 urlpatterns = [
     path('login/', loginUser, name="login"),
     path('logout/', logoutUser, name="logout"),
@@ -25,6 +24,5 @@ urlpatterns = [
     # profile edit 
     path('settings/edit-profile',profileEdit,name='edit-profile'),
     path('settings/account-privacy',privacySecurity,name="account-privacy"),
-    path('settings/settings',userSetting,name="settings")
-
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('settings/settings',userSetting,name="settings"),
+]

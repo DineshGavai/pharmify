@@ -1,11 +1,22 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import CTAButton from "../../components/Button/CTAButton";
+import IconButton from "../../components/Button/IconButton";
 import Input from "../../components/Input/Input.jsx"
 import Icon from "../../components/Icon.jsx";
+import { apiRequest } from "../../utils/api.js"
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../context/UserContext.jsx";
 
 const CompleteProfile = ({ onSignInSuccess }) => {
 
     const [stepCount, setStepCount] = useState(1);
+    const { createAccountInputData, setCreateAccountInputData } = useContext(UserContext);
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!createAccountInputData.email) navigate("/create-account")
+    }, []);
 
     const steps = [
         "Personal Info",
@@ -14,15 +25,36 @@ const CompleteProfile = ({ onSignInSuccess }) => {
     ]
 
     const handlePersonalInfoSubmit = (e) => {
-
+        e.preventDefault()
+        if (!createAccountInputData.full_name || !createAccountInputData.phone_num) return;
+        setStepCount(2);
     }
 
     const handleBusinessInfoSubmit = (e) => {
-
+        e.preventDefault()
+        if (!createAccountInputData.business_name || !createAccountInputData.business_name) return;
+        setStepCount(3);
     }
 
-    const handlePasswordSubmit = (e) => {
+    const handlePasswordSubmit = async (e) => {
+        e.preventDefault()
+        if (!createAccountInputData.create_password || !createAccountInputData.confirm_password) return;
 
+        await apiRequest({
+            url: "http://127.0.0.1:8000/signup/",
+            method: "POST",
+            body: {
+                signup_full_name: createAccountInputData.full_name,
+                signup_phone: createAccountInputData.phone_num,
+                signup_shop_name: createAccountInputData.business_name,
+                signup_shop_address: createAccountInputData.business_address,
+                signup_create_password: createAccountInputData.create_password,
+                signup_confirm_password: createAccountInputData.confirm_password,
+                email: createAccountInputData.email,
+            },
+            onSuccess: (data) => { onSignInSuccess() },
+            onError: (error) => console.log(error.message),
+        })
     }
 
 
@@ -58,8 +90,10 @@ const CompleteProfile = ({ onSignInSuccess }) => {
                         id={"complete_profile_email"}
                         name={"complete_profile_email"}
                         disabled={true}
-                        defaultValue="vedant@gmail.com"
-                        rightElem={<CTAButton label="Edit" className="text" />}
+                        value={createAccountInputData.email || ""}
+                        rightElem={<CTAButton label="Edit" className="text" type="button" onClick={
+                            () => navigate("/create-account")
+                        } />}
                     />
 
                     <Input
@@ -67,15 +101,11 @@ const CompleteProfile = ({ onSignInSuccess }) => {
                         id={"complete_profile_full_name"}
                         name={"complete_profile_full_name"}
                         autoComplete="name"
+                        value={createAccountInputData.full_name || ""}
+                        onChange={(e) => setCreateAccountInputData((data) =>
+                            ({ ...data, full_name: e.target.value })
+                        )}
                         helpText={"Please enter your First, Middle & then Lastname"}
-                    />
-
-                    <Input
-                        label="Username"
-                        id={"complete_profile_username"}
-                        name={"complete_profile_username"}
-                        autoComplete="username"
-                        helpText={"Must be Alphanumeric only, and must not contain whitespace or special characters"}
                     />
 
                     <Input
@@ -83,6 +113,10 @@ const CompleteProfile = ({ onSignInSuccess }) => {
                         id={"complete_profile_phone_number"}
                         name={"complete_profile_phone_number"}
                         autoComplete="tel-national"
+                        value={createAccountInputData.phone_num || ""}
+                        onChange={(e) => setCreateAccountInputData((data) =>
+                            ({ ...data, phone_num: e.target.value })
+                        )}
                         leftElem={
                             <Icon iconName={"flag_india"} />
                         }
@@ -109,13 +143,21 @@ const CompleteProfile = ({ onSignInSuccess }) => {
                         label="Business Name"
                         id={"complete_profile_business_name"}
                         name={"complete_profile_business_name"}
+                        value={createAccountInputData.business_name || ""}
+                        onChange={(e) => setCreateAccountInputData((data) =>
+                            ({ ...data, business_name: e.target.value })
+                        )}
                         helpText={"Name of your business, brand, or store."}
                     />
 
                     <Input
                         label="Business Address"
-                        id={"complete_profile_business_name"}
-                        name={"complete_profile_business_name"}
+                        id={"complete_profile_business_address"}
+                        name={"complete_profile_business_address"}
+                        value={createAccountInputData.business_address || ""}
+                        onChange={(e) => setCreateAccountInputData((data) =>
+                            ({ ...data, business_address: e.target.value })
+                        )}
                         helpText={"Main address where your business is located."}
                     />
 
@@ -137,9 +179,15 @@ const CompleteProfile = ({ onSignInSuccess }) => {
                 >
 
                     <Input
+                        showPasswordButton={true}
+                        type="password"
                         label="Create Password"
                         id={"complete_profile_create_password"}
                         name={"complete_profile_create_password"}
+                        value={createAccountInputData.create_password || ""}
+                        onChange={(e) => setCreateAccountInputData((data) =>
+                            ({ ...data, create_password: e.target.value })
+                        )}
                         helpText={
                             <>
                                 <span>
@@ -154,9 +202,15 @@ const CompleteProfile = ({ onSignInSuccess }) => {
                     />
 
                     <Input
+                        showPasswordButton={true}
+                        type="password"
                         label="Confirm Password (Type again)"
                         id={"complete_profile_confirm_password"}
                         name={"complete_profile_confirm_password"}
+                        value={createAccountInputData.confirm_password || ""}
+                        onChange={(e) => setCreateAccountInputData((data) =>
+                            ({ ...data, confirm_password: e.target.value })
+                        )}
                     />
 
                     <CTAButton

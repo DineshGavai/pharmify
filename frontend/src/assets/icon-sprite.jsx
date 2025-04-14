@@ -69,6 +69,14 @@ export const icons = {
             <path d="M3 12.5C4.44012 8.69531 7.80243 6 12 6C16.1976 6 19.5599 8.69531 21 12.5C19.5599 16.3047 16.1976 19 12 19C7.80243 19 4.44012 16.3047 3 12.5Z" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
     ),
+    eye_slash: (
+
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 12.5C4.44012 16.3047 7.80243 19 12 19C16.1976 19 19.5599 16.3047 21 12.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+
+
+    ),
     upload: (
         <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <g clipPath="url(#clip0_4613_2717)">
