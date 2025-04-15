@@ -110,6 +110,10 @@ nav button.user-info div span {
   text-align: start;
 }
 
+nav button.menu.user-info.active div span {
+  color: hsl(var(--clr-neutral-150));
+}
+
 nav button.user-info .email {
   font-size: var(--fs-200);
   color: hsl(var(--clr-neutral-700));
@@ -187,14 +191,24 @@ nav .nav-footer > div {
     padding-right: 0 !important;
   }
 
-  nav:not(.active) button.menu.user-info {
-    padding-left: 0px !important;
-    height: 5.7rem;
-  }
-
   nav:not(.active) button.menu {
     padding-left: 9px !important;
     height: 4rem;
+  }
+
+  nav button.menu.user-info {
+    max-height: 6rem;
+    margin-bottom: 0;
+  }
+
+  nav:not(.active) button.menu.user-info {
+    padding-left: 0 !important;
+    max-height: 4rem;
+    margin-bottom: 1.7rem;
+  }
+
+  nav:not(.active) button.menu.user-info img {
+    scale: 0.8;
   }
 
   nav:not(.active) .nav-footer > div {

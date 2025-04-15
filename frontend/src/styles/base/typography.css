@@ -65,6 +65,10 @@ p {
   font-weight: 600;
 }
 
+.text-italic {
+  font-style: italic;
+}
+
 .text-muted {
   color: hsl(var(--clr-neutral-600));
 }

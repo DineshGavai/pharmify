@@ -1,14 +1,21 @@
-import { GlobalProvider } from "./context/GlobalContext.jsx";
-import { Routes, Route, Navigate } from "react-router-dom";
-import { UserProvider } from "./context/UserContext.jsx";
+import { useState } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
+
 import Header from "./components/Header";
 import Navigation from "./components/Navigation.jsx";
-import UserLayout from "./pages/User/UserLayout.jsx";
-import { useState } from "react";
-import SignIn from "./pages/Auth/SignIn.jsx";
+
 import CreateAccount from "./pages/Auth/CreateAccount.jsx";
 import CompleteProfile from "./pages/Auth/CompleteProfile.jsx";
+import SignIn from "./pages/Auth/SignIn.jsx";
+import UserLayout from "./pages/User/UserLayout.jsx";
+
+import InventoryHome from "./pages/Inventory/InventoryHome.jsx";
+
+import { GlobalProvider } from "./context/GlobalContext.jsx";
+import { UserProvider } from "./context/UserContext.jsx";
+
 import { getFromLocalStorage, saveToLocalStorage } from "./utils/browserStorage.js";
+
 
 
 function App() {
@@ -41,8 +48,10 @@ function App() {
               <Header />
               <section className="main-body">
                 <Routes>
-                  <Route path="/" element={<UserLayout />} />
-                  <Route path="*" element={<Navigate to="/" />} />
+                  <Route path="/profile" element={<UserLayout />} />
+                  <Route path="/inventory" element={<InventoryHome />} />
+                  <Route path="/inventory/new" element={<InventoryHome />} />
+                  <Route path="*" element={<Navigate to="/inventory" />} />
                 </Routes>
               </section>
             </main>
