@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: var(--ff-default);
+  font-size: var(--fs-200);
   color: hsl(var(--clr-black));
   transition: all 0.2s linear;
   z-index: 10;

@@ -1,4 +1,5 @@
 import { formatDate } from "../../utils/date";
+import CTAButton from "../Button/CTAButton";
 
 const InventoryTableRow = ({ data }) => {
 
@@ -56,7 +57,8 @@ const InventoryTableRow = ({ data }) => {
         name: "CareSoft Hand Sanitizer",
         quantity: {
             units_per_pack: 1,
-            total_packs: 5
+            total_packs: 5,
+            reorder_level: 10
         }
     };
 
@@ -92,6 +94,24 @@ const InventoryTableRow = ({ data }) => {
     // 🧪 Use this to switch which data you're testing
     data = sampleDataNormal;
 
+    const extractCategoryStrings = (categories) => {
+        const result = [];
+
+        categories.forEach(group => {
+            const type = group.type;
+            const categories = group.categories;
+
+            Object.entries(categories).forEach(([category, subcategories]) => {
+                subcategories.forEach(sub => {
+                    result.push(`${type} / ${category} / ${sub}`);
+                });
+            });
+        });
+
+        return result;
+    };
+
+
     // Derivations
     const totalPacks = data.quantity.total_packs;
     const totalUnits = data.quantity.units_per_pack * totalPacks;
@@ -111,7 +131,7 @@ const InventoryTableRow = ({ data }) => {
     const isNoProfit = data.unit_selling_price === data.unit_cost_price;
 
     // ✅ Badges
-    const expiryBadge = !isExpired ? (
+    const expiryBadge = !isExpiringSoon && !isExpired ? (
         <span className="badge">Exp: {formatDate(data.expiry)}</span>
     ) : <></>;
 
@@ -142,32 +162,43 @@ const InventoryTableRow = ({ data }) => {
 
     return (
         <div className="inventory-table-row">
+            {/* # ID cell */}
+            <div className="cell id">
+                <p className="fs-200 text-muted"># {data.id || "Unknown ID"}</p>
+            </div>
             {/* Columns for Mobile */}
             <div className="col col-left">
-                {/* # ID cell */}
-                <div className="cell id">
-                    <p className="fs-200"># {data.id || "Unknown ID"}</p>
-                </div>
 
                 {/* Info cell */}
                 <div className="cell info">
-                    <p className="text-emphasis">{data.name || "Name not specified."}</p>
+                    <p className="text-emphasis name">{data.name || "Name not specified."}</p>
                     {
                         data.generic_name && <p className="text-italic">{data.generic_name}</p>
                     }
-                    <p className="text-muted">{data.brand || "Unknown Brand"}</p>
+                    <p className="text-muted text-emphasis">by {data.brand || "Unknown Brand"}</p>
                 </div>
 
                 {/* Category cell */}
                 <div className="cell category">
+
+                    <CTAButton
+                        label={
+                            <div>
+                                {extractCategoryStrings(data.categories).join(", ")}
+                            </div>
+                        }
+                        className="dropdown"
+                        iconName="chevron_down"
+                        rightIcon={true}
+                    />
 
                 </div>
             </div>
             <div className="col col-right">
                 {/* Price & Quantity cell */}
                 <div className="cell prices quantity">
-                    <p className="fs-500">
-                        <span className="fs-200">₹ </span>
+                    <p className="fs-500 text-emphasis">
+                        <span>₹ </span>
                         {data.unit_selling_price || "N/A"}
                         <span className="fs-300">/unit</span>
                     </p>
@@ -180,9 +211,10 @@ const InventoryTableRow = ({ data }) => {
                             }
                         </p>
                         <div className="divider"></div>
-                        <p className="fs-400">
-                            <span className="fs-200">₹ </span>
-                            {totalUnits * data.unit_selling_price || "N/A"}
+                        <p className="fs-300">
+                            <span>₹ </span>
+                            {totalUnits * data.unit_selling_price || "0"}
+                            <span> Total</span>
                         </p>
                     </div>
                 </div>

@@ -72,3 +72,11 @@ p {
 .text-muted {
   color: hsl(var(--clr-neutral-600));
 }
+
+.badge {
+  background: hsl(var(--clr-neutral-200));
+  padding: 0.4rem 0.8rem;
+  display: inline-block;
+  border-radius: 0.2rem;
+  font-weight: 500;
+}

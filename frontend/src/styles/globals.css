@@ -8,6 +8,7 @@
 @import url("./components/tabs.css");
 @import url("./components/input.css");
 @import url("./components/steps.css");
+@import url("./components/inventory.css");
 
 /* Layouts */
 @import url("./layouts/header.css");

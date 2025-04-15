@@ -110,6 +110,12 @@ button.text:hover {
   background-color: hsl(var(--clr-neutral-150));
 }
 
+button.dropdown {
+  border: 1px solid hsl(var(--clr-neutral-900));
+  padding: 0.4rem 1.2rem;
+  border-radius: 10rem;
+}
+
 /* /////////////////////////
   DIFFERENT BUTTON STATES
 ///////////////////////// */
