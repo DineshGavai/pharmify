@@ -1,7 +1,8 @@
 import { useContext, useEffect } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
 import CTAButton from "../../components/Button/CTAButton";
-import InventoryTableRow from "../../components/Inventory/InventoryTableRow";
+import InventoryItemTile from "../../components/Inventory/InventoryItemTile";
+import InventoryTableRow from "../../components/Inventory/InventoryItemRow";
 
 const InventoryHome = () => {
 
@@ -26,6 +27,9 @@ const InventoryHome = () => {
     return (
         <section className="main-sec">
             <InventoryTableRow />
+            <br />
+            <br />
+            <InventoryItemTile />
         </section>
     )
 }

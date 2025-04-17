@@ -51,12 +51,6 @@ section.main-sec {
   padding: 1.6rem;
 }
 
-@media screen and (min-width: 769px) {
-  section.main-sec {
-    padding: 1.6rem 3.2rem;
-  }
-}
-
 section.main-sec h2 {
   font-size: var(--fs-600);
   margin-bottom: 0.4rem;

@@ -76,3 +76,49 @@ form {
 .input-box p.help-text span {
   color: hsl(var(--clr-neutral-600));
 }
+
+/* /////////////////////////
+  CHECKBOX
+ ///////////////////////// */
+
+.input-box.checkbox label {
+  position: static;
+  font-size: var(--fs-200);
+  margin-bottom: 0;
+  display: flex;
+  gap: 0.8rem;
+  background-color: transparent;
+  user-select: none;
+  cursor: pointer;
+}
+
+.input-box.checkbox:has(input:focus) label,
+.input-box.checkbox.filled label {
+  font-size: var(--fs-300);
+}
+
+.input-box.checkbox input {
+  --size: 1.6rem;
+  width: var(--size);
+  aspect-ratio: 1;
+  border: 1px solid hsl(var(--clr-neutral-800));
+  border-radius: 0.2rem;
+  outline: none;
+  appearance: none;
+  position: relative;
+}
+
+.input-box.checkbox input::before {
+  content: '';
+  position: absolute;
+  width: calc(100% + 0.8rem);
+  height: calc(100% + 0.8rem);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+
+.input-box.checkbox input:checked {
+  background-color: hsl(var(--clr-neutral-900));
+}

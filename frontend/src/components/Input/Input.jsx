@@ -152,12 +152,8 @@ Input.propTypes = {
     clearable: PropTypes.bool,
 
     // Icons & Buttons
-    leftIcon: PropTypes.node,
-    rightIcon: PropTypes.node,
-    leftButton: PropTypes.node,
-    rightButton: PropTypes.node,
-    leftButtonOnClick: PropTypes.func,
-    rightButtonOnClick: PropTypes.func,
+    leftElem: PropTypes.node,
+    rightElem: PropTypes.node,
 
     // Messaging
     helpText: PropTypes.string,
