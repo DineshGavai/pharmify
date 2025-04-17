@@ -1,13 +1,11 @@
 import { sampleDataExpired, sampleDataExpiring, sampleDataInLoss, sampleDataLowStock, sampleDataNoProfit, sampleDataNormal, sampleDataOutOfStock } from "../../utils/data.js";
-import { formatDate } from "../../utils/date.js";
+import { formatDate, getTimeDifferenceLong, getTimeDifferenceShort } from "../../utils/date.js";
 import { extractCategoryStrings, getInventoryMetrics } from "../../utils/inventory.js";
 import CTAButton from "../Button/CTAButton.jsx";
 import Checkbox from "../Input/Checkbox.jsx";
+import IconButton from "../Button/IconButton.jsx";
 
-const InventoryTableRow = ({ data }) => {
-
-    // 🧪 Use this to switch which data you're testing
-    data = sampleDataNormal;
+const InventoryItemRow = ({ data }) => {
 
     const {
         totalPacks,
@@ -21,13 +19,15 @@ const InventoryTableRow = ({ data }) => {
     } = getInventoryMetrics(data);
 
 
-    const expiryBadge = !isExpiringSoon && !isExpired && <span className="badge">Exp: {formatDate(data.expiry)}</span>;
-    const expirySoonBadge = isExpiringSoon && <span className="badge">Expiring Soon: {formatDate(data.expiry)}</span>;
-    const expiredBadge = isExpired && <span className="badge">Expired on: {formatDate(data.expiry)}</span>;
-    const lowStockBadge = isLowStock && !isOutOfStock && <span className="badge">Low Stock</span>;
-    const outOfStockBadge = isOutOfStock && <span className="badge">Out of Stock</span>;
-    const inLossBadge = isInLoss && <span className="badge">Selling in Loss</span>;
-    const noProfitBadge = isNoProfit && <span className="badge">No Profit</span>;
+    const expiryRemainingTime = getTimeDifferenceShort(new Date(), data.expiry)
+
+
+    const expirySoonBadge = <span className="badge">Only {expiryRemainingTime} left</span>;
+    const expiredBadge = <span className="badge">Expired</span>;
+    const lowStockBadge = <span className="badge">Low Stock</span>;
+    const outOfStockBadge = <span className="badge">Out of Stock</span>;
+    const inLossBadge = <span className="badge">Selling in Loss</span>;
+    const noProfitBadge = <span className="badge">No Profit</span>;
 
     return (
         <div className="inventory-item row">
@@ -65,43 +65,55 @@ const InventoryTableRow = ({ data }) => {
             </div>
 
             {/* Selling Price cell */}
-            <div className="cell selling-price">
+            <div className="cell price">
 
                 <p className="fs-500">
                     <span>₹ </span>
                     {data.unit_selling_price || "N/A"}
                     <span className="fs-300">/unit</span>
                 </p>
-                <p className="text-muted">
-                    (Cost Price: ₹{data.unit_cost_price})
-                </p>
+                <p className="text-muted">(Cost: ₹{data.unit_cost_price}/unit)</p>
+                {isInLoss && inLossBadge}
+                {isNoProfit && noProfitBadge}
 
             </div>
 
             {/* Available Quanity cell */}
             <div className="cell available-quantity">
 
-                <p className="fs-500">{totalUnits} units
+                <p className="fs-500">
+                    {totalUnits || "0"}
+                    <span className="fs-300"> unit{!(totalUnits == 1) && `s`}</span>
                 </p>
                 <p className="text-muted">
-                    {data.quantity.units_per_pack > 1 && ` (${totalPacks} packs)`}
+                    {data.quantity.units_per_pack > 1 && ` (${totalPacks} pack${!(totalUnits == 1) ? "s" : ""})`}
                 </p>
+
+                {isLowStock && !isOutOfStock && lowStockBadge}
+                {isOutOfStock && outOfStockBadge}
 
             </div>
 
             {/* Expiry Date cell */}
             <div className="cell expiry">
+                <p className="fs-400">{formatDate(data.expiry, "mm/yy")}</p>
+                {
+                    (!isExpiringSoon && !isExpired) && <p className="text-muted">({expiryRemainingTime} left)</p>
+                }
+                {(isExpiringSoon && !isExpired) && expirySoonBadge}
+                {isExpired && expiredBadge}
+            </div>
 
-                <p className="fs-400">{formatDate(data.expiry)}</p>
-                <p className="text-muted">
-                    ({formatDate(new Date(data.expiry) - new Date())})
-                </p>
-
-
+            {/* Expand Btn cell */}
+            <div className="cell expand">
+                <IconButton
+                    iconName={"arrow_right"}
+                    className="row-expand-btn"
+                />
             </div>
         </div>
     )
 
 }
 
-export default InventoryTableRow;
+export default InventoryItemRow;

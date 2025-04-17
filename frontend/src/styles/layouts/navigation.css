@@ -165,6 +165,7 @@ nav .nav-footer > div {
 
   nav {
     max-width: 6rem;
+    min-width: 6rem;
     overflow: hidden;
   }
 

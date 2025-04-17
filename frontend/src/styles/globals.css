@@ -32,7 +32,6 @@ main .main-body {
   height: calc(100vh - var(--header-height));
   height: 100vh;
   overflow: auto;
-  padding-bottom: 16rem;
 }
 
 @media screen and (min-width: 1024px) {

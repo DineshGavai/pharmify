@@ -21,7 +21,7 @@ const InventoryItemTile = ({ data }) => {
 
 
     const expiryBadge = !isExpiringSoon && !isExpired && <span className="badge">Exp: {formatDate(data.expiry)}</span>;
-    const expirySoonBadge = isExpiringSoon && <span className="badge">Expiring Soon: {formatDate(data.expiry)}</span>;
+    const expirySoonBadge = isExpiringSoon && <span className="badge">Expiring on: {formatDate(data.expiry)}</span>;
     const expiredBadge = isExpired && <span className="badge">Expired on: {formatDate(data.expiry)}</span>;
     const lowStockBadge = isLowStock && !isOutOfStock && <span className="badge">Low Stock</span>;
     const outOfStockBadge = isOutOfStock && <span className="badge">Out of Stock</span>;

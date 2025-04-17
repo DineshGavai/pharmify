@@ -82,4 +82,6 @@ p {
   border-radius: 0.2rem;
   font-weight: 500;
   height: fit-content;
+  text-align: center;
+  text-wrap: nowrap;
 }

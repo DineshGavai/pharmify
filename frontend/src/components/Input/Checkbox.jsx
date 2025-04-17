@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
+import Icon from "../Icon";
 
 const Checkbox = ({
     // Core Input Attributes
@@ -34,9 +35,9 @@ const Checkbox = ({
     return (
         <div className={`input-box checkbox`}>
 
-            <div className="input-frame">
-                <label htmlFor={`${id}`} >
+            <label htmlFor={`${id}`} >
 
+                <div className="input-frame">
                     <input
                         type={type}
                         checkboxgroup={checkboxgroup}
@@ -60,10 +61,17 @@ const Checkbox = ({
 
                     />
 
+                    {
+                        type == "checkbox" &&
+                        <Icon
+                            iconName={"check_lg"}
+                            className={"checkmark"}
+                        />
+                    }
+                </div>
 
-                    {label} {!required && "(optional)"}
-                </label>
-            </div>
+                {label} {!required && "(optional)"}
+            </label>
             <p className="help-text text-muted">{helpText}</p>
         </div>
     )

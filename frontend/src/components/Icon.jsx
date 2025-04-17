@@ -3,9 +3,9 @@ import { cloneElement } from "react";
 import { icons } from "../assets/icon-sprite.jsx";
 
 // Function to reset the SVG attributes
-const resetSVGAttr = (icon) => {
+const resetSVGAttr = (icon, iconName, className) => {
     return cloneElement(icon, {
-        className: "icon",
+        className: `icon ${iconName} ${className}`,
         stroke: undefined,
         fill: undefined,
         children: Array.isArray(icon.props.children)
@@ -14,11 +14,11 @@ const resetSVGAttr = (icon) => {
     });
 };
 
-const Icon = ({ iconName }) => {
+const Icon = ({ iconName, className }) => {
 
     const iconSVG = icons[iconName.toLowerCase()];
     if (!iconSVG) throw new Error(`Icon Not Found: "${iconName}" is not available`);
-    return resetSVGAttr(iconSVG);
+    return resetSVGAttr(iconSVG, iconName, className);
 };
 
 Icon.propTypes = {

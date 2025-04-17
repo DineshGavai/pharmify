@@ -107,6 +107,16 @@ export const icons = {
             </defs>
         </svg>
     ),
+    check: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 12.5L10.6669 15L16 10" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+    ),
+    check_lg: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 12L10.2426 16.2426L18.727 7.75732" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+    ),
 
     // Arrows
     chevron_up: (
@@ -159,6 +169,33 @@ export const icons = {
             <defs>
                 <clipPath id="clip0_4596_2429">
                     <rect width="24" height="24" />
+                </clipPath>
+            </defs>
+        </svg>
+    ),
+    arrow_left: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clipPath="url(#clip0_2497_25890)">
+                <path d="M5 12H19" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M12 5L5 12L12 19" strokeLinecap="round" strokeLinejoin="round" />
+            </g>
+            <defs>
+                <clipPath id="clip0_2497_25890">
+                    <rect width="24" height="24" fill="white" />
+                </clipPath>
+            </defs>
+        </svg>
+
+    ),
+    arrow_right: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clipPath="url(#clip0_2497_25891)">
+                <path d="M19 12L5 12" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M12 19L19 12L12 5" strokeLinecap="round" strokeLinejoin="round" />
+            </g>
+            <defs>
+                <clipPath id="clip0_2497_25891">
+                    <rect width="24" height="24" fill="white" />
                 </clipPath>
             </defs>
         </svg>
