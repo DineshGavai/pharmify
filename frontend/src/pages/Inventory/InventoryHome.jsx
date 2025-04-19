@@ -2,6 +2,9 @@ import { useContext, useEffect } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
 import CTAButton from "../../components/Button/CTAButton";
 import InventoryTable from "../../components/Inventory/InventoryTable";
+import InventoryItemTile from "../../components/Inventory/InventoryItemTile";
+import { exampleInventoryList } from "../../utils/data";
+import IconButton from "../../components/Button/IconButton";
 
 const InventoryHome = () => {
 
@@ -13,7 +16,8 @@ const InventoryHome = () => {
             heading: "Inventory",
             elements:
                 <>
-                    <CTAButton label="Add product" className="primary" />
+                    <IconButton iconName={"add"} className="primary mobile-only" />
+                    <CTAButton label="Add product" iconName="add" className="primary tab-desk-only" />
                 </>
         })
 
@@ -26,6 +30,7 @@ const InventoryHome = () => {
     return (
         <section className="main-sec inventory-sec">
             <InventoryTable />
+            <InventoryItemTile data={exampleInventoryList[0]} />
         </section>
     )
 }

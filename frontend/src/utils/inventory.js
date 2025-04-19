@@ -43,3 +43,11 @@ export const getInventoryMetrics = (data) => {
         isNoProfit
     };
 }
+
+export const controlledInput = (setter, key_name) => (e) => {
+    const value = e.target.value; // capture the value immediately
+    setter((data) => ({
+        ...data,
+        [key_name]: value,
+    }));
+};

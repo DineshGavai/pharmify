@@ -14,17 +14,18 @@ import InventoryHome from "./pages/Inventory/InventoryHome.jsx";
 import { GlobalProvider } from "./context/GlobalContext.jsx";
 import { UserProvider } from "./context/UserContext.jsx";
 
-import { getFromLocalStorage, saveToLocalStorage } from "./utils/browserStorage.js";
+import { getCookie, setCookie } from "./utils/browserStorage.js";
+import InventoryProductView from "./pages/Inventory/InventoryProductView.jsx";
 
 
 
 function App() {
 
-  const [isSignedIn, setIsSignedIn] = useState(getFromLocalStorage("isSignedIn") || false);
+  const [isSignedIn, setIsSignedIn] = useState(getCookie("isSignedIn") || false);
 
 
   const onSignInSuccess = () => {
-    saveToLocalStorage("isSignedIn", true);
+    setCookie("isSignedIn", true);
     setIsSignedIn(true)
   }
 
@@ -50,7 +51,7 @@ function App() {
                 <Routes>
                   <Route path="/profile" element={<UserLayout />} />
                   <Route path="/inventory" element={<InventoryHome />} />
-                  <Route path="/inventory/new" element={<InventoryHome />} />
+                  <Route path="/inventory/product" element={<InventoryProductView />} />
                   <Route path="*" element={<Navigate to="/inventory" />} />
                 </Routes>
               </section>

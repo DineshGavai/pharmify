@@ -1,4 +1,5 @@
-import { sampleDataExpired, sampleDataExpiring, sampleDataInLoss, sampleDataLowStock, sampleDataNoProfit, sampleDataNormal, sampleDataOutOfStock } from "../../utils/data.js";
+import { useEffect } from "react";
+import { exampleInventoryList } from "../../utils/data.js";
 import Checkbox from "../Input/Checkbox.jsx";
 import InventoryItemRow from "./InventoryItemRow";
 
@@ -6,48 +7,53 @@ import InventoryItemRow from "./InventoryItemRow";
 const InventoryTable = ({ data }) => {
 
     return (
-        <section className="inventory-table">
+        <table className="inventory-table">
             {/* Header */}
-            <header className="table-header">
-                <div className="cell checkbox">
-                    <Checkbox
-                        id={"select_all"}
-                        name={"select_all"}
-                    />
-                </div>
-                <div className="cell info">
-                    Name & Brand
-                </div>
-                <div className="cell category">
-                    Category
-                </div>
-                <div className="cell price">
-                    Price
-                </div>
-                <div className="cell available-quantity">
-                    Available Quantity
-                </div>
-                <div className="cell expiry">
-                    Expiry
-                </div>
-                <div className="cell expand">
-                    View
-                </div>
-            </header>
+            <thead className="table-header">
+                <tr>
+                    <th className="cell checkbox">
+                        <Checkbox
+                            id={"select_all"}
+                            name={"select_all"}
+                        />
+                    </th>
+                    <th className="cell info">
+                        Name & Brand
+                    </th>
+                    <th className="cell category">
+                        Category
+                    </th>
+                    <th className="cell price">
+                        Price
+                    </th>
+                    <th className="cell available-quantity">
+                        Available Quantity
+                    </th>
+                    <th className="cell expiry">
+                        Expiry
+                    </th>
+                    <th className="cell expand">
+                        View
+                    </th>
+                </tr>
+            </thead>
 
 
             {/* ROWS */}
-            <div className="table-content">
-                <InventoryItemRow data={sampleDataNormal} />
-                <InventoryItemRow data={sampleDataExpired} />
-                <InventoryItemRow data={sampleDataExpiring} />
-                <InventoryItemRow data={sampleDataInLoss} />
-                <InventoryItemRow data={sampleDataLowStock} />
-                <InventoryItemRow data={sampleDataNoProfit} />
-                <InventoryItemRow data={sampleDataOutOfStock} />
-            </div>
+            <tbody className="table-content">
 
-        </section>
+                {
+                    exampleInventoryList?.map((item, i) => (
+                        <InventoryItemRow data={item} key={i} />
+                    ))
+                }
+
+                <tr className="padding-row">
+                    <td></td>
+                </tr>
+            </tbody>
+
+        </table>
     )
 
 

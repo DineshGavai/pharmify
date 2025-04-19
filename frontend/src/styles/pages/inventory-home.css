@@ -1,8 +1,5 @@
 .main-sec.inventory-sec {
   position: relative;
-  overflow: hidden;
-  height: 100%;
-  padding: 0;
 }
 
 /* /////////////////////////
@@ -19,6 +16,7 @@
   column-gap: 0.8rem;
   border-radius: 0.2rem;
   max-width: 56rem;
+  min-width: 24rem;
   overflow: hidden;
   width: 100%;
   --lines: 2;
@@ -104,49 +102,6 @@
 }
 
 /* /////////////////////////
-  INVENTORY ITEM ROW
-///////////////////////// */
-
-.inventory-table .table-header,
-.inventory-item.row {
-  display: flex;
-  align-items: stretch;
-  justify-content: space-between;
-  width: 100%;
-  min-width: 56rem;
-  border-bottom: 1px solid hsl(var(--clr-neutral-200));
-}
-
-.inventory-item.row > * {
-  padding: 1.6rem 1.2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-
-.inventory-item.row .cell.checkbox input::before {
-  width: calc(100% + 2rem);
-}
-
-.inventory-item.row .cell:is(.price, .available-quantity, .expiry) {
-  align-items: end;
-}
-
-.inventory-item.row .cell:is(.price, .available-quantity, .expiry) p {
-  white-space: nowrap;
-  text-align: right;
-}
-
-.inventory-item.row .cell.info .id {
-  margin-bottom: 0.8rem;
-}
-
-.inventory-item.row .cell.category button {
-  width: 18rem !important;
-}
-
-/* /////////////////////////
   COMMON
 ///////////////////////// */
 
@@ -159,7 +114,7 @@
 }
 
 .inventory-item:is(.tile, .row) .cell .name {
-  font-size: var(--fs-400);
+  font-size: var(--fs-300);
   text-overflow: ellipsis;
 }
 
@@ -175,61 +130,80 @@
 /* /////////////////////////
   TABLE
 ///////////////////////// */
-
 .inventory-table {
-  overflow-x: auto;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  padding: 0 1.6rem;
+  width: 100%;
 }
 
 .inventory-table .table-header {
-  position: sticky;
   top: 0;
-  background-color: hsl(var(--clr-white));
-  z-index: 11;
-  border-bottom: 1px solid hsl(var(--clr-neutral-400));
-}
-
-.inventory-table .table-content {
-  height: 100vh;
-}
-
-.inventory-table .table-header .cell {
-  padding: 1.6rem 1.2rem;
-  display: flex;
-  align-items: center;
-  font-weight: 500;
-  font-size: var(--fs-300);
-}
-
-:is(.inventory-table .table-header, .inventory-item.row)
-  .cell:is(.checkbox, .expand) {
-  width: fit-content;
-}
-
-:is(.inventory-table .table-header, .inventory-item.row) .cell.info {
+  z-index: 20;
   position: sticky;
-  left: 0;
-  width: 20rem;
-  min-width: 20rem;
+  background-color: hsl(var(--clr-white));
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.inventory-table .cell.info,
+.inventory-table .cell.expand {
+  position: sticky;
   background-color: hsl(var(--clr-white));
   z-index: 11;
 }
 
-:is(.inventory-table .table-header, .inventory-item.row) .cell.category {
-  width: calc(18rem + (1.2rem * 2));
-  min-width: calc(18rem + (1.2rem * 2));
+.inventory-table .cell.info {
+  left: 0;
+  padding-right: 1.6rem;
+  min-width: 14rem;
 }
 
-:is(.inventory-table .table-header, .inventory-item.row)
-  .cell:is(.price, .available-quantity, .expiry) {
-  width: 16rem;
+.inventory-table .cell.expand {
+  right: 0;
+  padding-left: 1.6rem;
+}
+
+.inventory-table .table-header tr th {
+  padding-bottom: 1.6rem;
+}
+
+.inventory-table .table-content tr td {
+  border-bottom: 1px solid hsl(var(--clr-neutral-200));
+  margin-bottom: 0.1rem;
+}
+
+.inventory-table .padding-row td {
+  padding-bottom: 12rem;
+  border: none !important;
+}
+
+.inventory-table .cell {
+  padding: 0.8rem 1.2rem;
+}
+
+.inventory-table .cell.category button {
+  max-width: 14rem;
+}
+
+.inventory-table .cell:is(.price, .available-quantity, .expiry) {
+  text-align: right;
   min-width: 16rem;
 }
 
-.inventory-table .table-header .cell:is(.price, .available-quantity, .expiry) {
-  text-align: right;
-  justify-content: end;
+.inventory-table .cell .badge {
+  width: fit-content;
+  margin-left: auto;
+}
+
+/* /////////////////////////
+  VISIBILITY OF DATA LISTS
+///////////////////////// */
+
+@media screen and (min-width: 559px) {
+  .inventory-item.tile {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 559px) {
+  .inventory-table {
+    display: none;
+  }
 }

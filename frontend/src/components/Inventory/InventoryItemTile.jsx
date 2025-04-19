@@ -1,12 +1,13 @@
-import { sampleDataExpired, sampleDataExpiring, sampleDataInLoss, sampleDataLowStock, sampleDataNoProfit, sampleDataNormal, sampleDataOutOfStock } from "../../utils/data.js";
+import { useNavigate } from "react-router-dom";
+import { saveToLocalStorage } from "../../utils/browserStorage.js";
 import { formatDate } from "../../utils/date.js";
 import { extractCategoryStrings, getInventoryMetrics } from "../../utils/inventory.js";
 import CTAButton from "../Button/CTAButton.jsx";
+import IconButton from "../Button/IconButton.jsx";
 
 const InventoryItemTile = ({ data }) => {
 
-    // 🧪 Use this to switch which data you're testing
-    data = sampleDataNormal;
+    const navigate = useNavigate();
 
     const {
         totalPacks,
@@ -82,7 +83,7 @@ const InventoryItemTile = ({ data }) => {
                         <div className="divider"></div>
                         <p className="fs-300">
                             <span>₹ </span>
-                            {totalUnits * data.unit_selling_price || "0"}
+                            {totalUnits * data.unit_selling_price ?? "N/A"}
                             <span> Total</span>
                         </p>
                     </div>
@@ -98,6 +99,13 @@ const InventoryItemTile = ({ data }) => {
                     {outOfStockBadge}
                     {noProfitBadge}
                     {inLossBadge}
+                    <IconButton
+                        iconName={"arrow_right"}
+                        onClick={() => {
+                            saveToLocalStorage("viewed_product", data)
+                            navigate("/inventory/product")
+                        }}
+                    />
                 </div>
             </div>
         </div>

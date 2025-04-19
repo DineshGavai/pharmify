@@ -98,6 +98,7 @@ const Input = ({
                     readOnly={readOnly}
 
                     // Validation
+                    spellCheck={spellCheck}
                     required={required}
                     pattern={pattern}
 

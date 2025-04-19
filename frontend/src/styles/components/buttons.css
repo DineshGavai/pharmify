@@ -11,7 +11,7 @@ button {
   align-items: center;
   justify-content: center;
   gap: 0.8rem;
-  padding: 1rem 2.4rem;
+  padding: .8rem 2.4rem;
   text-transform: capitalize;
   user-select: none;
   overflow: hidden;
@@ -52,6 +52,10 @@ button.icon .icon {
 
 button.icon:hover {
   background-color: hsl(var(--clr-neutral-150));
+}
+
+button.primary.icon:hover {
+  background-color: hsl(var(--clr-neutral-800));
 }
 
 button.icon:focus-visible {

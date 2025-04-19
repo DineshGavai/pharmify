@@ -1,0 +1,59 @@
+/* /////////////////////////
+    INPUT RESETS
+///////////////////////// */
+
+.inventory-product-view .input-box {
+  margin-bottom: 1.2rem;
+}
+
+.inventory-product-view .input-box label {
+  position: static;
+  font-size: var(--fs-200);
+  margin-bottom: 0rem;
+}
+
+.inventory-product-view .input-box:has(input:focus) label {
+  font-size: var(--fs-200);
+}
+
+.inventory-product-view.editable .input-box:has(input:required) label::after {
+  content: "*";
+  color: red;
+  padding-left: 0.4rem;
+}
+
+.inventory-product-view .input-frame.text-input {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+  padding: 0 0.4rem;
+}
+
+.inventory-product-view:not(.editable) .input-frame.text-input {
+  border-bottom: none;
+}
+
+.inventory-product-view .input-frame.text-input input {
+  padding: 0.4rem 0;
+  font-weight: 500;
+}
+
+.inventory-product-view .input-frame.text-input input:disabled {
+  opacity: 1;
+  color: hsl(var(--clr-neutral-900));
+}
+
+.inventory-product-view .input-frame.text-input input::placeholder {
+  color: hsl(var(--clr-neutral-400));
+}
+
+/* /////////////////////////
+    CORE DETAILS SECTION
+///////////////////////// */
+
+.core-details > div {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2.4rem;
+}

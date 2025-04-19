@@ -1,11 +1,14 @@
-import { sampleDataExpired, sampleDataExpiring, sampleDataInLoss, sampleDataLowStock, sampleDataNoProfit, sampleDataNormal, sampleDataOutOfStock } from "../../utils/data.js";
 import { formatDate, getTimeDifferenceLong, getTimeDifferenceShort } from "../../utils/date.js";
 import { extractCategoryStrings, getInventoryMetrics } from "../../utils/inventory.js";
+import { saveToLocalStorage } from "../../utils/browserStorage.js"
+import { useNavigate } from "react-router-dom";
 import CTAButton from "../Button/CTAButton.jsx";
 import Checkbox from "../Input/Checkbox.jsx";
 import IconButton from "../Button/IconButton.jsx";
 
 const InventoryItemRow = ({ data }) => {
+
+    const navigate = useNavigate();
 
     const {
         totalPacks,
@@ -30,16 +33,16 @@ const InventoryItemRow = ({ data }) => {
     const noProfitBadge = <span className="badge">No Profit</span>;
 
     return (
-        <div className="inventory-item row">
-            <div className="cell checkbox">
+        <tr className="inventory-item row">
+            <td className="cell checkbox">
                 <Checkbox
-                    id="checkbox_1"
+                    id={`checkbox_${data.id}`}
                     name="checkboxes"
                 />
-            </div>
+            </td>
 
             {/* Info cell */}
-            <div className="cell info">
+            <td className="cell info">
                 <div>
                     <p className="fs-200 text-muted id"># {data.id || "Unknown ID"}</p>
                     <p className="text-emphasis name">{data.name || "Name not specified."}</p>
@@ -48,10 +51,10 @@ const InventoryItemRow = ({ data }) => {
                     }
                     <p className="text-muted brand">by {data.brand || "Unknown Brand"}</p>
                 </div>
-            </div>
+            </td>
 
             {/* Category cell */}
-            <div className="cell category">
+            <td className="cell category">
                 <CTAButton
                     label={
                         <div>
@@ -62,27 +65,27 @@ const InventoryItemRow = ({ data }) => {
                     iconName="chevron_down"
                     rightIcon={true}
                 />
-            </div>
+            </td>
 
             {/* Selling Price cell */}
-            <div className="cell price">
+            <td className="cell price">
 
                 <p className="fs-500">
                     <span>₹ </span>
                     {data.unit_selling_price || "N/A"}
                     <span className="fs-300">/unit</span>
                 </p>
-                <p className="text-muted">(Cost: ₹{data.unit_cost_price}/unit)</p>
+                <p className="text-muted">Cost: ₹{data.unit_cost_price}/unit</p>
                 {isInLoss && inLossBadge}
                 {isNoProfit && noProfitBadge}
 
-            </div>
+            </td>
 
             {/* Available Quanity cell */}
-            <div className="cell available-quantity">
+            <td className="cell available-quantity">
 
                 <p className="fs-500">
-                    {totalUnits || "0"}
+                    {totalUnits ?? "N/A"}
                     <span className="fs-300"> unit{!(totalUnits == 1) && `s`}</span>
                 </p>
                 <p className="text-muted">
@@ -92,26 +95,30 @@ const InventoryItemRow = ({ data }) => {
                 {isLowStock && !isOutOfStock && lowStockBadge}
                 {isOutOfStock && outOfStockBadge}
 
-            </div>
+            </td>
 
             {/* Expiry Date cell */}
-            <div className="cell expiry">
+            <td className="cell expiry">
                 <p className="fs-400">{formatDate(data.expiry, "mm/yy")}</p>
                 {
-                    (!isExpiringSoon && !isExpired) && <p className="text-muted">({expiryRemainingTime} left)</p>
+                    (!isExpiringSoon && !isExpired) && <p className="text-muted">{expiryRemainingTime} left</p>
                 }
                 {(isExpiringSoon && !isExpired) && expirySoonBadge}
                 {isExpired && expiredBadge}
-            </div>
+            </td>
 
             {/* Expand Btn cell */}
-            <div className="cell expand">
+            <td className="cell expand">
                 <IconButton
                     iconName={"arrow_right"}
                     className="row-expand-btn"
+                    onClick={() => {
+                        saveToLocalStorage("viewed_product", data)
+                        navigate("/inventory/product")
+                    }}
                 />
-            </div>
-        </div>
+            </td>
+        </tr>
     )
 
 }
