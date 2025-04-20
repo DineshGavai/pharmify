@@ -1,23 +1,31 @@
-import { GlobalProvider } from "./context/GlobalContext.jsx";
-import { Routes, Route, Navigate } from "react-router-dom";
-import { UserProvider } from "./context/UserContext.jsx";
+import { useContext, useState } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
+
 import Header from "./components/Header";
 import Navigation from "./components/Navigation.jsx";
-import UserLayout from "./pages/User/UserLayout.jsx";
-import { useState } from "react";
-import SignIn from "./pages/Auth/SignIn.jsx";
+
 import CreateAccount from "./pages/Auth/CreateAccount.jsx";
 import CompleteProfile from "./pages/Auth/CompleteProfile.jsx";
-import { getFromLocalStorage, saveToLocalStorage } from "./utils/browserStorage.js";
+import SignIn from "./pages/Auth/SignIn.jsx";
+import UserLayout from "./pages/User/UserLayout.jsx";
+
+import InventoryHome from "./pages/Inventory/InventoryHome.jsx";
+
+import { GlobalProvider } from "./context/GlobalContext.jsx";
+import { UserContext, UserProvider } from "./context/UserContext.jsx";
+
+import { getCookie, getFromLocalStorage, setCookie } from "./utils/browserStorage.js";
+import InventoryProductView from "./pages/Inventory/InventoryProductView.jsx";
+
 
 
 function App() {
 
-  const [isSignedIn, setIsSignedIn] = useState(getFromLocalStorage("isSignedIn") || false);
+  const [isSignedIn, setIsSignedIn] = useState(getCookie("isSignedIn") || false);
 
 
   const onSignInSuccess = () => {
-    saveToLocalStorage("isSignedIn", true);
+    setCookie("isSignedIn", true);
     setIsSignedIn(true)
   }
 
@@ -41,8 +49,10 @@ function App() {
               <Header />
               <section className="main-body">
                 <Routes>
-                  <Route path="/" element={<UserLayout />} />
-                  <Route path="*" element={<Navigate to="/" />} />
+                  <Route path="/profile" element={<UserLayout />} />
+                  <Route path="/inventory" element={<InventoryHome />} />
+                  <Route path="/inventory/product" element={<InventoryProductView />} />
+                  <Route path="*" element={<Navigate to="/inventory" />} />
                 </Routes>
               </section>
             </main>

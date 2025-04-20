@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import { ThirdPartyLogos } from "../../assets/illus/logo-third-party";
 import { Link, useNavigate } from "react-router-dom";
 import CTAButton from "../../components/Button/CTAButton";
@@ -6,13 +6,16 @@ import Input from "../../components/Input/Input.jsx";
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import axios from "axios";
 import { apiRequest } from "../../utils/api.js";
-import { saveToLocalStorage } from "../../utils/browserStorage.js";
+import { getFromLocalStorage, saveToLocalStorage } from "../../utils/browserStorage.js";
+import { UserContext } from "../../context/UserContext.jsx";
 
 const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
 const SignIn = ({ onSignInSuccess }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const { userInfo, setUserInfo } = useContext(UserContext);
     const navigate = useNavigate();
 
     const handleFormSubmit = async (e) => {
@@ -30,6 +33,7 @@ const SignIn = ({ onSignInSuccess }) => {
                 console.log("Login successful:", data);
 
                 onSignInSuccess();
+                setUserInfo(getFromLocalStorage("user").user || {});
             },
             onError: (error) => {
                 console.log(error.message);
@@ -51,6 +55,7 @@ const SignIn = ({ onSignInSuccess }) => {
 
 
             onSignInSuccess();
+            setUserInfo(getFromLocalStorage("user").user || {});
 
         } catch (error) {
             console.error("Google Login Failed:", error);

@@ -1,0 +1,209 @@
+.main-sec.inventory-sec {
+  position: relative;
+}
+
+/* /////////////////////////
+    INVENTORY ITEM TILE
+///////////////////////// */
+
+.inventory-item.tile {
+  border: 1px solid hsl(var(--clr-neutral-200));
+  display: grid;
+  grid-template-areas:
+    "A A"
+    "B C"
+    "D D";
+  column-gap: 0.8rem;
+  border-radius: 0.2rem;
+  max-width: 56rem;
+  min-width: 24rem;
+  overflow: hidden;
+  width: 100%;
+  --lines: 2;
+}
+
+.inventory-item.tile > * {
+  padding: 0.4rem 0.8rem;
+  width: 100%;
+}
+
+.inventory-item.tile .cell.id {
+  grid-area: A;
+}
+
+.inventory-item.tile .col-left {
+  grid-area: B;
+  flex: 1 1 0;
+  max-width: 28rem;
+  overflow: hidden;
+}
+
+.inventory-item.tile .col-right {
+  grid-area: C;
+  width: fit-content;
+  margin-left: auto;
+}
+
+.inventory-item.tile .base {
+  grid-area: D;
+  border-top: 1px solid hsl(var(--clr-neutral-150));
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.inventory-item.tile .base div {
+  margin-left: auto;
+  display: flex;
+  gap: 0.4rem;
+}
+
+.inventory-item.tile .cell.info {
+  margin-bottom: 0.8rem;
+}
+
+.inventory-item.tile .cell .generic-name {
+  --lines: 2;
+}
+
+.inventory-item.tile .cell .brand {
+  --lines: 1;
+}
+
+.inventory-item.tile .total-box .divider {
+  width: 100%;
+  min-width: 12rem;
+  border-top: 1px dashed hsl(var(--clr-neutral-900));
+  margin: 0.8rem 0;
+}
+
+.inventory-item.tile .cell.category button {
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.4rem;
+  gap: 0.4rem;
+  max-width: 100%;
+  font-weight: 400;
+}
+
+.inventory-item.tile .cell.category button div {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.inventory-item.tile .cell.prices {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.inventory-item.tile .cell.prices .total-box {
+  margin-top: 1.6rem;
+}
+
+/* /////////////////////////
+  COMMON
+///////////////////////// */
+
+.inventory-item:is(.tile, .row) :is(.name, .generic-name, .brand) {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: var(--lines);
+  line-clamp: var(--lines);
+  -webkit-box-orient: vertical;
+}
+
+.inventory-item:is(.tile, .row) .cell .name {
+  font-size: var(--fs-300);
+  text-overflow: ellipsis;
+}
+
+.inventory-item:is(.tile, .row) .cell.category button {
+  border: 1px solid hsl(var(--clr-neutral-400));
+}
+
+.inventory-item:is(.tile, .row) .cell.category button div {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* /////////////////////////
+  TABLE
+///////////////////////// */
+.inventory-table {
+  width: 100%;
+}
+
+.inventory-table .table-header {
+  top: 0;
+  z-index: 20;
+  position: sticky;
+  background-color: hsl(var(--clr-white));
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.inventory-table .cell.info,
+.inventory-table .cell.expand {
+  position: sticky;
+  background-color: hsl(var(--clr-white));
+  z-index: 11;
+}
+
+.inventory-table .cell.info {
+  left: 0;
+  padding-right: 1.6rem;
+  min-width: 14rem;
+}
+
+.inventory-table .cell.expand {
+  right: 0;
+  padding-left: 1.6rem;
+}
+
+.inventory-table .table-header tr th {
+  padding-bottom: 1.6rem;
+}
+
+.inventory-table .table-content tr td {
+  border-bottom: 1px solid hsl(var(--clr-neutral-200));
+  margin-bottom: 0.1rem;
+}
+
+.inventory-table .padding-row td {
+  padding-bottom: 12rem;
+  border: none !important;
+}
+
+.inventory-table .cell {
+  padding: 0.8rem 1.2rem;
+}
+
+.inventory-table .cell.category button {
+  max-width: 14rem;
+}
+
+.inventory-table .cell:is(.price, .available-quantity, .expiry) {
+  text-align: right;
+  min-width: 16rem;
+}
+
+.inventory-table .cell .badge {
+  width: fit-content;
+  margin-left: auto;
+}
+
+/* /////////////////////////
+  VISIBILITY OF DATA LISTS
+///////////////////////// */
+
+@media screen and (min-width: 559px) {
+  .inventory-item.tile {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 559px) {
+  .inventory-table {
+    display: none;
+  }
+}

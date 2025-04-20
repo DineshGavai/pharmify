@@ -10,6 +10,7 @@ import { UserContext } from "../../context/UserContext.jsx";
 const CompleteProfile = ({ onSignInSuccess }) => {
 
     const [stepCount, setStepCount] = useState(1);
+    const { userInfo, setUserInfo } = useContext(UserContext);
     const { createAccountInputData, setCreateAccountInputData } = useContext(UserContext);
 
     const navigate = useNavigate();
@@ -52,7 +53,10 @@ const CompleteProfile = ({ onSignInSuccess }) => {
                 signup_confirm_password: createAccountInputData.confirm_password,
                 email: createAccountInputData.email,
             },
-            onSuccess: (data) => { onSignInSuccess() },
+            onSuccess: (data) => {
+                onSignInSuccess()
+                setUserInfo(getFromLocalStorage("user").user || {});
+            },
             onError: (error) => console.log(error.message),
         })
     }

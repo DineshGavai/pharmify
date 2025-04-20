@@ -65,6 +65,23 @@ p {
   font-weight: 600;
 }
 
+.text-italic {
+  font-style: italic;
+}
+
 .text-muted {
   color: hsl(var(--clr-neutral-600));
+}
+
+.badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: hsl(var(--clr-neutral-200));
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.2rem;
+  font-weight: 500;
+  height: fit-content;
+  text-align: center;
+  text-wrap: nowrap;
 }
