@@ -6,6 +6,7 @@ import Icon from "../../components/Icon.jsx";
 import { apiRequest } from "../../utils/api.js"
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/UserContext.jsx";
+import { saveToLocalStorage } from "../../utils/browserStorage.js";
 
 const CompleteProfile = ({ onSignInSuccess }) => {
 
@@ -55,7 +56,8 @@ const CompleteProfile = ({ onSignInSuccess }) => {
             },
             onSuccess: (data) => {
                 onSignInSuccess()
-                setUserInfo(getFromLocalStorage("user").user || {});
+                saveToLocalStorage("user", data.user);
+                setUserInfo(data.user);
             },
             onError: (error) => console.log(error.message),
         })

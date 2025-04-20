@@ -38,7 +38,7 @@ function App() {
               path="/signin"
               element={<SignIn onSignInSuccess={onSignInSuccess} />}
             />
-            <Route path="/create-account" element={<CreateAccount />} />
+            <Route path="/create-account" element={<CreateAccount onSignInSuccess={onSignInSuccess} />} />
             <Route path="/create-account/complete-profile" element={<CompleteProfile onSignInSuccess={onSignInSuccess} />} />
             <Route path="*" element={<Navigate to="/signin" />} />
           </Routes>
