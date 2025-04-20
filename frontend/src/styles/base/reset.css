@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: var(--ff-default);
+  font-size: var(--fs-200);
   color: hsl(var(--clr-black));
   transition: all 0.2s linear;
   z-index: 10;
@@ -106,4 +107,25 @@ svg.icon {
     width: 0px;
     height: 0px;
   }
+}
+
+
+/* /////////////////////////
+  TABLE reset
+///////////////////////// */
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: auto;
+}
+
+th, td {
+  padding: 0.8rem;
+  text-align: left;
+}
+
+thead {
+  background-color: #f8f8f8;
+  font-weight: 600;
 }

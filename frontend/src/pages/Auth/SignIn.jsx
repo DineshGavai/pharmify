@@ -26,7 +26,7 @@ const SignIn = ({ onSignInSuccess }) => {
         })
     }
     // Handle Google Login Success
-    const handleGoogleSuccess = async (response) => {
+    const handleGoogleSSOLogin = async (response) => {
         console.log(response.credential)
         try {
             const res = await axios.post("http://localhost:8000/api/auth/google/", {

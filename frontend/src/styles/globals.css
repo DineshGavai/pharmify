@@ -16,6 +16,8 @@
 /* Pages */
 @import url("./pages/auth.css");
 @import url("./pages/user.css");
+@import url("./pages/inventory-home.css");
+@import url("./pages/inventory-product-view.css");
 
 /* /////////////////////////
   MAIN CONTAINERS
@@ -31,7 +33,6 @@ main .main-body {
   height: calc(100vh - var(--header-height));
   height: 100vh;
   overflow: auto;
-  padding-bottom: 16rem;
 }
 
 @media screen and (min-width: 1024px) {
@@ -50,19 +51,12 @@ section.main-sec {
   padding: 1.6rem;
 }
 
-@media screen and (min-width: 769px) {
-  section.main-sec {
-    padding: 1.6rem 3.2rem;
-  }
-}
-
 section.main-sec h2 {
   font-size: var(--fs-600);
-  margin-bottom: 0.4rem;
+  margin-bottom: 1.2rem;
   position: sticky;
   top: 0;
   left: 0;
   z-index: 11;
   background-color: hsl(var(--clr-white));
-  padding: 0.8rem 0;
 }

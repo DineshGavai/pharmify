@@ -26,7 +26,7 @@ export const icons = {
             <path d="M15 13.5H15.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
     ),
-    stocks: (
+    inventory: (
         <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <g clipPath="url(#clip0_2497_26266)">
                 <path d="M4 8H20V18C20 19.1046 19.1046 20 18 20H6C4.89543 20 4 19.1046 4 18V8Z" strokeLinecap="round" strokeLinejoin="round" />
@@ -107,6 +107,16 @@ export const icons = {
             </defs>
         </svg>
     ),
+    check: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 12.5L10.6669 15L16 10" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+    ),
+    check_lg: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 12L10.2426 16.2426L18.727 7.75732" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+    ),
 
     // Arrows
     chevron_up: (
@@ -162,6 +172,45 @@ export const icons = {
                 </clipPath>
             </defs>
         </svg>
+    ),
+    arrow_left: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clipPath="url(#clip0_2497_25890)">
+                <path d="M5 12H19" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M12 5L5 12L12 19" strokeLinecap="round" strokeLinejoin="round" />
+            </g>
+            <defs>
+                <clipPath id="clip0_2497_25890">
+                    <rect width="24" height="24" fill="white" />
+                </clipPath>
+            </defs>
+        </svg>
+
+    ),
+    arrow_right: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clipPath="url(#clip0_2497_25891)">
+                <path d="M19 12L5 12" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M12 19L19 12L12 5" strokeLinecap="round" strokeLinejoin="round" />
+            </g>
+            <defs>
+                <clipPath id="clip0_2497_25891">
+                    <rect width="24" height="24" fill="white" />
+                </clipPath>
+            </defs>
+        </svg>
+    ),
+    add: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 12H12H19" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M12 19V12V5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+    ),
+    edit: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10.0002 4H7.2002C6.08009 4 5.51962 4 5.0918 4.21799C4.71547 4.40973 4.40973 4.71547 4.21799 5.0918C4 5.51962 4 6.08009 4 7.2002V16.8002C4 17.9203 4 18.4801 4.21799 18.9079C4.40973 19.2842 4.71547 19.5905 5.0918 19.7822C5.5192 20 6.07899 20 7.19691 20H16.8031C17.921 20 18.48 20 18.9074 19.7822C19.2837 19.5905 19.5905 19.2839 19.7822 18.9076C20 18.4802 20 17.921 20 16.8031V14M16 5L10 11V14H13L19 8M16 5L19 2L22 5L19 8M16 5L19 8" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+
     ),
 
 
