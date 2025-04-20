@@ -10,6 +10,7 @@ from rest_framework import status
 from dotenv import load_dotenv
 import os
 
+
 @login_required(login_url='login')
 def index(request):
     context = {
@@ -17,9 +18,11 @@ def index(request):
     }
     return render(request, 'index.html', context)
 
-GOOGLE_CLIENT_ID =os.getenv("GOOGLE_CLIENT_ID")
+
+GOOGLE_CLIENT_ID = os.getenv("CLIENT_ID")
 
 User = get_user_model()
+
 
 class GoogleLogin(APIView):
     def post(self, request):
@@ -31,7 +34,8 @@ class GoogleLogin(APIView):
                 return JsonResponse({'error': 'No token provided'}, status=400)
 
             print("Verifying token...")
-            idinfo = id_token.verify_oauth2_token(token, requests.Request(), GOOGLE_CLIENT_ID)
+            idinfo = id_token.verify_oauth2_token(
+                token, requests.Request(), GOOGLE_CLIENT_ID)
             print("Token info:", idinfo)
 
             if 'email' not in idinfo:
@@ -48,7 +52,8 @@ class GoogleLogin(APIView):
             if created:
                 user.username = email.split("@")[0]  # See note below
                 user.first_name = name.split(" ")[0] if name else ''
-                user.last_name = name.split(" ")[1] if len(name.split(" ")) > 1 else ''
+                user.last_name = name.split(" ")[1] if len(
+                    name.split(" ")) > 1 else ''
                 user.save()
                 print("User created:", user.username)
             else:
