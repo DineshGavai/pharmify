@@ -5,10 +5,18 @@ import CTAButton from "../../components/Button/CTAButton";
 import Input from "../../components/Input/Input.jsx"
 import { apiRequest } from "../../utils/api.js";
 import { UserContext } from "../../context/UserContext.jsx";
+import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
+import axios from 'axios';
+import { getFromLocalStorage, saveToLocalStorage } from "../../utils/browserStorage.js";
 
-const CreateAccount = () => {
+
+const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+
+const CreateAccount = ({ onSignInSuccess }) => {
 
     const { createAccountInputData, setCreateAccountInputData } = useContext(UserContext);
+    const { userInfo, setUserInfo } = useContext(UserContext);
+
 
     const navigate = useNavigate();
 
@@ -29,6 +37,26 @@ const CreateAccount = () => {
         })
 
     }
+    const handleLoginSuccess = async (response) => {
+        try {
+            const res = await axios.post("http://127.0.0.1:8000/api/google-login/", {
+                credential: response.credential,
+            });
+            // Save user info locally
+            let data = res.data;
+
+            saveToLocalStorage("user", data);
+            console.log("Login successful:", data);
+
+
+            onSignInSuccess();
+            setUserInfo(getFromLocalStorage("user").user || {});
+
+        } catch (error) {
+            console.error("Google Login Failed:", error);
+        }
+    };
+
 
     return (
         <main className="auth-main">
@@ -76,12 +104,12 @@ const CreateAccount = () => {
                         textAlign: "center"
                     }}>- OR -</p>
 
-                    <CTAButton
-                        iconName={ThirdPartyLogos.google}
-                        iconType="custom"
-                        label="Sign up with Google"
-                        className="ghost one-tap-btn"
-                    />
+                    <GoogleOAuthProvider clientId={clientId}>
+                        <GoogleLogin
+                            onSuccess={handleLoginSuccess}
+                            onError={() => console.log('Google Login Failed')}
+                        />
+                    </GoogleOAuthProvider>
                 </div>
             </section>
 
