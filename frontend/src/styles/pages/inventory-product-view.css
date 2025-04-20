@@ -42,6 +42,7 @@
 .inventory-product-view .input-frame.text-input input:disabled {
   opacity: 1;
   color: hsl(var(--clr-neutral-900));
+  background-color: hsl(var(--clr-white));
 }
 
 .inventory-product-view .input-frame.text-input input::placeholder {
@@ -52,8 +53,59 @@
     CORE DETAILS SECTION
 ///////////////////////// */
 
+.inventory-product-view {
+  padding: 1.6rem;
+}
+
+.inventory-product-view .main-sec {
+  border: 1px solid hsl(var(--clr-neutral-400));
+  border-radius: 0.4rem;
+}
+
 .core-details > div {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2.4rem;
+  gap: 3.2rem;
+}
+
+.core-details .categories-list {
+  background-color: hsl(var(--clr-neutral-100));
+  padding: 1.2rem;
+  border-radius: 0.8rem;
+  max-height: 22rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.core-details .categories-list::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(
+    to bottom,
+    hsla(var(--clr-white), 0) 0%,
+    hsla(var(--clr-white), 0.5) 100%
+  );
+}
+
+.core-details .categories-list ul {
+  margin-left: 3.2rem;
+}
+
+.core-details .categories-list li {
+  display: block;
+  font-size: var(--fs-300);
+}
+
+.core-details .categories-list ul li {
+  margin: 0.4rem 0;
+  padding: 0.2rem 0.8rem;
+}
+
+.core-details .categories-list ul li .slash {
+  user-select: none;
+  pointer-events: none;
 }

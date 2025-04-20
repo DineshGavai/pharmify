@@ -14,21 +14,34 @@ const InventoryProductView = () => {
     const [isFormEditable, setIsFormEditable] = useState(false)
     const navigate = useNavigate();
 
-    // Customized header
+    // Customizing Header
     const { headerChildren, setHeaderChildren } = useContext(GlobalContext);
 
     useEffect(() => {
         setHeaderChildren({
-            backBtn: <IconButton iconName={"arrow_left"} onClick={() => {
-                removeFromLocalStorage("viewed_product")
-                navigate("/inventory")
-            }} />,
+            backBtn: (
+                <IconButton
+                    iconName="arrow_left"
+                    onClick={() => {
+                        removeFromLocalStorage("viewed_product");
+                        navigate("/inventory");
+                    }}
+                />
+            ),
             heading: `Product - ${inventoryData.name}`,
-            elements: <CTAButton label={"Edit"} iconName="edit" className="primary" />
-        })
+            elements: (
+                <CTAButton
+                    label="Edit"
+                    iconName="edit"
+                    className="primary"
+                    onClick={() => setIsFormEditable(true)}
+                />
+            ),
+        });
 
         return () => setHeaderChildren({});
-    }, [])
+    }, []);
+
 
 
     // Get simple & redundant Inventory Inputs
@@ -51,6 +64,43 @@ const InventoryProductView = () => {
         )
     }
 
+    // Renders subcategories <li> elements
+    const renderSubcategories = (subcategories) => {
+        return subcategories.map((subcategory, index) => (
+            <li className="category-list-item subcategory" key={index}>
+                <span className="slash">/</span> {subcategory}
+            </li>
+        ));
+    };
+
+    // Renders categories with their subcategories
+    const renderCategories = (categories) => {
+        return Object.entries(categories).map(([category, subcategories], index) => (
+            <li className="category-list-item category" key={index}>
+                <span className="slash">/</span> {category}
+                {subcategories.length > 0 && (
+                    <ul>{renderSubcategories(subcategories)}</ul>
+                )}
+            </li>
+        ));
+    };
+
+    // Main function to render full nested category structure
+    const getNestedCategoryList = (categoryData) => {
+        return (
+            <>
+                {categoryData.map((item, index) => (
+                    <li className="category-list-item type" key={index}>
+                        {item.type}
+                        <ul>
+                            {item.categories && renderCategories(item.categories)}
+                        </ul>
+                    </li>
+                ))}
+            </>
+        );
+    };
+
     return (
         <form className={`inventory-product-view ${isFormEditable ? "editable" : ""}`}>
             {/* Core Details Section */}
@@ -69,18 +119,32 @@ const InventoryProductView = () => {
 
                     {/* Category Info */}
                     <div className="details-col">
-                        <h3 className="fs-500">Categories</h3>
+                        <p className="fs-300"
+                            style={{
+                                color: `hsl(var(--clr-neutral-800))`
+                            }}
+                        >Categories</p>
+                        <ul className="categories-list">
+                            {
+                                !inventoryData.categories
+                                    ? "Not Available"
+                                    : getNestedCategoryList(inventoryData.categories)
+                            }
+                        </ul>
                     </div>
 
                     {/* Company Info */}
                     <div className="details-col">
                         {getInventoryInput("Manufacturer", "manufacturer")}
                         {getInventoryInput("Supplier", "supplier")}
-                        {getInventoryInput("SKU (Stock Keeping Unit)", "sku")}
+                        <div>
+                            {getInventoryInput("SKU (Stock Keeping Unit)", "sku")}
+                            <img src={inventoryData.barcode ?? "/src/assets/placeholders/no-barcode.png"} alt="" />
+                        </div>
                     </div>
                 </div>
             </section>
-        </form>
+        </form >
     )
 }
 

@@ -54,7 +54,7 @@ const Navigation = ({ setIsSignedIn }) => {
                             className={`menu user-info ${checkIfActive({ key: "profile" })}`}
                             label={
                                 <>
-                                    <img src={userInfo.profile_picture || "./src/assets/illus/default-avatar.png"} />
+                                    <img src={userInfo.profile_picture || "./src/assets/placeholders/default-avatar.png"} />
                                     <div>
                                         <span className="name fs-400">{userInfo?.name || "Vedant Mali"}</span>
                                         <span className="email fs-300">{userInfo?.email || "vedantmali05@gmail.com"}</span>

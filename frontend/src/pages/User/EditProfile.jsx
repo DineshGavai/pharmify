@@ -84,7 +84,7 @@ const EditProfile = () => {
                 <h2>Documents</h2>
 
                 <div className="sec-content">
-                    <img src={userInfo.retail_drug_liscence || "./src/assets/illus/default-file-image.png"} alt="Your Retail Drug License" />
+                    <img src={userInfo.retail_drug_liscence || "./src/assets/placeholders/default-file-image.png"} alt="Your Retail Drug License" />
                     <div>
                         <div>
                             <p className="text-emphasis">A clear and valid image, smaller than 10 MB, of your Retail Drug License.</p>
