@@ -302,3 +302,5 @@ GitHub.sublime-settings
 
 # Development Files
 static/assets/icon-packs/
+
+google-credentials.json

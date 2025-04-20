@@ -20,7 +20,7 @@ env.read_env(os.path.join(BASE_DIR, ".env"))
 SECRET_KEY = os.environ.get('SECRET_KEY', '')
 
 
-print("EMAIL_HOST_USER:", env("EMAIL_HOST_USER", default=None))
+# print("EMAIL_HOST_USER:", env("EMAIL_HOST_USER", default=None))
 
 
 # Quick-start development settings - unsuitable for production
@@ -39,6 +39,8 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 
 # Application definition
+
+SITE_ID=1
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -65,6 +67,18 @@ INSTALLED_APPS = [
     'rest_framework.authtoken'
 ]
 
+SOCIALACCOUNT_PROVIDERS = {
+    "google":{
+        "SCOPE":[
+            "profile",
+            "email",
+        ],
+        "AUTH_PARAMS":{
+            "access_type":"online",
+        }
+    }
+}
+
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
@@ -77,6 +91,7 @@ MIDDLEWARE = [
     'allauth.account.middleware.AccountMiddleware'
 
 ]
+
 
 ROOT_URLCONF = 'pharmify.urls'
 
@@ -153,13 +168,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'user.Owner'
 
 
-# Email
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = env("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 
 
 # Media root for saving avatar,licence
@@ -184,12 +192,11 @@ AUTHENTICATION_BACKENDS = [
 # Redirect after login/logout
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
-
+CORS_ALLOW_CREDENTIALS = True
 # Allow CORS for frontend
 CORS_ALLOWED_ORIGINS = ["http://localhost:5173",
                         "http://localhost:5174",
                         ]
-SITE_ID = 1  # Ensure your Django site ID is correct
 ACCOUNT_EMAIL_VERIFICATION = "none"
 ACCOUNT_LOGIN_METHODS = {'email'}
 ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
@@ -198,5 +205,12 @@ ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
 CORS_ALLOW_ALL_ORIGINS = True  # (For development only)
 CSRF_TRUSTED_ORIGINS = ["http://localhost:5173", "http://localhost:5174"]
 
+CORS_ALLOW_HEADERS = [
+    'content-type', 
+    'accept', 
+    'authorization', 
+    'x-requested-with',
+    # Add any additional headers you might need
+]
 
 # this comment is tempoparay.

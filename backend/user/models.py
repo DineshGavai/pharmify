@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from .manager import OwnerManager
 
 class Owner(AbstractUser):
-    # username = None
+    username = None
     owner_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
     shop_name = models.CharField(max_length=255)
