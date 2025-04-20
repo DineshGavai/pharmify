@@ -33,7 +33,11 @@ def loginUser(request):
         user = authenticate(request, email=email, password=password)
         if user is not None:
             auth_login(request, user)
-            return JsonResponse({'message': 'Logged in successfully', 'status': 200}, status=200)
+            return JsonResponse({'message': 'Logged in successfully', 'status': 200, 'user': {
+                'email': user.email,
+                'username': user.username,
+                'first_name': user.first_name,
+                'last_name': user.last_name}}, status=200)
         else:
             return JsonResponse({'message': 'Invalid credentials', 'status': 400}, status=400)
 
@@ -73,55 +77,58 @@ def verifyEmail(request):
         return JsonResponse({"message": "Invalid request method"}, status=405)
 
 
-
 @csrf_exempt
 def signup(request):
-    name = request.POST.get('signup_full_name')
-    phone_number = request.POST.get('signup_phone')
-    shop_name = request.POST.get('signup_shop_name')
-    password1 = request.POST.get('signup_create_password')
-    password2 = request.POST.get('signup_confirm_password')
-    email = request.POST.get('email')
+    if request.method != "POST":
+        return JsonResponse({"error": "Only POST requests allowed"}, status=405)
 
-    first_name, last_name = name.split(' ', 1)
+    try:
+        data = json.loads(request.body)
 
-    
-    if password1 != password2:
-        return JsonResponse({
-            "status": "error",
-            "message": "Passwords do not match"
-        }, status=400)
+        name = data.get('signup_full_name')
+        phone_number = data.get('signup_phone')
+        shop_name = data.get('signup_shop_name')
+        password1 = data.get('signup_create_password')
+        password2 = data.get('signup_confirm_password')
+        email = data.get('email')
 
-    user = Owner(
-        username=email,
-        name=name,
-        first_name=first_name,
-        last_name=last_name,
-        shop_name=shop_name,
-        phone_number=phone_number,
-        password=make_password(password1),  
-        email=email
-    )
+        print(name, phone_number, shop_name, password1, password2, email)
 
-    user.save()
+        if not name:
+            return JsonResponse({"status": "error", "message": "Full name is required"}, status=400)
 
+        first_name, last_name = name.split(' ', 1)
 
-    user.backend = 'allauth.account.auth_backends.AuthenticationBackend'    
-    auth_login(request, user)
+        if password1 != password2:
+            return JsonResponse({
+                "status": "error",
+                "message": "Passwords do not match"
+            }, status=400)
 
-    
-    return JsonResponse({
-        "status": "success",
-        "message": "Account created successfully",
-        "data": {
-            "name": user.name,
-            "email": user.email,
-            "shop_name": user.shop_name,
-            "phone_number": user.phone_number
-        }
-    }, status=200)
+        user = Owner(
+            name=name,
+            first_name=first_name,
+            last_name=last_name,
+            shop_name=shop_name,
+            phone_number=phone_number,
+            password=make_password(password1),  
+            email=email
+        )
 
+        user.save()
 
+        user.backend = 'allauth.account.auth_backends.AuthenticationBackend'
+        auth_login(request, user)
+
+        return JsonResponse({'message': 'Account created successfully', 'status': 200, 'user': {
+                'email': user.email,
+                'username': user.username,
+                'first_name': user.first_name,
+                'last_name': user.last_name}}, status=200)
+
+    except Exception as e:
+        print("Signup error:", e)
+        return JsonResponse({"status": "error", "message": str(e)}, status=500)
 
 
 
