@@ -6,7 +6,6 @@ const Checkbox = ({
     // Core Input Attributes
     label = "",
     type = "checkbox",
-    checkboxgroup = "",
     name,
     id,
     value,
@@ -30,8 +29,6 @@ const Checkbox = ({
     successMessage,
 }) => {
 
-    const [isChecked, setIsChecked] = useState(checked ?? false);
-
     return (
         <div className={`input-box checkbox`}>
 
@@ -40,7 +37,6 @@ const Checkbox = ({
                 <div className="input-frame">
                     <input
                         type={type}
-                        checkboxgroup={checkboxgroup}
                         id={id}
                         name={name}
                         value={value}
@@ -53,7 +49,7 @@ const Checkbox = ({
                         required={required}
 
                         // Events
-                        checked={isChecked}
+                        checked={checked}
                         onChange={(e) => {
                             setIsChecked(e.target.checked);
                             if (onChange) onChange(e);

@@ -83,7 +83,7 @@ const InventoryItemTile = ({ data }) => {
                         <div className="divider"></div>
                         <p className="fs-300">
                             <span>₹ </span>
-                            {totalUnits * data.unit_selling_price ?? "N/A"}
+                            {data.unit_selling_price ? (totalUnits * data.unit_selling_price) : "N/A"}
                             <span> Total</span>
                         </p>
                     </div>

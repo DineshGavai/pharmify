@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../context/GlobalContext.jsx";
 import CTAButton from "../../components/Button/CTAButton.jsx";
 import Input, { controlledInput } from "../../components/Input/Input.jsx";
+import Checkbox from "../../components/Input/Checkbox.jsx"
 
 const InventoryProductView = () => {
 
@@ -47,6 +48,7 @@ const InventoryProductView = () => {
     const getInventoryInput = (label, keyName, options = {
         spellCheck: false,
         required: true,
+        readOnly: false,
     }) => {
         return (
             <Input
@@ -54,10 +56,11 @@ const InventoryProductView = () => {
                 id={`inventory_${keyName}`}
                 name={`inventory_${keyName}`}
                 value={inventoryData[keyName] || ""}
-                placeholder={isFormEditable ? "" : "Not Available"}
-                disabled={!isFormEditable}
+                placeholder={options.readOnly || !isFormEditable ? "Not Available" : ""}
+                disabled={options.readOnly || !isFormEditable}
                 spellCheck={options.spellCheck}
                 required={options.required}
+                readOnly={options.readOnly}
                 onChange={controlledInput(setInventoryData, keyName)}
             />
         )
@@ -67,7 +70,14 @@ const InventoryProductView = () => {
     const renderSubcategories = (subcategories) => {
         return subcategories.map((subcategory, index) => (
             <li className="category-list-item subcategory" key={index}>
-                <span className="slash">/</span> {subcategory}
+                <Checkbox
+                    type="checkbox"
+                    label={subcategory}
+                    id={`subcategory_${index}`}
+                    name={`subcategory`}
+                    checked={true}
+                    disabled={true}
+                />
             </li>
         ));
     };
@@ -76,7 +86,14 @@ const InventoryProductView = () => {
     const renderCategories = (categories) => {
         return Object.entries(categories).map(([category, subcategories], index) => (
             <li className="category-list-item category" key={index}>
-                <span className="slash">/</span> {category}
+                <Checkbox
+                    type="checkbox"
+                    label={category}
+                    id={`category_${index}`}
+                    name={`category`}
+                    checked={true}
+                    disabled={true}
+                />
                 {subcategories.length > 0 && (
                     <ul>{renderSubcategories(subcategories)}</ul>
                 )}
@@ -90,7 +107,14 @@ const InventoryProductView = () => {
             <>
                 {categoryData.map((item, index) => (
                     <li className="category-list-item type" key={index}>
-                        {item.type}
+                        <Checkbox
+                            type="checkbox"
+                            label={item.type}
+                            id={`type_${index}`}
+                            name={`type`}
+                            checked={true}
+                            disabled={true}
+                        />
                         <ul>
                             {item.categories && renderCategories(item.categories)}
                         </ul>
@@ -109,36 +133,39 @@ const InventoryProductView = () => {
                 </h2>
 
                 <div>
-                    {/* Name Info */}
-                    <div className="details-col">
+                    {/* Basic Info */}
+                    <div className="details-col basic-info">
                         {getInventoryInput("Product Name", "name")}
                         {inventoryData.generic_name && getInventoryInput("Generic Name", "generic_name")}
                         {getInventoryInput("Brand Name", "brand")}
+
+                        {/* Category Info */}
+                        <div className="categories">
+                            <p className="fs-300"
+                                style={{
+                                    color: `hsl(var(--clr-neutral-800))`
+                                }}
+                            >Categories</p>
+                            <ul className="categories-list">
+                                {
+                                    !inventoryData.categories
+                                        ? "Not Available"
+                                        : getNestedCategoryList(inventoryData.categories)
+                                }
+                            </ul>
+                        </div>
                     </div>
 
-                    {/* Category Info */}
-                    <div className="details-col">
-                        <p className="fs-300"
-                            style={{
-                                color: `hsl(var(--clr-neutral-800))`
-                            }}
-                        >Categories</p>
-                        <ul className="categories-list">
-                            {
-                                !inventoryData.categories
-                                    ? "Not Available"
-                                    : getNestedCategoryList(inventoryData.categories)
-                            }
-                        </ul>
-                    </div>
 
                     {/* Company Info */}
                     <div className="details-col">
                         {getInventoryInput("Manufacturer", "manufacturer")}
                         {getInventoryInput("Supplier", "supplier")}
-                        <div>
-                            {getInventoryInput("SKU (Stock Keeping Unit)", "sku")}
-                            <img src={inventoryData.barcode ?? "/src/assets/placeholders/no-barcode.png"} alt="" />
+                        <div className="sku-and-barcode">
+                            {getInventoryInput("SKU (Stock Keeping Unit)", "sku", {
+                                readOnly: true
+                            })}
+                            <img src={inventoryData.barcode ?? "/src/assets/placeholders/no-barcode.png"} className="barcode" />
                         </div>
                     </div>
                 </div>

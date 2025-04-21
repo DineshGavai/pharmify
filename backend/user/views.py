@@ -127,8 +127,8 @@ def signup(request):
 @csrf_exempt
 def profile_edit(request):
     if request.method == "POST":
-        user = request.user
-        owners = Owner.objects.get(email=user.email)
+        email=request.POST.get("email")
+        owners = Owner.objects.get(email=email)
 
         name = request.POST.get('edit_profile_full_name')
         shop_name = request.POST.get('edit_profile_shop_name')

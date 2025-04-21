@@ -48,11 +48,13 @@ const EditProfile = () => {
             method: "POST",
             headers: { "Content-Type": contentTypes.FORM_URLENCODED },
             body: {
+                email: userInfo.email,
                 edit_profile_full_name: updatedUserInfo.name,
                 edit_profile_shop_name: updatedUserInfo.business_name,
                 edit_profile_phone: updatedUserInfo.phone_number
             },
             onSuccess: (data) => {
+                console.log(data.user);
                 saveToLocalStorage("user", data.user)
                 setUserInfo(getFromLocalStorage("user") || {});
             },
