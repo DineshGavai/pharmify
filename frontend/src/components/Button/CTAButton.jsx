@@ -8,6 +8,7 @@ const CTAButton = forwardRef(({
     iconName,
     iconType = "icon",
     rightIcon = false,
+    disabled = false,
     ...rest
 }, ref) => {
 
@@ -16,7 +17,7 @@ const CTAButton = forwardRef(({
         : <Icon iconName={iconName} />;
 
     return (
-        <button className={className} {...rest}>
+        <button className={className} disabled={disabled} {...rest}>
             {!rightIcon && iconName && iconSVG}
             {label}
             {rightIcon && iconName && iconSVG}

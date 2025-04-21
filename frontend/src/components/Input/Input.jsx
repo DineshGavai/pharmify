@@ -54,7 +54,6 @@ const Input = ({
 
 }) => {
 
-    const [inputValue, setInputValue] = useState(value || "");
     const [inputType, setInputType] = useState(type);
 
     leftElem = leftElem ? (<span className="left-elem">{leftElem}</span>) : null;
@@ -71,7 +70,7 @@ const Input = ({
     }
 
     return (
-        <div className={`input-box ${inputValue.length > 0 ? "filled" : ""} ${(leftElem) ? "has-trail-item" : ""}`}>
+        <div className={`input-box ${value.length !== 0 ? "filled" : ""} ${(leftElem) ? "has-trail-item" : ""}`}>
 
             {
                 label &&
@@ -104,7 +103,7 @@ const Input = ({
 
                     // Events
                     onChange={(e) => {
-                        setInputValue(e.target.value)
+                        value = e.target.value
                         if (onChange) onChange(e)
                     }}
 
@@ -164,3 +163,13 @@ Input.propTypes = {
 };
 
 export default Input;
+
+
+// Input Functions
+export const controlledInput = (setter, key_name) => (e) => {
+    const value = e.target.value;
+    setter((data) => ({
+        ...data,
+        [key_name]: value,
+    }));
+};

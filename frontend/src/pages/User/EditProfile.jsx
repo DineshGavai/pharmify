@@ -1,14 +1,68 @@
-import { useContext, useId } from "react"
+import { useContext, useEffect, useId, useState } from "react"
 import { UserContext } from "../../context/UserContext.jsx"
 import CTAButton from "../../components/Button/CTAButton.jsx"
 import IconButton from "../../components/Button/IconButton.jsx"
-import Input from "../../components/Input/Input.jsx"
+import Input, { controlledInput } from "../../components/Input/Input.jsx"
 import { regexPatterns } from "../../utils/data.js"
 import Icon from "../../components/Icon.jsx"
+import { apiRequest, contentTypes } from "../../utils/api.js"
+import { getFromLocalStorage, saveToLocalStorage } from "../../utils/browserStorage.js"
 
 const EditProfile = () => {
 
     const { userInfo, setUserInfo } = useContext(UserContext)
+    const [updatedUserInfo, setUpdatedUserInfo] = useState({});
+    const [initialUserInfo, setInitialUserInfo] = useState({});
+    const [isInfoUpdated, setIsInfoUpdated] = useState(false);
+
+    // Set inital user info (only when actual userInfo is loaded)
+    useEffect(() => {
+        const isUserInfoLoaded = Object.keys(userInfo).length > 0;
+        const isInitialEmpty = Object.keys(initialUserInfo).length === 0;
+        const isUpdatedEmpty = Object.keys(updatedUserInfo).length === 0;
+
+        if (isUserInfoLoaded && isInitialEmpty && updatedUserInfo) {
+            setInitialUserInfo(userInfo);
+            setUpdatedUserInfo(userInfo);
+        }
+    }, [userInfo, initialUserInfo, updatedUserInfo]);
+
+    // Compare current and initial user info to detect changes
+    useEffect(() => {
+        const hasChanged = Object.entries(initialUserInfo).some(
+            ([key, value]) => updatedUserInfo[key] !== value
+        );
+
+        // Update changes status
+        setIsInfoUpdated(hasChanged);
+    }, [updatedUserInfo, initialUserInfo]);
+
+
+    const handleFormSubmit = async (e) => {
+        e.preventDefault();
+
+        if (!isInfoUpdated && Object.values(updatedUserInfo).some((val) => val === "")) return;
+
+        await apiRequest({
+            url: "http://127.0.0.1:8000/settings/edit-profile",
+            method: "POST",
+            headers: { "Content-Type": contentTypes.FORM_URLENCODED },
+            body: {
+                edit_profile_full_name: updatedUserInfo.name,
+                edit_profile_shop_name: updatedUserInfo.business_name,
+                edit_profile_phone: updatedUserInfo.phone_number
+            },
+            onSuccess: (data) => {
+                saveToLocalStorage("user", data.user)
+                setUserInfo(getFromLocalStorage("user") || {});
+            },
+            onError: (error) => {
+                console.log(error.message);
+            },
+        });
+    };
+
+
 
     return (
         <section className="edit-profile-sec">
@@ -44,36 +98,52 @@ const EditProfile = () => {
 
                 <h2>Your Information</h2>
 
-                <form className="sec-content">
+                <form className="sec-content" onSubmit={handleFormSubmit}>
 
                     <Input
                         label="Your Name"
                         id="full_name"
                         name="full_name"
-                        defaultValue={userInfo.name || "Vedant Mali"}
-                        pattern={regexPatterns.full_name}
+                        value={updatedUserInfo.name || ""}
+                        onChange={controlledInput(setUpdatedUserInfo, "name")}
                     />
 
                     <Input
                         label="Business Name"
                         id="business_name"
                         name="business_name"
-                        defaultValue={userInfo.business_name || "Pharmify Stores"}
-                        pattern={regexPatterns.business_name}
+                        value={updatedUserInfo.business_name ?? updatedUserInfo.shop_name ?? ""}
+                        onChange={controlledInput(setUpdatedUserInfo, "business_name")}
                     />
 
                     <Input
                         label="Phone Number"
                         id="phone_number"
                         name="phone_number"
-                        defaultValue={userInfo.phone_number || "9000000000"}
-                        pattern={regexPatterns.phone_number}
+                        value={updatedUserInfo.phone_number ?? ""}
                         leftIcon={"flag_india"}
+                        onChange={controlledInput(setUpdatedUserInfo, "phone_number")}
                     />
 
                     <div className="btn-box">
-                        <CTAButton className="ghost" label="Undo Changes" />
-                        <CTAButton className="primary" label="Save changes" />
+                        {
+                            isInfoUpdated &&
+                            <CTAButton className="ghost"
+                                label="Undo Changes"
+                                type="button"
+                                onClick={() => {
+                                    setUpdatedUserInfo(initialUserInfo);
+                                    setIsInfoUpdated(false);
+                                }}
+                            />
+                        }
+                        <CTAButton
+                            type="submit"
+                            className="primary"
+                            label="Save changes"
+                            aria-disabled={!isInfoUpdated}
+                            disabled={!isInfoUpdated}
+                        />
                     </div>
 
                 </form>

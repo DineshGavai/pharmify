@@ -104,6 +104,10 @@
   justify-content: space-between;
 }
 
+.user-info-sec .btn-box button.primary {
+  margin-left: auto;
+}
+
 /* /////////////////////////
   RETAIL DRUG LICENSE
 ///////////////////////// */
@@ -121,10 +125,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.8rem .8rem;
+  padding: 0.8rem 0.8rem;
   padding-left: 1.2rem !important;
   gap: 2.4rem;
-  margin-bottom: .8rem;
+  margin-bottom: 0.8rem;
 }
 
 .edit-profile-link .text-emphasis {

@@ -4,8 +4,7 @@ import { getFromLocalStorage, removeFromLocalStorage } from "../../utils/browser
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../context/GlobalContext.jsx";
 import CTAButton from "../../components/Button/CTAButton.jsx";
-import Input from "../../components/Input/Input.jsx";
-import { controlledInput } from "../../utils/inventory.js";
+import Input, { controlledInput } from "../../components/Input/Input.jsx";
 
 const InventoryProductView = () => {
 
