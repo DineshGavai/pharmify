@@ -48,7 +48,7 @@ const CompleteProfile = ({ onSignInSuccess }) => {
             body: {
                 signup_full_name: createAccountInputData.full_name,
                 signup_phone: createAccountInputData.phone_num,
-                signup_shop_name: createAccountInputData.business_name,
+                signup_business_name: createAccountInputData.business_name,
                 signup_shop_address: createAccountInputData.business_address,
                 signup_create_password: createAccountInputData.create_password,
                 signup_confirm_password: createAccountInputData.confirm_password,

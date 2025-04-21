@@ -6,7 +6,8 @@ class Owner(AbstractUser):
     username = None
     owner_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
-    shop_name = models.CharField(max_length=255)
+    business_name = models.CharField(max_length=255)
+    business_address = models.CharField(max_length=255,blank=True, null=True)   
     email=models.EmailField(unique=True)
     phone_number = models.CharField(max_length=10)
     avatar = models.ImageField(blank=True, null=True,default='assets/illus/default-avatar.png')
@@ -26,7 +27,7 @@ class Owner(AbstractUser):
         return {
             'name': self.name,
             'email': self.email,
-            'shop_name':self.shop_name,
+            'business_name':self.business_name,
             'phone_number':self.phone_number,
             'owner_id':self.owner_id,
 

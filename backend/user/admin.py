@@ -4,11 +4,11 @@ from .models import Owner
 
 class OwnerAdmin(UserAdmin):
     model = Owner
-    list_display = ('email', 'name', 'shop_name', 'phone_number', 'is_staff', 'is_active')
-    list_filter = ('email', 'name', 'shop_name', 'phone_number', 'is_staff', 'is_active')
+    list_display = ('email', 'name', 'business_name', 'phone_number', 'is_staff', 'is_active')
+    list_filter = ('email', 'name', 'business_name', 'phone_number', 'is_staff', 'is_active')
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        ('Personal info', {'fields': ('name', 'shop_name', 'phone_number', 'avatar', 'license')}),
+        ('Personal info', {'fields': ('name', 'business_name', 'phone_number', 'avatar', 'license')}),
         ('Permissions', {'fields': ('is_staff', 'is_active')}),
         ('Important dates', {'fields': ('last_login', 'date_joined')}),
     )

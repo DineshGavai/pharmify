@@ -20,8 +20,6 @@ env.read_env(os.path.join(BASE_DIR, ".env"))
 SECRET_KEY = os.environ.get('SECRET_KEY', '')
 
 
-# print("EMAIL_HOST_USER:", env("EMAIL_HOST_USER", default=None))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
