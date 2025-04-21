@@ -46,20 +46,14 @@ class GoogleLogin(APIView):
             user, created = User.objects.get_or_create(email=email)
 
             if created:
-                user.username = email.split("@")[0]  # See note below
-                user.first_name = name.split(" ")[0] if name else ''
-                user.last_name = name.split(" ")[1] if len(name.split(" ")) > 1 else ''
+                user.username = email.split("@")[0]  
+                user.name=name
                 user.save()
                 print("User created:", user.username)
             else:
                 print("User already exists:", user.username)
 
-            return JsonResponse({'message': 'User authenticated', 'user': {
-                'email': user.email,
-                'username': user.username,
-                'first_name': user.first_name,
-                'last_name': user.last_name
-            }})
+            return JsonResponse({'message': 'User authenticated', 'user': user.to_dict()}, status=200)
 
         except ValueError as e:
             print("Token verification failed:", str(e))
