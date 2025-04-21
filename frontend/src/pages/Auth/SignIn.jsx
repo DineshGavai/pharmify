@@ -29,7 +29,7 @@ const SignIn = ({ onSignInSuccess }) => {
             body: { sign_in_email: email, sign_in_password: password },
             onSuccess: (data) => {
                 // Save user info locally
-                saveToLocalStorage("user", data);
+                saveToLocalStorage("user", data.user);
                 console.log("Login successful:", data);
 
                 onSignInSuccess();
@@ -50,7 +50,7 @@ const SignIn = ({ onSignInSuccess }) => {
             // Save user info locally
             let data = res.data;
 
-            saveToLocalStorage("user", data);
+            saveToLocalStorage("user", data.user);
             console.log("Login successful:", data);
 
 

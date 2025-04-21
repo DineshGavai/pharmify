@@ -4,7 +4,7 @@ import IconButton from "./Button/IconButton.jsx";
 import CTAButton from "./Button/CTAButton.jsx"
 import { GlobalContext } from "../context/GlobalContext.jsx"
 import { UserContext } from "../context/UserContext.jsx";
-import { removeCookie, removeFromLocalStorage } from "../utils/browserStorage.js";
+import { clearLocalStorage, getFromLocalStorage, removeCookie, removeFromLocalStorage } from "../utils/browserStorage.js";
 
 const Navigation = ({ setIsSignedIn }) => {
     const { activePage, setActivePage } = useContext(GlobalContext)
@@ -12,8 +12,18 @@ const Navigation = ({ setIsSignedIn }) => {
     const { userInfo, setUserInfo } = useContext(UserContext)
 
     useEffect(() => {
-        console.log(userInfo)
+        const storedUser = getFromLocalStorage("user");
+
+        if (!storedUser || Object.keys(storedUser).length === 0) {
+            setIsSignedIn(false);
+            setUserInfo({});
+            clearLocalStorage();
+            navigate("/");
+        } else {
+            setUserInfo(storedUser);
+        }
     }, []);
+
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -97,7 +107,7 @@ const Navigation = ({ setIsSignedIn }) => {
                             onClick={() => {
                                 setIsSignedIn(false);
                                 removeCookie("isSignedIn");
-                                removeFromLocalStorage("user");
+                                clearLocalStorage()
                                 setUserInfo({});
                             }}
                         />
