@@ -84,12 +84,11 @@ def signup(request):
 
         name = data.get('signup_full_name')
         phone_number = data.get('signup_phone')
-        shop_name = data.get('signup_shop_name')
+        business_name = data.get('signup_business_name')
         password1 = data.get('signup_create_password')
         password2 = data.get('signup_confirm_password')
         email = data.get('email')
 
-        print(name, phone_number, shop_name, password1, password2, email)
 
         if not name:
             return JsonResponse({"status": "error", "message": "Full name is required"}, status=400)
@@ -106,7 +105,7 @@ def signup(request):
             name=name,
             first_name=first_name,
             last_name=last_name,
-            shop_name=shop_name,
+            business_name=business_name,
             phone_number=phone_number,
             password=make_password(password1),  
             email=email
@@ -131,7 +130,7 @@ def profile_edit(request):
         owners = Owner.objects.get(email=user.email)
 
         name = request.POST.get('edit_profile_full_name')
-        shop_name = request.POST.get('edit_profile_shop_name')
+        business_name = request.POST.get('edit_profile_business_name')
         contact = request.POST.get('edit_profile_phone')
         # remove_avatar = request.POST.get('remove_avatar_input') == 'true'
         # remove_license = request.POST.get('remove_license_input') == 'true'
@@ -160,7 +159,7 @@ def profile_edit(request):
 
         # Save data
         owners.name = name
-        owners.shop_name = shop_name
+        owners.business_name = business_name
         owners.phone_number = contact
         owners.avatar = avatar_url
         owners.license = licence_url
@@ -260,3 +259,4 @@ def profile_edit(request):
 
 # def userSetting(request):
 #     return render(request, "settings/settings.html")
+
