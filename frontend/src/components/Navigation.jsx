@@ -70,7 +70,7 @@ const Navigation = ({ setIsSignedIn }) => {
                                 <>
                                     <img src={userInfo.profile_picture || "/src/assets/placeholders/default-avatar.png"} />
                                     <div>
-                                        <span className="name fs-400">{`${userInfo?.first_name} ${userInfo?.last_name}` || "Full name not found"}</span>
+                                        <span className="name fs-400">{userInfo?.name ?? "Full name not found"}</span>
                                         <span className="email fs-300">{userInfo?.email || "Email not found"}</span>
                                     </div>
                                 </>
