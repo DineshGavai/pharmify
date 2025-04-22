@@ -11,7 +11,7 @@ button {
   align-items: center;
   justify-content: center;
   gap: 0.8rem;
-  padding: .8rem 2.4rem;
+  padding: 0.8rem 2.4rem;
   text-transform: capitalize;
   user-select: none;
   overflow: hidden;
@@ -123,6 +123,31 @@ button.dropdown {
   border: 1px solid hsl(var(--clr-neutral-900));
   padding: 0.4rem 1.2rem;
   border-radius: 10rem;
+}
+
+button.tile {
+  justify-content: space-between;
+  padding: 1.2rem !important;
+  align-items: center;
+  text-align: left;
+  width: 100%;
+  border: 1px solid hsl(var(--clr-neutral-400));
+  border-radius: 0.8rem;
+  gap: 2.4rem;
+}
+
+button.tile .label {
+  font-weight: 500;
+  font-size: var(--fs-400);
+}
+
+button.tile .sublabel {
+  font-size: var(--fs-300);
+  color: hsl(var(--clr-neutral-600));
+}
+
+button.tile .icon.chevron_right {
+  --size: 2.8rem;
 }
 
 /* /////////////////////////

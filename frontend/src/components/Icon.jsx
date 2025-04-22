@@ -5,7 +5,7 @@ import { icons } from "../assets/icon-sprite.jsx";
 // Function to reset the SVG attributes
 const resetSVGAttr = (icon, iconName, className) => {
     return cloneElement(icon, {
-        className: `icon ${iconName} ${className}`,
+        className: `icon ${iconName} ${className || ""}`,
         stroke: undefined,
         fill: undefined,
         children: Array.isArray(icon.props.children)

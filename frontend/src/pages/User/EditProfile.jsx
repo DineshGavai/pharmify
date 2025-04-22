@@ -50,7 +50,7 @@ const EditProfile = () => {
             body: {
                 email: userInfo.email,
                 edit_profile_full_name: updatedUserInfo.name,
-                edit_profile_shop_name: updatedUserInfo.business_name,
+                edit_profile_business_name: updatedUserInfo.business_name,
                 edit_profile_phone: updatedUserInfo.phone_number
             },
             onSuccess: (data) => {

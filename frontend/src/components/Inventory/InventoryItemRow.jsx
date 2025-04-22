@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import CTAButton from "../Button/CTAButton.jsx";
 import Checkbox from "../Input/Checkbox.jsx";
 import IconButton from "../Button/IconButton.jsx";
+import { useEffect, useState } from "react";
 
 const InventoryItemRow = ({ data }) => {
 
@@ -32,12 +33,24 @@ const InventoryItemRow = ({ data }) => {
     const inLossBadge = <span className="badge">Selling in Loss</span>;
     const noProfitBadge = <span className="badge">No Profit</span>;
 
+    const [checkedItems, setCheckedItems] = useState([]);
+
+    const handleCheckboxChange = (id) => {
+        setCheckedItems((prev) =>
+            prev.includes(id)
+                ? prev.filter((itemId) => itemId !== id)
+                : [...prev, id]
+        );
+    };
+
     return (
         <tr className="inventory-item row">
             <td className="cell checkbox">
                 <Checkbox
                     id={`checkbox_${data.id}`}
                     name="checkboxes"
+                    checked={checkedItems.includes(data.id) || false}
+                    onChange={(e) => handleCheckboxChange(data.id)}
                 />
             </td>
 
@@ -49,7 +62,7 @@ const InventoryItemRow = ({ data }) => {
                     {
                         data.generic_name && <p className="generic-name">{data.generic_name}</p>
                     }
-                    <p className="text-muted brand">by {data.brand || "Unknown Brand"}</p>
+                    <p className="text-muted brand text-emphasis">by {data.brand || "Unknown Brand"}</p>
                 </div>
             </td>
 

@@ -5,7 +5,7 @@ import { extractCategoryStrings, getInventoryMetrics } from "../../utils/invento
 import CTAButton from "../Button/CTAButton.jsx";
 import IconButton from "../Button/IconButton.jsx";
 
-const InventoryItemTile = ({ data }) => {
+const InventoryItemTile = ({ data, className }) => {
 
     const navigate = useNavigate();
 
@@ -30,7 +30,7 @@ const InventoryItemTile = ({ data }) => {
     const noProfitBadge = isNoProfit && <span className="badge">No Profit</span>;
 
     return (
-        <div className="inventory-item tile">
+        <div className={`inventory-item tile ${className}`}>
             {/* # ID cell */}
             <div className="cell id">
                 <p className="fs-200 text-muted"># {data.id || "Unknown ID"}</p>
@@ -101,6 +101,7 @@ const InventoryItemTile = ({ data }) => {
                     {inLossBadge}
                     <IconButton
                         iconName={"arrow_right"}
+                        className="navigate-btn"
                         onClick={() => {
                             saveToLocalStorage("viewed_product", data)
                             navigate("/inventory/product")

@@ -101,6 +101,10 @@
   margin-top: 1.6rem;
 }
 
+.inventory-item.tile.compact :is(.category, .total-box, .navigate-btn) {
+  display: none;
+}
+
 /* /////////////////////////
   COMMON
 ///////////////////////// */
