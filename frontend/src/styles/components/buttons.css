@@ -131,18 +131,19 @@ button.tile {
   align-items: center;
   text-align: left;
   width: 100%;
-  border: 1px solid hsl(var(--clr-neutral-400));
-  border-radius: 0.8rem;
+  border-bottom: 1px solid hsl(var(--clr-neutral-400));
   gap: 2.4rem;
+  border-radius: 0;
 }
 
 button.tile .label {
   font-weight: 500;
   font-size: var(--fs-400);
+  margin-bottom: 0.8rem;
 }
 
 button.tile .sublabel {
-  font-size: var(--fs-300);
+  font-size: var(--fs-200);
   color: hsl(var(--clr-neutral-600));
 }
 

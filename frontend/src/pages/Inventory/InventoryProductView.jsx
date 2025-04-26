@@ -15,6 +15,8 @@ const InventoryProductView = () => {
     // Hooks
     const [inventoryData, setInventoryData] = useState(getFromLocalStorage("viewed_product"));
     const [isFormEditable, setIsFormEditable] = useState(false)
+    const [activeMobileForm, setActiveMobileForm] = useState("");
+
     const navigate = useNavigate();
 
     // Customizing Header
@@ -22,7 +24,7 @@ const InventoryProductView = () => {
 
     useEffect(() => {
 
-        console.log(inventoryData);
+        // console.log(inventoryData);
 
         setHeaderChildren({
             backBtn: (
@@ -40,6 +42,9 @@ const InventoryProductView = () => {
         return () => setHeaderChildren({});
     }, []);
 
+    useEffect(() => {
+        setIsFormEditable(activeMobileForm.length != 0);
+    }, [activeMobileForm])
 
 
     // Get simple & redundant Inventory Inputs
@@ -60,8 +65,54 @@ const InventoryProductView = () => {
                 required={options.required}
                 readOnly={options.readOnly}
                 onChange={controlledInput(setInventoryData, keyName)}
+                className={`
+                    ${options.readOnly || !isFormEditable ? "disabled" : ""}
+                    ${options.required ? "required" : ""}
+                `}
             />
         )
+    }
+
+    // Get mobile form section header
+    const getMobileFormHeader = (heading) => {
+        return (
+            <header className="mobile-form-header">
+                <IconButton
+                    iconName={"arrow_left"}
+                    type="button"
+                    onClick={() => {
+                        setActiveMobileForm("")
+                    }}
+                />
+                <h2>{heading}</h2>
+            </header>
+        )
+    }
+
+    // Get mobile form section header
+    const getFormSectionFooter = () => {
+        if (isFormEditable)
+            return (
+                <footer className="form-footer">
+                    <CTAButton
+                        label="Undo"
+                        className="ghost"
+                        type="button"
+                    />
+                    <CTAButton
+                        label="Save"
+                        className="primary"
+                        type="submit"
+                    />
+                </footer>
+            )
+    }
+
+    const mobileForms = {
+        BASIC_INFO: "basic-info",
+        COMPANY_INFO: "company-info",
+        PRICING_INFO: "pricing-info",
+        STOCK_INFO: "stock-info",
     }
 
     // Renders subcategories <li> elements
@@ -102,9 +153,8 @@ const InventoryProductView = () => {
     };
 
     return (
-        <form className={`inventory-product-view ${isFormEditable ? "editable" : ""}`}>
+        <form className={`inventory-product-view`}>
             <section className="main-sec product-view-nav">
-
                 <InventoryItemTile
                     data={inventoryData}
                     className="compact"
@@ -121,6 +171,7 @@ const InventoryProductView = () => {
                                 <p className="sublabel">Product Name, {inventoryData.generic_name && `Generic Name, `}Brand Name, Categories</p>
                             </div>
                         }
+                        onClick={() => setActiveMobileForm(mobileForms.BASIC_INFO)}
                     />
                     <TileButton
                         children={
@@ -129,6 +180,7 @@ const InventoryProductView = () => {
                                 <p className="sublabel">Manufacturer Name, Supplier Name, SKU & Barcode</p>
                             </div>
                         }
+                        onClick={() => setActiveMobileForm(mobileForms.COMPANY_INFO)}
                     />
                 </div>
 
@@ -143,6 +195,7 @@ const InventoryProductView = () => {
                                 <p className="sublabel">Cost Price, Selling Price, Profit, Tax, Discount Allowed</p>
                             </div>
                         }
+                        onClick={() => setActiveMobileForm(mobileForms.PRICING_INFO)}
                     />
                     <TileButton
                         children={
@@ -151,6 +204,7 @@ const InventoryProductView = () => {
                                 <p className="sublabel">Total Stock Quantity, Units per pack, Batch No., Mfg. Date, Expiry, Reorder Level</p>
                             </div>
                         }
+                        onClick={() => setActiveMobileForm(mobileForms.STOCK_INFO)}
                     />
                 </div>
             </section>
@@ -164,7 +218,9 @@ const InventoryProductView = () => {
 
                     <div>
                         {/* Basic Info */}
-                        <div className="details-col basic-info">
+                        <div className={`details-col ${mobileForms.BASIC_INFO} ${(activeMobileForm == mobileForms.BASIC_INFO) ? "mobile-form-active" : ""}`}>
+                            {getMobileFormHeader("Basic Info")}
+
                             {getInventoryInput("Product Name", "name")}
                             {inventoryData.generic_name && getInventoryInput("Generic Name", "generic_name")}
                             {getInventoryInput("Brand Name", "brand")}
@@ -184,11 +240,13 @@ const InventoryProductView = () => {
                                     }
                                 </ul>
                             </div>
+
+                            {getFormSectionFooter()}
                         </div>
 
 
                         {/* Company Info */}
-                        <div className="details-col tab-desk-only">
+                        <div className={`details-col ${mobileForms.COMPANY_INFO} ${(activeMobileForm == mobileForms.COMPANY_INFO) ? "mobile-form-active" : ""}`}>
                             {getInventoryInput("Manufacturer", "manufacturer")}
                             {getInventoryInput("Supplier", "supplier")}
                             <div className="sku-and-barcode">
@@ -205,13 +263,20 @@ const InventoryProductView = () => {
                 <section className="main-sec details-sec pricing-stock-details">
                     <h2>Pricing & Stock Details</h2>
 
-                    <div className="mobile-only">
+                    <div>
+                        <div className={`details-col ${mobileForms.PRICING_INFO} ${(activeMobileForm == mobileForms.PRICING_INFO) ? "mobile-form-active" : ""}`}>
 
+                        </div>
+
+                        <div className={`details-col ${mobileForms.STOCK_INFO} ${(activeMobileForm == mobileForms.STOCK_INFO) ? "mobile-form-active" : ""}`}>
+
+                        </div>
                     </div>
+
                 </section>
 
             </section>
-        </form >
+        </form>
     )
 }
 

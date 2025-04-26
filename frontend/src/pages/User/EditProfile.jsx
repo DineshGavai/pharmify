@@ -7,6 +7,7 @@ import { regexPatterns } from "../../utils/data.js"
 import Icon from "../../components/Icon.jsx"
 import { apiRequest, contentTypes } from "../../utils/api.js"
 import { getFromLocalStorage, saveToLocalStorage } from "../../utils/browserStorage.js"
+import TileButton from "../../components/Button/TileButton.jsx"
 
 const EditProfile = () => {
 
@@ -21,13 +22,13 @@ const EditProfile = () => {
         const isInitialEmpty = Object.keys(initialUserInfo).length === 0;
         const isUpdatedEmpty = Object.keys(updatedUserInfo).length === 0;
 
-        if (isUserInfoLoaded && isInitialEmpty && updatedUserInfo) {
+        if (isUserInfoLoaded && isInitialEmpty && isUpdatedEmpty) {
             setInitialUserInfo(userInfo);
             setUpdatedUserInfo(userInfo);
         }
     }, [userInfo, initialUserInfo, updatedUserInfo]);
 
-    // Compare current and initial user info to detect changes
+    // Dirty check the updates
     useEffect(() => {
         const hasChanged = Object.entries(initialUserInfo).some(
             ([key, value]) => updatedUserInfo[key] !== value
@@ -36,6 +37,12 @@ const EditProfile = () => {
         // Update changes status
         setIsInfoUpdated(hasChanged);
     }, [updatedUserInfo, initialUserInfo]);
+
+    // Save changes in the initial and updated user info when the updates are saved
+    useEffect(() => {
+        setUpdatedUserInfo(userInfo);
+        setInitialUserInfo(userInfo);
+    }, [userInfo]);
 
 
     const handleFormSubmit = async (e) => {
@@ -182,22 +189,23 @@ const EditProfile = () => {
 
                 <div className="sec-content">
 
-                    <button className="ghost edit-profile-link">
-                        <div>
-                            <p className="text-emphasis">Change Email Adress</p>
-                            <p className="text-muted">To update the email you will need to input password and then you will also receive also an verification code on the updated email address.</p>
-                        </div>
-                        <Icon iconName={"chevron_right"} />
-                    </button>
+                    <TileButton
+                        children={
+                            <div>
+                                <p className="label">Change Email Adress</p>
+                                <p className="sublabel">To update the email you will need to input password and then you will also receive also an verification code on the updated email address.</p>
+                            </div>
+                        }
+                    />
 
-                    <button className="ghost edit-profile-link">
-                        <div>
-                            <p className="text-emphasis">Change Password</p>
-                            <p className="text-muted">Updating your password regularly keeps your Pharmify account secure. Make sure you have your registered email address available, as you will receive a verification code</p>
-                        </div>
-                        <Icon iconName={"chevron_right"} />
-                    </button>
-
+                    <TileButton
+                        children={
+                            <div>
+                                <p className="label">Change Password</p>
+                                <p className="sublabel">Updating your password regularly keeps your Pharmify account secure. Make sure you have your registered email address available, as you will receive a verification code</p>
+                            </div>
+                        }
+                    />
                 </div>
 
             </section>

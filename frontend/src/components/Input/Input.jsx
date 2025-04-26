@@ -70,7 +70,7 @@ const Input = ({
     }
 
     return (
-        <div className={`input-box ${value.length !== 0 ? "filled" : ""} ${(leftElem) ? "has-trail-item" : ""}`}>
+        <div className={`input-box ${value.length !== 0 ? "filled" : ""} ${(leftElem) ? "has-trail-item" : ""} ${className}`}>
 
             {
                 label &&

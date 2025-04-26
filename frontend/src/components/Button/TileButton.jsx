@@ -11,6 +11,7 @@ const TileButton = forwardRef(({
     iconType = "icon",
     rightIcon = true,
     disabled = false,
+    onClick = () => { },
     ...rest
 }, ref) => {
 
@@ -24,6 +25,7 @@ const TileButton = forwardRef(({
             rightIcon={rightIcon}
             disabled={disabled}
             iconType={iconType}
+            onClick={onClick}
         />
     );
 });
