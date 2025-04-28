@@ -41,6 +41,7 @@ const Input = ({
     className = "",
     multiline = false,
     clearable = false,
+    autogrow = false,
 
     // Icons & Buttons
     leftElem,
@@ -57,6 +58,7 @@ const Input = ({
     const [inputType, setInputType] = useState(type);
 
     leftElem = leftElem ? (<span className="left-elem">{leftElem}</span>) : null;
+    rightElem = rightElem ? (<span className="right-elem">{rightElem}</span>) : null;
 
     if (showPasswordButton) {
         rightElem =
@@ -95,6 +97,7 @@ const Input = ({
                     autoFocus={autoFocus}
                     disabled={disabled}
                     readOnly={readOnly}
+                    className={className}
 
                     // Validation
                     spellCheck={spellCheck}
@@ -107,6 +110,10 @@ const Input = ({
                         if (onChange) onChange(e)
                     }}
 
+                    // UI Enhancements
+                    style={{
+                        "--length": value.length + "ch"
+                    }}
                 />
                 {/* Right Icon or Button */}
                 {rightElem}

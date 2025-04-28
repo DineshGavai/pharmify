@@ -16,8 +16,7 @@
   font-size: var(--fs-200);
 }
 
-.inventory-product-view .input-box.required:not(.disabled) label::after {
-  content: "*";
+.inventory-product-view .input-box label .asterisk {
   color: red;
   padding-left: 0.4rem;
 }
@@ -49,7 +48,7 @@
 }
 
 /* /////////////////////////
-    CORE DETAILS SECTION
+    GLOBAL INVENTORY PRODUCT VIEW CSS
 ///////////////////////// */
 
 .inventory-product-view {
@@ -186,6 +185,10 @@
   }
 }
 
+/* /////////////////////////
+  CORE DETAILS SECTION
+///////////////////////// */
+
 .core-details > div {
   display: flex;
   flex-wrap: wrap;
@@ -262,4 +265,33 @@
   width: 100%;
   margin: auto;
   object-fit: contain;
+}
+
+/* /////////////////////////
+  PRICING SECTION
+///////////////////////// */
+
+.pricing-calc-box {
+  border-top: 1px solid hsl(var(--clr-neutral-300));
+  padding: 1.6rem;
+}
+
+.pricing-calc-box > p {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+.pricing-calc-box > p span.value-box {
+  font-size: var(--fs-400);
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.pricing-calc-box > p :is(.icon.percentage, .icon.rupee) {
+  --size: 1.4rem;
+  stroke-width: 2;
 }

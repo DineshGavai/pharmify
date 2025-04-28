@@ -142,3 +142,56 @@ form {
   width: 100%;
   height: 100%;
 }
+
+/* /////////////////////////
+  CUSTOM INPUTS
+///////////////////////// */
+
+.input-box.flex {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.input-box.flex.currency,
+.input-box.flex.percentage {
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.input-box.flex.currency .input-frame.text-input,
+.input-box.flex.percentage .input-frame.text-input {
+  margin-left: auto;
+  padding: 0;
+  gap: 0.2rem;
+}
+
+.input-box.currency input,
+.input-box.percentage input {
+  font-size: var(--fs-600);
+  text-align: right;
+  min-width: 8ch;
+  width: var(--length);
+  max-width: 16ch;
+  transition: 0s;
+  font-weight: 500 !important;
+}
+
+.input-box.disabled.currency input,
+.input-box.disabled.percentage input {
+  min-width: 2ch;
+}
+
+.input-box.currency .left-elem,
+.input-box.percentage .right-elem {
+  font-size: var(--fs-300);
+  align-items: end;
+  display: flex;
+}
+
+.input-box.currency .left-elem svg.icon,
+.input-box.percentage .right-elem svg.icon {
+  --size: 1.4rem;
+  stroke-width: 2;
+}

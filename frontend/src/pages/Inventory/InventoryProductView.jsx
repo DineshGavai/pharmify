@@ -14,6 +14,9 @@ const InventoryProductView = () => {
 
     // Hooks
     const [inventoryData, setInventoryData] = useState(getFromLocalStorage("viewed_product"));
+    const [initialInventoryData, setInitialInventoryData] = useState({});
+    const [updatedInventoryData, setUpdatedInventoryData] = useState({});
+
     const [isFormEditable, setIsFormEditable] = useState(false)
     const [activeMobileForm, setActiveMobileForm] = useState("");
 
@@ -23,9 +26,6 @@ const InventoryProductView = () => {
     const { headerChildren, setHeaderChildren } = useContext(GlobalContext);
 
     useEffect(() => {
-
-        // console.log(inventoryData);
-
         setHeaderChildren({
             backBtn: (
                 <IconButton
@@ -43,23 +43,41 @@ const InventoryProductView = () => {
     }, []);
 
     useEffect(() => {
-        setIsFormEditable(activeMobileForm.length != 0);
+        if (window.innerWidth > 560) {
+            setActiveMobileForm("")
+        } else {
+            setIsFormEditable(activeMobileForm.length != 0);
+
+        }
     }, [activeMobileForm])
 
-
-    // Get simple & redundant Inventory Inputs
-    const getInventoryInput = (label, keyName, options = {
+    const defaultInputOptions = {
         spellCheck: false,
         required: true,
         readOnly: false,
-    }) => {
+        className: "",
+        leftElem: null,
+        rightElem: null,
+        type: "",
+        autogrow: false,
+    };
+
+
+    // Get simple & redundant Inventory Inputs
+    const getInventoryInput = (label, keyName, options = {}) => {
+
+        options = { ...defaultInputOptions, ...options }
+        label = options.required && isFormEditable && !options.readOnly ? <>{label} <span className="asterisk">*</span></> : label;
+        let notAvailableLabel = options.type == "numeric" ? "00" : "Not Available";
+
         return (
             <Input
+                type={options.type}
                 label={label}
                 id={`inventory_${keyName}`}
                 name={`inventory_${keyName}`}
                 value={inventoryData[keyName] || ""}
-                placeholder={options.readOnly || !isFormEditable ? "Not Available" : ""}
+                placeholder={options.readOnly || !isFormEditable ? notAvailableLabel : ""}
                 disabled={options.readOnly || !isFormEditable}
                 spellCheck={options.spellCheck}
                 required={options.required}
@@ -68,7 +86,11 @@ const InventoryProductView = () => {
                 className={`
                     ${options.readOnly || !isFormEditable ? "disabled" : ""}
                     ${options.required ? "required" : ""}
+                    ${options.className}
+                    ${options.autogrow ? "autogrow" : ""}
                 `}
+                leftElem={options.leftElem}
+                rightElem={options.rightElem}
             />
         )
     }
@@ -192,7 +214,7 @@ const InventoryProductView = () => {
                         children={
                             <div>
                                 <p className="label">Pricing Details</p>
-                                <p className="sublabel">Cost Price, Selling Price, Profit, Tax, Discount Allowed</p>
+                                <p className="sublabel">Cost Price, Selling Price, Profit, Tax, Discount Limit</p>
                             </div>
                         }
                         onClick={() => setActiveMobileForm(mobileForms.PRICING_INFO)}
@@ -247,6 +269,9 @@ const InventoryProductView = () => {
 
                         {/* Company Info */}
                         <div className={`details-col ${mobileForms.COMPANY_INFO} ${(activeMobileForm == mobileForms.COMPANY_INFO) ? "mobile-form-active" : ""}`}>
+
+                            {getMobileFormHeader("Company Details")}
+
                             {getInventoryInput("Manufacturer", "manufacturer")}
                             {getInventoryInput("Supplier", "supplier")}
                             <div className="sku-and-barcode">
@@ -255,6 +280,8 @@ const InventoryProductView = () => {
                                 })}
                                 <img src={inventoryData.barcode ?? "/src/assets/placeholders/no-barcode.png"} className="barcode" />
                             </div>
+
+                            {getFormSectionFooter()}
                         </div>
                     </div>
                 </section>
@@ -265,7 +292,93 @@ const InventoryProductView = () => {
 
                     <div>
                         <div className={`details-col ${mobileForms.PRICING_INFO} ${(activeMobileForm == mobileForms.PRICING_INFO) ? "mobile-form-active" : ""}`}>
+                            {getMobileFormHeader("Pricing Info")}
 
+                            {
+                                getInventoryInput(
+                                    <span className="fs-400">Cost Price<br /><span className="fs-200 text-muted">(Purchase Price)</span></span>,
+                                    "cost_price",
+                                    {
+                                        leftElem: <Icon iconName="rupee" />,
+                                        type: "numeric",
+                                        className: "currency flex",
+                                        autogrow: true,
+                                    }
+                                )
+                            }
+                            {
+                                getInventoryInput(
+                                    <span className="fs-400">Selling Price<br /><span className="fs-200 text-muted">(Inclusive of all taxes)</span></span>,
+                                    "selling_price",
+                                    {
+                                        leftElem: <Icon iconName="rupee" />,
+                                        type: "numeric",
+                                        className: "currency flex"
+                                    }
+                                )
+                            }
+                            {
+                                getInventoryInput(
+                                    <span className="fs-400">Tax Rate</span>,
+                                    "tax_rate",
+                                    {
+                                        rightElem: <Icon iconName="percentage" />,
+                                        type: "numeric",
+                                        className: "percentage flex"
+                                    }
+                                )
+                            }
+
+                            <div className="pricing-calc-box">
+                                <p>
+                                    <span className="text-muted">Net Selling Price</span>
+                                    <span className="value-box">
+                                        <Icon iconName="rupee" />
+                                        00.00
+                                    </span>
+                                </p>
+                                <p>
+                                    <span className="text-muted">Profit Amount</span>
+                                    <span className="value-box">
+                                        <Icon iconName="rupee" />
+                                        00.00
+                                    </span>
+                                </p>
+                                <p>
+                                    <span className="text-muted">Profit Percentage</span>
+                                    <span className="value-box">
+                                        00.00
+                                        <Icon iconName="percentage" />
+                                    </span>
+                                </p>
+                            </div>
+
+                            <div className="pricing-calc-box">
+                                <p className="text-muted text-emphasis fs-300">After Max Discount</p>
+                                <p>
+                                    <span className="text-muted">Net Selling Price</span>
+                                    <span className="value-box">
+                                        <Icon iconName="rupee" />
+                                        00.00
+                                    </span>
+                                </p>
+                                <p>
+                                    <span className="text-muted">Profit Amount</span>
+                                    <span className="value-box">
+                                        <Icon iconName="rupee" />
+                                        00.00
+                                    </span>
+                                </p>
+                                <p>
+                                    <span className="text-muted">Profit Percentage</span>
+                                    <span className="value-box">
+                                        00.00
+                                        <Icon iconName="percentage" />
+                                    </span>
+                                </p>
+                            </div>
+
+                            {getFormSectionFooter()}
                         </div>
 
                         <div className={`details-col ${mobileForms.STOCK_INFO} ${(activeMobileForm == mobileForms.STOCK_INFO) ? "mobile-form-active" : ""}`}>
