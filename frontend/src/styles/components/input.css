@@ -153,11 +153,8 @@ form {
   flex-direction: row;
 }
 
-.input-box.flex.currency,
-.input-box.flex.percentage {
-  max-width: 42rem;
-  margin-left: auto;
-  margin-right: auto;
+.input-box.flex label {
+  padding: 0;
 }
 
 .input-box.flex.currency .input-frame.text-input,

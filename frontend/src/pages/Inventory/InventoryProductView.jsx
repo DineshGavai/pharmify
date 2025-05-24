@@ -37,17 +37,42 @@ const InventoryProductView = () => {
                 />
             ),
             heading: `Product - ${inventoryData.name}`,
+            children: (
+                <div className="header-options">
+                    {
+                        !isFormEditable ?
+                            <CTAButton
+                                className="primary"
+                                label="Edit"
+                                iconName="edit"
+                                onClick={() => setIsFormEditable(true)}
+                            />
+                            :
+                            <>
+                                <CTAButton
+                                    className="ghost"
+                                    label="Cancel"
+                                    onClick={() => setIsFormEditable(false)}
+                                />
+                                <CTAButton
+                                    className="primary"
+                                    label="Save"
+                                    onClick={() => setIsFormEditable(false)}
+                                />
+                            </>
+                    }
+                </div>
+            )
         });
 
         return () => setHeaderChildren({});
-    }, []);
+    }, [isFormEditable]);
 
     useEffect(() => {
         if (window.innerWidth > 560) {
             setActiveMobileForm("")
         } else {
             setIsFormEditable(activeMobileForm.length != 0);
-
         }
     }, [activeMobileForm])
 
@@ -213,7 +238,7 @@ const InventoryProductView = () => {
                     <TileButton
                         children={
                             <div>
-                                <p className="label">Pricing Details</p>
+                                <p className="label">Pricing Info</p>
                                 <p className="sublabel">Cost Price, Selling Price, Profit, Tax, Discount Limit</p>
                             </div>
                         }
@@ -353,30 +378,68 @@ const InventoryProductView = () => {
                                 </p>
                             </div>
 
-                            <div className="pricing-calc-box">
-                                <p className="text-muted text-emphasis fs-300">After Max Discount</p>
-                                <p>
-                                    <span className="text-muted">Net Selling Price</span>
-                                    <span className="value-box">
-                                        <Icon iconName="rupee" />
-                                        00.00
-                                    </span>
-                                </p>
-                                <p>
-                                    <span className="text-muted">Profit Amount</span>
-                                    <span className="value-box">
-                                        <Icon iconName="rupee" />
-                                        00.00
-                                    </span>
-                                </p>
-                                <p>
-                                    <span className="text-muted">Profit Percentage</span>
-                                    <span className="value-box">
-                                        00.00
-                                        <Icon iconName="percentage" />
-                                    </span>
-                                </p>
-                            </div>
+                            {
+                                isFormEditable && !inventoryData.discount_allowed &&
+                                <TileButton
+                                    children={
+                                        <p className="label">Add Discount</p>
+                                    }
+                                    iconName="add"
+                                    className="add-discount-btn"
+                                    onClick={controlledInput(setInventoryData, "discount_allowed", true)}
+                                />
+                            }
+
+                            {
+                                inventoryData.discount_allowed &&
+                                <div className="pricing-calc-box discount-box">
+
+                                    {
+                                        getInventoryInput(
+                                            <span className="fs-400">
+                                                Discount Limit
+                                                <CTAButton
+                                                    label="Remove"
+                                                    className="text cancel-discount-btn"
+                                                    onClick={controlledInput(setInventoryData, "discount_allowed", false)}
+                                                />
+                                            </span>,
+                                            "discount",
+                                            {
+                                                rightElem: <>
+                                                    <Icon iconName="percentage" />
+                                                </>,
+                                                type: "numeric",
+                                                className: "percentage flex"
+                                            }
+                                        )
+                                    }
+                                    <p className="text-muted text-emphasis fs-300">After Max Discount</p>
+                                    <p>
+                                        <span className="text-muted">Net Selling Price</span>
+                                        <span className="value-box">
+                                            <Icon iconName="rupee" />
+                                            00.00
+                                        </span>
+                                    </p>
+                                    <p>
+                                        <span className="text-muted">Profit Amount</span>
+                                        <span className="value-box">
+                                            <Icon iconName="rupee" />
+                                            00.00
+                                        </span>
+                                    </p>
+                                    <p>
+                                        <span className="text-muted">Profit Percentage</span>
+                                        <span className="value-box">
+                                            00.00
+                                            <Icon iconName="percentage" />
+                                        </span>
+                                    </p>
+
+                                </div>
+                            }
+
 
                             {getFormSectionFooter()}
                         </div>

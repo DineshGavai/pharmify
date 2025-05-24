@@ -20,7 +20,7 @@ const Header = ({ heading = "" }) => {
             <div>
                 {headerChildren.backBtn}
                 <h1 className="fs-700">{headerChildren.heading || "Pharmify"}</h1>
-                <div className="options">{headerChildren.elements}</div>
+                <div className="options">{headerChildren.elements || headerChildren.children}</div>
             </div>
         </header>
     );

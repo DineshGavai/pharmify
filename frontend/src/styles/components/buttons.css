@@ -18,8 +18,12 @@ button {
 }
 
 button:not(.icon):has(> svg.icon) {
-  padding: 1rem 2.4rem;
+  padding: 0.8rem 2.4rem;
   padding-left: 1.6rem;
+}
+
+button:not(.icon) svg.icon {
+  --size: 1.6rem;
 }
 
 button:disabled,
@@ -131,18 +135,18 @@ button.tile {
   align-items: center;
   text-align: left;
   width: 100%;
-  border-bottom: 1px solid hsl(var(--clr-neutral-400));
+  border-bottom: 1px solid hsl(var(--clr-neutral-200));
   gap: 2.4rem;
   border-radius: 0;
 }
 
 button.tile .label {
-  font-weight: 500;
   font-size: var(--fs-400);
-  margin-bottom: 0.8rem;
+  margin-bottom: 0;
 }
 
 button.tile .sublabel {
+  margin-top: 0.8rem;
   font-size: var(--fs-200);
   color: hsl(var(--clr-neutral-600));
 }

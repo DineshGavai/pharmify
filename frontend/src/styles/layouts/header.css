@@ -2,14 +2,15 @@
   z-index: 99;
   padding: 1.2rem 1.6rem;
   background-color: hsl(var(--clr-neutral-100));
-  border-bottom: 1px solid hsl(var(--clr-neutral-150));
-  height: 5.65rem;
+  border-bottom: 1px solid hsl(var(--clr-neutral-200));
+  min-height: 5.65rem;
+  max-height: 5.65rem;
   display: flex;
   align-items: center;
   gap: 1.6rem;
 }
 
-#main_header > div {
+#main_header > div, #main_header div.options {
   display: contents;
 }
 

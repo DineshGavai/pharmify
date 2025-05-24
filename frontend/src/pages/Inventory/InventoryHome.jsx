@@ -14,7 +14,7 @@ const InventoryHome = () => {
     useEffect(() => {
         setHeaderChildren({
             heading: "Inventory",
-            elements:
+            children:
                 <>
                     <IconButton iconName={"add"} className="primary mobile-only" />
                     <CTAButton label="Add product" iconName="add" className="primary tab-desk-only" />

@@ -44,7 +44,7 @@ nav .nav-footer {
 }
 
 nav .nav-header {
-  border-bottom: 1px solid hsl(var(--clr-neutral-150));
+  border-bottom: 1px solid hsl(var(--clr-neutral-200));
   height: calc(var(--header-height) - 1px);
 }
 
@@ -160,7 +160,7 @@ nav .nav-footer > div {
     width: 26rem;
     z-index: 100;
     background-color: hsl(var(--clr-white));
-    border-right: 1px solid hsl(var(--clr-neutral-150));
+    border-right: 1px solid hsl(var(--clr-neutral-200));
   }
 
   nav {

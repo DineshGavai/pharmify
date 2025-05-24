@@ -173,8 +173,8 @@ export default Input;
 
 
 // Input Functions
-export const controlledInput = (setter, key_name) => (e) => {
-    const value = e.target.value;
+export const controlledInput = (setter, key_name, explicitValue) => (e) => {
+    const value = explicitValue !== null ? explicitValue : e.target.value;
     setter((data) => ({
         ...data,
         [key_name]: value,
