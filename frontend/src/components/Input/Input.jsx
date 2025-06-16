@@ -10,7 +10,7 @@ const Input = ({
     type = "text",
     name,
     id,
-    value,
+    value = "",
     defaultValue = "",
     placeholder = "",
     autoComplete = "off",
@@ -174,7 +174,7 @@ export default Input;
 
 // Input Functions
 export const controlledInput = (setter, key_name, explicitValue) => (e) => {
-    const value = explicitValue !== null ? explicitValue : e.target.value;
+    const value = explicitValue ? explicitValue : e.target.value;
     setter((data) => ({
         ...data,
         [key_name]: value,

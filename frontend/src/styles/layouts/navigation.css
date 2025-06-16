@@ -193,7 +193,7 @@ nav .nav-footer > div {
   }
 
   nav:not(.active) button.menu {
-    padding-left: 9px !important;
+    padding-left: 12px !important;
     height: 4rem;
   }
 

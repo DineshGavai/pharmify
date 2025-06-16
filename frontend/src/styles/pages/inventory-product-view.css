@@ -4,16 +4,14 @@
 
 .inventory-product-view .input-box {
   margin-bottom: 2rem;
+  margin-top: 0.4rem;
 }
 
 .inventory-product-view .input-box label {
-  position: static;
   font-size: var(--fs-200);
   margin-bottom: 0rem;
-}
-
-.inventory-product-view .input-box:has(input:focus) label {
-  font-size: var(--fs-200);
+  top: -0.8rem;
+  color: hsl(var(--clr-neutral-700));
 }
 
 .inventory-product-view .input-box label .asterisk {
@@ -21,25 +19,19 @@
   padding-left: 0.4rem;
 }
 
-.inventory-product-view .input-frame.text-input {
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  border-radius: 0;
-  padding: 0 0.4rem;
-}
-
-.inventory-product-view .input-box.disabled .input-frame.text-input {
-  border-bottom-color: transparent;
+.inventory-product-view .input-frame.text-input,
+.inventory-product-view .input-box:has(input:disabled) .input-frame.text-input {
+  border-width: 1px;
+  border-color: hsl(var(--clr-neutral-200));
 }
 
 .inventory-product-view .input-frame.text-input input {
-  padding: 0.4rem 0;
+  font-size: var(--fs-300);
 }
 
 .inventory-product-view .input-frame.text-input input:disabled {
   opacity: 1;
-  color: hsl(var(--clr-neutral-900));
+  /* color: hsl(var(--clr-neutral-900)); */
   background-color: hsl(var(--clr-white));
 }
 
@@ -54,7 +46,7 @@
 .inventory-product-view {
   gap: 0;
   flex-direction: row;
-  align-items: start;
+  align-items: stretch;
 }
 
 .inventory-product-view .details-sec {
@@ -66,9 +58,9 @@
 .main-sec > div .details-col {
   flex: 1;
   min-width: 22rem;
-  border: 1px solid hsl(var(--clr-neutral-400));
+  border: 1px solid hsl(var(--clr-neutral-200));
   padding: 1.6rem;
-  border-radius: 0.8rem;
+  border-radius: 0.4rem;
 }
 
 .mobile-form-header {
@@ -160,7 +152,6 @@
 .inventory-product-view .product-view-nav {
   display: flex;
   flex-direction: column;
-  margin-bottom: 0.8rem;
   padding: 1.6rem;
 }
 
@@ -182,9 +173,24 @@
   .inventory-product-view .product-view-nav {
     max-width: 32rem;
     min-width: 22rem;
+    max-height: calc(100vh - 5.7rem);
     position: sticky;
     top: 0;
+    background-color: hsl(var(--clr-neutral-100));
   }
+
+  .inventory-product-view .product-view-nav button.tile .label {
+    font-size: var(--fs-300);
+  }
+
+  .inventory-product-view .product-view-nav button.tile:hover {
+    background-color: hsl(var(--clr-neutral-150));
+  }
+
+  .inventory-product-view .product-view-nav button.tile .icon {
+    --size: 2rem;
+  }
+
   .inventory-product-view .product-view-nav .inventory-item.tile,
   .inventory-product-view .product-view-nav button.tile .sublabel {
     display: none;
@@ -195,6 +201,11 @@
   CORE DETAILS SECTION
 ///////////////////////// */
 
+.details-sec .main-sec h2 {
+  font-size: var(--fs-400);
+  font-weight: 500;
+}
+
 .core-details > div {
   display: flex;
   flex-wrap: wrap;
@@ -203,7 +214,6 @@
 
 .core-details .categories-list {
   padding: 0.8rem;
-  background-color: hsl(var(--clr-neutral-100));
   border: 1px solid hsl(var(--clr-neutral-200));
   margin-top: 0.8rem;
   border-radius: 0.8rem;
@@ -278,8 +288,14 @@
 ///////////////////////// */
 
 .pricing-calc-box {
-  border-top: 1px solid hsl(var(--clr-neutral-300));
-  padding: 1.6rem 0;
+  background-color: hsl(var(--clr-neutral-100));
+  border-radius: 0.8rem;
+  padding: 1.6rem;
+  margin-bottom: 1.2rem;
+}
+
+.pricing-calc-box.discount-box {
+  margin-bottom: 0;
 }
 
 .pricing-calc-box > p {
@@ -307,17 +323,19 @@
   border-radius: 0.8rem;
 }
 
-.pricing-calc-box.discount-box {
-  border: 1px solid hsl(var(--clr-neutral-400));
-  border-radius: 0.8rem;
-  padding: 1.6rem;
-}
-
 .pricing-calc-box .cancel-discount-btn {
   padding: 0.2rem;
   font-weight: 400;
   font-size: var(--fs-200);
   text-decoration: underline;
+}
+
+.pricing-calc-box.discount-box {
+  border: 1.5px solid transparent;
+}
+
+.pricing-calc-box.discount-box .input-box {
+  margin-bottom: 0.8rem;
 }
 
 .pricing-calc-box.discount-box .cancel-discount-btn:hover {
@@ -327,4 +345,5 @@
 .pricing-calc-box.discount-box:has(.cancel-discount-btn:hover) {
   scale: 0.99;
   border-style: dashed;
+  border-color: hsl(var(--clr-neutral-200));
 }

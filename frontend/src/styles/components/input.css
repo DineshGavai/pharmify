@@ -69,6 +69,10 @@ form {
   border-color: hsl(var(--clr-neutral-900));
 }
 
+.input-box:has(label:hover) .input-frame.text-input:has(input:disabled) {
+  border-color: hsl(var(--clr-neutral-400));
+}
+
 .input-box p.help-text {
   margin-top: 0.4rem;
 }
@@ -164,8 +168,8 @@ form {
   gap: 0.2rem;
 }
 
-.input-box.currency input,
-.input-box.percentage input {
+.input-box.flex.currency input,
+.input-box.flex.percentage input {
   font-size: var(--fs-600);
   text-align: right;
   min-width: 8ch;

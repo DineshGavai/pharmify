@@ -17,7 +17,7 @@ const InventoryProductView = () => {
     const [initialInventoryData, setInitialInventoryData] = useState({});
     const [updatedInventoryData, setUpdatedInventoryData] = useState({});
 
-    const [isFormEditable, setIsFormEditable] = useState(false)
+    const [isFormEditable, setIsFormEditable] = useState(true)
     const [activeMobileForm, setActiveMobileForm] = useState("");
 
     const navigate = useNavigate();
@@ -101,7 +101,7 @@ const InventoryProductView = () => {
                 label={label}
                 id={`inventory_${keyName}`}
                 name={`inventory_${keyName}`}
-                value={inventoryData[keyName] || ""}
+                value={inventoryData[keyName]}
                 placeholder={options.readOnly || !isFormEditable ? notAvailableLabel : ""}
                 disabled={options.readOnly || !isFormEditable}
                 spellCheck={options.spellCheck}
@@ -303,7 +303,7 @@ const InventoryProductView = () => {
                                 {getInventoryInput("SKU (Stock Keeping Unit)", "sku", {
                                     readOnly: true
                                 })}
-                                <img src={inventoryData.barcode ?? "/src/assets/placeholders/no-barcode.png"} className="barcode" />
+                                <img src={inventoryData.barcode || "/src/assets/placeholders/no-barcode.png"} className="barcode" />
                             </div>
 
                             {getFormSectionFooter()}
@@ -319,42 +319,45 @@ const InventoryProductView = () => {
                         <div className={`details-col ${mobileForms.PRICING_INFO} ${(activeMobileForm == mobileForms.PRICING_INFO) ? "mobile-form-active" : ""}`}>
                             {getMobileFormHeader("Pricing Info")}
 
-                            {
-                                getInventoryInput(
-                                    <span className="fs-400">Cost Price<br /><span className="fs-200 text-muted">(Purchase Price)</span></span>,
-                                    "cost_price",
-                                    {
-                                        leftElem: <Icon iconName="rupee" />,
-                                        type: "numeric",
-                                        className: "currency flex",
-                                        autogrow: true,
-                                    }
-                                )
-                            }
-                            {
-                                getInventoryInput(
-                                    <span className="fs-400">Selling Price<br /><span className="fs-200 text-muted">(Inclusive of all taxes)</span></span>,
-                                    "selling_price",
-                                    {
-                                        leftElem: <Icon iconName="rupee" />,
-                                        type: "numeric",
-                                        className: "currency flex"
-                                    }
-                                )
-                            }
-                            {
-                                getInventoryInput(
-                                    <span className="fs-400">Tax Rate</span>,
-                                    "tax_rate",
-                                    {
-                                        rightElem: <Icon iconName="percentage" />,
-                                        type: "numeric",
-                                        className: "percentage flex"
-                                    }
-                                )
-                            }
+                            <div className="pricing-calc-box">
+
+                                {
+                                    getInventoryInput(
+                                        "Cost Price (Purchase Price)",
+                                        "cost_price",
+                                        {
+                                            leftElem: <Icon iconName="rupee" />,
+                                            type: "numeric",
+                                            className: "currency",
+                                        }
+                                    )
+                                }
+                                {
+                                    getInventoryInput(
+                                        "Selling Price (Inclusive of all taxes)",
+                                        "selling_price",
+                                        {
+                                            leftElem: <Icon iconName="rupee" />,
+                                            type: "numeric",
+                                            className: "currency"
+                                        }
+                                    )
+                                }
+                                {
+                                    getInventoryInput(
+                                        "Tax Rate",
+                                        "tax_rate",
+                                        {
+                                            rightElem: <Icon iconName="percentage" />,
+                                            type: "numeric",
+                                            className: "percentage"
+                                        }
+                                    )
+                                }
+                            </div>
 
                             <div className="pricing-calc-box">
+                                <p className="text-muted text-emphasis fs-300">Summary</p>
                                 <p>
                                     <span className="text-muted">Net Selling Price</span>
                                     <span className="value-box">
@@ -398,11 +401,14 @@ const InventoryProductView = () => {
                                         getInventoryInput(
                                             <span className="fs-400">
                                                 Discount Limit
-                                                <CTAButton
-                                                    label="Remove"
-                                                    className="text cancel-discount-btn"
-                                                    onClick={controlledInput(setInventoryData, "discount_allowed", false)}
-                                                />
+                                                {
+                                                    isFormEditable && inventoryData.discount_allowed &&
+                                                    <CTAButton
+                                                        label="Remove"
+                                                        className="text cancel-discount-btn"
+                                                        onClick={controlledInput(setInventoryData, "discount_allowed", false)}
+                                                    />
+                                                }
                                             </span>,
                                             "discount",
                                             {
@@ -445,7 +451,10 @@ const InventoryProductView = () => {
                         </div>
 
                         <div className={`details-col ${mobileForms.STOCK_INFO} ${(activeMobileForm == mobileForms.STOCK_INFO) ? "mobile-form-active" : ""}`}>
+                            {getMobileFormHeader("Stock Info")}
 
+
+                            {getFormSectionFooter()}
                         </div>
                     </div>
 
