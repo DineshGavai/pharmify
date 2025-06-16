@@ -123,6 +123,15 @@ button.text:hover {
   background-color: hsl(var(--clr-neutral-150));
 }
 
+button.underlined {
+  padding: .2rem;
+  margin: 0;
+  text-decoration: underline;
+  font-weight: inherit;
+  color: inherit;
+  font: inherit;
+}
+
 button.dropdown {
   border: 1px solid hsl(var(--clr-neutral-900));
   padding: 0.4rem 1.2rem;
@@ -141,7 +150,8 @@ button.tile {
 }
 
 button.tile .label {
-  font-size: var(--fs-400);
+  font-size: var(--fs-300);
+  font-weight: 500;
   margin-bottom: 0;
 }
 

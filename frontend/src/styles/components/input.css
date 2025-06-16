@@ -4,6 +4,17 @@ form {
   gap: 2rem;
 }
 
+.input-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.input-group > * {
+  flex: 1 1 16rem;
+  min-width: 16rem;
+}
+
 .input-box {
   position: relative;
 }
@@ -19,10 +30,7 @@ form {
   top: 1.3rem;
   padding: 0 0.4rem;
   z-index: 11;
-}
-
-.input-box.has-trail-item label {
-  left: 3.7rem;
+  text-wrap: nowrap;
 }
 
 .input-box:has(input:focus) label,
@@ -43,7 +51,7 @@ form {
   padding: 0 1.2rem;
 }
 
-.input-box.has-trail-item .input-frame.text-input {
+.input-box.has-lead-item .input-frame.text-input {
   padding-left: 0.8rem;
   padding-right: 0.8rem;
 }

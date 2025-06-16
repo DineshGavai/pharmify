@@ -116,28 +116,35 @@ const InventoryProductView = () => {
                 `}
                 leftElem={options.leftElem}
                 rightElem={options.rightElem}
+                helpText={options.helpText || ""}
             />
         )
     }
 
     // Get mobile form section header
-    const getMobileFormHeader = (heading) => {
+    const getFormHeader = (heading, backBtn = true) => {
         return (
-            <header className="mobile-form-header">
-                <IconButton
-                    iconName={"arrow_left"}
-                    type="button"
-                    onClick={() => {
-                        setActiveMobileForm("")
-                    }}
-                />
-                <h2>{heading}</h2>
+            <header className={`form-header ${backBtn ? "" : "not-sticky"}`}>
+                {
+                    backBtn &&
+                    <IconButton
+                        iconName={"arrow_left"}
+                        className="mobile-form-back"
+                        type="button"
+                        onClick={() => {
+                            setActiveMobileForm("")
+                        }}
+                    />
+                }
+                <h2>
+                    {heading}
+                </h2>
             </header>
         )
     }
 
     // Get mobile form section header
-    const getFormSectionFooter = () => {
+    const getFormFooter = () => {
         if (isFormEditable)
             return (
                 <footer className="form-footer">
@@ -157,6 +164,7 @@ const InventoryProductView = () => {
 
     const mobileForms = {
         BASIC_INFO: "basic-info",
+        CATEGORIES: "categories",
         COMPANY_INFO: "company-info",
         PRICING_INFO: "pricing-info",
         STOCK_INFO: "stock-info",
@@ -215,10 +223,19 @@ const InventoryProductView = () => {
                         children={
                             <div>
                                 <p className="label">Basic Info</p>
-                                <p className="sublabel">Product Name, {inventoryData.generic_name && `Generic Name, `}Brand Name, Categories</p>
+                                <p className="sublabel">Product Name, {inventoryData.generic_name && `Generic Name, `}Brand Name</p>
                             </div>
                         }
                         onClick={() => setActiveMobileForm(mobileForms.BASIC_INFO)}
+                    />
+                    <TileButton
+                        children={
+                            <div>
+                                <p className="label">Categories</p>
+                                <p className="sublabel">Select, Add, Edit, Remove Categories</p>
+                            </div>
+                        }
+                        onClick={() => setActiveMobileForm(mobileForms.CATEGORIES)}
                     />
                     <TileButton
                         children={
@@ -259,204 +276,186 @@ const InventoryProductView = () => {
             <section className="details-sec">
                 {/* Core Details Section */}
                 <section className="main-sec core-details">
-                    <h2>
-                        Core Product Details
-                    </h2>
 
-                    <div>
-                        {/* Basic Info */}
-                        <div className={`details-col ${mobileForms.BASIC_INFO} ${(activeMobileForm == mobileForms.BASIC_INFO) ? "mobile-form-active" : ""}`}>
-                            {getMobileFormHeader("Basic Info")}
+                    {/* Basic Info */}
+                    <div className={`details-col mobile-form ${mobileForms.BASIC_INFO} ${(activeMobileForm == mobileForms.BASIC_INFO) ? "active" : ""}`}>
+                        {getFormHeader("Basic Info")}
 
-                            {getInventoryInput("Product Name", "name")}
-                            {inventoryData.generic_name && getInventoryInput("Generic Name", "generic_name")}
-                            {getInventoryInput("Brand Name", "brand")}
+                        {getInventoryInput("Product Name", "name")}
+                        {inventoryData.generic_name && getInventoryInput("Generic Name", "generic_name")}
+                        {getInventoryInput("Brand Name", "brand")}
 
-                            {/* Category Info */}
-                            <div className="categories">
-                                <p className="fs-300"
-                                    style={{
-                                        color: `hsl(var(--clr-neutral-800))`
-                                    }}
-                                >Categories</p>
-                                <ul className="categories-list">
-                                    {
-                                        !inventoryData.categories
-                                            ? "Not Available"
-                                            : getNestedCategoryList(inventoryData.categories)
-                                    }
-                                </ul>
-                            </div>
+                        {getFormFooter()}
+                    </div>
 
-                            {getFormSectionFooter()}
+                    {/* Category Info */}
+                    <div className={`details-col mobile-form ${mobileForms.CATEGORIES} ${(activeMobileForm == mobileForms.CATEGORIES) ? "active" : ""}`}>
+                        {getFormHeader("Categories")}
+
+                        <ul className="categories-list">
+                            {
+                                !inventoryData.categories
+                                    ? "Not Available"
+                                    : getNestedCategoryList(inventoryData.categories)
+                            }
+                        </ul>
+                        {getFormFooter()}
+                    </div>
+
+
+                    {/* Company Info */}
+                    <div className={`details-col mobile-form ${mobileForms.COMPANY_INFO} ${(activeMobileForm == mobileForms.COMPANY_INFO) ? "active" : ""}`}>
+
+                        {getFormHeader("Company Details")}
+
+                        <div className="sku-and-barcode">
+                            {getInventoryInput("SKU (Stock Keeping Unit)", "sku", {
+                                readOnly: true
+                            })}
+                            <img src={inventoryData.barcode || "/src/assets/placeholders/no-barcode.png"} className="barcode" />
                         </div>
+                        {getInventoryInput("Manufacturer", "manufacturer")}
+                        {getInventoryInput("Supplier", "supplier")}
 
-
-                        {/* Company Info */}
-                        <div className={`details-col ${mobileForms.COMPANY_INFO} ${(activeMobileForm == mobileForms.COMPANY_INFO) ? "mobile-form-active" : ""}`}>
-
-                            {getMobileFormHeader("Company Details")}
-
-                            {getInventoryInput("Manufacturer", "manufacturer")}
-                            {getInventoryInput("Supplier", "supplier")}
-                            <div className="sku-and-barcode">
-                                {getInventoryInput("SKU (Stock Keeping Unit)", "sku", {
-                                    readOnly: true
-                                })}
-                                <img src={inventoryData.barcode || "/src/assets/placeholders/no-barcode.png"} className="barcode" />
-                            </div>
-
-                            {getFormSectionFooter()}
-                        </div>
+                        {getFormFooter()}
                     </div>
                 </section>
 
                 {/* Pricing & Stock Details */}
-                <section className="main-sec details-sec pricing-stock-details">
-                    <h2>Pricing & Stock Details</h2>
+                <section
+                    className={`main-sec details-col details-sec mobile-form ${mobileForms.PRICING_INFO} ${(activeMobileForm == mobileForms.PRICING_INFO) ? "active" : ""}`}>
 
-                    <div>
-                        <div className={`details-col ${mobileForms.PRICING_INFO} ${(activeMobileForm == mobileForms.PRICING_INFO) ? "mobile-form-active" : ""}`}>
-                            {getMobileFormHeader("Pricing Info")}
 
-                            <div className="pricing-calc-box">
+                    {/* Pricing Inputs */}
+                    <div className="details-col">
+                        {getFormHeader("Pricing")}
 
-                                {
-                                    getInventoryInput(
-                                        "Cost Price (Purchase Price)",
-                                        "cost_price",
-                                        {
-                                            leftElem: <Icon iconName="rupee" />,
-                                            type: "numeric",
-                                            className: "currency",
-                                        }
-                                    )
-                                }
-                                {
-                                    getInventoryInput(
-                                        "Selling Price (Inclusive of all taxes)",
-                                        "selling_price",
-                                        {
-                                            leftElem: <Icon iconName="rupee" />,
-                                            type: "numeric",
-                                            className: "currency"
-                                        }
-                                    )
-                                }
-                                {
-                                    getInventoryInput(
-                                        "Tax Rate",
-                                        "tax_rate",
-                                        {
-                                            rightElem: <Icon iconName="percentage" />,
-                                            type: "numeric",
-                                            className: "percentage"
-                                        }
-                                    )
-                                }
-                            </div>
-
-                            <div className="pricing-calc-box">
-                                <p className="text-muted text-emphasis fs-300">Summary</p>
-                                <p>
-                                    <span className="text-muted">Net Selling Price</span>
-                                    <span className="value-box">
-                                        <Icon iconName="rupee" />
-                                        00.00
-                                    </span>
-                                </p>
-                                <p>
-                                    <span className="text-muted">Profit Amount</span>
-                                    <span className="value-box">
-                                        <Icon iconName="rupee" />
-                                        00.00
-                                    </span>
-                                </p>
-                                <p>
-                                    <span className="text-muted">Profit Percentage</span>
-                                    <span className="value-box">
-                                        00.00
-                                        <Icon iconName="percentage" />
-                                    </span>
-                                </p>
-                            </div>
+                        <div className="input-group">
 
                             {
-                                isFormEditable && !inventoryData.discount_allowed &&
-                                <TileButton
-                                    children={
-                                        <p className="label">Add Discount</p>
-                                    }
-                                    iconName="add"
-                                    className="add-discount-btn"
-                                    onClick={controlledInput(setInventoryData, "discount_allowed", true)}
-                                />
-                            }
-
-                            {
-                                inventoryData.discount_allowed &&
-                                <div className="pricing-calc-box discount-box">
-
+                                getInventoryInput(
+                                    "Cost Price",
+                                    "cost_price",
                                     {
-                                        getInventoryInput(
-                                            <span className="fs-400">
-                                                Discount Limit
-                                                {
-                                                    isFormEditable && inventoryData.discount_allowed &&
-                                                    <CTAButton
-                                                        label="Remove"
-                                                        className="text cancel-discount-btn"
-                                                        onClick={controlledInput(setInventoryData, "discount_allowed", false)}
-                                                    />
-                                                }
-                                            </span>,
-                                            "discount",
-                                            {
-                                                rightElem: <>
-                                                    <Icon iconName="percentage" />
-                                                </>,
-                                                type: "numeric",
-                                                className: "percentage flex"
-                                            }
-                                        )
+                                        leftElem: <Icon iconName="rupee" />,
+                                        type: "numeric",
+                                        className: "currency",
                                     }
-                                    <p className="text-muted text-emphasis fs-300">After Max Discount</p>
-                                    <p>
-                                        <span className="text-muted">Net Selling Price</span>
-                                        <span className="value-box">
-                                            <Icon iconName="rupee" />
-                                            00.00
-                                        </span>
-                                    </p>
-                                    <p>
-                                        <span className="text-muted">Profit Amount</span>
-                                        <span className="value-box">
-                                            <Icon iconName="rupee" />
-                                            00.00
-                                        </span>
-                                    </p>
-                                    <p>
-                                        <span className="text-muted">Profit Percentage</span>
-                                        <span className="value-box">
-                                            00.00
-                                            <Icon iconName="percentage" />
-                                        </span>
-                                    </p>
-
-                                </div>
+                                )
                             }
-
-
-                            {getFormSectionFooter()}
+                            {
+                                getInventoryInput(
+                                    "Selling Price",
+                                    "selling_price",
+                                    {
+                                        leftElem: <Icon iconName="rupee" />,
+                                        type: "numeric",
+                                        className: "currency"
+                                    }
+                                )
+                            }
                         </div>
 
-                        <div className={`details-col ${mobileForms.STOCK_INFO} ${(activeMobileForm == mobileForms.STOCK_INFO) ? "mobile-form-active" : ""}`}>
-                            {getMobileFormHeader("Stock Info")}
+                        {
+                            getInventoryInput(
+                                "Tax Rate",
+                                "tax_rate",
+                                {
+                                    rightElem: <Icon iconName="percentage" />,
+                                    type: "numeric",
+                                    className: "percentage"
+                                }
+                            )
+                        }
+                        {
+                            inventoryData.discount_allowed &&
+                            getInventoryInput(
+                                "Discount Limit",
+                                "discount",
+                                {
+                                    rightElem: <>
+                                        <Icon iconName="percentage" />
+                                    </>,
+                                    type: "numeric",
+                                    className: "percentage",
+                                    helpText:
+                                        <CTAButton
+                                            label="Remove Discount"
+                                            className="underlined"
+                                            onClick={controlledInput(setInventoryData, "discount_allowed", false)}
+                                        />
+                                }
+                            )
+                        }
 
-
-                            {getFormSectionFooter()}
-                        </div>
+                        {
+                            isFormEditable && !inventoryData.discount_allowed &&
+                            <CTAButton
+                                label="Add Discount"
+                                iconName="add"
+                                className="ghost add-discount-btn"
+                                onClick={controlledInput(setInventoryData, "discount_allowed", true)}
+                            />
+                        }
                     </div>
+
+                    <div className="details-col pricing-calc-box">
+                        {getFormHeader("Summary", false)}
+                        <p>
+                            <span className="text-muted">Net Selling Price</span>
+                            <span className="value-box">
+                                <Icon iconName="rupee" />
+                                00.00
+                            </span>
+                        </p>
+                        <p>
+                            <span className="text-muted">Profit Amount</span>
+                            <span className="value-box">
+                                <Icon iconName="rupee" />
+                                00.00
+                            </span>
+                        </p>
+                        <p>
+                            <span className="text-muted">Profit Percentage</span>
+                            <span className="value-box">
+                                00.00
+                                <Icon iconName="percentage" />
+                            </span>
+                        </p>
+                    </div>
+
+                    {
+                        inventoryData.discount_allowed &&
+                        <div className="details-col pricing-calc-box discount-box">
+                            {getFormHeader("After Max Discount", false)}
+
+                            <p style={{
+                                marginTop: "-.8rem"
+                            }}>
+                                <span className="text-muted">Net Selling Price</span>
+                                <span className="value-box">
+                                    <Icon iconName="rupee" />
+                                    00.00
+                                </span>
+                            </p>
+                            <p>
+                                <span className="text-muted">Profit Amount</span>
+                                <span className="value-box">
+                                    <Icon iconName="rupee" />
+                                    00.00
+                                </span>
+                            </p>
+                            <p>
+                                <span className="text-muted">Profit Percentage</span>
+                                <span className="value-box">
+                                    00.00
+                                    <Icon iconName="percentage" />
+                                </span>
+                            </p>
+
+                        </div>
+                    }
+                    {getFormFooter()}
 
                 </section>
 
