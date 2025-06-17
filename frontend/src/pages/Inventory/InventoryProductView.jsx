@@ -9,11 +9,12 @@ import Checkbox from "../../components/Input/Checkbox.jsx"
 import Icon from "../../components/Icon.jsx";
 import TileButton from "../../components/Button/TileButton.jsx";
 import InventoryItemTile from "../../components/Inventory/InventoryItemTile.jsx";
+import BatchSummaryCard from "../../components/Inventory/BatchSummaryCard.jsx";
 
 const InventoryProductView = () => {
 
     // Hooks
-    const [inventoryData, setInventoryData] = useState(getFromLocalStorage("viewed_product"));
+    const [inventoryData, setInventoryData] = useState(() => getFromLocalStorage("viewed_product"));
     const [initialInventoryData, setInitialInventoryData] = useState({});
     const [updatedInventoryData, setUpdatedInventoryData] = useState({});
 
@@ -21,6 +22,10 @@ const InventoryProductView = () => {
     const [activeMobileForm, setActiveMobileForm] = useState("");
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+
+    }, []);
 
     // Customizing Header
     const { headerChildren, setHeaderChildren } = useContext(GlobalContext);
@@ -255,7 +260,7 @@ const InventoryProductView = () => {
                     <TileButton
                         children={
                             <div>
-                                <p className="label">Pricing Info</p>
+                                <p className="label">Pricing</p>
                                 <p className="sublabel">Cost Price, Selling Price, Profit, Tax, Discount Limit</p>
                             </div>
                         }
@@ -264,8 +269,8 @@ const InventoryProductView = () => {
                     <TileButton
                         children={
                             <div>
-                                <p className="label">Stock Info</p>
-                                <p className="sublabel">Total Stock Quantity, Units per pack, Batch No., Mfg. Date, Expiry, Reorder Level</p>
+                                <p className="label">Stock</p>
+                                <p className="sublabel">Stock Versions, Total Stock Quantity, Units per pack, Batch No., Mfg. Date, Expiry, Reorder Level</p>
                             </div>
                         }
                         onClick={() => setActiveMobileForm(mobileForms.STOCK_INFO)}
@@ -321,14 +326,14 @@ const InventoryProductView = () => {
                     </div>
                 </section>
 
-                {/* Pricing & Stock Details */}
+                {/* Pricing Details */}
                 <section
                     className={`main-sec details-col details-sec mobile-form ${mobileForms.PRICING_INFO} ${(activeMobileForm == mobileForms.PRICING_INFO) ? "active" : ""}`}>
 
 
                     {/* Pricing Inputs */}
                     <div className="details-col">
-                        {getFormHeader("Pricing")}
+                        {getFormHeader("Pricing (Per Unit)")}
 
                         <div className="input-group">
 
@@ -401,7 +406,9 @@ const InventoryProductView = () => {
 
                     <div className="details-col pricing-calc-box">
                         {getFormHeader("Summary", false)}
-                        <p>
+                        <p style={{
+                            marginTop: "-.8rem"
+                        }}>
                             <span className="text-muted">Net Selling Price</span>
                             <span className="value-box">
                                 <Icon iconName="rupee" />
@@ -456,6 +463,43 @@ const InventoryProductView = () => {
                         </div>
                     }
                     {getFormFooter()}
+
+                </section>
+
+                {/* Stock Details */}
+                <section className={`main-sec details-col details-sec mobile-form ${mobileForms.STOCK_INFO} ${(activeMobileForm == mobileForms.STOCK_INFO) ? "active" : ""}`}>
+
+                    <div className="details-col summary">
+                        {getFormHeader("Stocks")}
+
+                        <div className="summary-row">
+                            <p>Total Units: <span>{inventoryData.total_units ?? "N/A"}</span></p>
+                            <p>Versions: <span>{inventoryData.total_versions ?? "N/A"}</span></p>
+                        </div>
+
+                        <div className="summary-row">
+                            <p>Expiring Units: <span>{inventoryData.total_units ?? "N/A"}</span></p>
+                            <p>Next Expiry: <span>{inventoryData.next_expiry ?? "N/A"}</span></p>
+                        </div>
+
+                        <div className="summary-row">
+                            <p>Total Value: <span>₹ {inventoryData.total_value ?? "N/A"}</span></p>
+                        </div>
+
+                        <CTAButton
+                            className="primary"
+                            label="See All Stocks"
+                            iconName="arrow_right"
+                            rightIcon={true}
+                        />
+
+                    </div>
+
+                    <div className="details-col stock-slider">
+
+                        <BatchSummaryCard />
+
+                    </div>
 
                 </section>
 

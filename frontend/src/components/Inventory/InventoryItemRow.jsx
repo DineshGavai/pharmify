@@ -112,7 +112,7 @@ const InventoryItemRow = ({ data }) => {
 
             {/* Expiry Date cell */}
             <td className="cell expiry">
-                <p className="fs-400">{formatDate(data.expiry, "mm/yy")}</p>
+                <p className="fs-400">{data.expiry ? formatDate(data.expiry, "mm/yy") : "N/A"}</p>
                 {
                     (!isExpiringSoon && !isExpired) && <p className="text-muted">{expiryRemainingTime} left</p>
                 }

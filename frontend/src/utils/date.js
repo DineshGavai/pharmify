@@ -22,6 +22,8 @@ const units = [
 
 // Get date formatted in given format
 export const formatDate = (timestamp, format = "dd mon, yyyy") => {
+    if (!timestamp) throw new Error("Please provide a valid date.")
+
     const date = new Date(timestamp);
 
     const day = date.getDate().toString().padStart(2, "0");

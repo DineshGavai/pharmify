@@ -179,12 +179,14 @@ form {
 .input-box.flex.currency input,
 .input-box.flex.percentage input {
   font-size: var(--fs-600);
-  text-align: right;
   min-width: 8ch;
   width: var(--length);
   max-width: 16ch;
   transition: 0s;
   font-weight: 500 !important;
+}
+.input-box.percentage input {
+  text-align: right;
 }
 
 .input-box.disabled.currency input,
