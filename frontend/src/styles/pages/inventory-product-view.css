@@ -153,6 +153,10 @@
     border: none !important;
   }
 
+  .main-sec.stock-info .slider {
+    --clr-overlay: hsl(var(--clr-white)) !important;
+  }
+
   .details-col .form-footer {
     display: flex;
     margin-top: 1.6rem;
@@ -418,7 +422,7 @@
 .main-sec.stock-info {
   display: grid;
   grid-template-columns: 1fr 2fr;
-  gap: 1rem;
+  gap: 1.6rem;
   background-color: hsl(var(--clr-neutral-100));
 }
 
@@ -447,4 +451,8 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 0.8rem;
+}
+
+.main-sec.stock-info .slider {
+  --clr-overlay: hsl(var(--clr-neutral-100));
 }

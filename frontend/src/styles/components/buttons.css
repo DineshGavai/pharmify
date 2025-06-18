@@ -48,9 +48,10 @@ button img {
 button.icon {
   border: 1.5px solid hsl(var(--clr-neutral-200));
   border-radius: 0.4rem;
-  width: 3.2rem;
+  --size: 3.2rem;
+  width: var(--size);
   aspect-ratio: 1;
-  min-width: 3.2rem;
+  min-width: var(--size);
   overflow: hidden;
   padding: 0;
 }
@@ -124,7 +125,7 @@ button.text:hover {
 }
 
 button.underlined {
-  padding: .2rem;
+  padding: 0.2rem;
   margin: 0;
   text-decoration: underline;
   font-weight: inherit;

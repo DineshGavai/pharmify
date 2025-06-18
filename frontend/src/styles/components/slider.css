@@ -1,0 +1,60 @@
+.slider {
+  padding: 1.6rem 3.8rem !important;
+  overflow: hidden;
+  position: relative;
+}
+
+.slider::before,
+.slider::after {
+  content: "";
+  position: absolute;
+  width: 3.8rem;
+  height: 100%;
+  top: 0;
+  background: linear-gradient(
+    var(--direction, to right),
+    var(--clr-overlay, hsl(var(--clr-white))),
+    transparent
+  );
+  z-index: 11;
+}
+
+.slider::before {
+  left: 0;
+}
+.slider::after {
+  right: 0;
+  --direction: to left;
+}
+
+.slider .slider-arrow-btns {
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+  background-color: hsl(var(--clr-white));
+  border-radius: 50%;
+  --size: 4.8rem;
+  z-index: 12;
+}
+
+.slider .slider-arrow-btns:disabled {
+  opacity: 0;
+}
+
+.slider .slider-arrow-btns.left {
+  left: 0;
+}
+
+.slider .slider-arrow-btns.right {
+  right: 0;
+}
+
+.slider .track {
+  display: flex;
+  gap: 1.6rem;
+  width: fit-content;
+}
+
+.slider .track .slide {
+  width: max-content;
+}

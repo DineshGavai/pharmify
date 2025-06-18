@@ -2,7 +2,7 @@ import { formatDate } from "../../utils/date";
 import CTAButton from "../Button/CTAButton";
 import IconButton from "../Button/IconButton";
 
-const BatchSummaryCard = (cardData) => {
+const BatchSummaryCard = ({ cardData }) => {
     cardData = {
         batch_num: "SN24-1127",
         stock: {

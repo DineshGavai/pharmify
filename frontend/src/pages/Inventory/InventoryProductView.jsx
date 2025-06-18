@@ -10,6 +10,7 @@ import Icon from "../../components/Icon.jsx";
 import TileButton from "../../components/Button/TileButton.jsx";
 import InventoryItemTile from "../../components/Inventory/InventoryItemTile.jsx";
 import BatchSummaryCard from "../../components/Inventory/BatchSummaryCard.jsx";
+import Slider from "../../components/Slider.jsx";
 
 const InventoryProductView = () => {
 
@@ -495,10 +496,18 @@ const InventoryProductView = () => {
 
                     </div>
 
-                    <div className="details-col stock-slider">
+                    <div className="details-col">
+                        <Slider
+                            className="stock-slider"
+                            slides={
+                                [
+                                    <BatchSummaryCard />,
+                                    <BatchSummaryCard />,
+                                    <BatchSummaryCard />
 
-                        <BatchSummaryCard />
-
+                                ]
+                            }
+                        />
                     </div>
 
                 </section>
