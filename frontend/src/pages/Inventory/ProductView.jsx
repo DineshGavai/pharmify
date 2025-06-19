@@ -11,8 +11,9 @@ import TileButton from "../../components/Button/TileButton.jsx";
 import InventoryItemTile from "../../components/Inventory/InventoryItemTile.jsx";
 import BatchSummaryCard from "../../components/Inventory/BatchSummaryCard.jsx";
 import Slider from "../../components/Slider.jsx";
+import CategoryList from "../../components/Inventory/CategoryList.jsx";
 
-const InventoryProductView = () => {
+const ProductView = () => {
 
     // Hooks
     const [inventoryData, setInventoryData] = useState(() => getFromLocalStorage("viewed_product"));
@@ -176,43 +177,6 @@ const InventoryProductView = () => {
         STOCK_INFO: "stock-info",
     }
 
-    // Renders subcategories <li> elements
-    const renderSubcategories = (subcategories) => {
-        return subcategories.map((subcategory, index) => (
-            <li className="category-list-item subcategory" key={index}>
-                <span><Icon iconName={"label"} /> {subcategory}</span>
-            </li>
-        ));
-    };
-
-    // Renders categories with their subcategories
-    const renderCategories = (categories) => {
-        return Object.entries(categories).map(([category, subcategories], index) => (
-            <li className="category-list-item category" key={index}>
-                <span><Icon iconName={"label"} /> {category}</span>
-                {subcategories.length > 0 && (
-                    <ul>{renderSubcategories(subcategories)}</ul>
-                )}
-            </li>
-        ));
-    };
-
-    // Main function to render full nested category structure
-    const getNestedCategoryList = (categoryData) => {
-        return (
-            <>
-                {categoryData.map((item, index) => (
-                    <li className="category-list-item type" key={index}>
-                        <span><Icon iconName={"label"} /> {item.type}</span>
-                        <ul>
-                            {item.categories && renderCategories(item.categories)}
-                        </ul>
-                    </li>
-                ))}
-            </>
-        );
-    };
-
     return (
         <form className={`inventory-product-view`}>
             <section className="main-sec product-view-nav">
@@ -298,13 +262,15 @@ const InventoryProductView = () => {
                     <div className={`details-col mobile-form ${mobileForms.CATEGORIES} ${(activeMobileForm == mobileForms.CATEGORIES) ? "active" : ""}`}>
                         {getFormHeader("Categories")}
 
-                        <ul className="categories-list">
-                            {
-                                !inventoryData.categories
-                                    ? "Not Available"
-                                    : getNestedCategoryList(inventoryData.categories)
-                            }
-                        </ul>
+                        {
+                            !inventoryData.categories
+                                ? "Not Available"
+                                : <CategoryList
+                                    categoryData={inventoryData.categories}
+                                    marker={<Icon iconName={"label"} />}
+                                />
+                        }
+
                         {getFormFooter()}
                     </div>
 
@@ -492,6 +458,7 @@ const InventoryProductView = () => {
                             label="See All Stocks"
                             iconName="arrow_right"
                             rightIcon={true}
+                            onClick={() => navigate("/inventory/product/stock")}
                         />
 
                     </div>
@@ -517,4 +484,4 @@ const InventoryProductView = () => {
     )
 }
 
-export default InventoryProductView;
+export default ProductView;

@@ -1,0 +1,18 @@
+.categories-list ul {
+  margin-left: 1.4rem;
+}
+
+.categories-list li {
+  display: block;
+}
+
+.categories-list li span {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: var(--fs-300);
+}
+
+.categories-list li .icon {
+  stroke: hsl(var(--clr-neutral-700));
+}

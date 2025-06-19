@@ -44,8 +44,9 @@ export const getInventoryMetrics = (data) => {
     };
 }
 
+// Function to use the controlled input for JSON Objects
 export const controlledInput = (setter, key_name) => (e) => {
-    const value = e.target.value; // capture the value immediately
+    const value = e.target.value; 
     setter((data) => ({
         ...data,
         [key_name]: value,

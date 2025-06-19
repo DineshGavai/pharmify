@@ -32,6 +32,8 @@
   top: 50%;
   translate: 0 -50%;
   background-color: hsl(var(--clr-white));
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   border-radius: 50%;
   --size: 4.8rem;
   z-index: 12;

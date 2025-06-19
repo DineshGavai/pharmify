@@ -10,7 +10,8 @@
   gap: 1.6rem;
 }
 
-#main_header > div, #main_header div.options {
+#main_header > div,
+#main_header div.options {
   display: contents;
 }
 

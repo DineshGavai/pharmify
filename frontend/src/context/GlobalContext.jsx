@@ -4,7 +4,7 @@ export const GlobalContext = createContext();
 
 export const GlobalProvider = ({ children }) => {
     // Header
-    const [headerChildren, setHeaderChildren] = useState(<></>)
+    const [headerChildren, setHeaderChildren] = useState({})
     // Navigation
     const [isNavActive, setIsNavActive] = useState(false);
     const [activePage, setActivePage] = useState("home");

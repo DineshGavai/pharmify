@@ -7,6 +7,15 @@ h3,
 h4,
 h5 {
   font-weight: 400;
+  text-wrap: balance;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
 }
 
 h1,
@@ -84,4 +93,15 @@ p {
   height: fit-content;
   text-align: center;
   text-wrap: nowrap;
+}
+
+.data-cell {
+  color: hsl(var(--clr-neutral-500));
+  margin-bottom: 1.2rem;
+}
+
+.data-cell span {
+  font-size: var(--fs-300);
+  display: block;
+  margin-top: 0.2rem;
 }

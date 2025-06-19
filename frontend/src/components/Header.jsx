@@ -10,19 +10,20 @@ const Header = ({ heading = "" }) => {
     const { headerChildren, setHeaderChildren } = useContext(GlobalContext);
 
     return (
-        <header id="main_header">
-            <IconButton
-                iconName={"hamburger_menu"}
-                className="mobile-tab-only"
-                onClick={() => setIsNavActive(true)}
-            />
+        headerChildren.hideHeader === false ? <></> :
+            <header id="main_header">
+                <IconButton
+                    iconName={"hamburger_menu"}
+                    className="mobile-tab-only"
+                    onClick={() => setIsNavActive(true)}
+                />
 
-            <div>
-                {headerChildren.backBtn}
-                <h1 className="fs-700">{headerChildren.heading || "Pharmify"}</h1>
-                <div className="options">{headerChildren.elements || headerChildren.children}</div>
-            </div>
-        </header>
+                <div>
+                    {headerChildren.backBtn}
+                    <h1 className="fs-700">{headerChildren.heading || "Pharmify"}</h1>
+                    <div className="options">{headerChildren.elements || headerChildren.children}</div>
+                </div>
+            </header>
     );
 }
 

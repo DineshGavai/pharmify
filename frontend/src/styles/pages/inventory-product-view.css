@@ -258,7 +258,7 @@
   }
 }
 
-.core-details .categories-list {
+.inventory-product-view .core-details .category-list {
   padding: 0.8rem;
   border: 1px solid hsl(var(--clr-neutral-200));
   margin-top: 0.8rem;
@@ -268,7 +268,7 @@
   position: relative;
 }
 
-.core-details .categories-list::before {
+.inventory-product-view .core-details .categories-list::before {
   content: "";
   position: absolute;
   bottom: 0;
@@ -282,28 +282,13 @@
   );
 }
 
-.core-details .categories-list ul {
-  margin-left: 1.8rem;
+.inventory-product-view .core-details .categories-list ul {
+   margin-left: 1.8rem;
 }
 
-.core-details .categories-list li {
-  display: block;
-}
-
-.core-details .categories-list ul li {
+.inventory-product-view .core-details .categories-list ul li {
   margin: 0.4rem 0;
   padding: 0.4rem 0.8rem;
-}
-
-.core-details .categories-list li span {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  font-size: var(--fs-300);
-}
-
-.core-details .categories-list li .icon {
-  stroke: hsl(var(--clr-neutral-700));
 }
 
 /* SKU & Barcode */

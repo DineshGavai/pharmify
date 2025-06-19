@@ -1,8 +1,13 @@
+import { useNavigate } from "react-router-dom";
 import { formatDate } from "../../utils/date";
 import CTAButton from "../Button/CTAButton";
 import IconButton from "../Button/IconButton";
+import DataCell from "../DataCell";
 
 const BatchSummaryCard = ({ cardData }) => {
+
+    const navigate = useNavigate()
+
     cardData = {
         batch_num: "SN24-1127",
         stock: {
@@ -58,15 +63,25 @@ const BatchSummaryCard = ({ cardData }) => {
                 <IconButton
                     iconName={"arrow_right"}
                     className="see-stock"
+                    onClick={()=>navigate("/inventory/:id/product/stock")}
                 />
 
             </div>
 
             <div className="col-left">
                 <div className="dates">
-                    <p>Expiry <span>{formatDate(cardData.date_expiry)}</span></p>
-                    <p>Added on <span>{formatDate(cardData.date_added)}</span></p>
-                    <p>Updated on <span>{formatDate(cardData.date_updated)}</span></p>
+                    <DataCell
+                        label={"Expiry"}
+                        data={formatDate(cardData.date_expiry)}
+                    />
+                    <DataCell
+                        label={"Added on"}
+                        data={formatDate(cardData.date_added)}
+                    />
+                    <DataCell
+                        label={"Updated on"}
+                        data={formatDate(cardData.date_updated)}
+                    />
                 </div>
 
             </div>

@@ -15,7 +15,8 @@ import { GlobalProvider } from "./context/GlobalContext.jsx";
 import { UserContext, UserProvider } from "./context/UserContext.jsx";
 
 import { getCookie, getFromLocalStorage, setCookie } from "./utils/browserStorage.js";
-import InventoryProductView from "./pages/Inventory/InventoryProductView.jsx";
+import ProductView from "./pages/Inventory/ProductView.jsx";
+import ProductStockView from "./pages/Inventory/ProductStockView.jsx"
 
 
 
@@ -51,8 +52,9 @@ function App() {
                 <Routes>
                   <Route path="/profile" element={<UserLayout />} />
                   <Route path="/inventory" element={<InventoryHome />} />
-                  <Route path="/inventory/product" element={<InventoryProductView />} />
-                  <Route path="*" element={<Navigate to="/inventory" />} />
+                  <Route path="/inventory/product" element={<ProductView />} />
+                  <Route path="/inventory/:id/product/stock" element={<ProductStockView />} />
+                  <Route path="*" element={<Navigate to="/inventory/:id/product/stock" />} />
                 </Routes>
               </section>
             </main>
