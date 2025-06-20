@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 
-const DataCell = ({ label, data }) => {
+const DataCell = ({ label, data, className = "" }) => {
 
     return (
-        <div className="data-cell">
+        <div className={`data-cell ${className}`}>
             {label}
             <span>{data || "NA"}</span>
         </div>
@@ -11,8 +11,17 @@ const DataCell = ({ label, data }) => {
 }
 
 DataCell.proptypes = {
-    label: PropTypes.string,
-    data: PropTypes.string,
+    label: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.node,
+        PropTypes.element,
+    ]),
+    data: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.node,
+        PropTypes.element,
+    ]).isRequired,
+    className: PropTypes.string
 }
 
 export default DataCell;

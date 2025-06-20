@@ -100,8 +100,21 @@ p {
   margin-bottom: 1.2rem;
 }
 
+.data-cell.flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+  margin-bottom: 0.4rem;
+}
+
 .data-cell span {
   font-size: var(--fs-300);
   display: block;
   margin-top: 0.2rem;
+}
+
+.data-cell.flex span {
+  font-size: var(--fs-200);
+  margin-top: 0;
 }

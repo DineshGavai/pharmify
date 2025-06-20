@@ -1,3 +1,11 @@
+/* /////////////////////////
+  Category List
+///////////////////////// */
+
+.categories-list {
+  position: relative;
+}
+
 .categories-list ul {
   margin-left: 1.4rem;
 }
@@ -15,4 +23,82 @@
 
 .categories-list li .icon {
   stroke: hsl(var(--clr-neutral-700));
+}
+
+/* /////////////////////////
+  Batch Summary Card
+///////////////////////// */
+
+.batch-summary-card {
+  background-color: hsl(var(--clr-white));
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  border-radius: 0.6rem;
+  padding: 1.6rem;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "A A"
+    "B C";
+  column-gap: 1.6rem;
+  width: 100%;
+  min-width: 22rem;
+  max-width: 38rem;
+}
+
+.batch-summary-card .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  grid-area: A;
+}
+
+.batch-summary-card .col-left {
+  grid-area: B;
+}
+
+.batch-summary-card .col-right {
+  grid-area: C;
+}
+
+.batch-summary-card .total,
+.batch-summary-card .header p {
+  color: hsl(var(--clr-neutral-500));
+}
+
+.batch-summary-card .stock-hierarchy {
+  margin: 1.6rem 0;
+}
+
+.batch-summary-card .stock-hierarchy .level {
+  margin-top: 0.8rem;
+}
+
+.batch-summary-card .stock-hierarchy .level .level {
+  border-left: 1.5px dashed hsl(var(--clr-neutral-400));
+  padding-left: 2.4rem;
+}
+
+.batch-summary-card .stock-hierarchy .level span {
+  font-size: var(--fs-300);
+}
+
+.batch-summary-card .total span {
+  font-size: var(--fs-300);
+  font-weight: 500;
+}
+
+.batch-summary-card .dates {
+  padding: 0.8rem 0;
+}
+
+.batch-summary-card .dates p {
+  color: hsl(var(--clr-neutral-500));
+  margin-bottom: 1.2rem;
+}
+
+.batch-summary-card .dates p span {
+  font-size: var(--fs-300);
+  display: block;
+  margin-top: 0.2rem;
 }

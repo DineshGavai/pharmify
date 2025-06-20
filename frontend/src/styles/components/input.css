@@ -17,26 +17,21 @@ form {
 
 .input-box {
   position: relative;
+  margin-top: 1.6rem;
 }
 
 .input-box label {
-  font-size: var(--fs-300);
+  font-size: var(--fs-200);
   margin-bottom: 0.4rem;
   display: flex;
   position: absolute;
   color: hsl(var(--clr-neutral-800));
   background-color: hsl(var(--clr-white));
   left: 0.9rem;
-  top: 1.3rem;
+  top: -0.6rem;
   padding: 0 0.4rem;
   z-index: 11;
   text-wrap: nowrap;
-}
-
-.input-box:has(input:focus) label,
-.input-box.filled label {
-  font-size: var(--fs-200);
-  top: -0.8rem;
 }
 
 .input-frame.text-input {

@@ -22,7 +22,7 @@ const units = [
 
 // Get date formatted in given format
 export const formatDate = (timestamp, format = "dd mon, yyyy") => {
-    if (!timestamp) throw new Error("Please provide a valid date.")
+    if (!timestamp) return null;
 
     const date = new Date(timestamp);
 

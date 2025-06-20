@@ -12,6 +12,8 @@ import InventoryItemTile from "../../components/Inventory/InventoryItemTile.jsx"
 import BatchSummaryCard from "../../components/Inventory/BatchSummaryCard.jsx";
 import Slider from "../../components/Slider.jsx";
 import CategoryList from "../../components/Inventory/CategoryList.jsx";
+import DataCell from "../../components/DataCell.jsx";
+import InventoryInput from "../../components/Inventory/InventoryInput.jsx";
 
 const ProductView = () => {
 
@@ -20,7 +22,7 @@ const ProductView = () => {
     const [initialInventoryData, setInitialInventoryData] = useState({});
     const [updatedInventoryData, setUpdatedInventoryData] = useState({});
 
-    const [isFormEditable, setIsFormEditable] = useState(true)
+    const { isProductViewFormEditable, setIsProductViewFormEditable } = useContext(GlobalContext)
     const [activeMobileForm, setActiveMobileForm] = useState("");
 
     const navigate = useNavigate();
@@ -47,24 +49,24 @@ const ProductView = () => {
             children: (
                 <div className="header-options">
                     {
-                        !isFormEditable ?
+                        !isProductViewFormEditable ?
                             <CTAButton
                                 className="primary"
                                 label="Edit"
                                 iconName="edit"
-                                onClick={() => setIsFormEditable(true)}
+                                onClick={() => setIsProductViewFormEditable(true)}
                             />
                             :
                             <>
                                 <CTAButton
                                     className="ghost"
                                     label="Cancel"
-                                    onClick={() => setIsFormEditable(false)}
+                                    onClick={() => setIsProductViewFormEditable(false)}
                                 />
                                 <CTAButton
                                     className="primary"
                                     label="Save"
-                                    onClick={() => setIsFormEditable(false)}
+                                    onClick={() => setIsProductViewFormEditable(false)}
                                 />
                             </>
                     }
@@ -73,60 +75,15 @@ const ProductView = () => {
         });
 
         return () => setHeaderChildren({});
-    }, [isFormEditable]);
+    }, [isProductViewFormEditable]);
 
     useEffect(() => {
         if (window.innerWidth > 560) {
             setActiveMobileForm("")
         } else {
-            setIsFormEditable(activeMobileForm.length != 0);
+            setIsProductViewFormEditable(activeMobileForm.length != 0);
         }
     }, [activeMobileForm])
-
-    const defaultInputOptions = {
-        spellCheck: false,
-        required: true,
-        readOnly: false,
-        className: "",
-        leftElem: null,
-        rightElem: null,
-        type: "",
-        autogrow: false,
-    };
-
-
-    // Get simple & redundant Inventory Inputs
-    const getInventoryInput = (label, keyName, options = {}) => {
-
-        options = { ...defaultInputOptions, ...options }
-        label = options.required && isFormEditable && !options.readOnly ? <>{label} <span className="asterisk">*</span></> : label;
-        let notAvailableLabel = options.type == "numeric" ? "00" : "Not Available";
-
-        return (
-            <Input
-                type={options.type}
-                label={label}
-                id={`inventory_${keyName}`}
-                name={`inventory_${keyName}`}
-                value={inventoryData[keyName]}
-                placeholder={options.readOnly || !isFormEditable ? notAvailableLabel : ""}
-                disabled={options.readOnly || !isFormEditable}
-                spellCheck={options.spellCheck}
-                required={options.required}
-                readOnly={options.readOnly}
-                onChange={controlledInput(setInventoryData, keyName)}
-                className={`
-                    ${options.readOnly || !isFormEditable ? "disabled" : ""}
-                    ${options.required ? "required" : ""}
-                    ${options.className}
-                    ${options.autogrow ? "autogrow" : ""}
-                `}
-                leftElem={options.leftElem}
-                rightElem={options.rightElem}
-                helpText={options.helpText || ""}
-            />
-        )
-    }
 
     // Get mobile form section header
     const getFormHeader = (heading, backBtn = true) => {
@@ -152,7 +109,7 @@ const ProductView = () => {
 
     // Get mobile form section header
     const getFormFooter = () => {
-        if (isFormEditable)
+        if (isProductViewFormEditable)
             return (
                 <footer className="form-footer">
                     <CTAButton
@@ -251,9 +208,22 @@ const ProductView = () => {
                     <div className={`details-col mobile-form ${mobileForms.BASIC_INFO} ${(activeMobileForm == mobileForms.BASIC_INFO) ? "active" : ""}`}>
                         {getFormHeader("Basic Info")}
 
-                        {getInventoryInput("Product Name", "name")}
-                        {inventoryData.generic_name && getInventoryInput("Generic Name", "generic_name")}
-                        {getInventoryInput("Brand Name", "brand")}
+                        <InventoryInput
+                            label={"Product Name"}
+                            keyName={"name"}
+                        />
+
+                        {
+                            inventoryData.generic_name &&
+                            < InventoryInput
+                                label={"Generic Name"}
+                                keyName={"generic_name"}
+                            />
+                        }
+                        <InventoryInput
+                            label={"Brand Name"}
+                            keyName={"brand"}
+                        />
 
                         {getFormFooter()}
                     </div>
@@ -281,13 +251,24 @@ const ProductView = () => {
                         {getFormHeader("Company Details")}
 
                         <div className="sku-and-barcode">
-                            {getInventoryInput("SKU (Stock Keeping Unit)", "sku", {
-                                readOnly: true
-                            })}
+                            <InventoryInput
+                                label={"SKU (Stock Keeping Unit)"}
+                                keyName={"sku"}
+                                options={{
+                                    readOnly: true
+                                }}
+                            />
+
                             <img src={inventoryData.barcode || "/src/assets/placeholders/no-barcode.png"} className="barcode" />
                         </div>
-                        {getInventoryInput("Manufacturer", "manufacturer")}
-                        {getInventoryInput("Supplier", "supplier")}
+                        <InventoryInput
+                            label={"Manufacturer"}
+                            keyName={"manufacturer"}
+                        />
+                        <InventoryInput
+                            label={"Supplier"}
+                            keyName={"supplier"}
+                        />
 
                         {getFormFooter()}
                     </div>
@@ -304,64 +285,69 @@ const ProductView = () => {
 
                         <div className="input-group">
 
-                            {
-                                getInventoryInput(
-                                    "Cost Price",
-                                    "cost_price",
+                            <InventoryInput
+                                label={"Cost Price"}
+                                keyName={"cost_price"}
+                                options={
                                     {
                                         leftElem: <Icon iconName="rupee" />,
                                         type: "numeric",
                                         className: "currency",
                                     }
-                                )
-                            }
-                            {
-                                getInventoryInput(
-                                    "Selling Price",
-                                    "selling_price",
+                                }
+                            />
+
+                            <InventoryInput
+                                label={"Selling Price"}
+                                keyName={"selling_price"}
+                                options={
                                     {
                                         leftElem: <Icon iconName="rupee" />,
                                         type: "numeric",
                                         className: "currency"
                                     }
-                                )
-                            }
+                                }
+                            />
+
                         </div>
 
-                        {
-                            getInventoryInput(
-                                "Tax Rate",
-                                "tax_rate",
+                        <InventoryInput
+                            label={"Tax Rate"}
+                            keyName={"tax_rate"}
+                            options={
                                 {
                                     rightElem: <Icon iconName="percentage" />,
                                     type: "numeric",
                                     className: "percentage"
                                 }
-                            )
-                        }
+                            }
+                        />
+
                         {
                             inventoryData.discount_allowed &&
-                            getInventoryInput(
-                                "Discount Limit",
-                                "discount",
-                                {
-                                    rightElem: <>
-                                        <Icon iconName="percentage" />
-                                    </>,
-                                    type: "numeric",
-                                    className: "percentage",
-                                    helpText:
-                                        <CTAButton
-                                            label="Remove Discount"
-                                            className="underlined"
-                                            onClick={controlledInput(setInventoryData, "discount_allowed", false)}
-                                        />
+                            <InventoryInput
+                                label={"Discount Limit"}
+                                keyName={"discount"}
+                                options={
+                                    {
+                                        rightElem: <>
+                                            <Icon iconName="percentage" />
+                                        </>,
+                                        type: "numeric",
+                                        className: "percentage",
+                                        helpText:
+                                            <CTAButton
+                                                label="Remove Discount"
+                                                className="underlined"
+                                                onClick={controlledInput(setInventoryData, "discount_allowed", false)}
+                                            />
+                                    }
                                 }
-                            )
+                            />
                         }
 
                         {
-                            isFormEditable && !inventoryData.discount_allowed &&
+                            isProductViewFormEditable && !inventoryData.discount_allowed &&
                             <CTAButton
                                 label="Add Discount"
                                 iconName="add"
@@ -440,19 +426,38 @@ const ProductView = () => {
                         {getFormHeader("Stocks")}
 
                         <div className="summary-row">
-                            <p>Total Units: <span>{inventoryData.total_units ?? "N/A"}</span></p>
-                            <p>Versions: <span>{inventoryData.total_versions ?? "N/A"}</span></p>
+                            <DataCell
+                                label="Total Units:"
+                                data={inventoryData.total_units ?? "N/A"}
+                                className="flex"
+                            />
+                            <DataCell
+                                label="Batches:"
+                                data={inventoryData.total_versions ?? "N/A"}
+                                className="flex"
+                            />
                         </div>
 
                         <div className="summary-row">
-                            <p>Expiring Units: <span>{inventoryData.total_units ?? "N/A"}</span></p>
-                            <p>Next Expiry: <span>{inventoryData.next_expiry ?? "N/A"}</span></p>
+                            <DataCell
+                                label="Expiring Units:"
+                                data={inventoryData.total_units ?? "N/A"}
+                                className="flex"
+                            />
+                            <DataCell
+                                label="Next Expiry:"
+                                data={inventoryData.next_expiry ?? "N/A"}
+                                className="flex"
+                            />
                         </div>
 
                         <div className="summary-row">
-                            <p>Total Value: <span>₹ {inventoryData.total_value ?? "N/A"}</span></p>
+                            <DataCell
+                                label="Total Value:"
+                                data={`₹ ${inventoryData.total_value ?? "N/A"}`}
+                                className="flex"
+                            />
                         </div>
-
                         <CTAButton
                             className="primary"
                             label="See All Stocks"

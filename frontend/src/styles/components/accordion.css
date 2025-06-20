@@ -1,0 +1,41 @@
+.accordion {
+  padding: 0.8rem;
+  border-radius: 0.8rem;
+}
+.accordion header {
+  margin-bottom: 0 !important;
+}
+
+.accordion h3 {
+  font-size: var(--fs-400);
+  font-weight: 500;
+}
+
+.accordion header button.icon {
+  border: none;
+}
+
+.accordion header button.icon .icon {
+  --size: 3.6rem;
+  stroke-width: 1;
+}
+
+.accordion.active header button.icon .icon {
+  rotate: -180deg;
+  --size: 3rem;
+}
+
+.accordion .accordion-body {
+  padding: 0;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+.accordion.active .accordion-body {
+  max-height: 100rem;
+  opacity: 1;
+  visibility: visible;
+  padding: 0.8rem 0;
+}

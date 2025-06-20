@@ -32,7 +32,7 @@ const Aside = ({
 
             <IconButton
                 iconName={"chevron_right"}
-                className="aside-open-btn primary"
+                className="aside-open-btn"
                 onClick={() => setIsAsideActive(!isAsideActive)}
             />
         </>
@@ -40,7 +40,14 @@ const Aside = ({
 }
 
 Aside.proptypes = {
-
+    className: PropTypes.string,
+    heading: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.element,
+        PropTypes.node
+    ]),
+    content: PropTypes.any,
+    activeStatus: PropTypes.bool,
 }
 
 export default Aside;

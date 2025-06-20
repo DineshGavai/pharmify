@@ -9,7 +9,7 @@
 @import url("./components/input.css");
 @import url("./components/steps.css");
 @import url("./components/slider.css");
-@import url("./components/batch-summary-card.css");
+@import url("./components/accordion.css");
 @import url("./components/inventory.css");
 
 /* Layouts */
@@ -63,6 +63,10 @@ section.main-sec h2 {
   background-color: hsl(var(--clr-white));
 }
 
+section.main-sec header h2 {
+  margin-bottom: 0;
+}
+
 aside {
   position: fixed;
   width: 100%;
@@ -108,7 +112,7 @@ aside .aside-body {
   height: 4.8rem !important;
   border-top-right-radius: 110px !important;
   border-bottom-right-radius: 110px !important;
-  border: none !important;
+  border-left: none !important;
 }
 
 .aside-open-btn:hover {

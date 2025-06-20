@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { formatDate } from "../../utils/date";
-import CTAButton from "../Button/CTAButton";
 import IconButton from "../Button/IconButton";
 import DataCell from "../DataCell";
 

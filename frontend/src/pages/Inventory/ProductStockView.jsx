@@ -2,10 +2,15 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
 import { getFromLocalStorage } from "../../utils/browserStorage";
 import { useNavigate } from "react-router-dom";
+import { formatDate } from "../../utils/date";
 import IconButton from "../../components/Button/IconButton";
 import DataCell from "../../components/DataCell";
 import Aside from "../../components/Aside";
 import CategoryList from "../../components/Inventory/CategoryList";
+import Accordion from "../../components/Accordion";
+import InventoryInput from "../../components/Inventory/InventoryInput";
+import Icon from "../../components/Icon";
+import Input from "../../components/Input/Input";
 
 const ProductStockView = () => {
 
@@ -40,7 +45,7 @@ const ProductStockView = () => {
             <Aside
                 className={"product-summary"}
                 heading={<>Product</>}
-                activeStatus={window.innerWidth > 1024 || true}
+                activeStatus={window.innerWidth > 1024}
                 content={
                     <>
                         <div className="info">
@@ -109,7 +114,176 @@ const ProductStockView = () => {
             />
 
             <section className="main-sec">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolore corrupti vel odit quo numquam, non nemo tempore molestias sapiente dignissimos. Culpa vitae et sequi expedita vero necessitatibus tempora, dolorum quos possimus qui dignissimos. Saepe sunt sint quae sapiente nulla, est deserunt expedita alias ipsam quia ratione officia quibusdam labore odit error necessitatibus placeat! Nobis ullam eaque id temporibus recusandae laboriosam exercitationem quo, illo, placeat dolorem velit adipisci mollitia. Dolorum perspiciatis eos aperiam facilis sint necessitatibus alias inventore temporibus obcaecati. Repellat velit corrupti, vitae ex reiciendis nulla! Quos ducimus eum ratione sed, natus rem modi eveniet tempora mollitia sint. Obcaecati quod consequuntur placeat dolorum aspernatur, aliquam, fugit animi explicabo ducimus aperiam fuga dolor, delectus voluptates temporibus debitis labore expedita totam eos voluptatibus consequatur. Ex magni enim nam alias iure beatae vero deserunt odit et sunt natus possimus sapiente, nihil nisi cumque a quasi esse autem cum recusandae blanditiis porro quo nemo. Sint consequatur maxime libero? Adipisci voluptates eum sed assumenda quaerat earum corporis quasi provident corrupti quam nam, officiis quos enim ipsum maxime magnam voluptatum sint nihil sequi ducimus aliquam repellendus recusandae commodi tempore? Tempora recusandae dolorum, suscipit eligendi exercitationem quasi inventore ullam illo modi mollitia dignissimos quae dicta enim, repudiandae placeat ad officia debitis eum voluptate alias ab voluptates? Voluptatem accusamus exercitationem, ipsam architecto nobis sint voluptas. Quia consectetur quod, eligendi dolor accusamus rem inventore laborum, unde consequuntur autem at pariatur minima voluptates quaerat temporibus? Nihil voluptatibus ratione, aperiam possimus maxime consequatur? Quidem eligendi doloribus nisi ex minus. Alias laudantium laborum molestias id, atque ipsam nostrum. Odio reprehenderit eum est alias. Eos, suscipit nesciunt rem tempore aperiam praesentium consequatur neque earum ut magnam sed quia deserunt nemo fuga iure quis unde distinctio dolorum aut architecto! Facere sit officia perferendis cumque laboriosam quo soluta non explicabo, atque culpa accusantium fugiat minus?
+
+                {/* Stock Overview & Form section */}
+                <div className="stock-overview-sec">
+                    {/* Overview Section */}
+                    <div className="overview-wrapper">
+                        <header>
+                            <h2>Stock Overview</h2>
+                            <DataCell
+                                className="flex"
+                                label={"Last Updated:"}
+                                data={formatDate(inventoryData.last_updated) || "NA"}
+                            />
+                        </header>
+
+                        <div className="overview-body">
+                            <Accordion
+                                heading={"Quantity"}
+                                className="card quantity"
+                                activeStatus={window.innerWidth > 425}
+                                content={
+                                    <>
+                                        <DataCell
+                                            label={"Total Batches"}
+                                            data={`${inventoryData.batch_count || "NA"} (${inventoryData.batch_count_active || "NA"} Active)`}
+                                        />
+                                        <DataCell
+                                            label={"Total Units"}
+                                            data={inventoryData.total_units || "NA"}
+                                            className="total-units"
+                                        />
+                                        <DataCell
+                                            label={"Reserved"}
+                                            data={inventoryData.total_reserved_units || "NA"}
+                                        />
+
+                                        <DataCell
+                                            label={"Available"}
+                                            data={inventoryData.total_available_units || "NA"}
+                                        />
+
+                                    </>
+                                }
+                            />
+                            <Accordion
+                                heading={"Finance"}
+                                className="card finance"
+                                activeStatus={window.innerWidth > 425}
+                                content={
+                                    <>
+                                        <DataCell
+                                            label={
+                                                <>
+                                                    Total value
+                                                    <br />
+                                                    (₹ {inventoryData.selling_price || "NA"} per unit)
+                                                </>
+                                            }
+                                            className="flex"
+                                            data={<>₹ {inventoryData.total_available_units || "NA"}</>}
+                                        />
+                                        <DataCell
+                                            label={"Highest Cost Batch"}
+                                            className="flex"
+                                            data={<># {inventoryData.highest_cost_batch_id || "NA"}</>}
+                                        />
+
+                                        <DataCell
+                                            label={"Lowest Cost Batch"}
+                                            className="flex"
+                                            data={<># {inventoryData.lowest_cost_batch_id || "NA"}</>}
+                                        />
+
+                                    </>
+                                }
+                            />
+                            <Accordion
+                                heading={"Expiry"}
+                                className="card expiry"
+                                activeStatus={window.innerWidth > 425}
+                                content={
+                                    <>
+                                        <div className="expiry-col">
+                                            <DataCell
+                                                label={"Oldest Batch"}
+                                                data={<>
+                                                    {inventoryData.oldest_batch_id || "NA"} - {formatDate(inventoryData.oldest_batch_date) || "NA"}
+                                                </>
+                                                }
+                                            />
+
+                                            <DataCell
+                                                label={"Newest Batch"}
+                                                data={<>
+                                                    {inventoryData.newest_batch_id || "NA"} - {formatDate(inventoryData.newest_batch_date) || "NA"}
+                                                </>
+                                                }
+                                            />
+                                        </div>
+                                        <div className="expiry-col">
+                                            <h4>
+                                                Expiring Soon
+                                            </h4>
+
+                                            <div className="bar">
+                                                <span className="id"># NA</span>
+                                                <span className="date">NA</span>
+                                            </div>
+                                            <div className="bar">
+                                                <span className="id"># NA</span>
+                                                <span className="date">NA</span>
+                                            </div>
+                                            <div className="bar">
+                                                <span className="id"># NA</span>
+                                                <span className="date">NA</span>
+                                            </div>
+                                        </div>
+                                        <div className="expiry-col">
+                                            <h4>
+                                                Expired
+                                            </h4>
+
+                                            <div className="bar">
+                                                <span className="id"># NA</span>
+                                                <span className="date">NA</span>
+                                            </div>
+                                            <div className="bar">
+                                                <span className="id"># NA</span>
+                                                <span className="date">NA</span>
+                                            </div>
+                                            <div className="bar">
+                                                <span className="id"># NA</span>
+                                                <span className="date">NA</span>
+                                            </div>
+
+                                        </div>
+                                    </>
+                                }
+                            />
+
+                        </div>
+
+                    </div>
+                    {/* Form & Measurment section */}
+                    <div className="main-sec details-col product-form-wrapper">
+                        <h2>Form & Measurement</h2>
+
+                        <Input
+                            label="Form (Physical Type)"
+                            name={"form"}
+                            rightElem={<Icon iconName={"chevron_down"} />}
+                        />
+
+
+                        <div className="input-group">
+                            <Input
+                                label="Measure Value"
+                                name={"measure_value"}
+                            />
+
+                            <Input
+                                label="Measure Unit"
+                                name={"measure_unit"}
+                                rightElem={<Icon iconName={"chevron_down"} />}
+                            />
+
+                        </div>
+
+                    </div>
+                </div>
+
             </section>
         </form>
     )

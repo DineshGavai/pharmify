@@ -23,9 +23,6 @@ const renderCategories = (categories, marker) => {
 
 // Main function to render full nested category structure
 const CategoryList = ({ categoryData, className = "", marker = <>-</> }) => {
-
-    console.log(categoryData);
-
     return (
         <ul className={`categories-list ${className}`}>
             {categoryData.map((item, index) => (

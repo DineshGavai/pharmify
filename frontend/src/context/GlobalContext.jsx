@@ -3,6 +3,8 @@ import { createContext, useState } from "react";
 export const GlobalContext = createContext();
 
 export const GlobalProvider = ({ children }) => {
+    const [isProductViewFormEditable, setIsProductViewFormEditable] = useState(true)
+    
     // Header
     const [headerChildren, setHeaderChildren] = useState({})
     // Navigation
@@ -11,6 +13,7 @@ export const GlobalProvider = ({ children }) => {
 
     return (
         <GlobalContext.Provider value={{
+            isProductViewFormEditable, setIsProductViewFormEditable,
             headerChildren, setHeaderChildren,
             isNavActive, setIsNavActive,
             activePage, setActivePage
