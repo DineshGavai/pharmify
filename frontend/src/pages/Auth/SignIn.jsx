@@ -1,4 +1,4 @@
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useContext, useRef, useState } from "react";
 import { ThirdPartyLogos } from "../../assets/illus/logo-third-party";
 import { Link, useNavigate } from "react-router-dom";
 import CTAButton from "../../components/Button/CTAButton";
@@ -12,14 +12,18 @@ import { UserContext } from "../../context/UserContext.jsx";
 const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
 const SignIn = ({ onSignInSuccess }) => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+
 
     const { userInfo, setUserInfo } = useContext(UserContext);
     const navigate = useNavigate();
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
+
+        const formData = new FormData(e.target);
+
+        const email = formData.get("sign_in_email");
+        const password = formData.get("sign_in_password");
 
         if (!email || !password) return;
 
@@ -74,20 +78,17 @@ const SignIn = ({ onSignInSuccess }) => {
                 </header>
 
                 <form onSubmit={handleFormSubmit} id="sign_in_form" name="sign_in_form">
+
                     <Input
                         label="Email"
                         id="sign_in_email"
                         name="sign_in_email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
                     />
 
                     <Input
                         label="Password"
                         id="sign_in_password"
                         name="sign_in_password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
                     />
 
                     <p className="text-muted">

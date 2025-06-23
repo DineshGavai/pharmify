@@ -31,7 +31,7 @@
 
 .batch-summary-card {
   background-color: hsl(var(--clr-white));
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--shdw-soft-tile);
   border-radius: 0.6rem;
   padding: 1.6rem;
   display: grid;
@@ -101,4 +101,81 @@
   font-size: var(--fs-300);
   display: block;
   margin-top: 0.2rem;
+}
+
+/* /////////////////////////
+  BATCH HISTORY TILE
+///////////////////////// */
+
+.batch-summary-tile {
+  background-color: hsl(var(--clr-white));
+  padding: 1.6rem;
+  border-radius: 0.8rem;
+  box-shadow: var(--shdw-soft-tile);
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  row-gap: 1.6rem;
+  column-gap: 3.8rem;
+  grid-template-areas:
+    "A A A"
+    "B B B"
+    "C C C"
+    "D D D";
+}
+
+@media screen and (min-width: 425px) {
+  .batch-summary-tile {
+    grid-template-areas:
+      "A A A"
+      "B B C"
+      "D D D";
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .batch-summary-tile {
+    grid-template-areas:
+      "A A A"
+      "B C D";
+  }
+}
+
+.batch-summary-tile header {
+  grid-area: A;
+}
+
+.batch-summary-tile .packaging-wrapper {
+  grid-area: B;
+}
+
+.batch-summary-tile .pricing-wrapper {
+  grid-area: C;
+}
+
+.batch-summary-tile .date-wrapper {
+  grid-area: D;
+}
+
+.batch-summary-tile .input-box.batch-id {
+  margin: 0;
+}
+
+.batch-summary-tile
+  .input-box.batch-id
+  :is(.input-frame.text-input input, .input-frame.text-input, label) {
+  padding: 0;
+  gap: 0;
+  margin: 0;
+}
+
+.batch-summary-tile .input-box.batch-id input {
+  width: var(--length);
+  min-width: 6ch;
+  max-width: 16ch;
+}
+
+.batch-summary-tile h3 {
+  font-size: var(--fs-300);
+  font-weight: 500;
+  margin-bottom: .8rem;
 }

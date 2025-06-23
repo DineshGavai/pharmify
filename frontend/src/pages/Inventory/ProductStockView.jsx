@@ -11,6 +11,7 @@ import Accordion from "../../components/Accordion";
 import InventoryInput from "../../components/Inventory/InventoryInput";
 import Icon from "../../components/Icon";
 import Input from "../../components/Input/Input";
+import BatchHistoryTile from "../../components/Inventory/BatchHistoryTile";
 
 const ProductStockView = () => {
 
@@ -41,11 +42,11 @@ const ProductStockView = () => {
 
 
     return (
-        <form className={`inventory-stock-view`}>
+        <section className={`inventory-stock-view`}>
             <Aside
                 className={"product-summary"}
                 heading={<>Product</>}
-                activeStatus={window.innerWidth > 1024}
+                activeStatus={window.innerWidth > 1024 && false}
                 content={
                     <>
                         <div className="info">
@@ -113,10 +114,10 @@ const ProductStockView = () => {
                 }
             />
 
-            <section className="main-sec">
+            <section>
 
                 {/* Stock Overview & Form section */}
-                <div className="stock-overview-sec">
+                <section className="main-sec stock-overview-sec">
                     {/* Overview Section */}
                     <div className="overview-wrapper">
                         <header>
@@ -132,7 +133,7 @@ const ProductStockView = () => {
                             <Accordion
                                 heading={"Quantity"}
                                 className="card quantity"
-                                activeStatus={window.innerWidth > 425}
+                                activeStatus={window.innerWidth > 600}
                                 content={
                                     <>
                                         <DataCell
@@ -160,7 +161,7 @@ const ProductStockView = () => {
                             <Accordion
                                 heading={"Finance"}
                                 className="card finance"
-                                activeStatus={window.innerWidth > 425}
+                                activeStatus={window.innerWidth > 600}
                                 content={
                                     <>
                                         <DataCell
@@ -192,7 +193,7 @@ const ProductStockView = () => {
                             <Accordion
                                 heading={"Expiry"}
                                 className="card expiry"
-                                activeStatus={window.innerWidth > 425}
+                                activeStatus={window.innerWidth > 600}
                                 content={
                                     <>
                                         <div className="expiry-col">
@@ -258,34 +259,72 @@ const ProductStockView = () => {
                     </div>
                     {/* Form & Measurment section */}
                     <div className="main-sec details-col product-form-wrapper">
-                        <h2>Form & Measurement</h2>
+
+                        <h3>Form & Measurement</h3>
 
                         <Input
                             label="Form (Physical Type)"
                             name={"form"}
+                            id={"form"}
                             rightElem={<Icon iconName={"chevron_down"} />}
-                        />
+                            />
 
 
                         <div className="input-group">
                             <Input
                                 label="Measure Value"
                                 name={"measure_value"}
+                                id={"measure_value"}
                             />
 
                             <Input
                                 label="Measure Unit"
                                 name={"measure_unit"}
+                                id={"measure_unit"}
                                 rightElem={<Icon iconName={"chevron_down"} />}
                             />
 
                         </div>
 
+                        <h3
+                            style={{
+                                marginTop: "1.6rem",
+                                marginBottom: "0"
+                            }}
+                        >Stock Threshold</h3>
+
+                        <div className="input-group">
+                            <Input
+                                label="Min Stock Threshold"
+                                name={"min_stock_threshold"}
+                                id={"min_stock_threshold"}
+                            />
+
+                            <Input
+                                label="Max Stock Threshold"
+                                name={"max_stock_threshold"}
+                                id={"max_stock_threshold"}
+                            />
+
+                        </div>
+
                     </div>
-                </div>
+                </section>
+
+
+                {/* Batch History Sec */}
+                <section className="batch-history-sec main-sec">
+                    <h2>Batch History</h2>
+
+                    <div className="layout">
+                        <div className="tile-list">
+                            <BatchHistoryTile />
+                        </div>
+                    </div>
+                </section>
 
             </section>
-        </form>
+        </section>
     )
 }
 

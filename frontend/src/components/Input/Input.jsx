@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Icon from "../Icon";
 import CTAButton from "../Button/CTAButton";
 import IconButton from "../Button/IconButton";
 
-const Input = ({
+const Input = forwardRef(({
     // Core Input Attributes
     label = "",
     type = "text",
@@ -53,7 +53,7 @@ const Input = ({
     warningMessage,
     successMessage,
 
-}) => {
+}, ref) => {
 
     const [inputType, setInputType] = useState(type);
 
@@ -91,13 +91,13 @@ const Input = ({
                     type={inputType}
                     id={id}
                     name={name}
-                    value={value}
                     placeholder={placeholder}
                     autoComplete={autoComplete}
                     autoFocus={autoFocus}
                     disabled={disabled}
                     readOnly={readOnly}
                     className={className}
+                    defaultValue={defaultValue}
 
                     // Validation
                     spellCheck={spellCheck}
@@ -105,8 +105,8 @@ const Input = ({
                     pattern={pattern}
 
                     // Events
+                    ref={ref}
                     onChange={(e) => {
-                        value = e.target.value
                         if (onChange) onChange(e)
                     }}
 
@@ -121,7 +121,7 @@ const Input = ({
             <p className="help-text text-muted">{helpText}</p>
         </div>
     );
-};
+});
 
 Input.propTypes = {
     // Core Input Attributes

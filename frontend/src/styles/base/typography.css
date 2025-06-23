@@ -82,6 +82,10 @@ p {
   color: hsl(var(--clr-neutral-600));
 }
 
+/* /////////////////////////
+  BADGES
+///////////////////////// */
+
 .badge {
   display: flex;
   align-items: center;
@@ -94,6 +98,10 @@ p {
   text-align: center;
   text-wrap: nowrap;
 }
+
+/* /////////////////////////
+  DATA CELL
+///////////////////////// */
 
 .data-cell {
   color: hsl(var(--clr-neutral-500));
@@ -117,4 +125,18 @@ p {
 .data-cell.flex span {
   font-size: var(--fs-200);
   margin-top: 0;
+}
+
+/* /////////////////////////
+  OTHER
+///////////////////////// */
+
+.interpunct {
+  background-color: hsl(var(--clr-neutral-900));
+  display: inline-block;
+  --size: 0.4rem;
+  width: var(--size);
+  aspect-ratio: 1;
+  min-width: var(--size);
+  border-radius: 50%;
 }

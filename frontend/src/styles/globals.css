@@ -60,12 +60,29 @@ section.main-sec {
 section.main-sec h2 {
   font-size: var(--fs-600);
   margin-bottom: 1.2rem;
-  background-color: hsl(var(--clr-white));
 }
 
 section.main-sec header h2 {
   margin-bottom: 0;
 }
+
+/* /////////////////////////
+  Other
+///////////////////////// */
+
+.flex {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.flex.sp-btw {
+  justify-content: space-between;
+}
+
+/* /////////////////////////
+  ASIDE
+///////////////////////// */
 
 aside {
   position: fixed;

@@ -1,18 +1,20 @@
 form {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.2rem;
 }
 
 .input-group {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.8rem;
+  column-gap: 0.8rem;
+  margin-bottom: 1.6rem;
 }
 
 .input-group > * {
   flex: 1 1 16rem;
-  min-width: 16rem;
+  min-width: 1rem;
+  margin-bottom: 0 !important;
 }
 
 .input-box {
@@ -155,13 +157,12 @@ form {
 ///////////////////////// */
 
 .input-box.flex {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
+  gap: 0.4rem;
 }
 
 .input-box.flex label {
   padding: 0;
+  position: static;
 }
 
 .input-box.flex.currency .input-frame.text-input,
@@ -180,6 +181,7 @@ form {
   transition: 0s;
   font-weight: 500 !important;
 }
+
 .input-box.percentage input {
   text-align: right;
 }
@@ -200,4 +202,11 @@ form {
 .input-box.percentage .right-elem svg.icon {
   --size: 1.4rem;
   stroke-width: 2;
+}
+
+.input-box.bottom-border .input-frame.text-input {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
 }

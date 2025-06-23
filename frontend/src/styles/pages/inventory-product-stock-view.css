@@ -1,4 +1,5 @@
 .inventory-stock-view {
+  display: flex;
   flex-direction: row;
   gap: 0;
   position: relative;
@@ -55,7 +56,6 @@
 }
 
 .stock-overview-sec > * {
-  padding: 1.6rem;
   flex: 1;
 }
 
@@ -96,7 +96,7 @@
   grid-area: C;
 }
 
-@media screen and (min-width: 426px) {
+@media screen and (min-width: 600px) {
   .stock-overview-sec .overview-body {
     grid-template-areas:
       "A B"
@@ -117,10 +117,14 @@
 }
 
 .stock-overview-sec .product-form-wrapper {
-  border: 1px solid hsl(var(--clr-neutral-200));
   height: fit-content;
   position: sticky;
   top: 1.6rem;
+}
+
+.stock-overview-sec .product-form-wrapper h3 {
+  font-size: var(--fs-300);
+  font-weight: 500;
 }
 
 .stock-overview-sec .product-form-wrapper .input-group {
@@ -158,4 +162,13 @@
 
 .stock-overview-sec .overview-body .expiry-col .bar span:first-of-type {
   color: hsl(var(--clr-neutral-500));
+}
+
+/* /////////////////////////
+  BATCH HISTORY SEC
+///////////////////////// */
+
+.batch-history-sec {
+  background-color: hsl(var(--clr-neutral-100));
+  padding: 3.8rem 1.6rem !important;
 }
