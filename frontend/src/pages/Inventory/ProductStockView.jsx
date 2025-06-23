@@ -11,7 +11,7 @@ import Accordion from "../../components/Accordion";
 import InventoryInput from "../../components/Inventory/InventoryInput";
 import Icon from "../../components/Icon";
 import Input from "../../components/Input/Input";
-import BatchHistoryTile from "../../components/Inventory/BatchHistoryTile";
+import BatchTile from "../../components/Inventory/BatchTile";
 
 const ProductStockView = () => {
 
@@ -318,7 +318,7 @@ const ProductStockView = () => {
 
                     <div className="layout">
                         <div className="tile-list">
-                            <BatchHistoryTile />
+                            <BatchTile />
                         </div>
                     </div>
                 </section>

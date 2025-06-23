@@ -6,7 +6,7 @@ import IconButton from "../Button/IconButton";
 import DataCell from "../DataCell";
 
 
-const BatchHistoryTile = () => {
+const BatchTile = () => {
     const [batchData, setBatchData] = useState({})
 
     return (
@@ -146,8 +146,8 @@ const BatchHistoryTile = () => {
     );
 }
 
-BatchHistoryTile.proptypes = {
+BatchTile.proptypes = {
 
 }
 
-export default BatchHistoryTile;
+export default BatchTile;
