@@ -9,14 +9,15 @@ import CompleteProfile from "./pages/Auth/CompleteProfile.jsx";
 import SignIn from "./pages/Auth/SignIn.jsx";
 import UserLayout from "./pages/User/UserLayout.jsx";
 
-import InventoryHome from "./pages/Inventory/InventoryHome.jsx";
+import ProductList from "./pages/Inventory/ProdcutList.jsx";
 
 import { GlobalProvider } from "./context/GlobalContext.jsx";
 import { UserContext, UserProvider } from "./context/UserContext.jsx";
 
 import { getCookie, getFromLocalStorage, setCookie } from "./utils/browserStorage.js";
 import ProductView from "./pages/Inventory/ProductView.jsx";
-import ProductStockView from "./pages/Inventory/ProductStockView.jsx"
+import ProductStock from "./pages/Inventory/ProductStock.jsx"
+import ProductCreate from "./pages/Inventory/ProductCreate.jsx";
 
 
 
@@ -51,10 +52,11 @@ function App() {
               <section className="main-body">
                 <Routes>
                   <Route path="/profile" element={<UserLayout />} />
-                  <Route path="/inventory" element={<InventoryHome />} />
-                  <Route path="/inventory/product" element={<ProductView />} />
-                  <Route path="/inventory/:id/product/stock" element={<ProductStockView />} />
-                  <Route path="*" element={<Navigate to="/inventory/:id/product/stock" />} />
+                  <Route path="/inventory" element={<ProductList />} />
+                  <Route path="/inventory/product/:id" element={<ProductView />} />
+                  <Route path="/inventory/product/:id/stock" element={<ProductStock />} />
+                  <Route path="/inventory/new" element={<ProductCreate />} />
+                  <Route path="*" element={<Navigate to="/inventory/" />} />
                 </Routes>
               </section>
             </main>

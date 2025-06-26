@@ -14,6 +14,7 @@ import Slider from "../../components/Slider.jsx";
 import CategoryList from "../../components/Inventory/CategoryList.jsx";
 import DataCell from "../../components/DataCell.jsx";
 import InventoryInput from "../../components/Inventory/InventoryInput.jsx";
+import FieldsetHeader from "../../components/Input/FieldsetHeader.jsx";
 
 const ProductView = () => {
 
@@ -26,10 +27,6 @@ const ProductView = () => {
     const [activeMobileForm, setActiveMobileForm] = useState("");
 
     const navigate = useNavigate();
-
-    useEffect(() => {
-
-    }, []);
 
     // Customizing Header
     const { headerChildren, setHeaderChildren } = useContext(GlobalContext);
@@ -85,27 +82,6 @@ const ProductView = () => {
         }
     }, [activeMobileForm])
 
-    // Get mobile form section header
-    const getFormHeader = (heading, backBtn = true) => {
-        return (
-            <header className={`form-header ${backBtn ? "" : "not-sticky"}`}>
-                {
-                    backBtn &&
-                    <IconButton
-                        iconName={"arrow_left"}
-                        className="mobile-form-back"
-                        type="button"
-                        onClick={() => {
-                            setActiveMobileForm("")
-                        }}
-                    />
-                }
-                <h2>
-                    {heading}
-                </h2>
-            </header>
-        )
-    }
 
     // Get mobile form section header
     const getFormFooter = () => {
@@ -205,8 +181,11 @@ const ProductView = () => {
                 <section className="main-sec core-details">
 
                     {/* Basic Info */}
-                    <div className={`details-col mobile-form ${mobileForms.BASIC_INFO} ${(activeMobileForm == mobileForms.BASIC_INFO) ? "active" : ""}`}>
-                        {getFormHeader("Basic Info")}
+                    <fieldset className={`mobile-form ${mobileForms.BASIC_INFO} ${(activeMobileForm == mobileForms.BASIC_INFO) ? "active" : ""}`}>
+                        <FieldsetHeader
+                            setActiveMobileForm={setActiveMobileForm}
+                            heading="Basic Info"
+                        />
 
                         <InventoryInput
                             label={"Product Name"}
@@ -226,11 +205,14 @@ const ProductView = () => {
                         />
 
                         {getFormFooter()}
-                    </div>
+                    </fieldset>
 
                     {/* Category Info */}
-                    <div className={`details-col mobile-form ${mobileForms.CATEGORIES} ${(activeMobileForm == mobileForms.CATEGORIES) ? "active" : ""}`}>
-                        {getFormHeader("Categories")}
+                    <fieldset className={`mobile-form ${mobileForms.CATEGORIES} ${(activeMobileForm == mobileForms.CATEGORIES) ? "active" : ""}`}>
+                        <FieldsetHeader
+                            setActiveMobileForm={setActiveMobileForm}
+                            heading="Categories"
+                        />
 
                         {
                             !inventoryData.categories
@@ -242,13 +224,16 @@ const ProductView = () => {
                         }
 
                         {getFormFooter()}
-                    </div>
+                    </fieldset>
 
 
                     {/* Company Info */}
-                    <div className={`details-col mobile-form ${mobileForms.COMPANY_INFO} ${(activeMobileForm == mobileForms.COMPANY_INFO) ? "active" : ""}`}>
+                    <fieldset className={`mobile-form ${mobileForms.COMPANY_INFO} ${(activeMobileForm == mobileForms.COMPANY_INFO) ? "active" : ""}`}>
 
-                        {getFormHeader("Company Details")}
+                        <FieldsetHeader
+                            setActiveMobileForm={setActiveMobileForm}
+                            heading="Company Details"
+                        />
 
                         <div className="sku-and-barcode">
                             <InventoryInput
@@ -271,17 +256,20 @@ const ProductView = () => {
                         />
 
                         {getFormFooter()}
-                    </div>
+                    </fieldset>
                 </section>
 
                 {/* Pricing Details */}
-                <section
-                    className={`main-sec details-col details-sec mobile-form ${mobileForms.PRICING_INFO} ${(activeMobileForm == mobileForms.PRICING_INFO) ? "active" : ""}`}>
+                <fieldset
+                    className={`main-sec details-sec mobile-form ${mobileForms.PRICING_INFO} ${(activeMobileForm == mobileForms.PRICING_INFO) ? "active" : ""}`}>
 
 
                     {/* Pricing Inputs */}
-                    <div className="details-col">
-                        {getFormHeader("Pricing (Per Unit)")}
+                    <fieldset>
+                        <FieldsetHeader
+                            setActiveMobileForm={setActiveMobileForm}
+                            heading="Pricing (Per Unit)"
+                        />
 
                         <div className="input-group">
 
@@ -355,10 +343,14 @@ const ProductView = () => {
                                 onClick={controlledInput(setInventoryData, "discount_allowed", true)}
                             />
                         }
-                    </div>
+                    </fieldset>
 
-                    <div className="details-col pricing-calc-box">
-                        {getFormHeader("Summary", false)}
+                    <fieldset className="pricing-calc-box">
+                        <FieldsetHeader
+                            setActiveMobileForm={setActiveMobileForm}
+                            heading="Summary"
+                            backBtn={false}
+                        />
                         <p style={{
                             marginTop: "-.8rem"
                         }}>
@@ -382,12 +374,16 @@ const ProductView = () => {
                                 <Icon iconName="percentage" />
                             </span>
                         </p>
-                    </div>
+                    </fieldset>
 
                     {
                         inventoryData.discount_allowed &&
-                        <div className="details-col pricing-calc-box discount-box">
-                            {getFormHeader("After Max Discount", false)}
+                        <fieldset className="pricing-calc-box discount-box">
+                            <FieldsetHeader
+                                setActiveMobileForm={setActiveMobileForm}
+                                heading="After Max Discount"
+                                backBtn={false}
+                            />
 
                             <p style={{
                                 marginTop: "-.8rem"
@@ -413,17 +409,20 @@ const ProductView = () => {
                                 </span>
                             </p>
 
-                        </div>
+                        </fieldset>
                     }
                     {getFormFooter()}
 
-                </section>
+                </fieldset>
 
                 {/* Stock Details */}
-                <section className={`main-sec details-col details-sec mobile-form ${mobileForms.STOCK_INFO} ${(activeMobileForm == mobileForms.STOCK_INFO) ? "active" : ""}`}>
+                <section className={`main-sec details-sec mobile-form ${mobileForms.STOCK_INFO} ${(activeMobileForm == mobileForms.STOCK_INFO) ? "active" : ""}`}>
 
-                    <div className="details-col summary">
-                        {getFormHeader("Stocks")}
+                    <div className="summary">
+                        <FieldsetHeader
+                            setActiveMobileForm={setActiveMobileForm}
+                            heading="Stocks"
+                        />
 
                         <div className="summary-row">
                             <DataCell
@@ -463,24 +462,22 @@ const ProductView = () => {
                             label="See All Stocks"
                             iconName="arrow_right"
                             rightIcon={true}
-                            onClick={() => navigate("/inventory/product/stock")}
+                            onClick={() => navigate("/inventory/product/:id/stock")}
                         />
 
                     </div>
 
-                    <div className="details-col">
-                        <Slider
-                            className="stock-slider"
-                            slides={
-                                [
-                                    <BatchSummaryCard />,
-                                    <BatchSummaryCard />,
-                                    <BatchSummaryCard />
+                    <Slider
+                        className="stock-slider"
+                        slides={
+                            [
+                                <BatchSummaryCard />,
+                                <BatchSummaryCard />,
+                                <BatchSummaryCard />
 
-                                ]
-                            }
-                        />
-                    </div>
+                            ]
+                        }
+                    />
 
                 </section>
 

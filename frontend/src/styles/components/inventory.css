@@ -4,6 +4,9 @@
 
 .categories-list {
   position: relative;
+  min-height: 16rem;
+  margin-top: 1.6rem;
+  border-radius: 0.8rem;
 }
 
 .categories-list ul {
@@ -107,9 +110,10 @@
   BATCH HISTORY TILE
 ///////////////////////// */
 
-.batch-summary-tile {
+.batch-tile {
   background-color: hsl(var(--clr-white));
   padding: 1.6rem;
+  margin-bottom: 2.4rem;
   border-radius: 0.8rem;
   box-shadow: var(--shdw-soft-tile);
   display: grid;
@@ -123,8 +127,8 @@
     "D D D";
 }
 
-@media screen and (min-width: 425px) {
-  .batch-summary-tile {
+@media screen and (min-width: 650px) {
+  .batch-tile {
     grid-template-areas:
       "A A A"
       "B B C"
@@ -133,34 +137,34 @@
 }
 
 @media screen and (min-width: 600px) {
-  .batch-summary-tile {
+  .batch-tile {
     grid-template-areas:
       "A A A"
       "B C D";
   }
 }
 
-.batch-summary-tile header {
+.batch-tile header {
   grid-area: A;
 }
 
-.batch-summary-tile .packaging-wrapper {
+.batch-tile .packaging-wrapper {
   grid-area: B;
 }
 
-.batch-summary-tile .pricing-wrapper {
+.batch-tile .pricing-wrapper {
   grid-area: C;
 }
 
-.batch-summary-tile .date-wrapper {
+.batch-tile .date-wrapper {
   grid-area: D;
 }
 
-.batch-summary-tile .input-box.batch-id {
+.batch-tile .input-box.batch-id {
   margin: 0;
 }
 
-.batch-summary-tile
+.batch-tile
   .input-box.batch-id
   :is(.input-frame.text-input input, .input-frame.text-input, label) {
   padding: 0;
@@ -168,14 +172,64 @@
   margin: 0;
 }
 
-.batch-summary-tile .input-box.batch-id input {
+.batch-tile .input-box.batch-id input {
   width: var(--length);
   min-width: 6ch;
-  max-width: 16ch;
+  max-width: 32ch;
 }
 
-.batch-summary-tile h3 {
+.batch-tile h3 {
   font-size: var(--fs-300);
   font-weight: 500;
-  margin-bottom: .8rem;
+  margin-bottom: 0.8rem;
+}
+
+.batch-tile .packaging-hierarchy {
+  background-color: hsl(var(--clr-neutral-100));
+  border-radius: 0.4rem;
+  padding: 0.4rem;
+  margin-bottom: 0.8rem;
+}
+
+.batch-tile .packaging-hierarchy .add-level-btn {
+  max-width: calc(100% - var(--max-width) - 1.6rem);
+  width: 100%;
+  margin-bottom: 0.4rem;
+}
+
+.batch-tile .packaging-hierarchy .hierarchy-level {
+  margin: 0;
+  margin-left: calc(var(--indentation-level) * 1.6rem);
+  max-width: calc(100% - var(--max-width) - 1.6rem);
+  flex-wrap: nowrap;
+  align-items: center;
+  background-color: hsl(var(--clr-white));
+  margin-bottom: 0.4rem;
+  padding: 0.4rem;
+  border: 1px solid hsl(var(--clr-neutral-150));
+}
+
+.batch-tile .hierarchy-level .input-box {
+  margin: 0;
+}
+
+.batch-tile .hierarchy-level .input-box.input-value {
+  width: var(--length);
+}
+
+.batch-tile .hierarchy-level .input-frame.text-input {
+  border: none;
+  background-color: hsl(var(--clr-neutral-100));
+}
+
+.batch-tile .hierarchy-level .input-frame.text-input input {
+  background-color: transparent;
+}
+
+.batch-tile .hierarchy-level button.icon {
+  max-width: var(--size);
+}
+
+.batch-tile .hierarchy-level .remove-level-btn {
+  border: none;
 }

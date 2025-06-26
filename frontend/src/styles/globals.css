@@ -19,9 +19,10 @@
 /* Pages */
 @import url("./pages/auth.css");
 @import url("./pages/user.css");
-@import url("./pages/inventory-home.css");
-@import url("./pages/inventory-product-view.css");
-@import url("./pages/inventory-product-stock-view.css");
+@import url("./pages/product-list.css");
+@import url("./pages/product-view.css");
+@import url("./pages/product-stock.css");
+@import url("./pages/product-create.css");
 
 /* /////////////////////////
   MAIN CONTAINERS
@@ -53,16 +54,16 @@ main .main-body {
   }
 }
 
-section.main-sec {
+.main-sec {
   padding: 1.6rem;
 }
 
-section.main-sec h2 {
+.main-sec h2 {
   font-size: var(--fs-600);
   margin-bottom: 1.2rem;
 }
 
-section.main-sec header h2 {
+.main-sec header h2 {
   margin-bottom: 0;
 }
 
@@ -78,6 +79,28 @@ section.main-sec header h2 {
 
 .flex.sp-btw {
   justify-content: space-between;
+}
+
+*:has(> .empty-placeholder) {
+  position: relative;
+  overflow: hidden;
+}
+
+.empty-placeholder {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: hsl(var(--clr-neutral-150));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding: 1.6rem;
+}
+
+.empty-placeholder span {
+  color: hsl(var(--clr-neutral-700));
 }
 
 /* /////////////////////////

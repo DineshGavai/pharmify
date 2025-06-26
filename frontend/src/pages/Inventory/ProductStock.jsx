@@ -12,8 +12,9 @@ import InventoryInput from "../../components/Inventory/InventoryInput";
 import Icon from "../../components/Icon";
 import Input from "../../components/Input/Input";
 import BatchTile from "../../components/Inventory/BatchTile";
+import { exampleBatchData } from "../../utils/data";
 
-const ProductStockView = () => {
+const ProductStock = () => {
 
     const [inventoryData, setInventoryData] = useState(() => getFromLocalStorage("viewed_product"));
     const [initialInventoryData, setInitialInventoryData] = useState({});
@@ -31,7 +32,7 @@ const ProductStockView = () => {
                 <IconButton
                     iconName="arrow_left"
                     onClick={() => {
-                        navigate("/inventory/product");
+                        navigate("/inventory/product/:id");
                     }}
                 />
             ),
@@ -258,26 +259,29 @@ const ProductStockView = () => {
 
                     </div>
                     {/* Form & Measurment section */}
-                    <div className="main-sec details-col product-form-wrapper">
+                    <fieldset className="main-sec product-form-wrapper">
 
                         <h3>Form & Measurement</h3>
 
                         <Input
+                            className="inventory-input"
                             label="Form (Physical Type)"
                             name={"form"}
                             id={"form"}
                             rightElem={<Icon iconName={"chevron_down"} />}
-                            />
+                        />
 
 
                         <div className="input-group">
                             <Input
+                                className="inventory-input"
                                 label="Measure Value"
                                 name={"measure_value"}
                                 id={"measure_value"}
                             />
 
                             <Input
+                                className="inventory-input"
                                 label="Measure Unit"
                                 name={"measure_unit"}
                                 id={"measure_unit"}
@@ -295,12 +299,14 @@ const ProductStockView = () => {
 
                         <div className="input-group">
                             <Input
+                                className="inventory-input"
                                 label="Min Stock Threshold"
                                 name={"min_stock_threshold"}
                                 id={"min_stock_threshold"}
                             />
 
                             <Input
+                                className="inventory-input"
                                 label="Max Stock Threshold"
                                 name={"max_stock_threshold"}
                                 id={"max_stock_threshold"}
@@ -308,7 +314,7 @@ const ProductStockView = () => {
 
                         </div>
 
-                    </div>
+                    </fieldset>
                 </section>
 
 
@@ -318,7 +324,12 @@ const ProductStockView = () => {
 
                     <div className="layout">
                         <div className="tile-list">
-                            <BatchTile />
+                            {
+                                exampleBatchData.map((data, index) => (
+                                    <BatchTile data={data} key={index} />
+
+                                ))
+                            }
                         </div>
                     </div>
                 </section>
@@ -328,4 +339,4 @@ const ProductStockView = () => {
     )
 }
 
-export default ProductStockView;
+export default ProductStock;

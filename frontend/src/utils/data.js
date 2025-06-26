@@ -6,6 +6,131 @@ export const regexPatterns = {
   "password": /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/,
 }
 
+export const exampleBatchData = [
+  {
+    id: "BTC18787",
+    version: "v7",
+    levels: [
+      { name: "Carton", units: 5 },
+      { name: "Box", units: 10 },
+      { name: "Strip", units: 32 },
+      { name: "Tablet", units: 10 }
+    ],
+    totalUnits: 16000,
+    unitsAvailable: 15240,
+    unitsReserved: 760,
+    supplier: "PharmaTech Ltd",
+    costPrice: 12.50,
+    sellingPrice: 18.75,
+    totalCostPrice: 200000.00,
+    dateManufacture: Date.now() - (365 * 24 * 60 * 60 * 1000), // 1 year ago
+    dateExpiry: Date.now() + (180 * 24 * 60 * 60 * 1000),      // 6 months from now
+    dateReceived: Date.now() - (120 * 24 * 60 * 60 * 1000),    // 4 months ago
+    dateUpdated: Date.now() - (2 * 24 * 60 * 60 * 1000)        // 2 days ago
+  },
+  {
+    id: "BTC18788",
+    version: "v2",
+    levels: [
+      { name: "Bottle", units: 20 },
+      { name: "ML", units: 250 }
+    ],
+    totalUnits: 5000,
+    unitsAvailable: 4850,
+    unitsReserved: 150,
+    supplier: "MediCore Solutions",
+    costPrice: 45.00,
+    sellingPrice: 65.00,
+    totalCostPrice: 225000.00,
+    dateManufacture: Date.now() - (300 * 24 * 60 * 60 * 1000), // 10 months ago
+    dateExpiry: Date.now() + (30 * 24 * 60 * 60 * 1000),       // 1 month from now (URGENT)
+    dateReceived: Date.now() - (90 * 24 * 60 * 60 * 1000),     // 3 months ago
+    dateUpdated: Date.now() - (1 * 24 * 60 * 60 * 1000)        // 1 day ago
+  },
+  {
+    id: "BTC18789",
+    version: "v1",
+    levels: [
+      { name: "Inhaler", units: 1 },
+      { name: "Doses", units: 200 }
+    ],
+    totalUnits: 200,
+    unitsAvailable: 180,
+    unitsReserved: 20,
+    supplier: "RespiCare Inc",
+    costPrice: 320.00,
+    sellingPrice: 450.00,
+    totalCostPrice: 64000.00,
+    dateManufacture: Date.now() - (450 * 24 * 60 * 60 * 1000), // 15 months ago
+    dateExpiry: Date.now() + (365 * 24 * 60 * 60 * 1000),      // 1 year from now
+    dateReceived: Date.now() - (60 * 24 * 60 * 60 * 1000),     // 2 months ago
+    dateUpdated: Date.now() - (7 * 24 * 60 * 60 * 1000)        // 1 week ago
+  },
+  {
+    id: "BTC18790",
+    version: "v3",
+    levels: [
+      { name: "Vial", units: 12 },
+      { name: "ML", units: 5 }
+    ],
+    totalUnits: 60,
+    unitsAvailable: 48,
+    unitsReserved: 12,
+    supplier: "Injectable Pharma",
+    costPrice: 150.00,
+    sellingPrice: 220.00,
+    totalCostPrice: 9000.00,
+    dateManufacture: Date.now() - (200 * 24 * 60 * 60 * 1000), // 6.5 months ago
+    dateExpiry: Date.now() + (90 * 24 * 60 * 60 * 1000),       // 3 months from now
+    dateReceived: Date.now() - (30 * 24 * 60 * 60 * 1000),     // 1 month ago
+    dateUpdated: Date.now() - (3 * 60 * 60 * 1000)             // 3 hours ago
+  },
+  {
+    id: "BTC18791",
+    version: "v5",
+    levels: [
+      { name: "Tube", units: 24 },
+      { name: "Grams", units: 30 }
+    ],
+    totalUnits: 720,
+    unitsAvailable: 680,
+    unitsReserved: 40,
+    supplier: "TopicalMed Co",
+    costPrice: 25.00,
+    sellingPrice: 40.00,
+    totalCostPrice: 18000.00,
+    dateManufacture: Date.now() - (150 * 24 * 60 * 60 * 1000), // 5 months ago
+    dateExpiry: Date.now() + (270 * 24 * 60 * 60 * 1000),      // 9 months from now
+    dateReceived: Date.now() - (14 * 24 * 60 * 60 * 1000),     // 2 weeks ago
+    dateUpdated: Date.now() - (30 * 60 * 1000)                 // 30 minutes ago
+  },
+  {
+    id: "BTC18792",
+    version: "v4",
+    levels: [
+      { name: "Pack", units: 6 },
+      { name: "Sachet", units: 12 },
+      { name: "Grams", units: 5 }
+    ],
+    totalUnits: 360,
+    unitsAvailable: 300,
+    unitsReserved: 60,
+    supplier: "NutriHealth Ltd",
+    costPrice: 8.50,
+    sellingPrice: 15.00,
+    totalCostPrice: 3060.00,
+    dateManufacture: Date.now() - (90 * 24 * 60 * 60 * 1000),  // 3 months ago
+    dateExpiry: Date.now() + (450 * 24 * 60 * 60 * 1000),      // 15 months from now
+    dateReceived: Date.now() - (7 * 24 * 60 * 60 * 1000),      // 1 week ago
+    dateUpdated: Date.now() - (5 * 60 * 1000)                  // 5 minutes ago
+  }
+]
+
+
+/* ///////////////
+  EXAMPLE INVENTORY DATA LIST
+/////////////// */
+
 export const exampleInventoryList = [
   {
     id: "prod_00123",
@@ -24,7 +149,7 @@ export const exampleInventoryList = [
     unit_cost_price: 139.99,
     quantity: {
       units_per_pack: 2,
-      total_packs: 50,
+      totalPacks: 50,
       reorder_level: 20
     }
   },
@@ -45,7 +170,7 @@ export const exampleInventoryList = [
     unit_cost_price: 450.0,
     quantity: {
       units_per_pack: 1,
-      total_packs: 0,
+      totalPacks: 0,
       reorder_level: 10
     }
   },
@@ -66,7 +191,7 @@ export const exampleInventoryList = [
     unit_cost_price: 75.0,
     quantity: {
       units_per_pack: 3,
-      total_packs: 100,
+      totalPacks: 100,
       reorder_level: 30
     }
   },
@@ -88,7 +213,7 @@ export const exampleInventoryList = [
     unit_cost_price: 45.0,
     quantity: {
       units_per_pack: 1,
-      total_packs: 5,
+      totalPacks: 5,
       reorder_level: 10
     }
   },
@@ -115,7 +240,7 @@ export const exampleInventoryList = [
     unit_cost_price: 260.0,
     quantity: {
       units_per_pack: 1,
-      total_packs: 80,
+      totalPacks: 80,
       reorder_level: 25
     }
   },
@@ -136,7 +261,7 @@ export const exampleInventoryList = [
     unit_cost_price: 50.0,
     quantity: {
       units_per_pack: 2,
-      total_packs: 40,
+      totalPacks: 40,
       reorder_level: 15
     }
   },
@@ -157,7 +282,7 @@ export const exampleInventoryList = [
     unit_cost_price: 170.0,
     quantity: {
       units_per_pack: 1,
-      total_packs: 0,
+      totalPacks: 0,
       reorder_level: 10
     }
   },
@@ -178,7 +303,7 @@ export const exampleInventoryList = [
     unit_cost_price: 95.0,
     quantity: {
       units_per_pack: 100,
-      total_packs: 2,
+      totalPacks: 2,
       reorder_level: 5
     }
   },
@@ -199,7 +324,7 @@ export const exampleInventoryList = [
     unit_cost_price: 310.0,
     quantity: {
       units_per_pack: 1,
-      total_packs: 45,
+      totalPacks: 45,
       reorder_level: 20
     }
   },
@@ -220,7 +345,7 @@ export const exampleInventoryList = [
     unit_cost_price: 80.0,
     quantity: {
       units_per_pack: 2,
-      total_packs: 120,
+      totalPacks: 120,
       reorder_level: 40
     }
   },
@@ -241,7 +366,7 @@ export const exampleInventoryList = [
     unit_cost_price: 199.99,
     quantity: {
       units_per_pack: 20,
-      total_packs: 15,
+      totalPacks: 15,
       reorder_level: 10
     }
   },
@@ -268,7 +393,7 @@ export const exampleInventoryList = [
     unit_cost_price: 120.75,
     quantity: {
       units_per_pack: 25,
-      total_packs: 18,
+      totalPacks: 18,
       reorder_level: 8
     }
   },
@@ -289,7 +414,7 @@ export const exampleInventoryList = [
     unit_cost_price: 29.99,
     quantity: {
       units_per_pack: 10,
-      total_packs: 200,
+      totalPacks: 200,
       reorder_level: 50
     }
   },
@@ -310,7 +435,7 @@ export const exampleInventoryList = [
     unit_cost_price: 275.50,
     quantity: {
       units_per_pack: 1,
-      total_packs: 35,
+      totalPacks: 35,
       reorder_level: 15
     }
   },
@@ -331,7 +456,7 @@ export const exampleInventoryList = [
     unit_cost_price: 89.99,
     quantity: {
       units_per_pack: 30,
-      total_packs: 25,
+      totalPacks: 25,
       reorder_level: 10
     }
   },
@@ -358,7 +483,7 @@ export const exampleInventoryList = [
     unit_cost_price: 210.00,
     quantity: {
       units_per_pack: 1,
-      total_packs: 8,
+      totalPacks: 8,
       reorder_level: 15
     }
   },
@@ -379,7 +504,7 @@ export const exampleInventoryList = [
     unit_cost_price: 899.99,
     quantity: {
       units_per_pack: 1,
-      total_packs: 12,
+      totalPacks: 12,
       reorder_level: 5
     }
   },
@@ -400,7 +525,7 @@ export const exampleInventoryList = [
     unit_cost_price: 420.00,
     quantity: {
       units_per_pack: 50,
-      total_packs: 0,
+      totalPacks: 0,
       reorder_level: 20
     }
   },
@@ -421,7 +546,7 @@ export const exampleInventoryList = [
     unit_cost_price: 20.00,
     quantity: {
       units_per_pack: 10,
-      total_packs: 150,
+      totalPacks: 150,
       reorder_level: 40
     }
   },
@@ -448,7 +573,7 @@ export const exampleInventoryList = [
     unit_cost_price: 750.00,
     quantity: {
       units_per_pack: 1,
-      total_packs: 25,
+      totalPacks: 25,
       reorder_level: 10
     }
   },
@@ -475,7 +600,7 @@ export const exampleInventoryList = [
     unit_cost_price: 65.00,
     quantity: {
       units_per_pack: 12,
-      total_packs: 30,
+      totalPacks: 30,
       reorder_level: 20
     }
   },
@@ -496,7 +621,7 @@ export const exampleInventoryList = [
     unit_cost_price: 150.00,
     quantity: {
       units_per_pack: 1,
-      total_packs: 5,
+      totalPacks: 5,
       reorder_level: 10
     }
   },
@@ -523,7 +648,7 @@ export const exampleInventoryList = [
     unit_cost_price: 180.00,
     quantity: {
       units_per_pack: 1,
-      total_packs: 48,
+      totalPacks: 48,
       reorder_level: 15
     }
   },
@@ -559,7 +684,7 @@ export const exampleInventoryList = [
     unit_cost_price: 1499.49,
     quantity: {
       units_per_pack: 1,
-      total_packs: 15,
+      totalPacks: 15,
       reorder_level: 5
     }
   }

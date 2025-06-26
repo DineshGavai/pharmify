@@ -57,6 +57,8 @@ const Input = forwardRef(({
 
     const [inputType, setInputType] = useState(type);
 
+    value = defaultValue;
+
     leftElem = leftElem ? (<span className="left-elem">{leftElem}</span>) : null;
     rightElem = rightElem ? (<span className="right-elem">{rightElem}</span>) : null;
 
@@ -118,7 +120,9 @@ const Input = forwardRef(({
                 {/* Right Icon or Button */}
                 {rightElem}
             </div>
-            <p className="help-text text-muted">{helpText}</p>
+            {helpText &&
+                <p className="help-text text-muted">{helpText}</p>
+            }
         </div>
     );
 });

@@ -32,7 +32,7 @@ const InventoryInput = ({ label, keyName, options = {} }) => {
             label={label}
             id={`inventory_${keyName}`}
             name={`inventory_${keyName}`}
-            value={inventoryData[keyName]}
+            defaultValue={inventoryData[keyName]}
             placeholder={options.readOnly || !isProductViewFormEditable ? notAvailableLabel : ""}
             disabled={options.readOnly || !isProductViewFormEditable}
             spellCheck={options.spellCheck}
@@ -40,6 +40,7 @@ const InventoryInput = ({ label, keyName, options = {} }) => {
             readOnly={options.readOnly}
             onChange={controlledInput(setInventoryData, keyName)}
             className={`
+                    inventory-input
                     ${options.readOnly || !isProductViewFormEditable ? "disabled" : ""}
                     ${options.required ? "required" : ""}
                     ${options.className}

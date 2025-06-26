@@ -2,6 +2,7 @@ import { formatDate } from "./date";
 
 // Convert the categories into "type / category / subcategory, ..." format
 export const extractCategoryStrings = (categories) => {
+    if (!categories) return ["Not Available"];
     const result = [];
 
     categories.forEach(group => {
@@ -22,12 +23,12 @@ export const getInventoryMetrics = (data) => {
     const now = Date.now();
     const THIRTY_DAYS = 30 * 24 * 60 * 60 * 1000;
 
-    const totalPacks = data.quantity.total_packs;
-    const totalUnits = data.quantity.units_per_pack * totalPacks;
+    const totalPacks = data?.quantity?.total_packs;
+    const totalUnits = data?.quantity?.units_per_pack * totalPacks;
 
     const isExpired = data.expiry < now;
     const isExpiringSoon = !isExpired && (data.expiry - now <= THIRTY_DAYS);
-    const isLowStock = data.quantity.reorder_level !== undefined && totalPacks <= data.quantity.reorder_level;
+    const isLowStock = data.quantity?.reorder_level !== undefined && totalPacks <= data?.quantity?.reorder_level;
     const isOutOfStock = totalPacks === 0;
     const isInLoss = data.unit_selling_price < data.unit_cost_price;
     const isNoProfit = data.unit_selling_price === data.unit_cost_price;

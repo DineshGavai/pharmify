@@ -53,7 +53,7 @@ const InventoryItemTile = ({ data, className }) => {
                     <CTAButton
                         label={
                             <div>
-                                {extractCategoryStrings(data.categories).join(", ")}
+                                {extractCategoryStrings(data.categories)?.join(", ")}
                             </div>
                         }
                         className="text"
@@ -76,7 +76,7 @@ const InventoryItemTile = ({ data, className }) => {
                     <div className="total-box">
                         <p className="text-muted">x {totalUnits} units
                             {
-                                data.quantity.units_per_pack > 1 &&
+                                data.quantity?.units_per_pack > 1 &&
                                 ` (${totalPacks} packs)`
                             }
                         </p>
@@ -104,7 +104,7 @@ const InventoryItemTile = ({ data, className }) => {
                         className="navigate-btn"
                         onClick={() => {
                             saveToLocalStorage("viewed_product", data)
-                            navigate("/inventory/product")
+                            navigate("/inventory/product/:id")
                         }}
                     />
                 </div>

@@ -20,8 +20,11 @@ const Slider = ({ slides = [], className }) => {
 
 
     return (
-        <section className={`slider ${className}`}>
-            <div className="track" ref={trackRef}>
+        <section className={`slider ${className} ${i == 0 ? "first-slide" : ""}`}>
+            <div
+                className="track"
+                ref={trackRef}
+            >
                 {slides.map((slide, index) => (
                     <div
                         className="slide"

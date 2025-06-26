@@ -5,8 +5,11 @@ import InventoryTable from "../../components/Inventory/InventoryTable";
 import InventoryItemTile from "../../components/Inventory/InventoryItemTile";
 import { exampleInventoryList } from "../../utils/data";
 import IconButton from "../../components/Button/IconButton";
+import { useNavigate } from "react-router-dom";
 
-const InventoryHome = () => {
+const ProductList = () => {
+
+    const navigate = useNavigate();
 
     // Customized header
     const { headerChildren, setHeaderChildren } = useContext(GlobalContext);
@@ -16,8 +19,17 @@ const InventoryHome = () => {
             heading: "Inventory",
             children:
                 <>
-                    <IconButton iconName={"add"} className="primary mobile-only" />
-                    <CTAButton label="Add product" iconName="add" className="primary tab-desk-only" />
+                    <IconButton
+                        iconName={"add"}
+                        className="primary mobile-only"
+                        onClick={() => navigate("/inventory/new")}
+                    />
+                    <CTAButton
+                        label="New Product"
+                        iconName="add"
+                        className="primary tab-desk-only"
+                        onClick={() => navigate("/inventory/new")}
+                    />
                 </>
         })
 
@@ -36,4 +48,4 @@ const InventoryHome = () => {
 }
 
 
-export default InventoryHome;
+export default ProductList;

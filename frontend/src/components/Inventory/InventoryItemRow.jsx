@@ -127,7 +127,7 @@ const InventoryItemRow = ({ data }) => {
                     className="row-expand-btn"
                     onClick={() => {
                         saveToLocalStorage("viewed_product", data)
-                        navigate("/inventory/product")
+                        navigate("/inventory/product/:id")
                     }}
                 />
             </td>

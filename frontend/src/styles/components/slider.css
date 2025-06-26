@@ -1,7 +1,11 @@
 .slider {
-  padding: 1.6rem 3.8rem !important;
+  padding: 1.6rem 6rem !important;
   overflow: hidden;
   position: relative;
+}
+
+.slider.first-slide {
+  padding-left: 2rem !important;
 }
 
 .slider::before,
@@ -22,6 +26,11 @@
 .slider::before {
   left: 0;
 }
+
+.slider.first-slide::before {
+  display: none;
+}
+
 .slider::after {
   right: 0;
   --direction: to left;
@@ -44,11 +53,11 @@
 }
 
 .slider .slider-arrow-btns.left {
-  left: 0;
+  left: 0.8rem;
 }
 
 .slider .slider-arrow-btns.right {
-  right: 0;
+  right: 0.8rem;
 }
 
 .slider .track {
