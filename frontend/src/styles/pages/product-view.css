@@ -166,7 +166,7 @@
   grid-template-areas:
     "A C"
     "B C";
-  gap: 16px; /* Adjust spacing as needed */
+  column-gap: 2.4rem;
 }
 
 /* Target the children by their order */
@@ -224,29 +224,6 @@
 .inventory-product-view .core-details .categories-list ul li {
   margin: 0.4rem 0;
   padding: 0.4rem 0.8rem;
-}
-
-/* SKU & Barcode */
-.core-details .sku-and-barcode {
-  display: flex;
-  flex-wrap: wrap;
-  border-radius: 0.8rem;
-  padding: 0.8rem;
-  margin-top: auto;
-}
-
-.core-details .sku-and-barcode .input-box {
-  margin-bottom: 0;
-  width: 100%;
-}
-
-.core-details .sku-and-barcode img {
-  display: block;
-  max-width: 28rem;
-  height: auto;
-  width: 100%;
-  margin: auto;
-  object-fit: contain;
 }
 
 /* /////////////////////////

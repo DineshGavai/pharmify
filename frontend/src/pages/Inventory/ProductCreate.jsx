@@ -8,6 +8,10 @@ import { controlledInput } from "../../utils/inventory";
 import CategoryList from "../../components/Inventory/CategoryList"
 import CTAButton from "../../components/Button/CTAButton";
 import { saveToLocalStorage } from "../../utils/browserStorage.js"
+import Barcode from "../../components/Inventory/Barcode.jsx";
+import Select from "../../components/Input/Select.jsx";
+import Dropdown from "../../components/DropDown.jsx";
+import { exampleSupplierData } from "../../utils/data.js"
 
 const ProductCreate = () => {
 
@@ -37,6 +41,28 @@ const ProductCreate = () => {
             className="main-sec create-new-product-view"
             onSubmit={handleFormSubmit}
         >
+            {/* Developing the Dropdown */}
+            <Dropdown
+                dataList={
+                    <>
+                        {
+                            exampleSupplierData.map(((supplier, index) => (
+                                <li key={index}>
+                                    {supplier.name}
+                                </li>
+                            )))
+                        }
+                        {
+                            exampleSupplierData.map(((supplier, index) => (
+                                <li key={index}>
+                                    {supplier.name}
+                                </li>
+                            )))
+                        }
+                    </>
+                }
+            />
+
             {/* Basic Info */}
             <fieldset className="basic-info">
                 <FieldsetHeader
@@ -70,19 +96,7 @@ const ProductCreate = () => {
                     backBtn={false}
                 />
 
-                <Input
-                    className="inventory-input"
-                    label={`Common Name ${productInfo.commonName ? "(" + productInfo.commonName.label + ")" : ""}`}
-                    id="common_name"
-                    name="common_name"
-                    defaultValue={productInfo.commonName?.value}
-                    onChange={controlledInput(setProductInfo, "commonName")}
-                    disabled={true}
-                />
-
-                <CategoryList
-
-                />
+                <CategoryList />
             </fieldset>
 
             {/* Source Details */}
@@ -99,16 +113,10 @@ const ProductCreate = () => {
                     name="sku"
                     defaultValue={productInfo.sku}
                     onChange={controlledInput(setProductInfo, "sku")}
+                    disabled={true}
                 />
 
-                <Input
-                    className="inventory-input"
-                    label="Barcode"
-                    id="barcode"
-                    name="barcode"
-                    defaultValue={productInfo.barcode}
-                    onChange={controlledInput(setProductInfo, "barcode")}
-                />
+                <Barcode />
 
                 <Input
                     className="inventory-input"
@@ -119,7 +127,7 @@ const ProductCreate = () => {
                     onChange={controlledInput(setProductInfo, "manufacturer")}
                 />
 
-                <Input
+                <Select
                     className="inventory-input"
                     label="Supplier"
                     id="supplier"
@@ -139,6 +147,8 @@ const ProductCreate = () => {
                 <CTAButton
                     label="Continue"
                     className="primary"
+                    iconName="arrow_right"
+                    rightIcon={true}
                     onClick={() => {
                         saveToLocalStorage("viewed_product", productInfo)
                         navigate("/inventory/product/:id")

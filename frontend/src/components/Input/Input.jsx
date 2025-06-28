@@ -53,6 +53,8 @@ const Input = forwardRef(({
     warningMessage,
     successMessage,
 
+    // Supporting Components
+
 }, ref) => {
 
     const [inputType, setInputType] = useState(type);
@@ -74,7 +76,7 @@ const Input = forwardRef(({
     }
 
     return (
-        <div className={`input-box ${value.length !== 0 ? "filled" : ""} ${(leftElem) ? "has-lead-item" : ""} ${className}`}>
+        <div className={`input-box ${value.length !== 0 ? "filled" : ""} ${(leftElem) ? "has-lead-item" : ""} ${(rightElem) ? "has-trail-item" : ""} ${className}`}>
 
             {
                 label &&

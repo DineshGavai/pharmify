@@ -1,6 +1,7 @@
 import CTAButton from "../Button/CTAButton";
 import EmptyPlaceholder from "../EmptyPlaceholder";
 import Icon from "../Icon";
+import Input, { controlledInput } from "../Input/Input";
 
 // Renders subcategories <li> elements
 const renderSubcategories = (subcategories, marker) => {
@@ -27,29 +28,42 @@ const renderCategories = (categories, marker) => {
 const CategoryList = ({ categoryData, className = "", marker = <>-</> }) => {
 
     return (
-        <ul className={`categories-list ${className}`}>
+        <>
+            <Input
+                className="inventory-input"
+                label={`Common Name ${categoryData?.commonName ? "(" + categoryData?.commonName?.label + ")" : ""}`}
+                id="common_name"
+                name="common_name"
+                defaultValue={categoryData?.commonName?.value}
+                placeholder={!(categoryData?.commonName?.value) && "None"}
+                onChange={controlledInput(categoryData, "commonName")}
+                disabled={true}
+            />
 
-            {
-                !categoryData ?
-                    <EmptyPlaceholder
-                        helperText={"No Categories Selected"}
-                        action={
-                            <CTAButton
-                                label={"Select"}
-                                className="primary"
-                            />
-                        }
-                    /> :
-                    categoryData.map((item, index) => (
-                        <li className="category-list-item type" key={index}>
-                            <span>{marker} {item.type}</span>
-                            <ul>
-                                {item.categories && renderCategories(item.categories, marker)}
-                            </ul>
-                        </li>
-                    ))
-            }
-        </ul>
+            <ul className={`categories-list ${className}`}>
+
+                {
+                    !categoryData ?
+                        <EmptyPlaceholder
+                            heading={"No Categories Selected"}
+                            action={
+                                <CTAButton
+                                    label={"Select"}
+                                    className="ghost"
+                                />
+                            }
+                        /> :
+                        categoryData.map((item, index) => (
+                            <li className="category-list-item type" key={index}>
+                                <span>{marker} {item.type}</span>
+                                <ul>
+                                    {item.categories && renderCategories(item.categories, marker)}
+                                </ul>
+                            </li>
+                        ))
+                }
+            </ul>
+        </>
     );
 };
 

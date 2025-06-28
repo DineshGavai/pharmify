@@ -1,10 +1,11 @@
-const EmptyPlaceholder = ({ helperText, action }) => {
+const EmptyPlaceholder = ({ heading, caption, action }) => {
 
-    if (!helperText) throw new Error("A Helper Text for the Empty Placeholder is required.")
+    if (!heading) throw new Error("A Helper Text for the Empty Placeholder is required.")
 
     return (
         <div className="empty-placeholder">
-            <span>{helperText}</span>
+            <span className="text-emphasis">{heading}</span>
+            {caption && <span>{caption}</span>}
             {action}
         </div>
     )

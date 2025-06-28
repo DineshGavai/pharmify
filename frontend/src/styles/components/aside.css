@@ -1,0 +1,78 @@
+/* /////////////////////////
+  ASIDE
+///////////////////////// */
+
+aside {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: -100%;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 99;
+}
+
+aside.active {
+  left: 0;
+  opacity: 1;
+  visibility: visible;
+}
+
+aside header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.6rem;
+  padding-top: 2.4rem;
+  padding-bottom: 0.8rem;
+}
+
+aside header :is(h1, h2) {
+  font-size: var(--fs-600);
+  font-weight: 500;
+}
+
+aside .aside-body {
+  padding: 1.6rem;
+}
+
+.aside-open-btn {
+  position: fixed;
+  z-index: 99;
+  background-color: hsl(var(--clr-white));
+  top: 6.8rem;
+  width: 1.2rem !important;
+  min-width: 1rem !important;
+  height: 4.8rem !important;
+  border-top-right-radius: 110px !important;
+  border-bottom-right-radius: 110px !important;
+  border-left: none !important;
+}
+
+.aside-open-btn:hover {
+  width: 3.8rem !important;
+}
+
+.aside-open-btn .icon {
+  --size: 2.8rem;
+}
+
+*:has(> aside.active) .aside-open-btn .icon {
+  rotate: 180deg;
+}
+
+@media screen and (min-width: 1024px) {
+  aside {
+    position: static;
+    height: calc(100vh - 5.7rem);
+    min-width: 0;
+    max-width: 0;
+    overflow: hidden auto;
+  }
+
+  aside.active {
+    min-width: 22rem;
+    max-width: 22rem;
+  }
+}

@@ -1,4 +1,6 @@
 .create-new-product-view {
+  max-width: 110rem;
+  margin: auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto auto;
@@ -6,7 +8,7 @@
     "A C"
     "B C"
     "D D";
-  gap: 16px; /* Adjust spacing as needed */
+  column-gap: 3.8rem;
   padding-bottom: 12rem !important;
 }
 
@@ -40,10 +42,14 @@
 }
 
 .create-new-product-view .btn-box {
-  padding: 2.4rem 0;
-  left: 6rem;
-  width: 100%;
+  position: sticky;
+  margin-top: 0.8rem;
+  margin-left: -1.6rem;
+  padding: 1.6rem;
+  left: 0;
+  width: calc(100% + (1.6rem * 2));
   bottom: 0;
   background-color: hsl(var(--clr-white));
   z-index: 11;
+  box-shadow: var(--shdw-soft-bottom-banner);
 }

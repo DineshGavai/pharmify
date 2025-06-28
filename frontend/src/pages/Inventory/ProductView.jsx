@@ -15,6 +15,7 @@ import CategoryList from "../../components/Inventory/CategoryList.jsx";
 import DataCell from "../../components/DataCell.jsx";
 import InventoryInput from "../../components/Inventory/InventoryInput.jsx";
 import FieldsetHeader from "../../components/Input/FieldsetHeader.jsx";
+import Barcode from "../../components/Inventory/Barcode.jsx";
 
 const ProductView = () => {
 
@@ -243,9 +244,11 @@ const ProductView = () => {
                                     readOnly: true
                                 }}
                             />
-
-                            <img src={inventoryData.barcode || "/src/assets/placeholders/no-barcode.png"} className="barcode" />
                         </div>
+
+                        <Barcode
+                        />
+
                         <InventoryInput
                             label={"Manufacturer"}
                             keyName={"manufacturer"}

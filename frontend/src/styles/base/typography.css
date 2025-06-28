@@ -79,7 +79,7 @@ p {
 }
 
 .text-muted {
-  color: hsl(var(--clr-neutral-600));
+  color: hsl(var(--clr-neutral-500));
 }
 
 /* /////////////////////////

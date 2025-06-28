@@ -6,6 +6,109 @@ export const regexPatterns = {
   "password": /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/,
 }
 
+export const exampleSupplierData = [
+  {
+    id: 1,
+    name: "Medilife Pharma Pvt Ltd",
+    contact_person: "Anita Sharma",
+    phone: "+91 98230 12345",
+    email: "contact@medilifepharma.in",
+    address: "A-12, Industrial Estate, Hinjewadi",
+    city: "Pune",
+    state: "Maharashtra",
+    country: "India"
+  },
+  {
+    id: 2,
+    name: "Greenleaf Distributors",
+    phone: "+91 98111 66789",
+    email: "support@greenleaf.in",
+    address: "Plot 44, Sector 3, IMT",
+    city: "Manesar",
+    state: "Haryana",
+    country: "India"
+  },
+  {
+    id: 3,
+    name: "MaxCure Supplies",
+    email: "sales@maxcurehealth.com",
+    address: "21/A Health Street, Bannerghatta Road",
+    city: "Bangalore",
+    state: "Karnataka",
+    country: "India"
+  },
+  {
+    id: 4,
+    name: "Zenith Medicals",
+    contact_person: "Rahul Kapoor",
+    phone: "+91 99777 44221",
+    address: "9th Floor, Empire Towers",
+    city: "Ahmedabad",
+    state: "Gujarat",
+    country: "India"
+  },
+  {
+    id: 5,
+    name: "NeoGen Pharma",
+    phone: "+91 98980 10101",
+    email: "info@neogenpharma.com",
+    address: "Plot 12, Biotech Park",
+    city: "Hyderabad",
+    state: "Telangana",
+    country: "India"
+  },
+  {
+    id: 6,
+    name: "Aster Lifecare",
+    contact_person: "Sneha Iyer",
+    phone: "+91 91001 88877",
+    email: "sneha@asterlifecare.com",
+    address: "Building 3, Kurla West",
+    city: "Mumbai",
+    state: "Maharashtra",
+    country: "India"
+  },
+  {
+    id: 7,
+    name: "Biosure Distributors",
+    email: "hello@biosure.in",
+    address: "Unit 5, Science Zone, SIDCO",
+    city: "Chennai",
+    state: "Tamil Nadu",
+    country: "India"
+  },
+  {
+    id: 8,
+    name: "CareWay Medsolutions",
+    contact_person: "Vikram Desai",
+    phone: "+91 93456 78901",
+    address: "Shop 7, Central Plaza",
+    city: "Indore",
+    state: "Madhya Pradesh",
+    country: "India"
+  },
+  {
+    id: 9,
+    name: "LifeTrack Agencies",
+    phone: "+91 88888 23456",
+    email: "contact@lifetrack.in",
+    address: "K-88, Commercial Complex",
+    city: "Kolkata",
+    state: "West Bengal",
+    country: "India"
+  },
+  {
+    id: 10,
+    name: "Truvita Wholesale",
+    email: "admin@truvita.co.in",
+    address: "Warehouse No. 6, MIDC Area",
+    city: "Nagpur",
+    state: "Maharashtra",
+    country: "India"
+  }
+];
+
+
 export const exampleBatchData = [
   {
     id: "BTC18787",

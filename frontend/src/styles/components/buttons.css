@@ -4,7 +4,7 @@ button {
   background: none;
   cursor: pointer;
   white-space: nowrap;
-  border-radius: 0.2rem;
+  border-radius: 0.4rem;
   height: fit-content;
   font-size: var(--fs-300);
   display: flex;
@@ -72,6 +72,10 @@ button.icon:focus-visible {
   box-shadow: 0px 0px 0px 2px hsl(var(--clr-black));
 }
 
+button.icon.no-border {
+  border: none;
+}
+
 button.menu {
   width: 100%;
   justify-content: start;
@@ -100,7 +104,7 @@ button.primary svg.icon {
 
 button.ghost {
   background-color: hsl(var(--clr-white));
-  border: 1px solid hsl(var(--clr-neutral-300));
+  border: 1px solid hsl(var(--clr-neutral-400));
 }
 
 button.x-large {
