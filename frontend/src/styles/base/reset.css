@@ -33,6 +33,7 @@ svg.icon {
   UTITILY CLASSES
 ///////////////////////// */
 
+/* Show on mobile only (Hide on Tab & Desktop) */
 @media screen and (min-width: 480px) {
   .mobile-only {
     display: none;
@@ -44,6 +45,14 @@ svg.icon {
     height: 0px;
   }
 }
+
+/* Show below 600px only, hide beyond that */
+@media screen and (min-width: 600px) {
+  .below-600-only {
+    display: none !important;
+  }
+}
+
 /* Hide on Mobile (Show only on Tab & Desktop) */
 @media screen and (max-width: 480px) {
   .tab-desk-only {
@@ -109,7 +118,6 @@ svg.icon {
   }
 }
 
-
 /* /////////////////////////
   TABLE reset
 ///////////////////////// */
@@ -120,7 +128,8 @@ table {
   table-layout: auto;
 }
 
-th, td {
+th,
+td {
   padding: 0.8rem;
   text-align: left;
 }

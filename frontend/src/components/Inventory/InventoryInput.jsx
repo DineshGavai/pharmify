@@ -54,7 +54,7 @@ const InventoryInput = ({ label, keyName, options = {} }) => {
 }
 
 
-InventoryInput.proptypes = {
+InventoryInput.propTypes = {
     label: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.node,

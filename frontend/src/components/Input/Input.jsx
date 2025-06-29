@@ -5,6 +5,8 @@ import CTAButton from "../Button/CTAButton";
 import IconButton from "../Button/IconButton";
 
 const Input = forwardRef(({
+
+
     // Core Input Attributes
     label = "",
     type = "text",
@@ -54,6 +56,7 @@ const Input = forwardRef(({
     successMessage,
 
     // Supporting Components
+    ...rest
 
 }, ref) => {
 
@@ -118,6 +121,8 @@ const Input = forwardRef(({
                     style={{
                         "--length": value.length + "ch"
                     }}
+
+                    {...rest}
                 />
                 {/* Right Icon or Button */}
                 {rightElem}

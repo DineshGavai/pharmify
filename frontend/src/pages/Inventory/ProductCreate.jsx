@@ -10,8 +10,9 @@ import CTAButton from "../../components/Button/CTAButton";
 import { saveToLocalStorage } from "../../utils/browserStorage.js"
 import Barcode from "../../components/Inventory/Barcode.jsx";
 import Select from "../../components/Input/Select.jsx";
-import Dropdown from "../../components/DropDown.jsx";
+import Dropdown from "../../components/Dropdown.jsx";
 import { exampleSupplierData } from "../../utils/data.js"
+import DropdownItem from "../../components/DropdownItem.jsx";
 
 const ProductCreate = () => {
 
@@ -41,28 +42,6 @@ const ProductCreate = () => {
             className="main-sec create-new-product-view"
             onSubmit={handleFormSubmit}
         >
-            {/* Developing the Dropdown */}
-            <Dropdown
-                dataList={
-                    <>
-                        {
-                            exampleSupplierData.map(((supplier, index) => (
-                                <li key={index}>
-                                    {supplier.name}
-                                </li>
-                            )))
-                        }
-                        {
-                            exampleSupplierData.map(((supplier, index) => (
-                                <li key={index}>
-                                    {supplier.name}
-                                </li>
-                            )))
-                        }
-                    </>
-                }
-            />
-
             {/* Basic Info */}
             <fieldset className="basic-info">
                 <FieldsetHeader
@@ -134,7 +113,16 @@ const ProductCreate = () => {
                     name="supplier"
                     defaultValue={productInfo.supplier}
                     onChange={controlledInput(setProductInfo, "supplier")}
+                    dropdownItemList={
+                        exampleSupplierData.map((supplier, index) =>
+                            <DropdownItem
+                                key={index}
+                                content={supplier.name}
+                                value={supplier.name}
+                            />
+                        )}
                 />
+
             </fieldset>
 
             <div className="btn-box flex sp-btw">

@@ -50,6 +50,9 @@
   width: calc(100% + (1.6rem * 2));
   bottom: 0;
   background-color: hsl(var(--clr-white));
-  z-index: 11;
   box-shadow: var(--shdw-soft-bottom-banner);
+}
+
+.create-new-product-view:has(.dropdown.active) .btn-box {
+  z-index: 9;
 }

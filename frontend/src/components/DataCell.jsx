@@ -10,7 +10,7 @@ const DataCell = ({ label, data, className = "" }) => {
     );
 }
 
-DataCell.proptypes = {
+DataCell.propTypes = {
     label: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.node,

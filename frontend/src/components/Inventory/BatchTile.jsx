@@ -197,7 +197,7 @@ const BatchTile = ({ data }) => {
     );
 }
 
-BatchTile.proptypes = {
+BatchTile.propTypes = {
 
 }
 

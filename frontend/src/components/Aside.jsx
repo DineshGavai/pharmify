@@ -39,7 +39,7 @@ const Aside = ({
     )
 }
 
-Aside.proptypes = {
+Aside.propTypes = {
     className: PropTypes.string,
     heading: PropTypes.oneOfType([
         PropTypes.string,

@@ -5,25 +5,48 @@
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 99;
+  z-index: 1000;
+  --display: flex;
 }
 
-.dropdown {
-  background-color: hsl(var(--clr-neutral-150));
+.dropdown,
+.scrim {
+  display: none;
+}
+
+.dropdown.active,
+.scrim.active {
+  display: var(--display) !important;
+}
+
+.mobile-pop-up {
+  position: fixed;
   border-top-left-radius: 1.6rem;
   border-top-right-radius: 1.6rem;
-  display: flex;
-  flex-direction: column;
-  height: 80vh;
+  width: calc(100% - 1.6rem);
+  background-color: hsl(var(--clr-neutral-150));
+  z-index: 9999;
   overflow: auto;
-  width: 90%;
-  position: fixed;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
 }
 
-.dropdown .options {
+.dropdown-list::-webkit-scrollbar-track {
+  background-color: hsl(var(--clr-neutral-150));
+}
+
+/* /////////////////////////
+  DROP DOWNS
+///////////////////////// */
+
+.dropdown {
+  --display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+}
+
+.dropdown .controls {
   width: 100%;
   position: sticky;
   z-index: 99;
@@ -32,19 +55,19 @@
   justify-content: center;
 }
 
-.dropdown .options.top {
+.dropdown .controls.top {
   top: 0;
   padding: 0.8rem 0;
   background-color: hsl(var(--clr-neutral-150));
 }
 
-.dropdown .options.bottom {
+.dropdown .controls.bottom {
   bottom: 0;
   background: linear-gradient(0deg, hsl(var(--clr-neutral-200)), transparent);
-  padding: 1.6rem 0.8rem;
+  padding: 1.2rem 0.8rem;
 }
 
-.dropdown .options.bottom button {
+.dropdown .controls.bottom button {
   box-shadow: 0px -2px 28px 16px hsl(var(--clr-white));
 }
 
@@ -61,6 +84,19 @@
   border-radius: 0.4rem;
   width: calc(100% - 1.6rem);
   font-size: var(--fs-300);
+  cursor: pointer;
+}
+
+.dropdown .dropdown-list li:hover {
+  background-color: hsl(var(--clr-neutral-200));
+}
+
+.dropdown .dropdown-list li:active {
+  scale: 0.99;
+}
+
+.dropdown .dropdown-list li.selected {
+  scale: 0.95;
 }
 
 .drag-handle {
@@ -69,4 +105,27 @@
   height: 0.4rem;
   border-radius: 0.8rem;
   background-color: hsl(var(--clr-neutral-300));
+}
+
+@media screen and (min-width: 600px) {
+  .scrim {
+    background-color: transparent;
+  }
+
+  .mobile-pop-up {
+    border-radius: 1.6rem !important;
+    --max-width: 60rem;
+    max-width: var(--max-width);
+  }
+
+  .dropdown {
+    padding: 0;
+    padding-top: 0.8rem;
+    transform: none;
+    margin: 0;
+  }
+
+  .dropdown .dropdown-list {
+    padding-bottom: 0;
+  }
 }

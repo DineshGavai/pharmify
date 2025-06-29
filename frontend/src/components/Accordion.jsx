@@ -25,7 +25,7 @@ const Accordion = ({ heading, content, activeStatus = false, className = "" }) =
     )
 }
 
-Accordion.proptypes = {
+Accordion.propTypes = {
     heading: PropTypes.string,
     content: PropTypes.any,
     activeStatus: PropTypes.bool,

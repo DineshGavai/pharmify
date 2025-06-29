@@ -37,8 +37,7 @@ CTAButton.propTypes = {
     iconType: PropTypes.string,
     label: PropTypes.string.isRequired,
     onClick: PropTypes.func,
-    className: PropTypes.string,
+    className: PropTypes.oneOf(["fab", "icon", "ghost", "primary", "text"]),
 };
-
 
 export default CTAButton;
